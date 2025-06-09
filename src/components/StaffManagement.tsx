@@ -20,9 +20,9 @@ const staff = [
   {
     id: "S002",
     name: "Dr. John Okafor",
-    role: "Pediatrician",
-    department: "Pediatrics",
-    specialization: "Child Health",
+    role: "Psychiatrist",
+    department: "Mental Health",
+    specialization: "Student Counseling & Mental Health",
     email: "john.okafor@unijos.edu.ng",
     phone: "08023456789",
     schedule: "Mon-Fri, 9AM-5PM",
