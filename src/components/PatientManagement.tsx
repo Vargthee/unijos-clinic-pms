@@ -4,16 +4,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Plus, Edit, Eye } from "lucide-react";
+import { AddPatientDialog } from "./AddPatientDialog";
 
 const patients = [
   {
     id: "P001234",
     name: "Adaora Okonkwo",
+    matricNumber: "UJ/2022/ENG/0234",
     age: 20,
     gender: "Female",
     phone: "08012345678",
     email: "adaora.okonkwo@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Student Hostel, University of Jos",
     bloodType: "O+",
     lastVisit: "2024-06-05",
     condition: "Stress-related headaches",
@@ -23,11 +25,12 @@ const patients = [
   {
     id: "P001235",
     name: "Ibrahim Musa",
+    matricNumber: "UJ/2020/MED/0456",
     age: 22,
     gender: "Male",
     phone: "08023456789",
     email: "ibrahim.musa@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Off-campus, Jos",
     bloodType: "A+",
     lastVisit: "2024-06-07",
     condition: "Sports injury (ankle sprain)",
@@ -37,11 +40,12 @@ const patients = [
   {
     id: "P001236",
     name: "Blessing Eze",
+    matricNumber: "UJ/2023/SSC/0123",
     age: 19,
     gender: "Female",
     phone: "08034567890",
     email: "blessing.eze@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Student Hostel, University of Jos",
     bloodType: "B+",
     lastVisit: "2024-06-08",
     condition: "Respiratory infection",
@@ -51,11 +55,12 @@ const patients = [
   {
     id: "P001237",
     name: "Yusuf Abdullahi",
+    matricNumber: "UJ/2021/NSC/0789",
     age: 21,
     gender: "Male",
     phone: "08045678901",
     email: "yusuf.abdullahi@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Off-campus, Jos",
     bloodType: "AB+",
     lastVisit: "2024-06-09",
     condition: "Eye strain from studying",
@@ -65,11 +70,12 @@ const patients = [
   {
     id: "P001238",
     name: "Fatima Aliyu",
+    matricNumber: "UJ/2019/LAW/0345",
     age: 23,
     gender: "Female",
     phone: "08056789012",
     email: "fatima.aliyu@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Student Hostel, University of Jos",
     bloodType: "O-",
     lastVisit: "2024-06-06",
     condition: "Menstrual cramps",
@@ -79,11 +85,12 @@ const patients = [
   {
     id: "P001239",
     name: "Chidi Okafor",
+    matricNumber: "UJ/2022/PHM/0567",
     age: 20,
     gender: "Male",
     phone: "08067890123",
     email: "chidi.okafor@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Off-campus, Jos",
     bloodType: "A-",
     lastVisit: "2024-06-04",
     condition: "Food poisoning",
@@ -93,25 +100,27 @@ const patients = [
   {
     id: "P001240",
     name: "Hauwa Mohammed",
+    matricNumber: "UJ/2019/EDU/0234",
     age: 24,
     gender: "Female",
     phone: "08078901234",
     email: "hauwa.mohammed@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Student Hostel, University of Jos",
     bloodType: "B-",
     lastVisit: "2024-06-03",
     condition: "Academic anxiety",
     faculty: "Education",
-    level: "600L"
+    level: "500L"
   },
   {
     id: "P001241",
     name: "Daniel Kwaghe",
+    matricNumber: "UJ/2023/AGR/0678",
     age: 19,
     gender: "Male",
     phone: "08089012345",
     email: "daniel.kwaghe@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Student Hostel, University of Jos",
     bloodType: "AB-",
     lastVisit: "2024-06-02",
     condition: "Common cold",
@@ -121,11 +130,12 @@ const patients = [
   {
     id: "P001242",
     name: "Grace Dung",
+    matricNumber: "UJ/2020/ART/0890",
     age: 22,
     gender: "Female",
     phone: "08090123456",
     email: "grace.dung@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Off-campus, Jos",
     bloodType: "O+",
     lastVisit: "2024-06-01",
     condition: "Sleep disorder",
@@ -135,11 +145,12 @@ const patients = [
   {
     id: "P001243",
     name: "Samuel Gyang",
+    matricNumber: "UJ/2021/VET/0345",
     age: 21,
     gender: "Male",
     phone: "08001234567",
     email: "samuel.gyang@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Student Hostel, University of Jos",
     bloodType: "A+",
     lastVisit: "2024-05-30",
     condition: "Malaria",
@@ -149,11 +160,12 @@ const patients = [
   {
     id: "P001244",
     name: "Mary Yakubu",
+    matricNumber: "UJ/2022/ENV/0567",
     age: 20,
     gender: "Female",
     phone: "08012345670",
     email: "mary.yakubu@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Off-campus, Jos",
     bloodType: "B+",
     lastVisit: "2024-05-29",
     condition: "Skin allergies",
@@ -163,11 +175,12 @@ const patients = [
   {
     id: "P001245",
     name: "John Bulus",
+    matricNumber: "UJ/2019/MGT/0789",
     age: 23,
     gender: "Male",
     phone: "08023456701",
     email: "john.bulus@unijos.edu.ng",
-    address: "Jos, Plateau State",
+    address: "Student Hostel, University of Jos",
     bloodType: "O-",
     lastVisit: "2024-05-28",
     condition: "High blood pressure",
@@ -178,11 +191,13 @@ const patients = [
 
 export const PatientManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [isAddPatientOpen, setIsAddPatientOpen] = useState(false);
 
   const filteredPatients = patients.filter(
     (patient) =>
       patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       patient.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      patient.matricNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
       patient.faculty.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -202,7 +217,10 @@ export const PatientManagement = () => {
             </div>
           </div>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="bg-blue-600 hover:bg-blue-700"
+          onClick={() => setIsAddPatientOpen(true)}
+        >
           <Plus className="h-4 w-4 mr-2" />
           Add New Patient
         </Button>
@@ -214,7 +232,7 @@ export const PatientManagement = () => {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
             <Input
-              placeholder="Search patients by name, ID, or faculty..."
+              placeholder="Search patients by name, ID, matric number, or faculty..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
@@ -235,6 +253,7 @@ export const PatientManagement = () => {
                 <tr className="border-b border-gray-200">
                   <th className="text-left py-3 px-4 font-medium text-gray-700">Patient ID</th>
                   <th className="text-left py-3 px-4 font-medium text-gray-700">Name</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">Matric Number</th>
                   <th className="text-left py-3 px-4 font-medium text-gray-700">Age/Gender</th>
                   <th className="text-left py-3 px-4 font-medium text-gray-700">Faculty/Level</th>
                   <th className="text-left py-3 px-4 font-medium text-gray-700">Contact</th>
@@ -254,6 +273,7 @@ export const PatientManagement = () => {
                         <p className="text-sm text-gray-600">{patient.address}</p>
                       </div>
                     </td>
+                    <td className="py-3 px-4 font-medium text-green-600">{patient.matricNumber}</td>
                     <td className="py-3 px-4">{patient.age} / {patient.gender}</td>
                     <td className="py-3 px-4">
                       <div>
@@ -295,6 +315,11 @@ export const PatientManagement = () => {
           </div>
         </CardContent>
       </Card>
+
+      <AddPatientDialog 
+        open={isAddPatientOpen} 
+        onOpenChange={setIsAddPatientOpen} 
+      />
     </div>
   );
 };

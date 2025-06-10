@@ -1,13 +1,16 @@
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Plus, Download, Eye } from "lucide-react";
+import { NewRecordDialog } from "./NewRecordDialog";
 
 const medicalRecords = [
   {
     id: "R001",
     patientName: "Adaora Okonkwo",
     patientId: "P001234",
+    matricNumber: "UJ/2022/ENG/0234",
     recordType: "Consultation",
     diagnosis: "Stress-related headaches",
     doctor: "Dr. Fatima Aliyu",
@@ -27,6 +30,7 @@ const medicalRecords = [
     id: "R002",
     patientName: "Ibrahim Musa",
     patientId: "P001235",
+    matricNumber: "UJ/2020/MED/0456",
     recordType: "Emergency",
     diagnosis: "Ankle sprain (sports injury)",
     doctor: "Dr. John Okafor",
@@ -46,6 +50,7 @@ const medicalRecords = [
     id: "R003",
     patientName: "Blessing Eze",
     patientId: "P001236",
+    matricNumber: "UJ/2023/SSC/0123",
     recordType: "Treatment",
     diagnosis: "Upper respiratory tract infection",
     doctor: "Dr. Aisha Mohammed",
@@ -65,6 +70,7 @@ const medicalRecords = [
     id: "R004",
     patientName: "Yusuf Abdullahi",
     patientId: "P001237",
+    matricNumber: "UJ/2021/NSC/0789",
     recordType: "Follow-up",
     diagnosis: "Computer vision syndrome",
     doctor: "Dr. Grace Musa",
@@ -84,6 +90,7 @@ const medicalRecords = [
     id: "R005",
     patientName: "Fatima Aliyu",
     patientId: "P001238",
+    matricNumber: "UJ/2019/LAW/0345",
     recordType: "Consultation",
     diagnosis: "Dysmenorrhea (menstrual cramps)",
     doctor: "Dr. Hauwa Ibrahim",
@@ -103,6 +110,7 @@ const medicalRecords = [
     id: "R006",
     patientName: "Chidi Okafor",
     patientId: "P001239",
+    matricNumber: "UJ/2022/PHM/0567",
     recordType: "Emergency",
     diagnosis: "Acute gastroenteritis",
     doctor: "Dr. Samuel Dung",
@@ -122,6 +130,7 @@ const medicalRecords = [
     id: "R007",
     patientName: "Hauwa Mohammed",
     patientId: "P001240",
+    matricNumber: "UJ/2019/EDU/0234",
     recordType: "Counseling",
     diagnosis: "Academic anxiety disorder",
     doctor: "Dr. Mary Gyang",
@@ -135,12 +144,13 @@ const medicalRecords = [
       weight: "59 kg",
     },
     faculty: "Education",
-    level: "600L"
+    level: "500L"
   },
   {
     id: "R008",
     patientName: "Daniel Kwaghe",
     patientId: "P001241",
+    matricNumber: "UJ/2023/AGR/0678",
     recordType: "Treatment",
     diagnosis: "Common cold",
     doctor: "Dr. Peter Bulus",
@@ -160,6 +170,7 @@ const medicalRecords = [
     id: "R009",
     patientName: "Grace Dung",
     patientId: "P001242",
+    matricNumber: "UJ/2020/ART/0890",
     recordType: "Consultation",
     diagnosis: "Insomnia (sleep disorder)",
     doctor: "Dr. Emmanuel Yakubu",
@@ -179,6 +190,7 @@ const medicalRecords = [
     id: "R010",
     patientName: "Samuel Gyang",
     patientId: "P001243",
+    matricNumber: "UJ/2021/VET/0345",
     recordType: "Treatment",
     diagnosis: "Malaria (Plasmodium falciparum)",
     doctor: "Dr. Ruth Laven",
@@ -214,6 +226,8 @@ const getRecordTypeColor = (type: string) => {
 };
 
 export const MedicalRecords = () => {
+  const [isNewRecordOpen, setIsNewRecordOpen] = useState(false);
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -230,7 +244,10 @@ export const MedicalRecords = () => {
             </div>
           </div>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="bg-blue-600 hover:bg-blue-700"
+          onClick={() => setIsNewRecordOpen(true)}
+        >
           <Plus className="h-4 w-4 mr-2" />
           New Record
         </Button>
@@ -255,6 +272,9 @@ export const MedicalRecords = () => {
                     <span className="text-sm text-gray-600">{record.doctor}</span>
                     <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
                       {record.faculty} - {record.level}
+                    </span>
+                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
+                      {record.matricNumber}
                     </span>
                   </div>
                 </div>
@@ -314,6 +334,11 @@ export const MedicalRecords = () => {
           </Card>
         ))}
       </div>
+
+      <NewRecordDialog 
+        open={isNewRecordOpen} 
+        onOpenChange={setIsNewRecordOpen} 
+      />
     </div>
   );
 };

@@ -5,8 +5,8 @@ import { Activity, Users, Calendar, FileText } from "lucide-react";
 const stats = [
   {
     title: "Total Patients",
-    value: "1,247",
-    change: "+12%",
+    value: "487",
+    change: "+8%",
     icon: Users,
     color: "text-blue-600",
   },
@@ -35,8 +35,8 @@ const stats = [
 
 const recentPatients = [
   { name: "Adaora Okonkwo", id: "P001234", department: "General Medicine", time: "09:30 AM" },
-  { name: "Ibrahim Musa", id: "P001235", department: "Cardiology", time: "10:15 AM" },
-  { name: "Blessing Eze", id: "P001236", department: "Pediatrics", time: "11:00 AM" },
+  { name: "Ibrahim Musa", id: "P001235", department: "Mental Health", time: "10:15 AM" },
+  { name: "Blessing Eze", id: "P001236", department: "General Medicine", time: "11:00 AM" },
   { name: "Yusuf Abdullahi", id: "P001237", department: "Orthopedics", time: "02:30 PM" },
 ];
 
@@ -70,7 +70,7 @@ export const Dashboard = () => {
       </div>
 
       {/* Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         <Card>
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-gray-900">
@@ -90,34 +90,6 @@ export const Dashboard = () => {
                   </div>
                 </div>
               ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold text-gray-900">
-              Quick Actions
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              <button className="p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors">
-                <Users className="h-6 w-6 text-blue-600 mb-2" />
-                <p className="text-sm font-medium text-blue-900">New Patient</p>
-              </button>
-              <button className="p-4 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 transition-colors">
-                <Calendar className="h-6 w-6 text-green-600 mb-2" />
-                <p className="text-sm font-medium text-green-900">Schedule</p>
-              </button>
-              <button className="p-4 bg-orange-50 hover:bg-orange-100 rounded-lg border border-orange-200 transition-colors">
-                <FileText className="h-6 w-6 text-orange-600 mb-2" />
-                <p className="text-sm font-medium text-orange-900">Records</p>
-              </button>
-              <button className="p-4 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-colors">
-                <Activity className="h-6 w-6 text-purple-600 mb-2" />
-                <p className="text-sm font-medium text-purple-900">Reports</p>
-              </button>
             </div>
           </CardContent>
         </Card>
