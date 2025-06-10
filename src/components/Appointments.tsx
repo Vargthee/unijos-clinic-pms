@@ -21,7 +21,7 @@ const appointments = [
     patientName: "Amina Hassan",
     patientId: "P001239",
     doctor: "Dr. John Okafor",
-    department: "Pediatrics",
+    department: "Mental Health",
     date: "2024-06-09",
     time: "10:30 AM",
     status: "Pending",
