@@ -1,66 +1,71 @@
 
 import { 
-  Activity, 
   Calendar, 
   FileText, 
-  Home, 
   Users, 
+  Activity, 
   UserCheck,
-  Stethoscope
+  Stethoscope,
+  PillBottle,
+  Shield,
+  Brain,
+  Home,
+  UserPlus
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Card } from "@/components/ui/card";
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
 }
 
-const menuItems = [
+const sidebarItems = [
   { id: "dashboard", label: "Dashboard", icon: Home },
   { id: "patients", label: "Patient Management", icon: Users },
   { id: "appointments", label: "Appointments", icon: Calendar },
   { id: "records", label: "Medical Records", icon: FileText },
   { id: "staff", label: "Staff Management", icon: UserCheck },
+  { id: "staff-medical", label: "Staff Medical Records", icon: Stethoscope },
+  { id: "medical-history", label: "Medical History", icon: Activity },
+  { id: "prescriptions", label: "Prescriptions", icon: PillBottle },
+  { id: "vaccinations", label: "Vaccinations", icon: Shield },
+  { id: "mental-health", label: "Mental Health", icon: Brain },
 ];
 
 export const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
   return (
-    <div className="w-64 bg-white shadow-lg border-r border-gray-200">
-      <div className="p-6 border-b border-gray-200">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-600 rounded-lg">
-            <Stethoscope className="h-6 w-6 text-white" />
+    <Card className="sidebar w-64 sm:w-72 lg:w-80 h-screen border-r border-border bg-sidebar">
+      <div className="p-4 sm:p-6">
+        <div className="flex items-center gap-3 mb-6 sm:mb-8">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-lg flex items-center justify-center">
+            <UserPlus className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
           </div>
           <div>
-            <h2 className="font-bold text-gray-900">UNIJOS Clinic</h2>
-            <p className="text-sm text-gray-600">PMS/EHR System</p>
+            <h1 className="text-sm sm:text-lg font-bold text-sidebar-foreground">UNIJOS Clinic</h1>
+            <p className="text-xs text-sidebar-foreground/70">Health Management</p>
           </div>
         </div>
-      </div>
-      
-      <nav className="p-4">
-        <ul className="space-y-2">
-          {menuItems.map((item) => {
+        
+        <nav className="space-y-1 sm:space-y-2">
+          {sidebarItems.map((item) => {
             const Icon = item.icon;
             return (
-              <li key={item.id}>
-                <button
-                  onClick={() => setActiveTab(item.id)}
-                  className={cn(
-                    "w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors",
-                    activeTab === item.id
-                      ? "bg-blue-50 text-blue-700 border border-blue-200"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                  )}
-                >
-                  <Icon className="h-5 w-5" />
-                  <span className="font-medium">{item.label}</span>
-                </button>
-              </li>
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-left transition-all duration-200 text-xs sm:text-sm ${
+                  activeTab === item.id
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
+                }`}
+              >
+                <Icon className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                <span className="truncate">{item.label}</span>
+              </button>
             );
           })}
-        </ul>
-      </nav>
-    </div>
+        </nav>
+      </div>
+    </Card>
   );
 };

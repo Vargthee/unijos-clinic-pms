@@ -1,8 +1,8 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Plus, Download, Eye } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { FileText, Plus, Download, Eye, UserCheck } from "lucide-react";
 import { NewRecordDialog } from "./NewRecordDialog";
 
 const medicalRecords = [
@@ -208,6 +208,119 @@ const medicalRecords = [
   }
 ];
 
+const staffMedicalRecords = [
+  {
+    id: "SMR001",
+    staffId: "S001",
+    name: "Dr. Fatima Aliyu",
+    role: "Senior Physician",
+    department: "Internal Medicine",
+    unit: "General Practice",
+    recordType: "Annual Checkup",
+    diagnosis: "Excellent health status",
+    doctor: "Dr. Samuel Dung",
+    date: "2024-05-15",
+    medications: ["Multivitamin supplement"],
+    notes: "Routine annual health assessment. All vitals within normal range. Continue current lifestyle habits.",
+    vitals: {
+      temperature: "36.7°C",
+      bloodPressure: "118/75 mmHg",
+      pulse: "72 bpm",
+      weight: "62 kg",
+    },
+    bloodType: "O+",
+    allergies: ["Penicillin"],
+  },
+  {
+    id: "SMR002",
+    staffId: "S002",
+    name: "Dr. John Okafor",
+    role: "Psychiatrist",
+    department: "Mental Health",
+    unit: "Psychiatry",
+    recordType: "Treatment",
+    diagnosis: "Occupational stress management",
+    doctor: "Dr. Grace Musa",
+    date: "2024-04-20",
+    medications: ["Stress management therapy", "Relaxation techniques"],
+    notes: "Mild work-related stress. Recommended stress management techniques and regular counseling sessions.",
+    vitals: {
+      temperature: "36.9°C",
+      bloodPressure: "125/82 mmHg",
+      pulse: "78 bpm",
+      weight: "75 kg",
+    },
+    bloodType: "A+",
+    allergies: ["Latex"],
+  },
+  {
+    id: "SMR003",
+    staffId: "S003",
+    name: "Nurse Grace Danladi",
+    role: "Head Nurse",
+    department: "Nursing Services",
+    unit: "General Ward",
+    recordType: "Vaccination",
+    diagnosis: "Routine immunization update",
+    doctor: "Dr. Aisha Mohammed",
+    date: "2024-06-01",
+    medications: ["Hepatitis B booster", "Annual flu shot"],
+    notes: "Updated routine vaccinations as per hospital staff requirements. No adverse reactions observed.",
+    vitals: {
+      temperature: "36.6°C",
+      bloodPressure: "115/70 mmHg",
+      pulse: "68 bpm",
+      weight: "58 kg",
+    },
+    bloodType: "B+",
+    allergies: ["None known"],
+  },
+  {
+    id: "SMR004",
+    staffId: "S004",
+    name: "Pharmacist Maryam Umar",
+    role: "Chief Pharmacist",
+    department: "Pharmacy",
+    unit: "Drug Dispensing",
+    recordType: "Emergency",
+    diagnosis: "Chemical exposure incident",
+    doctor: "Dr. Peter Bulus",
+    date: "2024-05-28",
+    medications: ["Eye irrigation solution", "Antihistamine", "Topical steroid"],
+    notes: "Minor chemical splash exposure during drug preparation. Eyes irrigated immediately. Full recovery expected.",
+    vitals: {
+      temperature: "37.1°C",
+      bloodPressure: "130/85 mmHg",
+      pulse: "85 bpm",
+      weight: "65 kg",
+    },
+    bloodType: "AB-",
+    allergies: ["Sulfa drugs"],
+  },
+  {
+    id: "SMR005",
+    staffId: "S005",
+    name: "Lab Tech. Ibrahim Hassan",
+    role: "Laboratory Technician",
+    department: "Laboratory Services",
+    unit: "Clinical Lab",
+    recordType: "Follow-up",
+    diagnosis: "Post-needle stick monitoring",
+    doctor: "Dr. Ruth Laven",
+    date: "2024-06-10",
+    medications: ["Prophylactic antibiotics", "Hepatitis screening"],
+    notes: "Follow-up after needle stick incident. Prophylactic treatment administered. Monitoring for potential infections.",
+    vitals: {
+      temperature: "36.8°C",
+      bloodPressure: "122/78 mmHg",
+      pulse: "74 bpm",
+      weight: "70 kg",
+    },
+    bloodType: "O-",
+    allergies: ["Iodine"],
+  },
+];
+
 const getRecordTypeColor = (type: string) => {
   switch (type) {
     case "Consultation":
@@ -228,24 +341,121 @@ const getRecordTypeColor = (type: string) => {
 export const MedicalRecords = () => {
   const [isNewRecordOpen, setIsNewRecordOpen] = useState(false);
 
+  const RecordCard = ({ record, isStaff = false }) => (
+    <Card key={record.id} className="hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
+      <CardHeader className="pb-3">
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+              {isStaff ? <UserCheck className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400" /> : <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400" />}
+              <span className="truncate">{record.name}</span>
+              {!isStaff && <span className="hidden sm:inline">- {record.patientId}</span>}
+              {isStaff && <span className="hidden sm:inline">- {record.staffId}</span>}
+            </CardTitle>
+            <div className="flex flex-wrap items-center gap-2 mt-2">
+              <span className={`px-2 py-1 rounded text-xs font-medium ${getRecordTypeColor(record.recordType)}`}>
+                {record.recordType}
+              </span>
+              <span className="text-xs sm:text-sm text-muted-foreground">{record.date}</span>
+              <span className="text-xs sm:text-sm text-muted-foreground">{record.doctor}</span>
+              {!isStaff && (
+                <>
+                  <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded">
+                    {record.faculty} - {record.level}
+                  </span>
+                  <span className="text-xs bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 px-2 py-1 rounded">
+                    {record.matricNumber}
+                  </span>
+                </>
+              )}
+              {isStaff && (
+                <>
+                  <span className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 px-2 py-1 rounded">
+                    {record.department}
+                  </span>
+                  <span className="text-xs bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 px-2 py-1 rounded">
+                    {record.unit}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="flex gap-1 sm:gap-2 ml-2">
+            <Button variant="outline" size="sm" className="h-8 w-8 sm:h-9 sm:w-auto sm:px-3">
+              <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline ml-1">View</span>
+            </Button>
+            <Button variant="outline" size="sm" className="h-8 w-8 sm:h-9 sm:w-auto sm:px-3">
+              <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline ml-1">Export</span>
+            </Button>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent className="pt-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          <div>
+            <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Diagnosis & Treatment</h4>
+            <div className="space-y-2">
+              <p className="text-sm"><span className="font-medium">Diagnosis:</span> {record.diagnosis}</p>
+              <p className="text-sm"><span className="font-medium">Medications:</span></p>
+              <ul className="list-disc list-inside ml-4 text-xs sm:text-sm text-muted-foreground space-y-1">
+                {record.medications.map((med, index) => (
+                  <li key={index}>{med}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Vital Signs</h4>
+            <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+              <div className="bg-muted p-2 rounded">
+                <p className="font-medium">Temperature</p>
+                <p className="text-muted-foreground">{record.vitals.temperature}</p>
+              </div>
+              <div className="bg-muted p-2 rounded">
+                <p className="font-medium">Blood Pressure</p>
+                <p className="text-muted-foreground">{record.vitals.bloodPressure}</p>
+              </div>
+              <div className="bg-muted p-2 rounded">
+                <p className="font-medium">Pulse</p>
+                <p className="text-muted-foreground">{record.vitals.pulse}</p>
+              </div>
+              <div className="bg-muted p-2 rounded">
+                <p className="font-medium">Weight</p>
+                <p className="text-muted-foreground">{record.vitals.weight}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="mt-4">
+          <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Clinical Notes</h4>
+          <p className="text-muted-foreground text-xs sm:text-sm bg-muted p-3 rounded">{record.notes}</p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
             <img 
               src="/placeholder.svg" 
               alt="University of Jos Logo" 
-              className="h-12 w-12 object-contain"
+              className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 object-contain"
             />
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Medical Records</h2>
-              <p className="text-gray-600">University of Jos Student Health Records System</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground">Medical Records</h2>
+              <p className="text-muted-foreground text-xs sm:text-sm lg:text-base">University of Jos Health Records System</p>
             </div>
           </div>
         </div>
         <Button 
-          className="bg-blue-600 hover:bg-blue-700"
+          className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
           onClick={() => setIsNewRecordOpen(true)}
         >
           <Plus className="h-4 w-4 mr-2" />
@@ -253,87 +463,24 @@ export const MedicalRecords = () => {
         </Button>
       </div>
 
-      {/* Records List */}
-      <div className="space-y-4">
-        {medicalRecords.map((record) => (
-          <Card key={record.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="flex justify-between items-start">
-                <div>
-                  <CardTitle className="flex items-center gap-2">
-                    <FileText className="h-5 w-5 text-blue-600" />
-                    {record.patientName} - {record.patientId}
-                  </CardTitle>
-                  <div className="flex items-center gap-4 mt-2">
-                    <span className={`px-2 py-1 rounded text-xs font-medium ${getRecordTypeColor(record.recordType)}`}>
-                      {record.recordType}
-                    </span>
-                    <span className="text-sm text-gray-600">{record.date}</span>
-                    <span className="text-sm text-gray-600">{record.doctor}</span>
-                    <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
-                      {record.faculty} - {record.level}
-                    </span>
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
-                      {record.matricNumber}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Diagnosis & Treatment</h4>
-                  <div className="space-y-2">
-                    <p><span className="font-medium">Diagnosis:</span> {record.diagnosis}</p>
-                    <p><span className="font-medium">Medications:</span></p>
-                    <ul className="list-disc list-inside ml-4 text-sm text-gray-600">
-                      {record.medications.map((med, index) => (
-                        <li key={index}>{med}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Vital Signs</h4>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div className="bg-gray-50 p-2 rounded">
-                      <p className="font-medium">Temperature</p>
-                      <p className="text-gray-600">{record.vitals.temperature}</p>
-                    </div>
-                    <div className="bg-gray-50 p-2 rounded">
-                      <p className="font-medium">Blood Pressure</p>
-                      <p className="text-gray-600">{record.vitals.bloodPressure}</p>
-                    </div>
-                    <div className="bg-gray-50 p-2 rounded">
-                      <p className="font-medium">Pulse</p>
-                      <p className="text-gray-600">{record.vitals.pulse}</p>
-                    </div>
-                    <div className="bg-gray-50 p-2 rounded">
-                      <p className="font-medium">Weight</p>
-                      <p className="text-gray-600">{record.vitals.weight}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="mt-4">
-                <h4 className="font-semibold text-gray-900 mb-2">Clinical Notes</h4>
-                <p className="text-gray-700 text-sm bg-gray-50 p-3 rounded">{record.notes}</p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <Tabs defaultValue="students" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6">
+          <TabsTrigger value="students" className="text-xs sm:text-sm">Student Records</TabsTrigger>
+          <TabsTrigger value="staff" className="text-xs sm:text-sm">Staff Records</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="students" className="space-y-3 sm:space-y-4">
+          {medicalRecords.map((record) => (
+            <RecordCard key={record.id} record={record} isStaff={false} />
+          ))}
+        </TabsContent>
+        
+        <TabsContent value="staff" className="space-y-3 sm:space-y-4">
+          {staffMedicalRecords.map((record) => (
+            <RecordCard key={record.id} record={record} isStaff={true} />
+          ))}
+        </TabsContent>
+      </Tabs>
 
       <NewRecordDialog 
         open={isNewRecordOpen} 
