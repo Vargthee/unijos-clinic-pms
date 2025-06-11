@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,22 +18,22 @@ import {
   Brain,
   PillBottle,
   Clock,
-  Building,
-  BookOpen,
-  User
+  User,
+  Eye,
+  Download
 } from "lucide-react";
 
-// University staff data (realistic UNIJOS staff)
+// Expanded University staff data with realistic Nigerian names and departments
 const universityStaffRecords = [
   {
     id: "USR001",
     staffId: "UNIJOS/REG/001",
-    name: "Dr. Sarah Mallo",
-    role: "Director of Student Affairs",
-    department: "Student Affairs",
-    unit: "Academic Registry",
+    name: "Dr. Hauwa Abdullahi",
+    role: "Registrar",
+    department: "Academic Registry",
+    unit: "Student Records",
     faculty: "Administration",
-    email: "sarah.mallo@unijos.edu.ng",
+    email: "hauwa.abdullahi@unijos.edu.ng",
     phone: "08012345678",
     dateOfBirth: "1975-03-15",
     bloodType: "O+",
@@ -41,7 +42,7 @@ const universityStaffRecords = [
     lastCheckup: "2024-05-20",
     nextCheckup: "2024-11-20",
     healthStatus: "Good",
-    initials: "SM",
+    initials: "HA",
     medicalHistory: [
       {
         date: "2024-05-20",
@@ -49,13 +50,6 @@ const universityStaffRecords = [
         diagnosis: "Hypertension (mild)",
         treatment: "Lifestyle modification, blood pressure monitoring",
         doctor: "Dr. Fatima Aliyu"
-      },
-      {
-        date: "2024-02-10",
-        type: "Consultation",
-        diagnosis: "Work-related stress",
-        treatment: "Stress management counseling",
-        doctor: "Dr. Mary Gyang"
       }
     ],
     prescriptions: [
@@ -69,20 +63,19 @@ const universityStaffRecords = [
     ],
     vaccinations: [
       { vaccine: "COVID-19 Booster", date: "2024-03-15", nextDue: "2025-03-15" },
-      { vaccine: "Hepatitis B", date: "2023-01-10", nextDue: "2028-01-10" },
-      { vaccine: "Tetanus", date: "2022-08-05", nextDue: "2032-08-05" }
+      { vaccine: "Hepatitis B", date: "2023-01-10", nextDue: "2028-01-10" }
     ],
     mentalHealth: {
-      lastAssessment: "2024-02-10",
-      status: "Mild stress",
-      recommendations: "Regular counseling sessions, work-life balance"
+      lastAssessment: "2024-05-20",
+      status: "Good",
+      recommendations: "Regular stress management, work-life balance"
     }
   },
   {
     id: "USR002",
     staffId: "UNIJOS/LIB/002",
     name: "Mr. James Dung",
-    role: "Head Librarian",
+    role: "Chief Librarian",
     department: "Library Services",
     unit: "Main Library",
     faculty: "Administration",
@@ -261,10 +254,94 @@ const universityStaffRecords = [
       status: "Good",
       recommendations: "Continue stress management techniques"
     }
+  },
+  {
+    id: "USR006",
+    staffId: "UNIJOS/EST/006",
+    name: "Mr. Daniel Kwaghe",
+    role: "Estate Officer",
+    department: "Estate Management",
+    unit: "Facilities",
+    faculty: "Administration",
+    email: "daniel.kwaghe@unijos.edu.ng",
+    phone: "08067890123",
+    dateOfBirth: "1979-06-30",
+    bloodType: "A-",
+    address: "Dogon Dutse, Jos",
+    emergencyContact: "08043210987",
+    lastCheckup: "2024-04-20",
+    nextCheckup: "2024-10-20",
+    healthStatus: "Good",
+    initials: "DK",
+    medicalHistory: [
+      {
+        date: "2024-04-20",
+        type: "Treatment",
+        diagnosis: "Allergic rhinitis",
+        treatment: "Antihistamines, avoid allergens",
+        doctor: "Dr. Mary Gyang"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Loratadine 10mg",
+        dosage: "Once daily",
+        duration: "As needed",
+        prescribedBy: "Dr. Mary Gyang",
+        date: "2024-04-20"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-02-10", nextDue: "2025-02-10" },
+      { vaccine: "Tetanus", date: "2022-08-15", nextDue: "2032-08-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-04-20",
+      status: "Good",
+      recommendations: "Regular exercise, outdoor activities"
+    }
+  },
+  {
+    id: "USR007",
+    staffId: "UNIJOS/HR/007",
+    name: "Mrs. Maryam Umar",
+    role: "HR Director",
+    department: "Human Resources",
+    unit: "Staff Development",
+    faculty: "Administration",
+    email: "maryam.umar@unijos.edu.ng",
+    phone: "08078901234",
+    dateOfBirth: "1976-12-08",
+    bloodType: "B-",
+    address: "Plateau State University Road, Jos",
+    emergencyContact: "08032109876",
+    lastCheckup: "2024-05-30",
+    nextCheckup: "2024-11-30",
+    healthStatus: "Excellent",
+    initials: "MU",
+    medicalHistory: [
+      {
+        date: "2024-05-30",
+        type: "Annual Checkup",
+        diagnosis: "Perfect health",
+        treatment: "Continue healthy lifestyle",
+        doctor: "Dr. Emmanuel Yakubu"
+      }
+    ],
+    prescriptions: [],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-03-20", nextDue: "2025-03-20" },
+      { vaccine: "Annual Flu Shot", date: "2024-04-05", nextDue: "2025-04-05" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-05-30",
+      status: "Excellent",
+      recommendations: "Continue wellness programs"
+    }
   }
 ];
 
-// Student records (keeping existing data)
+// Expanded Student records with realistic Nigerian names
 const studentRecords = [
   {
     id: "STU001",
@@ -307,8 +384,217 @@ const studentRecords = [
       status: "Mild stress",
       recommendations: "Regular counseling, stress management workshops"
     }
+  },
+  {
+    id: "STU002",
+    patientId: "P001235",
+    name: "Ibrahim Musa",
+    matricNumber: "UJ/2020/MED/0456",
+    faculty: "Medicine",
+    department: "Medicine & Surgery",
+    level: "400L",
+    email: "ibrahim.musa@unijos.edu.ng",
+    phone: "08023456789",
+    bloodType: "A+",
+    lastVisit: "2024-06-07",
+    healthStatus: "Good",
+    initials: "IM",
+    medicalHistory: [
+      {
+        date: "2024-06-07",
+        type: "Emergency",
+        diagnosis: "Ankle sprain (sports injury)",
+        treatment: "RICE protocol, physiotherapy",
+        doctor: "Dr. John Okafor"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Ibuprofen 400mg",
+        dosage: "Three times daily",
+        duration: "1 week",
+        prescribedBy: "Dr. John Okafor",
+        date: "2024-06-07"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-01-10", nextDue: "2025-01-10" },
+      { vaccine: "Hepatitis B", date: "2020-09-15", nextDue: "2025-09-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-07",
+      status: "Good",
+      recommendations: "Continue sports activities, stress relief"
+    }
+  },
+  {
+    id: "STU003",
+    patientId: "P001236",
+    name: "Blessing Eze",
+    matricNumber: "UJ/2023/SSC/0123",
+    faculty: "Social Sciences",
+    department: "Psychology",
+    level: "100L",
+    email: "blessing.eze@unijos.edu.ng",
+    phone: "08034567890",
+    bloodType: "B+",
+    lastVisit: "2024-06-08",
+    healthStatus: "Good",
+    initials: "BE",
+    medicalHistory: [
+      {
+        date: "2024-06-08",
+        type: "Treatment",
+        diagnosis: "Upper respiratory tract infection",
+        treatment: "Antibiotics, rest, fluids",
+        doctor: "Dr. Aisha Mohammed"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Amoxicillin 500mg",
+        dosage: "Three times daily",
+        duration: "5 days",
+        prescribedBy: "Dr. Aisha Mohammed",
+        date: "2024-06-08"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19", date: "2023-02-20", nextDue: "2024-02-20" },
+      { vaccine: "Meningitis", date: "2023-09-01", nextDue: "2028-09-01" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-08",
+      status: "Good",
+      recommendations: "Academic support, peer counseling"
+    }
+  },
+  {
+    id: "STU004",
+    patientId: "P001237",
+    name: "Yusuf Abdullahi",
+    matricNumber: "UJ/2021/NSC/0789",
+    faculty: "Natural Sciences",
+    department: "Computer Science",
+    level: "300L",
+    email: "yusuf.abdullahi@unijos.edu.ng",
+    phone: "08045678901",
+    bloodType: "AB+",
+    lastVisit: "2024-06-09",
+    healthStatus: "Good",
+    initials: "YA",
+    medicalHistory: [
+      {
+        date: "2024-06-09",
+        type: "Follow-up",
+        diagnosis: "Computer vision syndrome",
+        treatment: "Eye exercises, blue light glasses",
+        doctor: "Dr. Grace Musa"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Artificial tears",
+        dosage: "As needed",
+        duration: "Ongoing",
+        prescribedBy: "Dr. Grace Musa",
+        date: "2024-06-09"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-03-15", nextDue: "2025-03-15" },
+      { vaccine: "Annual Flu Shot", date: "2024-02-20", nextDue: "2025-02-20" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-09",
+      status: "Good",
+      recommendations: "Digital wellness, study-life balance"
+    }
+  },
+  {
+    id: "STU005",
+    patientId: "P001238",
+    name: "Fatima Aliyu",
+    matricNumber: "UJ/2019/LAW/0345",
+    faculty: "Law",
+    department: "Law",
+    level: "500L",
+    email: "fatima.aliyu.student@unijos.edu.ng",
+    phone: "08056789012",
+    bloodType: "O-",
+    lastVisit: "2024-06-06",
+    healthStatus: "Good",
+    initials: "FA",
+    medicalHistory: [
+      {
+        date: "2024-06-06",
+        type: "Consultation",
+        diagnosis: "Dysmenorrhea",
+        treatment: "Pain management, hormonal evaluation",
+        doctor: "Dr. Hauwa Ibrahim"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Mefenamic acid 500mg",
+        dosage: "Three times daily during menstruation",
+        duration: "As needed",
+        prescribedBy: "Dr. Hauwa Ibrahim",
+        date: "2024-06-06"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-01-05", nextDue: "2025-01-05" },
+      { vaccine: "HPV", date: "2019-10-15", nextDue: "2024-10-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-06",
+      status: "Good",
+      recommendations: "Final year support, career counseling"
+    }
+  },
+  {
+    id: "STU006",
+    patientId: "P001239",
+    name: "Chidi Okafor",
+    matricNumber: "UJ/2022/PHM/0567",
+    faculty: "Pharmacy",
+    department: "Pharmacy",
+    level: "200L",
+    email: "chidi.okafor@unijos.edu.ng",
+    phone: "08067890123",
+    bloodType: "A-",
+    lastVisit: "2024-06-04",
+    healthStatus: "Good",
+    initials: "CO",
+    medicalHistory: [
+      {
+        date: "2024-06-04",
+        type: "Emergency",
+        diagnosis: "Acute gastroenteritis",
+        treatment: "Rehydration therapy, dietary modification",
+        doctor: "Dr. Samuel Dung"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "ORS sachets",
+        dosage: "As directed",
+        duration: "3 days",
+        prescribedBy: "Dr. Samuel Dung",
+        date: "2024-06-04"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19", date: "2022-11-20", nextDue: "2023-11-20" },
+      { vaccine: "Hepatitis B", date: "2022-09-01", nextDue: "2027-09-01" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-04",
+      status: "Good",
+      recommendations: "Stress management, healthy eating habits"
+    }
   }
-  // Add more student records as needed
 ];
 
 const getHealthStatusColor = (status: string) => {
@@ -343,11 +629,16 @@ export const ComprehensiveMedicalRecords = () => {
     student.matricNumber.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleViewRecord = (record: any) => {
+    setSelectedRecord(record);
+    setActiveTab("overview");
+  };
+
   const RecordCard = ({ record, isStaff = false }) => (
     <Card 
       key={record.id} 
       className="hover-lift cursor-pointer transition-all duration-300"
-      onClick={() => setSelectedRecord(record)}
+      onClick={() => handleViewRecord(record)}
     >
       <CardContent className="p-4 sm:p-6">
         <div className="flex items-center gap-4 mb-4">
@@ -372,7 +663,7 @@ export const ComprehensiveMedicalRecords = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-2 gap-4 text-sm">
+        <div className="grid grid-cols-2 gap-4 text-sm mb-4">
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4 text-muted-foreground" />
             <span className="text-muted-foreground">{isStaff ? record.lastCheckup : record.lastVisit}</span>
@@ -381,6 +672,13 @@ export const ComprehensiveMedicalRecords = () => {
             <Stethoscope className="h-4 w-4 text-muted-foreground" />
             <span className="text-muted-foreground">{record.bloodType}</span>
           </div>
+        </div>
+
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" className="flex-1">
+            <Eye className="h-3 w-3 mr-1" />
+            View Full Record
+          </Button>
         </div>
       </CardContent>
     </Card>
@@ -392,7 +690,7 @@ export const ComprehensiveMedicalRecords = () => {
         <div className="flex justify-between items-center">
           <CardTitle className="flex items-center gap-2 text-xl">
             <FileText className="h-6 w-6 text-primary" />
-            Comprehensive Medical Record - {record.name}
+            Medical Record - {record.name}
           </CardTitle>
           <Button variant="outline" onClick={() => setSelectedRecord(null)}>
             Close
@@ -400,196 +698,193 @@ export const ComprehensiveMedicalRecords = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-6">
-            <TabsTrigger value="overview" className="text-xs sm:text-sm">Overview</TabsTrigger>
-            <TabsTrigger value="history" className="text-xs sm:text-sm">History</TabsTrigger>
-            <TabsTrigger value="prescriptions" className="text-xs sm:text-sm">Medications</TabsTrigger>
-            <TabsTrigger value="vaccinations" className="text-xs sm:text-sm">Vaccines</TabsTrigger>
-            <TabsTrigger value="mental" className="text-xs sm:text-sm">Mental Health</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold flex items-center gap-2">
-                  <User className="h-5 w-5 text-primary" />
-                  Personal Information
-                </h4>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <label className="font-medium text-muted-foreground">Blood Type</label>
-                    <p className="text-foreground">{record.bloodType}</p>
-                  </div>
-                  <div>
-                    <label className="font-medium text-muted-foreground">Health Status</label>
-                    <Badge className={getHealthStatusColor(record.healthStatus)}>
-                      {record.healthStatus}
-                    </Badge>
-                  </div>
-                  <div>
-                    <label className="font-medium text-muted-foreground">Email</label>
-                    <p className="text-foreground">{record.email}</p>
-                  </div>
-                  <div>
-                    <label className="font-medium text-muted-foreground">Phone</label>
-                    <p className="text-foreground">{record.phone}</p>
-                  </div>
-                  {isStaff && (
-                    <>
-                      <div>
-                        <label className="font-medium text-muted-foreground">Department</label>
-                        <p className="text-foreground">{record.department}</p>
-                      </div>
-                      <div>
-                        <label className="font-medium text-muted-foreground">Unit</label>
-                        <p className="text-foreground">{record.unit}</p>
-                      </div>
-                    </>
-                  )}
-                  {!isStaff && (
-                    <>
-                      <div>
-                        <label className="font-medium text-muted-foreground">Faculty</label>
-                        <p className="text-foreground">{record.faculty}</p>
-                      </div>
-                      <div>
-                        <label className="font-medium text-muted-foreground">Level</label>
-                        <p className="text-foreground">{record.level}</p>
-                      </div>
-                    </>
-                  )}
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Personal Information */}
+          <div className="lg:col-span-1">
+            <div className="space-y-4">
+              <div className="text-center">
+                <Avatar className="h-20 w-20 mx-auto mb-4">
+                  <AvatarFallback className="bg-primary/10 text-primary font-semibold text-2xl">
+                    {record.initials}
+                  </AvatarFallback>
+                </Avatar>
+                <h3 className="font-semibold text-lg">{record.name}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {isStaff ? record.staffId : record.matricNumber}
+                </p>
+                <Badge className={getHealthStatusColor(record.healthStatus)}>
+                  {record.healthStatus}
+                </Badge>
               </div>
-
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-primary" />
-                  Health Timeline
-                </h4>
-                <div className="space-y-3">
-                  <div className="p-3 bg-muted rounded-lg">
-                    <p className="font-medium">Last Visit</p>
-                    <p className="text-sm text-muted-foreground">
-                      {isStaff ? record.lastCheckup : record.lastVisit}
-                    </p>
-                  </div>
-                  {isStaff && (
-                    <div className="p-3 bg-muted rounded-lg">
-                      <p className="font-medium">Next Checkup</p>
-                      <p className="text-sm text-muted-foreground">{record.nextCheckup}</p>
-                    </div>
-                  )}
+              
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Blood Type</label>
+                  <p className="text-sm font-medium">{record.bloodType}</p>
                 </div>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Email</label>
+                  <p className="text-sm">{record.email}</p>
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Phone</label>
+                  <p className="text-sm">{record.phone}</p>
+                </div>
+                {isStaff && (
+                  <>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Department</label>
+                      <p className="text-sm">{record.department}</p>
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Unit</label>
+                      <p className="text-sm">{record.unit}</p>
+                    </div>
+                  </>
+                )}
+                {!isStaff && (
+                  <>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Faculty</label>
+                      <p className="text-sm">{record.faculty}</p>
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Level</label>
+                      <p className="text-sm">{record.level}</p>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
-          </TabsContent>
+          </div>
 
-          <TabsContent value="history" className="space-y-4">
-            <h4 className="text-lg font-semibold flex items-center gap-2">
+          {/* Medical History */}
+          <div className="lg:col-span-1">
+            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
               <Clock className="h-5 w-5 text-primary" />
               Medical History
             </h4>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {record.medicalHistory?.map((entry, index) => (
-                <Card key={index}>
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <h5 className="font-medium">{entry.diagnosis}</h5>
-                      <Badge variant="outline">{entry.type}</Badge>
+                <Card key={index} className="p-3">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-start">
+                      <Badge variant="outline" className="text-xs">{entry.type}</Badge>
+                      <span className="text-xs text-muted-foreground">{entry.date}</span>
                     </div>
-                    <p className="text-sm text-muted-foreground mb-2">
-                      <strong>Treatment:</strong> {entry.treatment}
-                    </p>
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      <span>📅 {entry.date}</span>
-                      <span>👨‍⚕️ {entry.doctor}</span>
-                    </div>
-                  </CardContent>
+                    <h5 className="font-medium text-sm">{entry.diagnosis}</h5>
+                    <p className="text-xs text-muted-foreground">{entry.treatment}</p>
+                    <p className="text-xs text-muted-foreground">👨‍⚕️ {entry.doctor}</p>
+                  </div>
                 </Card>
               ))}
             </div>
-          </TabsContent>
+          </div>
 
-          <TabsContent value="prescriptions" className="space-y-4">
-            <h4 className="text-lg font-semibold flex items-center gap-2">
+          {/* Prescriptions */}
+          <div className="lg:col-span-1">
+            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
               <PillBottle className="h-5 w-5 text-primary" />
-              Current Medications
+              Medications
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {record.prescriptions?.map((prescription, index) => (
-                <Card key={index}>
-                  <CardContent className="p-4">
-                    <h5 className="font-medium text-lg mb-2">{prescription.medication}</h5>
-                    <div className="space-y-1 text-sm">
+            <div className="space-y-3">
+              {record.prescriptions?.length > 0 ? record.prescriptions.map((prescription, index) => (
+                <Card key={index} className="p-3">
+                  <div className="space-y-2">
+                    <h5 className="font-medium text-sm">{prescription.medication}</h5>
+                    <div className="text-xs space-y-1">
                       <p><strong>Dosage:</strong> {prescription.dosage}</p>
                       <p><strong>Duration:</strong> {prescription.duration}</p>
-                      <p><strong>Prescribed by:</strong> {prescription.prescribedBy}</p>
                       <p><strong>Date:</strong> {prescription.date}</p>
                     </div>
-                  </CardContent>
+                  </div>
                 </Card>
-              ))}
+              )) : (
+                <p className="text-sm text-muted-foreground">No current medications</p>
+              )}
             </div>
-          </TabsContent>
+          </div>
 
-          <TabsContent value="vaccinations" className="space-y-4">
-            <h4 className="text-lg font-semibold flex items-center gap-2">
-              <Shield className="h-5 w-5 text-primary" />
-              Vaccination Records
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {record.vaccinations?.map((vaccination, index) => (
-                <Card key={index}>
-                  <CardContent className="p-4">
-                    <h5 className="font-medium text-lg mb-2">{vaccination.vaccine}</h5>
-                    <div className="space-y-1 text-sm">
-                      <p><strong>Date Given:</strong> {vaccination.date}</p>
-                      <p><strong>Next Due:</strong> {vaccination.nextDue}</p>
-                      <Badge 
-                        className={new Date(vaccination.nextDue) > new Date() 
-                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300" 
-                          : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
-                        }
-                      >
-                        {new Date(vaccination.nextDue) > new Date() ? "Current" : "Due"}
+          {/* Vaccinations & Mental Health */}
+          <div className="lg:col-span-1">
+            <div className="space-y-6">
+              {/* Vaccinations */}
+              <div>
+                <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
+                  <Shield className="h-5 w-5 text-primary" />
+                  Vaccines
+                </h4>
+                <div className="space-y-3">
+                  {record.vaccinations?.map((vaccination, index) => (
+                    <Card key={index} className="p-3">
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-start">
+                          <h5 className="font-medium text-sm">{vaccination.vaccine}</h5>
+                          <Badge 
+                            className={new Date(vaccination.nextDue) > new Date() 
+                              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300" 
+                              : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
+                            }
+                          >
+                            {new Date(vaccination.nextDue) > new Date() ? "Current" : "Due"}
+                          </Badge>
+                        </div>
+                        <div className="text-xs space-y-1">
+                          <p><strong>Given:</strong> {vaccination.date}</p>
+                          <p><strong>Next:</strong> {vaccination.nextDue}</p>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mental Health */}
+              <div>
+                <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
+                  <Brain className="h-5 w-5 text-primary" />
+                  Mental Health
+                </h4>
+                <Card className="p-4">
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Last Assessment</label>
+                      <p className="text-sm">{record.mentalHealth?.lastAssessment}</p>
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Status</label>
+                      <Badge className={getHealthStatusColor(record.mentalHealth?.status || "Good")}>
+                        {record.mentalHealth?.status}
                       </Badge>
                     </div>
-                  </CardContent>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Recommendations</label>
+                      <p className="text-xs bg-muted p-2 rounded mt-1">
+                        {record.mentalHealth?.recommendations}
+                      </p>
+                    </div>
+                  </div>
                 </Card>
-              ))}
+              </div>
             </div>
-          </TabsContent>
+          </div>
+        </div>
 
-          <TabsContent value="mental" className="space-y-4">
-            <h4 className="text-lg font-semibold flex items-center gap-2">
-              <Brain className="h-5 w-5 text-primary" />
-              Mental Health Assessment
-            </h4>
-            <Card>
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  <div>
-                    <label className="font-medium text-muted-foreground">Last Assessment</label>
-                    <p className="text-foreground">{record.mentalHealth?.lastAssessment}</p>
-                  </div>
-                  <div>
-                    <label className="font-medium text-muted-foreground">Status</label>
-                    <Badge className={getHealthStatusColor(record.mentalHealth?.status || "Good")}>
-                      {record.mentalHealth?.status}
-                    </Badge>
-                  </div>
-                  <div>
-                    <label className="font-medium text-muted-foreground">Recommendations</label>
-                    <p className="text-foreground bg-muted p-3 rounded-lg">
-                      {record.mentalHealth?.recommendations}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+        {/* Action Buttons */}
+        <div className="flex gap-2 mt-6 pt-4 border-t">
+          <Button variant="outline" className="flex-1">
+            <Download className="h-4 w-4 mr-2" />
+            Export Record
+          </Button>
+          <Button variant="outline" className="flex-1">
+            <Calendar className="h-4 w-4 mr-2" />
+            Schedule Appointment
+          </Button>
+          <Button className="flex-1">
+            <Plus className="h-4 w-4 mr-2" />
+            Add Entry
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

@@ -5,12 +5,6 @@ import { Dashboard } from "@/components/Dashboard";
 import { PatientManagement } from "@/components/PatientManagement";
 import { Appointments } from "@/components/Appointments";
 import { ComprehensiveMedicalRecords } from "@/components/ComprehensiveMedicalRecords";
-import { StaffManagement } from "@/components/StaffManagement";
-import { StaffMedicalRecords } from "@/components/StaffMedicalRecords";
-import { MedicalHistoryTimeline } from "@/components/MedicalHistoryTimeline";
-import { PrescriptionManagement } from "@/components/PrescriptionManagement";
-import { VaccinationRecords } from "@/components/VaccinationRecords";
-import { MentalHealthScreening } from "@/components/MentalHealthScreening";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -38,18 +32,6 @@ const Index = () => {
         return <Appointments />;
       case "records":
         return <ComprehensiveMedicalRecords />;
-      case "staff":
-        return <StaffManagement />;
-      case "staff-medical":
-        return <StaffMedicalRecords />;
-      case "medical-history":
-        return <MedicalHistoryTimeline />;
-      case "prescriptions":
-        return <PrescriptionManagement />;
-      case "vaccinations":
-        return <VaccinationRecords />;
-      case "mental-health":
-        return <MentalHealthScreening />;
       default:
         return <Dashboard />;
     }

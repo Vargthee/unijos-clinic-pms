@@ -3,12 +3,6 @@ import {
   Calendar, 
   FileText, 
   Users, 
-  Activity, 
-  UserCheck,
-  Stethoscope,
-  PillBottle,
-  Shield,
-  Brain,
   Home,
   UserPlus
 } from "lucide-react";
@@ -24,12 +18,6 @@ const sidebarItems = [
   { id: "patients", label: "Patient Management", icon: Users },
   { id: "appointments", label: "Appointments", icon: Calendar },
   { id: "records", label: "Medical Records", icon: FileText },
-  { id: "staff", label: "Staff Management", icon: UserCheck },
-  { id: "staff-medical", label: "Staff Medical Records", icon: Stethoscope },
-  { id: "medical-history", label: "Medical History", icon: Activity },
-  { id: "prescriptions", label: "Prescriptions", icon: PillBottle },
-  { id: "vaccinations", label: "Vaccinations", icon: Shield },
-  { id: "mental-health", label: "Mental Health", icon: Brain },
 ];
 
 export const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
