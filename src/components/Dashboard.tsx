@@ -1,5 +1,7 @@
 
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LoadingSpinner } from "@/components/ui/loading";
 import { Activity, Users, Calendar, FileText } from "lucide-react";
 
 const stats = [
@@ -41,24 +43,39 @@ const recentPatients = [
 ];
 
 export const Dashboard = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <LoadingSpinner text="Loading dashboard..." />;
+  }
+
   return (
     <div className="space-y-6">
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (
             <Card key={stat.title} className="hover:shadow-lg transition-shadow">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {stat.title}
                 </CardTitle>
                 <Icon className={`h-5 w-5 ${stat.color}`} />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-                <p className="text-xs text-gray-600 mt-1">
-                  <span className={stat.change.startsWith('+') ? 'text-green-600' : 'text-red-600'}>
+                <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stat.value}</div>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                  <span className={stat.change.startsWith('+') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}>
                     {stat.change}
                   </span>{' '}
                   from last month
@@ -73,19 +90,19 @@ export const Dashboard = () => {
       <div className="grid grid-cols-1 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold text-gray-900">
+            <CardTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">
               Today's Appointments
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {recentPatients.map((patient, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div>
-                    <p className="font-medium text-gray-900">{patient.name}</p>
-                    <p className="text-sm text-gray-600">{patient.id} • {patient.department}</p>
+                <div key={index} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg gap-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-gray-900 dark:text-gray-100 truncate">{patient.name}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 truncate">{patient.id} • {patient.department}</p>
                   </div>
-                  <div className="text-sm font-medium text-blue-600">
+                  <div className="text-sm font-medium text-blue-600 dark:text-blue-400 flex-shrink-0">
                     {patient.time}
                   </div>
                 </div>

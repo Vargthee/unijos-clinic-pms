@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Loading } from "@/components/ui/loading";
 import { useToast } from "@/hooks/use-toast";
 
 interface NewRecordDialogProps {
@@ -15,6 +16,7 @@ interface NewRecordDialogProps {
 
 export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     patientId: "",
     recordType: "",
@@ -28,7 +30,7 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
     weight: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.patientId || !formData.diagnosis || !formData.doctor) {
@@ -40,25 +42,40 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
       return;
     }
 
-    toast({
-      title: "Success",
-      description: "Medical record created successfully",
-    });
+    setIsSubmitting(true);
     
-    // Reset form and close dialog
-    setFormData({
-      patientId: "",
-      recordType: "",
-      diagnosis: "",
-      doctor: "",
-      medications: "",
-      notes: "",
-      temperature: "",
-      bloodPressure: "",
-      pulse: "",
-      weight: ""
-    });
-    onOpenChange(false);
+    // Simulate API call
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      toast({
+        title: "Success",
+        description: "Medical record created successfully",
+      });
+      
+      // Reset form and close dialog
+      setFormData({
+        patientId: "",
+        recordType: "",
+        diagnosis: "",
+        doctor: "",
+        medications: "",
+        notes: "",
+        temperature: "",
+        bloodPressure: "",
+        pulse: "",
+        weight: ""
+      });
+      onOpenChange(false);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to create medical record. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -73,7 +90,7 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="patientId">Patient ID *</Label>
               <Input
@@ -82,12 +99,17 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
                 onChange={(e) => handleInputChange("patientId", e.target.value)}
                 placeholder="P001234"
                 required
+                disabled={isSubmitting}
               />
             </div>
             
             <div className="space-y-2">
               <Label htmlFor="recordType">Record Type</Label>
-              <Select value={formData.recordType} onValueChange={(value) => handleInputChange("recordType", value)}>
+              <Select 
+                value={formData.recordType} 
+                onValueChange={(value) => handleInputChange("recordType", value)}
+                disabled={isSubmitting}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select record type" />
                 </SelectTrigger>
@@ -194,11 +216,27 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
           </div>
 
           <div className="flex justify-end gap-2 pt-4">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={() => onOpenChange(false)}
+              disabled={isSubmitting}
+            >
               Cancel
             </Button>
-            <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
-              Create Record
+            <Button 
+              type="submit" 
+              className="bg-blue-600 hover:bg-blue-700"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <Loading size="sm" className="mr-2" />
+                  Creating...
+                </>
+              ) : (
+                'Create Record'
+              )}
             </Button>
           </div>
         </form>
