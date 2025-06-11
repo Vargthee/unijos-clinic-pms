@@ -48,41 +48,41 @@
   }
 
   .dark {
-    --background: 220 15% 8%;
-    --foreground: 210 40% 95%;
+    --background: 222 15% 6%;
+    --foreground: 210 40% 98%;
 
-    --card: 220 15% 10%;
-    --card-foreground: 210 40% 95%;
+    --card: 222 15% 8%;
+    --card-foreground: 210 40% 96%;
 
-    --popover: 220 15% 10%;
-    --popover-foreground: 210 40% 95%;
+    --popover: 222 15% 8%;
+    --popover-foreground: 210 40% 96%;
 
-    --primary: 210 100% 70%;
-    --primary-foreground: 220 15% 8%;
+    --primary: 210 100% 65%;
+    --primary-foreground: 222 15% 6%;
 
-    --secondary: 215 25% 18%;
-    --secondary-foreground: 210 40% 90%;
+    --secondary: 217 25% 15%;
+    --secondary-foreground: 210 40% 92%;
 
-    --muted: 215 25% 18%;
-    --muted-foreground: 217.9 10.6% 70%;
+    --muted: 217 25% 15%;
+    --muted-foreground: 217.9 10.6% 64.9%;
 
-    --accent: 215 25% 18%;
-    --accent-foreground: 210 40% 90%;
+    --accent: 217 25% 18%;
+    --accent-foreground: 210 40% 92%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 215 25% 18%;
-    --input: 215 25% 18%;
+    --border: 217 25% 18%;
+    --input: 217 25% 18%;
     --ring: 216 12.2% 83.9%;
 
-    --sidebar-background: 220 15% 6%;
-    --sidebar-foreground: 210 40% 85%;
-    --sidebar-primary: 210 100% 70%;
-    --sidebar-primary-foreground: 220 15% 8%;
-    --sidebar-accent: 215 25% 16%;
-    --sidebar-accent-foreground: 210 40% 85%;
-    --sidebar-border: 215 25% 16%;
+    --sidebar-background: 222 15% 4%;
+    --sidebar-foreground: 210 40% 88%;
+    --sidebar-primary: 210 100% 65%;
+    --sidebar-primary-foreground: 222 15% 6%;
+    --sidebar-accent: 217 25% 12%;
+    --sidebar-accent-foreground: 210 40% 88%;
+    --sidebar-border: 217 25% 12%;
     --sidebar-ring: 216 12.2% 83.9%;
   }
 }
@@ -93,57 +93,62 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins;
+  }
+
   .dark {
-    background: linear-gradient(135deg, hsl(220, 15%, 8%) 0%, hsl(215, 20%, 10%) 100%);
+    background: linear-gradient(135deg, hsl(222, 15%, 6%) 0%, hsl(217, 20%, 8%) 100%);
   }
 
   .dark .card {
-    background: linear-gradient(145deg, hsl(220, 15%, 10%) 0%, hsl(215, 20%, 12%) 100%);
-    border: 1px solid hsl(215, 25%, 18%);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(145deg, hsl(222, 15%, 8%) 0%, hsl(217, 20%, 10%) 100%);
+    border: 1px solid hsl(217, 25%, 18%);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   }
 
   .dark .sidebar {
-    background: linear-gradient(180deg, hsl(220, 15%, 6%) 0%, hsl(215, 20%, 8%) 100%);
+    background: linear-gradient(180deg, hsl(222, 15%, 4%) 0%, hsl(217, 20%, 6%) 100%);
     backdrop-filter: blur(20px);
-    border-right: 1px solid hsl(215, 25%, 16%);
+    border-right: 1px solid hsl(217, 25%, 12%);
   }
 
   /* Improved text contrast in dark mode */
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-    color: hsl(210, 40%, 95%);
+    color: hsl(210, 40%, 98%);
+    font-weight: 600;
   }
 
   .dark p, .dark span, .dark div {
-    color: hsl(210, 40%, 85%);
+    color: hsl(210, 40%, 88%);
   }
 
   .dark .text-gray-600 {
-    color: hsl(217.9, 10.6%, 70%) !important;
+    color: hsl(217.9, 10.6%, 74.9%) !important;
   }
 
   .dark .text-gray-700 {
-    color: hsl(210, 40%, 75%) !important;
+    color: hsl(210, 40%, 82%) !important;
   }
 
   .dark .text-gray-800 {
-    color: hsl(210, 40%, 80%) !important;
+    color: hsl(210, 40%, 88%) !important;
   }
 
   .dark .text-gray-900 {
-    color: hsl(210, 40%, 90%) !important;
+    color: hsl(210, 40%, 96%) !important;
   }
 
   .dark .bg-gray-50 {
-    background-color: hsl(215, 25%, 16%) !important;
+    background-color: hsl(217, 25%, 15%) !important;
   }
 
   .dark .bg-gray-100 {
-    background-color: hsl(215, 25%, 18%) !important;
+    background-color: hsl(217, 25%, 18%) !important;
   }
 }
 
@@ -186,4 +191,29 @@
   .lg\:grid-cols-2 {
     @apply grid-cols-1;
   }
+}
+
+/* Custom animations and transitions */
+.hover-lift {
+  transition: all 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.dark .hover-lift:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.glass-effect {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-effect {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
