@@ -1,7 +1,10 @@
-
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, Plus, Phone } from "lucide-react";
+import { Calendar, Clock, Plus } from "lucide-react";
+import { ScheduleAppointmentDialog } from "./ScheduleAppointmentDialog";
+import { EditAppointmentDialog } from "./EditAppointmentDialog";
+import { useToast } from "@/hooks/use-toast";
 
 const appointments = [
   {
@@ -68,6 +71,24 @@ const getStatusColor = (status: string) => {
 };
 
 export const Appointments = () => {
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState<any>(null);
+  const { toast } = useToast();
+
+  const handleEditAppointment = (appointment: any) => {
+    setSelectedAppointment(appointment);
+    setIsEditOpen(true);
+  };
+
+  const handleCancelAppointment = (appointmentId: string) => {
+    toast({
+      title: "Appointment Cancelled",
+      description: `Appointment ${appointmentId} has been cancelled successfully.`,
+      variant: "destructive",
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -75,7 +96,10 @@ export const Appointments = () => {
           <h2 className="text-2xl font-bold text-gray-900">Appointments</h2>
           <p className="text-gray-600">Manage patient appointments and scheduling</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button 
+          className="bg-primary hover:bg-primary/90"
+          onClick={() => setIsScheduleOpen(true)}
+        >
           <Plus className="h-4 w-4 mr-2" />
           Schedule Appointment
         </Button>
@@ -85,7 +109,7 @@ export const Appointments = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-blue-600" />
+            <Calendar className="h-5 w-5 text-primary" />
             Today's Schedule - June 9, 2024
           </CardTitle>
         </CardHeader>
@@ -99,8 +123,8 @@ export const Appointments = () => {
                   className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg">
-                      <Clock className="h-6 w-6 text-blue-600" />
+                    <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg">
+                      <Clock className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-900">{appointment.patientName}</h3>
@@ -118,10 +142,11 @@ export const Appointments = () => {
                       </span>
                     </div>
                     <div className="flex gap-2">
-                      <Button variant="outline" size="sm">
-                        <Phone className="h-4 w-4" />
-                      </Button>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleEditAppointment(appointment)}
+                      >
                         Edit
                       </Button>
                     </div>
@@ -176,10 +201,18 @@ export const Appointments = () => {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex gap-2">
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleEditAppointment(appointment)}
+                        >
                           Edit
                         </Button>
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleCancelAppointment(appointment.id)}
+                        >
                           Cancel
                         </Button>
                       </div>
@@ -191,6 +224,26 @@ export const Appointments = () => {
           </div>
         </CardContent>
       </Card>
+
+      <ScheduleAppointmentDialog 
+        open={isScheduleOpen} 
+        onOpenChange={setIsScheduleOpen}
+        patientName="New Patient"
+      />
+
+      <EditAppointmentDialog 
+        open={isEditOpen} 
+        onOpenChange={setIsEditOpen}
+        appointment={selectedAppointment || {
+          id: "",
+          patientName: "",
+          doctor: "",
+          date: "",
+          time: "",
+          type: "",
+          status: ""
+        }}
+      />
     </div>
   );
 };

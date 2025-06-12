@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -23,6 +22,7 @@ import {
 import { AddPatientDialog } from "./AddPatientDialog";
 import { ScheduleAppointmentDialog } from "./ScheduleAppointmentDialog";
 import { EditProfileDialog } from "./EditProfileDialog";
+import { ViewRecordsDialog } from "./ViewRecordsDialog";
 import { useToast } from "@/hooks/use-toast";
 
 // Updated students data without addresses
@@ -328,6 +328,7 @@ export const PatientManagement = () => {
   const [isAddPatientOpen, setIsAddPatientOpen] = useState(false);
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState<any>(null);
   const { toast } = useToast();
 
@@ -344,11 +345,8 @@ export const PatientManagement = () => {
   );
 
   const handleViewRecords = (person: any) => {
-    toast({
-      title: "Opening Medical Records",
-      description: `Viewing comprehensive medical records for ${person.name}`,
-    });
-    // In a real app, this would navigate to the medical records page or open a modal
+    setSelectedPerson(person);
+    setIsViewRecordsOpen(true);
   };
 
   const handleScheduleAppointment = (person: any) => {
@@ -527,6 +525,13 @@ export const PatientManagement = () => {
       <AddPatientDialog 
         open={isAddPatientOpen} 
         onOpenChange={setIsAddPatientOpen} 
+      />
+
+      <ViewRecordsDialog 
+        open={isViewRecordsOpen} 
+        onOpenChange={setIsViewRecordsOpen}
+        patientName={selectedPerson?.name || "Patient"}
+        patientId={selectedPerson?.id || selectedPerson?.matricNumber || selectedPerson?.staffId || ""}
       />
 
       <ScheduleAppointmentDialog 
