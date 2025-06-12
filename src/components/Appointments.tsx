@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -93,11 +94,11 @@ export const Appointments = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Appointments</h2>
-          <p className="text-gray-600">Manage patient appointments and scheduling</p>
+          <h2 className="text-2xl font-bold text-foreground">Appointments</h2>
+          <p className="text-muted-foreground">Manage patient appointments and scheduling</p>
         </div>
         <Button 
-          className="bg-primary hover:bg-primary/90"
+          className="bg-primary hover:bg-primary/90 hover-scale"
           onClick={() => setIsScheduleOpen(true)}
         >
           <Plus className="h-4 w-4 mr-2" />
@@ -106,7 +107,7 @@ export const Appointments = () => {
       </div>
 
       {/* Today's Schedule */}
-      <Card>
+      <Card className="hover-lift">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="h-5 w-5 text-primary" />
@@ -120,23 +121,23 @@ export const Appointments = () => {
               .map((appointment) => (
                 <div
                   key={appointment.id}
-                  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200"
+                  className="flex items-center justify-between p-4 bg-muted/50 hover:bg-muted/80 rounded-lg border border-border hover-scale transition-all duration-200"
                 >
                   <div className="flex items-center gap-4">
                     <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg">
                       <Clock className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-medium text-gray-900">{appointment.patientName}</h3>
-                      <p className="text-sm text-gray-600">
+                      <h3 className="font-medium text-foreground">{appointment.patientName}</h3>
+                      <p className="text-sm text-muted-foreground">
                         {appointment.patientId} • {appointment.department}
                       </p>
-                      <p className="text-sm text-gray-600">{appointment.doctor}</p>
+                      <p className="text-sm text-muted-foreground">{appointment.doctor}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="font-medium text-gray-900">{appointment.time}</span>
+                      <span className="font-medium text-foreground">{appointment.time}</span>
                       <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(appointment.status)}`}>
                         {appointment.status}
                       </span>
@@ -145,6 +146,7 @@ export const Appointments = () => {
                       <Button 
                         variant="outline" 
                         size="sm"
+                        className="hover-scale"
                         onClick={() => handleEditAppointment(appointment)}
                       >
                         Edit
@@ -158,7 +160,7 @@ export const Appointments = () => {
       </Card>
 
       {/* All Appointments */}
-      <Card>
+      <Card className="hover-lift">
         <CardHeader>
           <CardTitle>All Appointments</CardTitle>
         </CardHeader>
@@ -166,34 +168,34 @@ export const Appointments = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Patient</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Doctor</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Department</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Date & Time</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Type</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Status</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Actions</th>
+                <tr className="border-b border-border">
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Patient</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Doctor</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Department</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Date & Time</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Type</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {appointments.map((appointment) => (
-                  <tr key={appointment.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <tr key={appointment.id} className="border-b border-border/50 hover:bg-muted/30 transition-colors duration-200">
                     <td className="py-3 px-4">
                       <div>
-                        <p className="font-medium text-gray-900">{appointment.patientName}</p>
-                        <p className="text-sm text-gray-600">{appointment.patientId}</p>
+                        <p className="font-medium text-foreground">{appointment.patientName}</p>
+                        <p className="text-sm text-muted-foreground">{appointment.patientId}</p>
                       </div>
                     </td>
-                    <td className="py-3 px-4">{appointment.doctor}</td>
-                    <td className="py-3 px-4">{appointment.department}</td>
+                    <td className="py-3 px-4 text-foreground">{appointment.doctor}</td>
+                    <td className="py-3 px-4 text-foreground">{appointment.department}</td>
                     <td className="py-3 px-4">
                       <div>
-                        <p className="font-medium">{appointment.date}</p>
-                        <p className="text-sm text-gray-600">{appointment.time}</p>
+                        <p className="font-medium text-foreground">{appointment.date}</p>
+                        <p className="text-sm text-muted-foreground">{appointment.time}</p>
                       </div>
                     </td>
-                    <td className="py-3 px-4">{appointment.type}</td>
+                    <td className="py-3 px-4 text-foreground">{appointment.type}</td>
                     <td className="py-3 px-4">
                       <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(appointment.status)}`}>
                         {appointment.status}
@@ -204,6 +206,7 @@ export const Appointments = () => {
                         <Button 
                           variant="outline" 
                           size="sm"
+                          className="hover-scale"
                           onClick={() => handleEditAppointment(appointment)}
                         >
                           Edit
@@ -211,6 +214,7 @@ export const Appointments = () => {
                         <Button 
                           variant="outline" 
                           size="sm"
+                          className="hover-scale"
                           onClick={() => handleCancelAppointment(appointment.id)}
                         >
                           Cancel
