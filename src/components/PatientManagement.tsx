@@ -12,8 +12,7 @@ import {
   Plus, 
   Calendar, 
   Phone, 
-  Mail, 
-  MapPin,
+  Mail,
   UserCheck,
   Stethoscope,
   Building2,
@@ -22,9 +21,11 @@ import {
   AlertCircle
 } from "lucide-react";
 import { AddPatientDialog } from "./AddPatientDialog";
+import { ScheduleAppointmentDialog } from "./ScheduleAppointmentDialog";
+import { EditProfileDialog } from "./EditProfileDialog";
 import { useToast } from "@/hooks/use-toast";
 
-// Using the same expanded data from ComprehensiveMedicalRecords
+// Updated students data without addresses
 const students = [
   {
     id: "P001234",
@@ -37,7 +38,6 @@ const students = [
     level: "200L",
     dateOfBirth: "2003-05-15",
     bloodType: "O+",
-    address: "Rayfield, Jos",
     emergencyContact: "+234 809 876 5432",
     status: "Active",
     lastVisit: "2024-06-05",
@@ -55,7 +55,6 @@ const students = [
     level: "400L",
     dateOfBirth: "2001-08-22",
     bloodType: "A+",
-    address: "Gangare, Jos",
     emergencyContact: "+234 808 765 4321",
     status: "Active",
     lastVisit: "2024-06-07",
@@ -73,7 +72,6 @@ const students = [
     level: "100L",
     dateOfBirth: "2004-12-10",
     bloodType: "B+",
-    address: "Bukuru, Jos",
     emergencyContact: "+234 808 765 4321",
     status: "Active",
     lastVisit: "2024-06-08",
@@ -91,7 +89,6 @@ const students = [
     level: "300L",
     dateOfBirth: "2002-03-18",
     bloodType: "AB+",
-    address: "Anglo Jos, Jos",
     emergencyContact: "+234 806 543 2109",
     status: "Active",
     lastVisit: "2024-06-09",
@@ -109,7 +106,6 @@ const students = [
     level: "500L",
     dateOfBirth: "2000-01-25",
     bloodType: "O-",
-    address: "GRA, Jos",
     emergencyContact: "+234 805 432 1098",
     status: "Active",
     lastVisit: "2024-06-06",
@@ -127,15 +123,49 @@ const students = [
     level: "200L",
     dateOfBirth: "2003-07-12",
     bloodType: "A-",
-    address: "Lamingo, Jos",
     emergencyContact: "+234 805 432 1098",
     status: "Active",
     lastVisit: "2024-06-04",
     initials: "CO",
     healthStatus: "Good"
+  },
+  {
+    id: "P001250",
+    name: "Amina Bello",
+    matricNumber: "UJ/2023/EDU/0890",
+    email: "amina.bello@unijos.edu.ng",
+    phone: "+234 807 890 1234",
+    faculty: "Education",
+    department: "Educational Psychology",
+    level: "100L",
+    dateOfBirth: "2004-09-08",
+    bloodType: "B-",
+    emergencyContact: "+234 803 210 9876",
+    status: "Active",
+    lastVisit: "2024-06-10",
+    initials: "AB",
+    healthStatus: "Good"
+  },
+  {
+    id: "P001251",
+    name: "David Pam",
+    matricNumber: "UJ/2021/AGR/0456",
+    email: "david.pam@unijos.edu.ng",
+    phone: "+234 808 901 2345",
+    faculty: "Agriculture",
+    department: "Animal Science",
+    level: "300L",
+    dateOfBirth: "2002-11-30",
+    bloodType: "A+",
+    emergencyContact: "+234 804 321 0987",
+    status: "Active",
+    lastVisit: "2024-06-11",
+    initials: "DP",
+    healthStatus: "Good"
   }
 ];
 
+// Updated staff data without addresses
 const staff = [
   {
     id: "S001",
@@ -148,7 +178,6 @@ const staff = [
     position: "Registrar",
     dateOfBirth: "1975-03-15",
     bloodType: "O+",
-    address: "GRA, Jos",
     emergencyContact: "+234 809 876 5432",
     status: "Active",
     lastVisit: "2024-05-20",
@@ -167,7 +196,6 @@ const staff = [
     position: "Chief Librarian",
     dateOfBirth: "1980-07-22",
     bloodType: "A+",
-    address: "Rayfield, Jos",
     emergencyContact: "+234 808 765 4321",
     status: "Active",
     lastVisit: "2024-04-15",
@@ -186,7 +214,6 @@ const staff = [
     position: "Security Coordinator",
     dateOfBirth: "1978-11-05",
     bloodType: "B+",
-    address: "Bukuru, Jos",
     emergencyContact: "+234 808 765 4321",
     status: "Active",
     lastVisit: "2024-06-01",
@@ -205,7 +232,6 @@ const staff = [
     position: "ICT Director",
     dateOfBirth: "1982-01-18",
     bloodType: "AB+",
-    address: "Anglo Jos, Jos",
     emergencyContact: "+234 806 543 2109",
     status: "Active",
     lastVisit: "2024-03-25",
@@ -224,7 +250,6 @@ const staff = [
     position: "Bursary Officer",
     dateOfBirth: "1985-09-12",
     bloodType: "O-",
-    address: "Lamingo, Jos",
     emergencyContact: "+234 805 432 1098",
     status: "Active",
     lastVisit: "2024-05-05",
@@ -243,7 +268,6 @@ const staff = [
     position: "Estate Officer",
     dateOfBirth: "1979-06-30",
     bloodType: "A-",
-    address: "Dogon Dutse, Jos",
     emergencyContact: "+234 804 321 0987",
     status: "Active",
     lastVisit: "2024-04-20",
@@ -262,7 +286,6 @@ const staff = [
     position: "HR Director",
     dateOfBirth: "1976-12-08",
     bloodType: "B-",
-    address: "Plateau State University Road, Jos",
     emergencyContact: "+234 803 210 9876",
     status: "Active",
     lastVisit: "2024-05-30",
@@ -303,6 +326,9 @@ const getHealthStatusColor = (status: string) => {
 export const PatientManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isAddPatientOpen, setIsAddPatientOpen] = useState(false);
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [selectedPerson, setSelectedPerson] = useState<any>(null);
   const { toast } = useToast();
 
   const filteredStudents = students.filter(student =>
@@ -326,19 +352,13 @@ export const PatientManagement = () => {
   };
 
   const handleScheduleAppointment = (person: any) => {
-    toast({
-      title: "Scheduling Appointment",
-      description: `Opening appointment scheduler for ${person.name}`,
-    });
-    // In a real app, this would open the appointment scheduling interface
+    setSelectedPerson(person);
+    setIsScheduleOpen(true);
   };
 
   const handleEditProfile = (person: any) => {
-    toast({
-      title: "Editing Profile",
-      description: `Opening profile editor for ${person.name}`,
-    });
-    // In a real app, this would open the profile editing interface
+    setSelectedPerson(person);
+    setIsEditOpen(true);
   };
 
   const PatientCard = ({ person, isStaff = false }) => (
@@ -380,10 +400,6 @@ export const PatientManagement = () => {
             <Phone className="h-4 w-4 text-muted-foreground" />
             <span className="text-muted-foreground">{person.phone}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground">{person.address}</span>
-          </div>
           {isStaff && (
             <div className="flex items-center gap-2">
               <Building2 className="h-4 w-4 text-muted-foreground" />
@@ -400,33 +416,33 @@ export const PatientManagement = () => {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-2">
+        <div className="grid grid-cols-3 gap-1">
           <Button 
             variant="outline" 
             size="sm" 
-            className="flex-1"
+            className="text-xs"
             onClick={() => handleViewRecords(person)}
           >
-            <Eye className="h-4 w-4 mr-2" />
-            View Records
+            <Eye className="h-3 w-3 mr-1" />
+            Records
           </Button>
           <Button 
             variant="outline" 
             size="sm" 
-            className="flex-1"
+            className="text-xs"
             onClick={() => handleScheduleAppointment(person)}
           >
-            <Calendar className="h-4 w-4 mr-2" />
-            Schedule Appointment
+            <Calendar className="h-3 w-3 mr-1" />
+            Schedule
           </Button>
           <Button 
             variant="outline" 
             size="sm" 
-            className="flex-1"
+            className="text-xs"
             onClick={() => handleEditProfile(person)}
           >
-            <Edit className="h-4 w-4 mr-2" />
-            Edit Profile
+            <Edit className="h-3 w-3 mr-1" />
+            Edit
           </Button>
         </div>
       </CardContent>
@@ -511,6 +527,19 @@ export const PatientManagement = () => {
       <AddPatientDialog 
         open={isAddPatientOpen} 
         onOpenChange={setIsAddPatientOpen} 
+      />
+
+      <ScheduleAppointmentDialog 
+        open={isScheduleOpen} 
+        onOpenChange={setIsScheduleOpen}
+        patientName={selectedPerson?.name || "Patient"}
+      />
+
+      <EditProfileDialog 
+        open={isEditOpen} 
+        onOpenChange={setIsEditOpen}
+        person={selectedPerson}
+        isStaff={selectedPerson?.staffId ? true : false}
       />
     </div>
   );

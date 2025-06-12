@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,8 +19,13 @@ import {
   Clock,
   User,
   Eye,
-  Download
+  Download,
+  Heart,
+  Thermometer,
+  Activity
 } from "lucide-react";
+import { AddMedicalEntryDialog } from "./AddMedicalEntryDialog";
+import { ScheduleAppointmentDialog } from "./ScheduleAppointmentDialog";
 
 // Expanded University staff data with realistic Nigerian names and departments
 const universityStaffRecords = [
@@ -341,7 +345,7 @@ const universityStaffRecords = [
   }
 ];
 
-// Expanded Student records with realistic Nigerian names
+// Expanded Student records with more realistic Nigerian names and additional health records
 const studentRecords = [
   {
     id: "STU001",
@@ -364,6 +368,13 @@ const studentRecords = [
         diagnosis: "Stress-related headaches",
         treatment: "Stress management, adequate sleep",
         doctor: "Dr. Fatima Aliyu"
+      },
+      {
+        date: "2024-04-12",
+        type: "Follow-up",
+        diagnosis: "Academic stress",
+        treatment: "Counseling sessions",
+        doctor: "Dr. Mary Gyang"
       }
     ],
     prescriptions: [
@@ -383,7 +394,22 @@ const studentRecords = [
       lastAssessment: "2024-06-05",
       status: "Mild stress",
       recommendations: "Regular counseling, stress management workshops"
-    }
+    },
+    vitals: {
+      temperature: "36.8°C",
+      bloodPressure: "115/75 mmHg",
+      pulse: "78 bpm",
+      weight: "58 kg",
+      height: "165 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "21.3"
+    },
+    previousVisits: [
+      { date: "2024-06-05", reason: "Stress headaches", doctor: "Dr. Fatima Aliyu" },
+      { date: "2024-04-12", reason: "Academic stress follow-up", doctor: "Dr. Mary Gyang" },
+      { date: "2024-02-20", reason: "Routine check-up", doctor: "Dr. Samuel Dung" }
+    ]
   },
   {
     id: "STU002",
@@ -406,6 +432,13 @@ const studentRecords = [
         diagnosis: "Ankle sprain (sports injury)",
         treatment: "RICE protocol, physiotherapy",
         doctor: "Dr. John Okafor"
+      },
+      {
+        date: "2024-05-20",
+        type: "Treatment",
+        diagnosis: "Minor cut during clinical practice",
+        treatment: "Wound cleaning, tetanus shot",
+        doctor: "Dr. Ruth Laven"
       }
     ],
     prescriptions: [
@@ -419,13 +452,30 @@ const studentRecords = [
     ],
     vaccinations: [
       { vaccine: "COVID-19 Booster", date: "2024-01-10", nextDue: "2025-01-10" },
-      { vaccine: "Hepatitis B", date: "2020-09-15", nextDue: "2025-09-15" }
+      { vaccine: "Hepatitis B", date: "2020-09-15", nextDue: "2025-09-15" },
+      { vaccine: "Tetanus", date: "2024-05-20", nextDue: "2034-05-20" }
     ],
     mentalHealth: {
       lastAssessment: "2024-06-07",
       status: "Good",
       recommendations: "Continue sports activities, stress relief"
-    }
+    },
+    vitals: {
+      temperature: "37.0°C",
+      bloodPressure: "120/80 mmHg",
+      pulse: "85 bpm",
+      weight: "72 kg",
+      height: "175 cm",
+      respiratoryRate: "18/min",
+      oxygenSaturation: "99%",
+      bmi: "23.5"
+    },
+    previousVisits: [
+      { date: "2024-06-07", reason: "Ankle sprain", doctor: "Dr. John Okafor" },
+      { date: "2024-05-20", reason: "Minor injury", doctor: "Dr. Ruth Laven" },
+      { date: "2024-03-15", reason: "Vaccination update", doctor: "Dr. Aisha Mohammed" },
+      { date: "2024-01-10", reason: "Annual check-up", doctor: "Dr. Emmanuel Yakubu" }
+    ]
   },
   {
     id: "STU003",
@@ -467,7 +517,21 @@ const studentRecords = [
       lastAssessment: "2024-06-08",
       status: "Good",
       recommendations: "Academic support, peer counseling"
-    }
+    },
+    vitals: {
+      temperature: "38.2°C",
+      bloodPressure: "110/70 mmHg",
+      pulse: "88 bpm",
+      weight: "55 kg",
+      height: "162 cm",
+      respiratoryRate: "20/min",
+      oxygenSaturation: "97%",
+      bmi: "20.9"
+    },
+    previousVisits: [
+      { date: "2024-06-08", reason: "URTI", doctor: "Dr. Aisha Mohammed" },
+      { date: "2024-04-15", reason: "Orientation health check", doctor: "Dr. Grace Musa" }
+    ]
   },
   {
     id: "STU004",
@@ -490,6 +554,13 @@ const studentRecords = [
         diagnosis: "Computer vision syndrome",
         treatment: "Eye exercises, blue light glasses",
         doctor: "Dr. Grace Musa"
+      },
+      {
+        date: "2024-05-15",
+        type: "Consultation",
+        diagnosis: "Dry eyes from excessive screen time",
+        treatment: "Artificial tears, screen breaks",
+        doctor: "Dr. Grace Musa"
       }
     ],
     prescriptions: [
@@ -509,7 +580,22 @@ const studentRecords = [
       lastAssessment: "2024-06-09",
       status: "Good",
       recommendations: "Digital wellness, study-life balance"
-    }
+    },
+    vitals: {
+      temperature: "36.5°C",
+      bloodPressure: "118/78 mmHg",
+      pulse: "72 bpm",
+      weight: "68 kg",
+      height: "170 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "23.5"
+    },
+    previousVisits: [
+      { date: "2024-06-09", reason: "CVS follow-up", doctor: "Dr. Grace Musa" },
+      { date: "2024-05-15", reason: "Eye strain", doctor: "Dr. Grace Musa" },
+      { date: "2024-03-15", reason: "Vaccination", doctor: "Dr. Samuel Dung" }
+    ]
   },
   {
     id: "STU005",
@@ -532,6 +618,13 @@ const studentRecords = [
         diagnosis: "Dysmenorrhea",
         treatment: "Pain management, hormonal evaluation",
         doctor: "Dr. Hauwa Ibrahim"
+      },
+      {
+        date: "2024-04-20",
+        type: "Counseling",
+        diagnosis: "Final year academic pressure",
+        treatment: "Stress management counseling",
+        doctor: "Dr. Mary Gyang"
       }
     ],
     prescriptions: [
@@ -551,7 +644,23 @@ const studentRecords = [
       lastAssessment: "2024-06-06",
       status: "Good",
       recommendations: "Final year support, career counseling"
-    }
+    },
+    vitals: {
+      temperature: "36.9°C",
+      bloodPressure: "108/68 mmHg",
+      pulse: "76 bpm",
+      weight: "62 kg",
+      height: "168 cm",
+      respiratoryRate: "15/min",
+      oxygenSaturation: "99%",
+      bmi: "22.0"
+    },
+    previousVisits: [
+      { date: "2024-06-06", reason: "Dysmenorrhea", doctor: "Dr. Hauwa Ibrahim" },
+      { date: "2024-04-20", reason: "Academic stress counseling", doctor: "Dr. Mary Gyang" },
+      { date: "2024-02-10", reason: "Routine check-up", doctor: "Dr. Peter Bulus" },
+      { date: "2024-01-05", reason: "Vaccination", doctor: "Dr. Ruth Laven" }
+    ]
   },
   {
     id: "STU006",
@@ -593,7 +702,133 @@ const studentRecords = [
       lastAssessment: "2024-06-04",
       status: "Good",
       recommendations: "Stress management, healthy eating habits"
-    }
+    },
+    vitals: {
+      temperature: "37.8°C",
+      bloodPressure: "100/65 mmHg",
+      pulse: "95 bpm",
+      weight: "66 kg",
+      height: "173 cm",
+      respiratoryRate: "18/min",
+      oxygenSaturation: "97%",
+      bmi: "22.1"
+    },
+    previousVisits: [
+      { date: "2024-06-04", reason: "Gastroenteritis", doctor: "Dr. Samuel Dung" },
+      { date: "2024-03-10", reason: "Routine check-up", doctor: "Dr. Emmanuel Yakubu" }
+    ]
+  },
+  {
+    id: "STU007",
+    patientId: "P001250",
+    name: "Amina Bello",
+    matricNumber: "UJ/2023/EDU/0890",
+    faculty: "Education",
+    department: "Educational Psychology",
+    level: "100L",
+    email: "amina.bello@unijos.edu.ng",
+    phone: "08078901234",
+    bloodType: "B-",
+    lastVisit: "2024-06-10",
+    healthStatus: "Good",
+    initials: "AB",
+    medicalHistory: [
+      {
+        date: "2024-06-10",
+        type: "Consultation",
+        diagnosis: "Adjustment disorder",
+        treatment: "Counseling, stress management",
+        doctor: "Dr. Mary Gyang"
+      }
+    ],
+    prescriptions: [],
+    vaccinations: [
+      { vaccine: "COVID-19", date: "2023-03-15", nextDue: "2024-03-15" },
+      { vaccine: "Meningitis", date: "2023-09-01", nextDue: "2028-09-01" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-10",
+      status: "Mild adjustment issues",
+      recommendations: "Regular counseling sessions, peer support groups"
+    },
+    vitals: {
+      temperature: "36.7°C",
+      bloodPressure: "112/72 mmHg",
+      pulse: "74 bpm",
+      weight: "59 kg",
+      height: "164 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "21.9"
+    },
+    previousVisits: [
+      { date: "2024-06-10", reason: "Adjustment counseling", doctor: "Dr. Mary Gyang" },
+      { date: "2024-04-25", reason: "Orientation health screening", doctor: "Dr. Aisha Mohammed" }
+    ]
+  },
+  {
+    id: "STU008",
+    patientId: "P001251",
+    name: "David Pam",
+    matricNumber: "UJ/2021/AGR/0456",
+    faculty: "Agriculture",
+    department: "Animal Science",
+    level: "300L",
+    email: "david.pam@unijos.edu.ng",
+    phone: "08089012345",
+    bloodType: "A+",
+    lastVisit: "2024-06-11",
+    healthStatus: "Good",
+    initials: "DP",
+    medicalHistory: [
+      {
+        date: "2024-06-11",
+        type: "Treatment",
+        diagnosis: "Allergic reaction to animal dander",
+        treatment: "Antihistamines, allergen avoidance",
+        doctor: "Dr. Peter Bulus"
+      },
+      {
+        date: "2024-05-05",
+        type: "Emergency",
+        diagnosis: "Minor laceration from farm equipment",
+        treatment: "Wound suturing, tetanus shot",
+        doctor: "Dr. John Okafor"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Cetirizine 10mg",
+        dosage: "Once daily",
+        duration: "2 weeks",
+        prescribedBy: "Dr. Peter Bulus",
+        date: "2024-06-11"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "Tetanus", date: "2024-05-05", nextDue: "2034-05-05" },
+      { vaccine: "COVID-19 Booster", date: "2024-02-15", nextDue: "2025-02-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-11",
+      status: "Good",
+      recommendations: "Stress management for practical work"
+    },
+    vitals: {
+      temperature: "36.8°C",
+      bloodPressure: "125/80 mmHg",
+      pulse: "80 bpm",
+      weight: "75 kg",
+      height: "178 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "23.7"
+    },
+    previousVisits: [
+      { date: "2024-06-11", reason: "Allergic reaction", doctor: "Dr. Peter Bulus" },
+      { date: "2024-05-05", reason: "Laceration treatment", doctor: "Dr. John Okafor" },
+      { date: "2024-02-15", reason: "Vaccination", doctor: "Dr. Ruth Laven" }
+    ]
   }
 ];
 
@@ -616,6 +851,8 @@ export const ComprehensiveMedicalRecords = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const [activeTab, setActiveTab] = useState("overview");
+  const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
   const filteredStaff = universityStaffRecords.filter(staff =>
     staff.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -632,6 +869,18 @@ export const ComprehensiveMedicalRecords = () => {
   const handleViewRecord = (record: any) => {
     setSelectedRecord(record);
     setActiveTab("overview");
+  };
+
+  const handleAddEntry = () => {
+    if (selectedRecord) {
+      setIsAddEntryOpen(true);
+    }
+  };
+
+  const handleScheduleAppointment = () => {
+    if (selectedRecord) {
+      setIsScheduleOpen(true);
+    }
   };
 
   const RecordCard = ({ record, isStaff = false }) => (
@@ -698,7 +947,7 @@ export const ComprehensiveMedicalRecords = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
           {/* Personal Information */}
           <div className="lg:col-span-1">
             <div className="space-y-4">
@@ -758,13 +1007,68 @@ export const ComprehensiveMedicalRecords = () => {
             </div>
           </div>
 
-          {/* Medical History */}
+          {/* Vital Signs */}
+          <div className="lg:col-span-1">
+            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
+              <Heart className="h-5 w-5 text-primary" />
+              Current Vitals
+            </h4>
+            <div className="space-y-3">
+              {record.vitals && (
+                <div className="grid gap-3">
+                  <Card className="p-3">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Thermometer className="h-4 w-4 text-red-500" />
+                      <span className="text-xs font-medium">Temperature</span>
+                    </div>
+                    <p className="text-sm font-semibold">{record.vitals.temperature}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Activity className="h-4 w-4 text-blue-500" />
+                      <span className="text-xs font-medium">Blood Pressure</span>
+                    </div>
+                    <p className="text-sm font-semibold">{record.vitals.bloodPressure}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Heart className="h-4 w-4 text-red-500" />
+                      <span className="text-xs font-medium">Pulse</span>
+                    </div>
+                    <p className="text-sm font-semibold">{record.vitals.pulse}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="text-xs font-medium mb-1">Weight</div>
+                    <p className="text-sm font-semibold">{record.vitals.weight}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="text-xs font-medium mb-1">Height</div>
+                    <p className="text-sm font-semibold">{record.vitals.height}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="text-xs font-medium mb-1">BMI</div>
+                    <p className="text-sm font-semibold">{record.vitals.bmi}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="text-xs font-medium mb-1">Respiratory Rate</div>
+                    <p className="text-sm font-semibold">{record.vitals.respiratoryRate}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="text-xs font-medium mb-1">O2 Saturation</div>
+                    <p className="text-sm font-semibold">{record.vitals.oxygenSaturation}</p>
+                  </Card>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Medical History & Previous Visits */}
           <div className="lg:col-span-1">
             <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
               <Clock className="h-5 w-5 text-primary" />
               Medical History
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-3 mb-6">
               {record.medicalHistory?.map((entry, index) => (
                 <Card key={index} className="p-3">
                   <div className="space-y-2">
@@ -779,6 +1083,23 @@ export const ComprehensiveMedicalRecords = () => {
                 </Card>
               ))}
             </div>
+
+            {record.previousVisits && (
+              <>
+                <h5 className="font-semibold text-sm mb-3">Previous Visits</h5>
+                <div className="space-y-2">
+                  {record.previousVisits.map((visit, index) => (
+                    <Card key={index} className="p-2">
+                      <div className="text-xs">
+                        <div className="font-medium">{visit.date}</div>
+                        <div className="text-muted-foreground">{visit.reason}</div>
+                        <div className="text-muted-foreground">👨‍⚕️ {visit.doctor}</div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {/* Prescriptions */}
@@ -787,7 +1108,7 @@ export const ComprehensiveMedicalRecords = () => {
               <PillBottle className="h-5 w-5 text-primary" />
               Medications
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-3 mb-6">
               {record.prescriptions?.length > 0 ? record.prescriptions.map((prescription, index) => (
                 <Card key={index} className="p-3">
                   <div className="space-y-2">
@@ -803,69 +1124,62 @@ export const ComprehensiveMedicalRecords = () => {
                 <p className="text-sm text-muted-foreground">No current medications</p>
               )}
             </div>
-          </div>
 
-          {/* Vaccinations & Mental Health */}
-          <div className="lg:col-span-1">
-            <div className="space-y-6">
-              {/* Vaccinations */}
-              <div>
-                <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
-                  <Shield className="h-5 w-5 text-primary" />
-                  Vaccines
-                </h4>
-                <div className="space-y-3">
-                  {record.vaccinations?.map((vaccination, index) => (
-                    <Card key={index} className="p-3">
-                      <div className="space-y-2">
-                        <div className="flex justify-between items-start">
-                          <h5 className="font-medium text-sm">{vaccination.vaccine}</h5>
-                          <Badge 
-                            className={new Date(vaccination.nextDue) > new Date() 
-                              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300" 
-                              : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
-                            }
-                          >
-                            {new Date(vaccination.nextDue) > new Date() ? "Current" : "Due"}
-                          </Badge>
-                        </div>
-                        <div className="text-xs space-y-1">
-                          <p><strong>Given:</strong> {vaccination.date}</p>
-                          <p><strong>Next:</strong> {vaccination.nextDue}</p>
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
+            {/* Mental Health */}
+            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
+              <Brain className="h-5 w-5 text-primary" />
+              Mental Health
+            </h4>
+            <Card className="p-4">
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Last Assessment</label>
+                  <p className="text-sm">{record.mentalHealth?.lastAssessment}</p>
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Status</label>
+                  <Badge className={getHealthStatusColor(record.mentalHealth?.status || "Good")}>
+                    {record.mentalHealth?.status}
+                  </Badge>
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Recommendations</label>
+                  <p className="text-xs bg-muted p-2 rounded mt-1">
+                    {record.mentalHealth?.recommendations}
+                  </p>
                 </div>
               </div>
+            </Card>
+          </div>
 
-              {/* Mental Health */}
-              <div>
-                <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
-                  <Brain className="h-5 w-5 text-primary" />
-                  Mental Health
-                </h4>
-                <Card className="p-4">
-                  <div className="space-y-3">
-                    <div>
-                      <label className="text-xs font-medium text-muted-foreground">Last Assessment</label>
-                      <p className="text-sm">{record.mentalHealth?.lastAssessment}</p>
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-muted-foreground">Status</label>
-                      <Badge className={getHealthStatusColor(record.mentalHealth?.status || "Good")}>
-                        {record.mentalHealth?.status}
+          {/* Vaccinations */}
+          <div className="lg:col-span-1">
+            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
+              <Shield className="h-5 w-5 text-primary" />
+              Vaccines
+            </h4>
+            <div className="space-y-3">
+              {record.vaccinations?.map((vaccination, index) => (
+                <Card key={index} className="p-3">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-start">
+                      <h5 className="font-medium text-sm">{vaccination.vaccine}</h5>
+                      <Badge 
+                        className={new Date(vaccination.nextDue) > new Date() 
+                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300" 
+                          : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
+                        }
+                      >
+                        {new Date(vaccination.nextDue) > new Date() ? "Current" : "Due"}
                       </Badge>
                     </div>
-                    <div>
-                      <label className="text-xs font-medium text-muted-foreground">Recommendations</label>
-                      <p className="text-xs bg-muted p-2 rounded mt-1">
-                        {record.mentalHealth?.recommendations}
-                      </p>
+                    <div className="text-xs space-y-1">
+                      <p><strong>Given:</strong> {vaccination.date}</p>
+                      <p><strong>Next:</strong> {vaccination.nextDue}</p>
                     </div>
                   </div>
                 </Card>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -876,11 +1190,11 @@ export const ComprehensiveMedicalRecords = () => {
             <Download className="h-4 w-4 mr-2" />
             Export Record
           </Button>
-          <Button variant="outline" className="flex-1">
+          <Button variant="outline" className="flex-1" onClick={handleScheduleAppointment}>
             <Calendar className="h-4 w-4 mr-2" />
             Schedule Appointment
           </Button>
-          <Button className="flex-1">
+          <Button className="flex-1" onClick={handleAddEntry}>
             <Plus className="h-4 w-4 mr-2" />
             Add Entry
           </Button>
@@ -899,7 +1213,7 @@ export const ComprehensiveMedicalRecords = () => {
             <p className="text-muted-foreground">Comprehensive health management system</p>
           </div>
         </div>
-        <Button className="bg-primary hover:bg-primary/90">
+        <Button className="bg-primary hover:bg-primary/90" onClick={() => setIsAddEntryOpen(true)}>
           <Plus className="h-4 w-4 mr-2" />
           New Record
         </Button>
@@ -951,6 +1265,18 @@ export const ComprehensiveMedicalRecords = () => {
           isStaff={selectedRecord.staffId ? true : false} 
         />
       )}
+
+      <AddMedicalEntryDialog 
+        open={isAddEntryOpen} 
+        onOpenChange={setIsAddEntryOpen}
+        patientName={selectedRecord?.name || "Patient"}
+      />
+
+      <ScheduleAppointmentDialog 
+        open={isScheduleOpen} 
+        onOpenChange={setIsScheduleOpen}
+        patientName={selectedRecord?.name || "Patient"}
+      />
     </div>
   );
 };
