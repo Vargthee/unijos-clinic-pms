@@ -369,7 +369,7 @@ const students = [
   }
 ];
 
-// Updated staff data without addresses
+// Updated staff data with 10 entries
 const staff = [
   {
     id: "S001",
@@ -495,6 +495,60 @@ const staff = [
     lastVisit: "2024-05-30",
     initials: "MU",
     yearsOfService: "9 years",
+    healthStatus: "Excellent"
+  },
+  {
+    id: "S008",
+    name: "Dr. Samuel Dung",
+    staffId: "UNIJOS/MED/008",
+    email: "samuel.dung@unijos.edu.ng",
+    phone: "+234 808 901 2345",
+    department: "Medical Center",
+    unit: "Emergency Medicine",
+    position: "Chief Medical Officer",
+    dateOfBirth: "1973-04-12",
+    bloodType: "A+",
+    emergencyContact: "+234 809 876 5432",
+    status: "Active",
+    lastVisit: "2024-06-15",
+    initials: "SD",
+    yearsOfService: "15 years",
+    healthStatus: "Good"
+  },
+  {
+    id: "S009",
+    name: "Mrs. Esther Bulus",
+    staffId: "UNIJOS/ADM/009",
+    email: "esther.bulus@unijos.edu.ng",
+    phone: "+234 809 012 3456",
+    department: "Administration",
+    unit: "General Administration",
+    position: "Administrative Officer",
+    dateOfBirth: "1981-08-20",
+    bloodType: "O+",
+    emergencyContact: "+234 801 234 5678",
+    status: "Active",
+    lastVisit: "2024-05-28",
+    initials: "EB",
+    yearsOfService: "8 years",
+    healthStatus: "Good"
+  },
+  {
+    id: "S010",
+    name: "Mr. Paul Nanbol",
+    staffId: "UNIJOS/SPS/010",
+    email: "paul.nanbol@unijos.edu.ng",
+    phone: "+234 810 123 4567",
+    department: "Student Services",
+    unit: "Counseling Center",
+    position: "Student Counselor",
+    dateOfBirth: "1977-02-14",
+    bloodType: "B+",
+    emergencyContact: "+234 802 345 6789",
+    status: "Active",
+    lastVisit: "2024-06-10",
+    initials: "PN",
+    yearsOfService: "11 years",
     healthStatus: "Excellent"
   }
 ];
