@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { UserCheck, Plus, Mail, Phone } from "lucide-react";
 
-// 8 staff members matching the patient management data
+// 8 staff members with updated information
 const staff = [
   {
     id: "S001",

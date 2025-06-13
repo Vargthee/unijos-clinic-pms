@@ -13,66 +13,66 @@ interface ViewRecordsDialogProps {
 }
 
 export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }: ViewRecordsDialogProps) => {
-  // More diverse medical records data
+  // More diverse medical records data with Nigerian conditions
   const records = [
     {
       id: "R001",
       date: "2024-06-05",
       type: "Emergency",
-      diagnosis: "Acute appendicitis - emergency appendectomy performed",
+      diagnosis: "Severe malaria with cerebral complications",
       doctor: "Dr. Fatima Aliyu",
       vitals: {
-        temperature: "38.2°C",
-        bloodPressure: "140/90 mmHg",
-        pulse: "95 bpm",
+        temperature: "40.1°C",
+        bloodPressure: "90/60 mmHg",
+        pulse: "120 bpm",
         weight: "58 kg",
       },
-      notes: "Patient presented with severe abdominal pain. Successful laparoscopic appendectomy.",
+      notes: "Patient presented with high fever, altered consciousness, and convulsions. Rapid diagnostic test positive for P. falciparum.",
       icon: Heart
     },
     {
       id: "R002",
       date: "2024-05-20",
-      type: "Consultation",
-      diagnosis: "Type 2 Diabetes - medication adjustment required",
+      type: "Treatment",
+      diagnosis: "Sickle cell vaso-occlusive crisis",
       doctor: "Dr. John Okafor",
       vitals: {
-        temperature: "36.6°C",
-        bloodPressure: "135/85 mmHg",
-        pulse: "78 bpm",
+        temperature: "37.8°C",
+        bloodPressure: "130/85 mmHg",
+        pulse: "95 bpm",
         weight: "61 kg",
       },
-      notes: "HbA1c levels elevated at 8.2%. Metformin dosage increased.",
+      notes: "Severe bone pain in extremities. Managed with strong analgesics and IV hydration therapy.",
       icon: Stethoscope
     },
     {
       id: "R003",
       date: "2024-04-15",
-      type: "Specialist",
-      diagnosis: "Myopia progression - prescription update",
+      type: "Follow-up",
+      diagnosis: "Pulmonary tuberculosis - treatment monitoring",
       doctor: "Dr. Aisha Mohammed",
       vitals: {
-        temperature: "36.5°C",
+        temperature: "36.8°C",
         bloodPressure: "120/75 mmHg",
         pulse: "72 bpm",
         weight: "59 kg",
       },
-      notes: "Vision deteriorated from -2.5 to -3.0 in both eyes. New prescription provided.",
+      notes: "Month 4 of anti-TB treatment. Sputum conversion achieved. Patient showing good clinical improvement.",
       icon: Eye
     },
     {
       id: "R004",
       date: "2024-03-10",
-      type: "Mental Health",
-      diagnosis: "Anxiety disorder - cognitive behavioral therapy recommended",
+      type: "Consultation",
+      diagnosis: "Chronic kidney disease secondary to hypertension",
       doctor: "Dr. Peter Nnamdi",
       vitals: {
-        temperature: "36.7°C",
-        bloodPressure: "125/80 mmHg",
+        temperature: "36.6°C",
+        bloodPressure: "160/95 mmHg",
         pulse: "85 bpm",
         weight: "57 kg",
       },
-      notes: "Patient experiencing work-related stress. CBT sessions scheduled weekly.",
+      notes: "Stage 3 CKD with declining eGFR. Blood pressure control initiated. Dietary protein restriction advised.",
       icon: Brain
     }
   ];

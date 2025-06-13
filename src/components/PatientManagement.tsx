@@ -2,635 +2,570 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { 
-  Users, 
-  Search, 
-  Plus, 
-  Calendar, 
-  Phone, 
+import {
+  FileText,
+  User,
   Mail,
-  UserCheck,
-  Stethoscope,
-  Building2,
-  Eye,
+  Phone,
   Edit,
-  AlertCircle
+  Trash2,
+  Search,
+  Download,
+  Eye,
+  Calendar,
+  Stethoscope,
+  Plus,
+  UserPlus,
+  Users,
+  UserCheck,
 } from "lucide-react";
-import { AddPatientDialog } from "./AddPatientDialog";
-import { ScheduleAppointmentDialog } from "./ScheduleAppointmentDialog";
-import { EditProfileDialog } from "./EditProfileDialog";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
-import { useToast } from "@/hooks/use-toast";
 
-// 12 students data with diverse entries
-const students = [
+const patients = [
   {
     id: "P001234",
     name: "Adaora Okonkwo",
-    matricNumber: "UJ/2022/ENG/0234",
-    email: "adaora.okonkwo@unijos.edu.ng",
-    phone: "+234 801 234 5678",
+    age: 20,
+    gender: "Female",
     faculty: "Engineering",
     department: "Computer Engineering",
     level: "200L",
-    dateOfBirth: "2003-05-15",
-    bloodType: "O+",
-    emergencyContact: "+234 809 876 5432",
-    status: "Active",
+    matricNumber: "UJ/2022/ENG/0234",
+    condition: "Malaria fever with complications",
+    status: "Stable",
     lastVisit: "2024-06-05",
-    initials: "AO",
-    healthStatus: "Good"
+    nextAppointment: "2024-06-20",
+    doctor: "Dr. Fatima Aliyu",
+    bloodType: "O+",
+    allergies: ["None known"],
+    phone: "08012345678",
+    email: "adaora.okonkwo@unijos.edu.ng",
+    emergencyContact: "08098765432",
+    address: "No. 45 Zaria Road, Jos",
+    medicalHistory: [
+      "Typhoid fever (2023)",
+      "Recurrent malaria episodes"
+    ]
   },
   {
     id: "P001235",
     name: "Ibrahim Musa",
-    matricNumber: "UJ/2020/MED/0456",
-    email: "ibrahim.musa@unijos.edu.ng",
-    phone: "+234 802 345 6789",
+    age: 22,
+    gender: "Male",
     faculty: "Medicine",
     department: "Medicine & Surgery",
     level: "400L",
-    dateOfBirth: "2001-08-22",
-    bloodType: "A+",
-    emergencyContact: "+234 808 765 4321",
-    status: "Active",
+    matricNumber: "UJ/2020/MED/0456",
+    condition: "Sickle cell crisis management",
+    status: "Under Treatment",
     lastVisit: "2024-06-07",
-    initials: "IM",
-    healthStatus: "Good"
+    nextAppointment: "2024-06-15",
+    doctor: "Dr. John Okafor",
+    bloodType: "SS",
+    allergies: ["Codeine", "Sulfa drugs"],
+    phone: "08023456789",
+    email: "ibrahim.musa@unijos.edu.ng",
+    emergencyContact: "08087654321",
+    address: "No. 12 Bauchi Road, Jos",
+    medicalHistory: [
+      "Sickle cell disease (chronic)",
+      "Multiple pain crises",
+      "Leg ulcers (healed)"
+    ]
   },
   {
     id: "P001236",
     name: "Blessing Eze",
-    matricNumber: "UJ/2023/SSC/0123",
-    email: "blessing.eze@unijos.edu.ng",
-    phone: "+234 803 456 7890",
+    age: 18,
+    gender: "Female",
     faculty: "Social Sciences",
     department: "Psychology",
     level: "100L",
-    dateOfBirth: "2004-12-10",
-    bloodType: "B+",
-    emergencyContact: "+234 808 765 4321",
-    status: "Active",
+    matricNumber: "UJ/2023/SSC/0123",
+    condition: "Peptic ulcer disease",
+    status: "Recovering",
     lastVisit: "2024-06-08",
-    initials: "BE",
-    healthStatus: "Good"
+    nextAppointment: "2024-06-25",
+    doctor: "Dr. Aisha Mohammed",
+    bloodType: "B+",
+    allergies: ["NSAIDs"],
+    phone: "08034567890",
+    email: "blessing.eze@unijos.edu.ng",
+    emergencyContact: "08076543210",
+    address: "No. 78 Tudun Wada, Jos",
+    medicalHistory: [
+      "H. pylori infection",
+      "Gastritis"
+    ]
   },
   {
     id: "P001237",
     name: "Yusuf Abdullahi",
-    matricNumber: "UJ/2021/NSC/0789",
-    email: "yusuf.abdullahi@unijos.edu.ng",
-    phone: "+234 804 567 8901",
+    age: 21,
+    gender: "Male",
     faculty: "Natural Sciences",
     department: "Computer Science",
     level: "300L",
-    dateOfBirth: "2002-03-18",
-    bloodType: "AB+",
-    emergencyContact: "+234 806 543 2109",
-    status: "Active",
+    matricNumber: "UJ/2021/NSC/0789",
+    condition: "Bronchial asthma exacerbation",
+    status: "Stable",
     lastVisit: "2024-06-09",
-    initials: "YA",
-    healthStatus: "Good"
+    nextAppointment: "2024-06-22",
+    doctor: "Dr. Grace Musa",
+    bloodType: "AB+",
+    allergies: ["Dust mites", "Pollen"],
+    phone: "08045678901",
+    email: "yusuf.abdullahi@unijos.edu.ng",
+    emergencyContact: "08065432109",
+    address: "No. 23 Lamingo, Jos",
+    medicalHistory: [
+      "Childhood asthma",
+      "Allergic rhinitis"
+    ]
   },
   {
     id: "P001238",
     name: "Fatima Aliyu",
-    matricNumber: "UJ/2019/LAW/0345",
-    email: "fatima.aliyu.student@unijos.edu.ng",
-    phone: "+234 805 678 9012",
+    age: 23,
+    gender: "Female",
     faculty: "Law",
     department: "Law",
     level: "500L",
-    dateOfBirth: "2000-01-25",
-    bloodType: "O-",
-    emergencyContact: "+234 805 432 1098",
-    status: "Active",
+    matricNumber: "UJ/2019/LAW/0345",
+    condition: "Iron deficiency anemia",
+    status: "Under Treatment",
     lastVisit: "2024-06-06",
-    initials: "FA",
-    healthStatus: "Good"
+    nextAppointment: "2024-06-18",
+    doctor: "Dr. Hauwa Ibrahim",
+    bloodType: "O-",
+    allergies: ["None known"],
+    phone: "08056789012",
+    email: "fatima.aliyu.student@unijos.edu.ng",
+    emergencyContact: "08054321098",
+    address: "No. 67 Rayfield, Jos",
+    medicalHistory: [
+      "Heavy menstrual bleeding",
+      "Previous iron deficiency"
+    ]
   },
   {
     id: "P001239",
     name: "Chidi Okafor",
-    matricNumber: "UJ/2022/PHM/0567",
-    email: "chidi.okafor@unijos.edu.ng",
-    phone: "+234 806 789 0123",
+    age: 20,
+    gender: "Male",
     faculty: "Pharmacy",
     department: "Pharmacy",
     level: "200L",
-    dateOfBirth: "2003-07-12",
-    bloodType: "A-",
-    emergencyContact: "+234 805 432 1098",
-    status: "Active",
+    matricNumber: "UJ/2022/PHM/0567",
+    condition: "Hepatitis B infection",
+    status: "Stable",
     lastVisit: "2024-06-04",
-    initials: "CO",
-    healthStatus: "Good"
+    nextAppointment: "2024-07-04",
+    doctor: "Dr. Samuel Dung",
+    bloodType: "A-",
+    allergies: ["Penicillin"],
+    phone: "08067890123",
+    email: "chidi.okafor@unijos.edu.ng",
+    emergencyContact: "08043210987",
+    address: "No. 34 Bukuru, Jos",
+    medicalHistory: [
+      "Acute hepatitis B",
+      "Previous jaundice episode"
+    ]
   },
   {
     id: "P001240",
     name: "Amina Bello",
-    matricNumber: "UJ/2023/EDU/0890",
-    email: "amina.bello@unijos.edu.ng",
-    phone: "+234 807 890 1234",
+    age: 19,
+    gender: "Female",
     faculty: "Education",
     department: "Educational Psychology",
     level: "100L",
-    dateOfBirth: "2004-09-08",
-    bloodType: "B-",
-    emergencyContact: "+234 803 210 9876",
-    status: "Active",
+    matricNumber: "UJ/2023/EDU/0890",
+    condition: "Urinary tract infection (UTI)",
+    status: "Recovering",
     lastVisit: "2024-06-10",
-    initials: "AB",
-    healthStatus: "Fair"
+    nextAppointment: "2024-06-17",
+    doctor: "Dr. Mary Gyang",
+    bloodType: "B-",
+    allergies: ["None known"],
+    phone: "08078901234",
+    email: "amina.bello@unijos.edu.ng",
+    emergencyContact: "08032109876",
+    address: "No. 89 Anglo Jos, Jos",
+    medicalHistory: [
+      "Recurrent UTIs",
+      "Kidney stones (small)"
+    ]
   },
   {
     id: "P001241",
     name: "David Pam",
-    matricNumber: "UJ/2021/AGR/0456",
-    email: "david.pam@unijos.edu.ng",
-    phone: "+234 808 901 2345",
+    age: 21,
+    gender: "Male",
     faculty: "Agriculture",
     department: "Animal Science",
     level: "300L",
-    dateOfBirth: "2002-11-30",
-    bloodType: "A+",
-    emergencyContact: "+234 804 321 0987",
-    status: "Active",
+    matricNumber: "UJ/2021/AGR/0456",
+    condition: "Meningitis (recovering)",
+    status: "Stable",
     lastVisit: "2024-06-11",
-    initials: "DP",
-    healthStatus: "Excellent"
+    nextAppointment: "2024-06-19",
+    doctor: "Dr. Peter Bulus",
+    bloodType: "A+",
+    allergies: ["None known"],
+    phone: "08089012345",
+    email: "david.pam@unijos.edu.ng",
+    emergencyContact: "08021098765",
+    address: "No. 56 Plateau State University Road, Jos",
+    medicalHistory: [
+      "Bacterial meningitis",
+      "Previous headache episodes"
+    ]
   },
   {
     id: "P001242",
     name: "Hauwa Mohammed",
-    matricNumber: "UJ/2020/ENV/0123",
-    email: "hauwa.mohammed@unijos.edu.ng",
-    phone: "+234 809 012 3456",
+    age: 22,
+    gender: "Female",
     faculty: "Environmental Sciences",
-    department: "Geography & Planning",
+    department: "Geography",
     level: "400L",
-    dateOfBirth: "2001-04-22",
-    bloodType: "O+",
-    emergencyContact: "+234 802 109 8765",
-    status: "Active",
+    matricNumber: "UJ/2020/ENV/0123",
+    condition: "Rheumatic heart disease",
+    status: "Stable",
     lastVisit: "2024-06-12",
-    initials: "HM",
-    healthStatus: "Excellent"
+    nextAppointment: "2024-07-12",
+    doctor: "Dr. Emmanuel Yakubu",
+    bloodType: "AB-",
+    allergies: ["Aspirin"],
+    phone: "08090123456",
+    email: "hauwa.mohammed@unijos.edu.ng",
+    emergencyContact: "08010987654",
+    address: "No. 45 Jenta Adamu, Jos",
+    medicalHistory: [
+      "Rheumatic fever (childhood)",
+      "Heart murmur"
+    ]
   },
   {
     id: "P001243",
     name: "Samuel Gyang",
-    matricNumber: "UJ/2023/MSC/0789",
-    email: "samuel.gyang@unijos.edu.ng",
-    phone: "+234 810 123 4567",
+    age: 18,
+    gender: "Male",
     faculty: "Management Sciences",
     department: "Business Administration",
     level: "100L",
-    dateOfBirth: "2004-01-15",
-    bloodType: "B+",
-    emergencyContact: "+234 803 210 9876",
-    status: "Active",
+    matricNumber: "UJ/2023/MSC/0789",
+    condition: "Tuberculosis (on treatment)",
+    status: "Under Treatment",
     lastVisit: "2024-06-13",
-    initials: "SG",
-    healthStatus: "Good"
+    nextAppointment: "2024-06-20",
+    doctor: "Dr. Ruth Laven",
+    bloodType: "O+",
+    allergies: ["None known"],
+    phone: "08012346789",
+    email: "samuel.gyang@unijos.edu.ng",
+    emergencyContact: "08098767890",
+    address: "No. 23 Dogon Dutse, Jos",
+    medicalHistory: [
+      "Pulmonary tuberculosis",
+      "Contact with TB patient"
+    ]
   },
   {
     id: "P001244",
     name: "Ruth Laven",
-    matricNumber: "UJ/2022/VET/0456",
-    email: "ruth.laven@unijos.edu.ng",
-    phone: "+234 811 234 5678",
+    age: 20,
+    gender: "Female",
     faculty: "Veterinary Medicine",
     department: "Veterinary Medicine",
     level: "200L",
-    dateOfBirth: "2003-08-30",
-    bloodType: "AB-",
-    emergencyContact: "+234 804 321 0987",
-    status: "Active",
+    matricNumber: "UJ/2022/VET/0456",
+    condition: "Thyroid disorder (hyperthyroidism)",
+    status: "Stable",
     lastVisit: "2024-06-14",
-    initials: "RL",
-    healthStatus: "Good"
+    nextAppointment: "2024-07-14",
+    doctor: "Dr. Fatima Aliyu",
+    bloodType: "A+",
+    allergies: ["Iodine"],
+    phone: "08023457890",
+    email: "ruth.laven@unijos.edu.ng",
+    emergencyContact: "08087657891",
+    address: "No. 67 Vom Road, Jos",
+    medicalHistory: [
+      "Goiter",
+      "Weight loss episodes"
+    ]
   },
   {
     id: "P001245",
     name: "Emmanuel Yakubu",
-    matricNumber: "UJ/2021/ART/0234",
-    email: "emmanuel.yakubu@unijos.edu.ng",
-    phone: "+234 812 345 6789",
+    age: 21,
+    gender: "Male",
     faculty: "Arts",
     department: "English Language",
     level: "300L",
-    dateOfBirth: "2002-12-05",
-    bloodType: "A+",
-    emergencyContact: "+234 805 432 1098",
-    status: "Pending",
+    matricNumber: "UJ/2021/ART/0234",
+    condition: "Chronic kidney disease (early stage)",
+    status: "Under Treatment",
     lastVisit: "2024-06-15",
-    initials: "EY",
-    healthStatus: "Fair"
+    nextAppointment: "2024-06-25",
+    doctor: "Dr. John Okafor",
+    bloodType: "B+",
+    allergies: ["None known"],
+    phone: "08034568901",
+    email: "emmanuel.yakubu.student@unijos.edu.ng",
+    emergencyContact: "08076548902",
+    address: "No. 12 Hwolshe, Jos",
+    medicalHistory: [
+      "Hypertension",
+      "Proteinuria"
+    ]
   }
 ];
 
-// 8 staff members data
 const staff = [
   {
     id: "S001",
     name: "Dr. Hauwa Abdullahi",
-    staffId: "UNIJOS/REG/001",
-    email: "hauwa.abdullahi@unijos.edu.ng",
-    phone: "+234 801 234 5678",
+    role: "Registrar",
     department: "Academic Registry",
-    unit: "Student Records",
-    position: "Registrar",
-    dateOfBirth: "1975-03-15",
-    bloodType: "O+",
-    emergencyContact: "+234 809 876 5432",
-    status: "Active",
-    lastVisit: "2024-05-20",
+    patients: 0,
     initials: "HA",
-    yearsOfService: "12 years",
-    healthStatus: "Good"
   },
   {
     id: "S002",
     name: "Mr. James Dung",
-    staffId: "UNIJOS/LIB/002",
-    email: "james.dung@unijos.edu.ng",
-    phone: "+234 802 345 6789",
+    role: "Chief Librarian",
     department: "Library Services",
-    unit: "Main Library",
-    position: "Chief Librarian",
-    dateOfBirth: "1980-07-22",
-    bloodType: "A+",
-    emergencyContact: "+234 808 765 4321",
-    status: "Active",
-    lastVisit: "2024-04-15",
+    patients: 0,
     initials: "JD",
-    yearsOfService: "10 years",
-    healthStatus: "Excellent"
   },
   {
     id: "S003",
     name: "Mrs. Grace Yakubu",
-    staffId: "UNIJOS/SEC/003",
-    email: "grace.yakubu@unijos.edu.ng",
-    phone: "+234 803 456 7890",
+    role: "Security Coordinator",
     department: "Security Services",
-    unit: "Campus Security",
-    position: "Security Coordinator",
-    dateOfBirth: "1978-11-05",
-    bloodType: "B+",
-    emergencyContact: "+234 808 765 4321",
-    status: "Active",
-    lastVisit: "2024-06-01",
+    patients: 0,
     initials: "GY",
-    yearsOfService: "8 years",
-    healthStatus: "Good"
   },
   {
     id: "S004",
     name: "Engr. Emmanuel Bulus",
-    staffId: "UNIJOS/ICT/004",
-    email: "emmanuel.bulus@unijos.edu.ng",
-    phone: "+234 804 567 8901",
+    role: "ICT Director",
     department: "Information Technology",
-    unit: "ICT Center",
-    position: "ICT Director",
-    dateOfBirth: "1982-01-18",
-    bloodType: "AB+",
-    emergencyContact: "+234 806 543 2109",
-    status: "Active",
-    lastVisit: "2024-03-25",
+    patients: 0,
     initials: "EB",
-    yearsOfService: "6 years",
-    healthStatus: "Good"
   },
   {
     id: "S005",
     name: "Mrs. Rebecca Gyang",
-    staffId: "UNIJOS/BUR/005",
-    email: "rebecca.gyang@unijos.edu.ng",
-    phone: "+234 805 678 9012",
+    role: "Bursary Officer",
     department: "Bursary",
-    unit: "Financial Services",
-    position: "Bursary Officer",
-    dateOfBirth: "1985-09-12",
-    bloodType: "O-",
-    emergencyContact: "+234 805 432 1098",
-    status: "Active",
-    lastVisit: "2024-05-05",
+    patients: 0,
     initials: "RG",
-    yearsOfService: "5 years",
-    healthStatus: "Good"
   },
   {
     id: "S006",
     name: "Mr. Daniel Kwaghe",
-    staffId: "UNIJOS/EST/006",
-    email: "daniel.kwaghe@unijos.edu.ng",
-    phone: "+234 806 789 0123",
+    role: "Estate Officer",
     department: "Estate Management",
-    unit: "Facilities",
-    position: "Estate Officer",
-    dateOfBirth: "1979-06-30",
-    bloodType: "A-",
-    emergencyContact: "+234 804 321 0987",
-    status: "Active",
-    lastVisit: "2024-04-20",
+    patients: 0,
     initials: "DK",
-    yearsOfService: "7 years",
-    healthStatus: "Good"
   },
   {
     id: "S007",
     name: "Mrs. Maryam Umar",
-    staffId: "UNIJOS/HR/007",
-    email: "maryam.umar@unijos.edu.ng",
-    phone: "+234 807 890 1234",
+    role: "HR Director",
     department: "Human Resources",
-    unit: "Staff Development",
-    position: "HR Director",
-    dateOfBirth: "1976-12-08",
-    bloodType: "B-",
-    emergencyContact: "+234 803 210 9876",
-    status: "Active",
-    lastVisit: "2024-05-30",
+    patients: 0,
     initials: "MU",
-    yearsOfService: "9 years",
-    healthStatus: "Excellent"
   },
   {
     id: "S008",
     name: "Dr. Samuel Dung",
-    staffId: "UNIJOS/MED/008",
-    email: "samuel.dung@unijos.edu.ng",
-    phone: "+234 808 901 2345",
+    role: "Chief Medical Officer",
     department: "Medical Center",
-    unit: "Emergency Medicine",
-    position: "Chief Medical Officer",
-    dateOfBirth: "1973-04-12",
-    bloodType: "A+",
-    emergencyContact: "+234 809 876 5432",
-    status: "Active",
-    lastVisit: "2024-06-15",
+    patients: 45,
     initials: "SD",
-    yearsOfService: "15 years",
-    healthStatus: "Good"
   }
 ];
 
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case "Active":
-      return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
-    case "Inactive":
-      return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
-    case "Pending":
-      return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
-    default:
-      return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300";
-  }
-};
-
-const getHealthStatusColor = (status: string) => {
-  switch (status) {
-    case "Excellent":
-      return "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300";
-    case "Good":
-      return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
-    case "Fair":
-      return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
-    case "Poor":
-      return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
-    default:
-      return "bg-gray-100 text-gray-800 dark:bg-gray-800/30 dark:text-gray-300";
-  }
+const getConditionColor = (condition: string) => {
+  if (condition.includes("Stable")) return "bg-green-100 text-green-800";
+  if (condition.includes("Treatment")) return "bg-orange-100 text-orange-800";
+  if (condition.includes("Recovering")) return "bg-blue-100 text-blue-800";
+  return "bg-gray-100 text-gray-800";
 };
 
 export const PatientManagement = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedFaculty, setSelectedFaculty] = useState("");
   const [isAddPatientOpen, setIsAddPatientOpen] = useState(false);
-  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(false);
   const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
-  const [selectedPerson, setSelectedPerson] = useState<any>(null);
-  const { toast } = useToast();
+  const [selectedPatient, setSelectedPatient] = useState(null);
 
-  const filteredStudents = students.filter(student =>
-    student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.matricNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.faculty.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const faculties = [...new Set(patients.map((patient) => patient.faculty))];
 
-  const filteredStaff = staff.filter(member =>
-    member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    member.staffId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    member.department.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredPatients = patients.filter((patient) => {
+    const searchRegex = new RegExp(searchQuery, "i");
+    const matchesSearch = searchRegex.test(patient.name) || searchRegex.test(patient.matricNumber);
+    const matchesFaculty = selectedFaculty ? patient.faculty === selectedFaculty : true;
+    return matchesSearch && matchesFaculty;
+  });
 
-  const handleViewRecords = (person: any) => {
-    setSelectedPerson(person);
+  const handleViewRecords = (patient) => {
+    setSelectedPatient(patient);
     setIsViewRecordsOpen(true);
   };
 
-  const handleScheduleAppointment = (person: any) => {
-    setSelectedPerson(person);
-    setIsScheduleOpen(true);
-  };
-
-  const handleEditProfile = (person: any) => {
-    setSelectedPerson(person);
-    setIsEditOpen(true);
-  };
-
-  const PatientCard = ({ person, isStaff = false }) => (
-    <Card key={person.id} className="hover-lift transition-all duration-300">
-      <CardContent className="p-4 sm:p-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 mb-4">
-          <Avatar className="h-12 w-12 sm:h-16 sm:w-16">
-            <AvatarFallback className="bg-primary/10 text-primary font-semibold text-sm sm:text-lg">
-              {person.initials}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <h3 className="font-semibold text-foreground text-lg truncate">{person.name}</h3>
-              <div className="flex gap-2">
-                <Badge className={getStatusColor(person.status)}>
-                  {person.status}
-                </Badge>
-                <Badge className={getHealthStatusColor(person.healthStatus)}>
-                  {person.healthStatus}
-                </Badge>
-              </div>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {isStaff ? person.staffId : person.matricNumber}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {isStaff ? `${person.position} - ${person.department}` : `${person.faculty} - ${person.level}`}
-            </p>
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm mb-4">
-          <div className="flex items-center gap-2">
-            <Mail className="h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground truncate">{person.email}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Phone className="h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground">{person.phone}</span>
-          </div>
-          {isStaff && (
-            <div className="flex items-center gap-2">
-              <Building2 className="h-4 w-4 text-muted-foreground" />
-              <span className="text-muted-foreground">{person.unit}</span>
-            </div>
-          )}
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground">Last visit: {person.lastVisit}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Stethoscope className="h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground">Blood type: {person.bloodType}</span>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-3 gap-1">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="text-xs"
-            onClick={() => handleViewRecords(person)}
-          >
-            <Eye className="h-3 w-3 mr-1" />
-            Records
-          </Button>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="text-xs"
-            onClick={() => handleScheduleAppointment(person)}
-          >
-            <Calendar className="h-3 w-3 mr-1" />
-            Schedule
-          </Button>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="text-xs"
-            onClick={() => handleEditProfile(person)}
-          >
-            <Edit className="h-3 w-3 mr-1" />
-            Edit
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
   return (
-    <div className="space-y-4 sm:space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="flex items-center gap-2 sm:gap-3">
-          <Users className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-foreground">Patient Management</h2>
-            <p className="text-muted-foreground text-xs sm:text-sm lg:text-base">Manage students and staff health records</p>
-          </div>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">Patient Management</h2>
+          <p className="text-gray-600">Manage student medical records and appointments</p>
         </div>
-        <Button 
-          className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
-          onClick={() => setIsAddPatientOpen(true)}
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          Add Patient
+        <Button className="bg-blue-600 hover:bg-blue-700">
+          <UserPlus className="h-4 w-4 mr-2" />
+          Add New Patient
         </Button>
       </div>
 
-      {/* Search Bar */}
-      <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-        <Input
-          placeholder="Search patients..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-10"
-        />
+      {/* Patient Statistics */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center">
+              <Users className="h-8 w-8 text-blue-600" />
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Total Patients</p>
+                <p className="text-2xl font-bold text-gray-900">{patients.length}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center">
+              <UserCheck className="h-8 w-8 text-green-600" />
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Stable Condition</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {patients.filter(p => p.status.includes("Stable")).length}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center">
+              <UserCheck className="h-8 w-8 text-orange-600" />
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Under Treatment</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {patients.filter(p => p.status.includes("Treatment")).length}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      <Tabs defaultValue="students" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6">
-          <TabsTrigger value="students" className="text-xs sm:text-sm flex items-center gap-2">
-            <Users className="h-4 w-4" />
-            Students ({filteredStudents.length})
-          </TabsTrigger>
-          <TabsTrigger value="staff" className="text-xs sm:text-sm flex items-center gap-2">
-            <UserCheck className="h-4 w-4" />
-            Staff ({filteredStaff.length})
-          </TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="students" className="space-y-3 sm:space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-            {filteredStudents.map((student) => (
-              <PatientCard key={student.id} person={student} isStaff={false} />
+      {/* Search and Filter */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center space-x-2">
+          <Input
+            type="text"
+            placeholder="Search by name or matric number..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="md:w-80"
+          />
+          <Select value={selectedFaculty} onValueChange={setSelectedFaculty}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Filter by Faculty" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="">All Faculties</SelectItem>
+              {faculties.map((faculty) => (
+                <SelectItem key={faculty} value={faculty}>
+                  {faculty}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <Button variant="outline">
+          <Download className="h-4 w-4 mr-2" />
+          Export Data
+        </Button>
+      </div>
+
+      {/* Patient Directory */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Patient Directory</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredPatients.map((patient) => (
+              <Card key={patient.id} className="hover:shadow-lg transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex items-center space-x-4 mb-4">
+                    <Avatar className="h-12 w-12">
+                      <AvatarFallback className="bg-blue-100 text-blue-700 font-semibold">
+                        {patient.name.substring(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h3 className="font-semibold text-gray-900">{patient.name}</h3>
+                      <span className={`px-2 py-1 rounded text-xs font-medium ${getConditionColor(patient.status)}`}>
+                        {patient.condition}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 text-sm">
+                    <p><span className="font-medium">Faculty:</span> {patient.faculty}</p>
+                    <p><span className="font-medium">Department:</span> {patient.department}</p>
+                    <p><span className="font-medium">Level:</span> {patient.level}</p>
+                    <p><span className="font-medium">Matric No:</span> {patient.matricNumber}</p>
+                    <p><span className="font-medium">Last Visit:</span> {patient.lastVisit}</p>
+                    <p><span className="font-medium">Next Appointment:</span> {patient.nextAppointment}</p>
+                  </div>
+
+                  <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200">
+                    <Button variant="outline" size="sm" className="flex-1">
+                      <Mail className="h-4 w-4 mr-1" />
+                      Email
+                    </Button>
+                    <Button variant="outline" size="sm" className="flex-1">
+                      <Phone className="h-4 w-4 mr-1" />
+                      Call
+                    </Button>
+                    <Button variant="outline" size="sm" className="flex-1" onClick={() => handleViewRecords(patient)}>
+                      <Eye className="h-4 w-4 mr-1" />
+                      View Records
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
-          {filteredStudents.length === 0 && (
-            <Card>
-              <CardContent className="p-8 text-center">
-                <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <p className="text-muted-foreground">No students found matching your search.</p>
-              </CardContent>
-            </Card>
-          )}
-        </TabsContent>
-        
-        <TabsContent value="staff" className="space-y-3 sm:space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-            {filteredStaff.map((member) => (
-              <PatientCard key={member.id} person={member} isStaff={true} />
-            ))}
-          </div>
-          {filteredStaff.length === 0 && (
-            <Card>
-              <CardContent className="p-8 text-center">
-                <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <p className="text-muted-foreground">No staff members found matching your search.</p>
-              </CardContent>
-            </Card>
-          )}
-        </TabsContent>
-      </Tabs>
+        </CardContent>
+      </Card>
 
-      <AddPatientDialog 
-        open={isAddPatientOpen} 
-        onOpenChange={setIsAddPatientOpen} 
-      />
-
-      <ViewRecordsDialog 
-        open={isViewRecordsOpen} 
-        onOpenChange={setIsViewRecordsOpen}
-        patientName={selectedPerson?.name || "Patient"}
-        patientId={selectedPerson?.id || selectedPerson?.matricNumber || selectedPerson?.staffId || ""}
-      />
-
-      <ScheduleAppointmentDialog 
-        open={isScheduleOpen} 
-        onOpenChange={setIsScheduleOpen}
-        patientName={selectedPerson?.name || "Patient"}
-      />
-
-      <EditProfileDialog 
-        open={isEditOpen} 
-        onOpenChange={setIsEditOpen}
-        person={selectedPerson}
-        isStaff={selectedPerson?.staffId ? true : false}
+      <ViewRecordsDialog
+        open={isViewRecordsOpen}
+        onOpenChange={(open) => setIsViewRecordsOpen(open)}
+        patientName={selectedPatient?.name}
+        patientId={selectedPatient?.id}
       />
     </div>
   );
