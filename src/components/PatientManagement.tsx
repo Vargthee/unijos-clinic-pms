@@ -25,7 +25,7 @@ import { EditProfileDialog } from "./EditProfileDialog";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
 import { useToast } from "@/hooks/use-toast";
 
-// Expanded students data with more diverse entries
+// 12 students data with diverse entries
 const students = [
   {
     id: "P001234",
@@ -130,7 +130,7 @@ const students = [
     healthStatus: "Good"
   },
   {
-    id: "P001250",
+    id: "P001240",
     name: "Amina Bello",
     matricNumber: "UJ/2023/EDU/0890",
     email: "amina.bello@unijos.edu.ng",
@@ -144,10 +144,10 @@ const students = [
     status: "Active",
     lastVisit: "2024-06-10",
     initials: "AB",
-    healthStatus: "Good"
+    healthStatus: "Fair"
   },
   {
-    id: "P001251",
+    id: "P001241",
     name: "David Pam",
     matricNumber: "UJ/2021/AGR/0456",
     email: "david.pam@unijos.edu.ng",
@@ -161,10 +161,10 @@ const students = [
     status: "Active",
     lastVisit: "2024-06-11",
     initials: "DP",
-    healthStatus: "Good"
+    healthStatus: "Excellent"
   },
   {
-    id: "P001252",
+    id: "P001242",
     name: "Hauwa Mohammed",
     matricNumber: "UJ/2020/ENV/0123",
     email: "hauwa.mohammed@unijos.edu.ng",
@@ -181,7 +181,7 @@ const students = [
     healthStatus: "Excellent"
   },
   {
-    id: "P001253",
+    id: "P001243",
     name: "Samuel Gyang",
     matricNumber: "UJ/2023/MSC/0789",
     email: "samuel.gyang@unijos.edu.ng",
@@ -198,7 +198,7 @@ const students = [
     healthStatus: "Good"
   },
   {
-    id: "P001254",
+    id: "P001244",
     name: "Ruth Laven",
     matricNumber: "UJ/2022/VET/0456",
     email: "ruth.laven@unijos.edu.ng",
@@ -215,7 +215,7 @@ const students = [
     healthStatus: "Good"
   },
   {
-    id: "P001255",
+    id: "P001245",
     name: "Emmanuel Yakubu",
     matricNumber: "UJ/2021/ART/0234",
     email: "emmanuel.yakubu@unijos.edu.ng",
@@ -226,150 +226,14 @@ const students = [
     dateOfBirth: "2002-12-05",
     bloodType: "A+",
     emergencyContact: "+234 805 432 1098",
-    status: "Active",
+    status: "Pending",
     lastVisit: "2024-06-15",
     initials: "EY",
     healthStatus: "Fair"
-  },
-  {
-    id: "P001256",
-    name: "Mary Gyang",
-    matricNumber: "UJ/2019/MED/0678",
-    email: "mary.gyang@unijos.edu.ng",
-    phone: "+234 813 456 7890",
-    faculty: "Medicine",
-    department: "Nursing",
-    level: "500L",
-    dateOfBirth: "2000-02-28",
-    bloodType: "O-",
-    emergencyContact: "+234 806 543 2109",
-    status: "Active",
-    lastVisit: "2024-06-16",
-    initials: "MG",
-    healthStatus: "Excellent"
-  },
-  {
-    id: "P001257",
-    name: "Peter Bulus",
-    matricNumber: "UJ/2023/ENG/0345",
-    email: "peter.bulus@unijos.edu.ng",
-    phone: "+234 814 567 8901",
-    faculty: "Engineering",
-    department: "Civil Engineering",
-    level: "100L",
-    dateOfBirth: "2004-06-18",
-    bloodType: "B-",
-    emergencyContact: "+234 807 654 3210",
-    status: "Active",
-    lastVisit: "2024-06-17",
-    initials: "PB",
-    healthStatus: "Good"
-  },
-  {
-    id: "P001258",
-    name: "Grace Danladi",
-    matricNumber: "UJ/2022/SSC/0567",
-    email: "grace.danladi@unijos.edu.ng",
-    phone: "+234 815 678 9012",
-    faculty: "Social Sciences",
-    department: "Sociology",
-    level: "200L",
-    dateOfBirth: "2003-10-12",
-    bloodType: "A-",
-    emergencyContact: "+234 808 765 4321",
-    status: "Active",
-    lastVisit: "2024-06-18",
-    initials: "GD",
-    healthStatus: "Good"
-  },
-  {
-    id: "P001259",
-    name: "Daniel Kwaghe",
-    matricNumber: "UJ/2020/NSC/0890",
-    email: "daniel.kwaghe@unijos.edu.ng",
-    phone: "+234 816 789 0123",
-    faculty: "Natural Sciences",
-    department: "Mathematics",
-    level: "400L",
-    dateOfBirth: "2001-03-25",
-    bloodType: "AB+",
-    emergencyContact: "+234 809 876 5432",
-    status: "Active",
-    lastVisit: "2024-06-19",
-    initials: "DK",
-    healthStatus: "Good"
-  },
-  {
-    id: "P001260",
-    name: "Rebecca Gyang",
-    matricNumber: "UJ/2021/LAW/0123",
-    email: "rebecca.gyang@unijos.edu.ng",
-    phone: "+234 817 890 1234",
-    faculty: "Law",
-    department: "Law",
-    level: "300L",
-    dateOfBirth: "2002-07-08",
-    bloodType: "O+",
-    emergencyContact: "+234 801 234 5678",
-    status: "Pending",
-    lastVisit: "2024-06-20",
-    initials: "RG",
-    healthStatus: "Fair"
-  },
-  {
-    id: "P001261",
-    name: "Maryam Umar",
-    matricNumber: "UJ/2023/PHM/0456",
-    email: "maryam.umar@unijos.edu.ng",
-    phone: "+234 818 901 2345",
-    faculty: "Pharmacy",
-    department: "Pharmacy",
-    level: "100L",
-    dateOfBirth: "2004-11-14",
-    bloodType: "B+",
-    emergencyContact: "+234 802 345 6789",
-    status: "Active",
-    lastVisit: "2024-06-21",
-    initials: "MU",
-    healthStatus: "Excellent"
-  },
-  {
-    id: "P001262",
-    name: "Ibrahim Hassan",
-    matricNumber: "UJ/2022/EDU/0789",
-    email: "ibrahim.hassan@unijos.edu.ng",
-    phone: "+234 819 012 3456",
-    faculty: "Education",
-    department: "Mathematics Education",
-    level: "200L",
-    dateOfBirth: "2003-04-01",
-    bloodType: "A+",
-    emergencyContact: "+234 803 456 7890",
-    status: "Active",
-    lastVisit: "2024-06-22",
-    initials: "IH",
-    healthStatus: "Good"
-  },
-  {
-    id: "P001263",
-    name: "Joy Dung",
-    matricNumber: "UJ/2019/AGR/0234",
-    email: "joy.dung@unijos.edu.ng",
-    phone: "+234 820 123 4567",
-    faculty: "Agriculture",
-    department: "Crop Science",
-    level: "500L",
-    dateOfBirth: "2000-09-17",
-    bloodType: "O-",
-    emergencyContact: "+234 804 567 8901",
-    status: "Active",
-    lastVisit: "2024-06-23",
-    initials: "JD",
-    healthStatus: "Good"
   }
 ];
 
-// Updated staff data with 10 entries
+// 8 staff members data
 const staff = [
   {
     id: "S001",
@@ -514,42 +378,6 @@ const staff = [
     initials: "SD",
     yearsOfService: "15 years",
     healthStatus: "Good"
-  },
-  {
-    id: "S009",
-    name: "Mrs. Esther Bulus",
-    staffId: "UNIJOS/ADM/009",
-    email: "esther.bulus@unijos.edu.ng",
-    phone: "+234 809 012 3456",
-    department: "Administration",
-    unit: "General Administration",
-    position: "Administrative Officer",
-    dateOfBirth: "1981-08-20",
-    bloodType: "O+",
-    emergencyContact: "+234 801 234 5678",
-    status: "Active",
-    lastVisit: "2024-05-28",
-    initials: "EB",
-    yearsOfService: "8 years",
-    healthStatus: "Good"
-  },
-  {
-    id: "S010",
-    name: "Mr. Paul Nanbol",
-    staffId: "UNIJOS/SPS/010",
-    email: "paul.nanbol@unijos.edu.ng",
-    phone: "+234 810 123 4567",
-    department: "Student Services",
-    unit: "Counseling Center",
-    position: "Student Counselor",
-    dateOfBirth: "1977-02-14",
-    bloodType: "B+",
-    emergencyContact: "+234 802 345 6789",
-    status: "Active",
-    lastVisit: "2024-06-10",
-    initials: "PN",
-    yearsOfService: "11 years",
-    healthStatus: "Excellent"
   }
 ];
 

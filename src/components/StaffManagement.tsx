@@ -1,160 +1,112 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { UserCheck, Plus, Mail, Phone } from "lucide-react";
 
+// 8 staff members matching the patient management data
 const staff = [
   {
     id: "S001",
-    name: "Dr. Fatima Aliyu",
-    role: "Senior Physician",
-    department: "General Medicine",
-    specialization: "Internal Medicine",
-    email: "fatima.aliyu@unijos.edu.ng",
-    phone: "08012345678",
+    name: "Dr. Hauwa Abdullahi",
+    role: "Registrar",
+    department: "Academic Registry",
+    specialization: "Student Records Management",
+    email: "hauwa.abdullahi@unijos.edu.ng",
+    phone: "+234 801 234 5678",
     schedule: "Mon-Fri, 8AM-4PM",
-    patients: 45,
-    initials: "FA",
+    patients: 0,
+    initials: "HA",
   },
   {
     id: "S002",
-    name: "Dr. John Okafor",
-    role: "Psychiatrist",
-    department: "Mental Health",
-    specialization: "Student Counseling & Mental Health",
-    email: "john.okafor@unijos.edu.ng",
-    phone: "08023456789",
-    schedule: "Mon-Fri, 9AM-5PM",
-    patients: 32,
-    initials: "JO",
+    name: "Mr. James Dung",
+    role: "Chief Librarian",
+    department: "Library Services",
+    specialization: "Information Management",
+    email: "james.dung@unijos.edu.ng",
+    phone: "+234 802 345 6789",
+    schedule: "Mon-Fri, 8AM-5PM",
+    patients: 0,
+    initials: "JD",
   },
   {
     id: "S003",
-    name: "Dr. Aisha Mohammed",
-    role: "Cardiologist",
-    department: "Cardiology",
-    specialization: "Heart Disease",
-    email: "aisha.mohammed@unijos.edu.ng",
-    phone: "08034567890",
-    schedule: "Tue-Sat, 8AM-4PM",
-    patients: 28,
-    initials: "AM",
+    name: "Mrs. Grace Yakubu",
+    role: "Security Coordinator",
+    department: "Security Services",
+    specialization: "Campus Security",
+    email: "grace.yakubu@unijos.edu.ng",
+    phone: "+234 803 456 7890",
+    schedule: "24/7 Shifts",
+    patients: 0,
+    initials: "GY",
   },
   {
     id: "S004",
-    name: "Nurse Grace Danladi",
-    role: "Head Nurse",
-    department: "Nursing",
-    specialization: "General Nursing",
-    email: "grace.danladi@unijos.edu.ng",
-    phone: "08045678901",
-    schedule: "Mon-Fri, 7AM-3PM",
+    name: "Engr. Emmanuel Bulus",
+    role: "ICT Director",
+    department: "Information Technology",
+    specialization: "Network & Systems",
+    email: "emmanuel.bulus@unijos.edu.ng",
+    phone: "+234 804 567 8901",
+    schedule: "Mon-Fri, 8AM-5PM",
     patients: 0,
-    initials: "GD",
+    initials: "EB",
   },
   {
     id: "S005",
-    name: "Dr. Peter Nnamdi",
-    role: "Orthopedic Surgeon",
-    department: "Orthopedics",
-    specialization: "Bone & Joint Surgery",
-    email: "peter.nnamdi@unijos.edu.ng",
-    phone: "08056789012",
-    schedule: "Mon-Thu, 10AM-6PM",
-    patients: 19,
-    initials: "PN",
+    name: "Mrs. Rebecca Gyang",
+    role: "Bursary Officer",
+    department: "Bursary",
+    specialization: "Financial Services",
+    email: "rebecca.gyang@unijos.edu.ng",
+    phone: "+234 805 678 9012",
+    schedule: "Mon-Fri, 8AM-4PM",
+    patients: 0,
+    initials: "RG",
   },
   {
     id: "S006",
-    name: "Pharmacist Maryam Umar",
-    role: "Chief Pharmacist",
-    department: "Pharmacy",
-    specialization: "Drug Dispensing",
+    name: "Mr. Daniel Kwaghe",
+    role: "Estate Officer",
+    department: "Estate Management",
+    specialization: "Facilities Management",
+    email: "daniel.kwaghe@unijos.edu.ng",
+    phone: "+234 806 789 0123",
+    schedule: "Mon-Fri, 7AM-4PM",
+    patients: 0,
+    initials: "DK",
+  },
+  {
+    id: "S007",
+    name: "Mrs. Maryam Umar",
+    role: "HR Director",
+    department: "Human Resources",
+    specialization: "Staff Development",
     email: "maryam.umar@unijos.edu.ng",
-    phone: "08067890123",
+    phone: "+234 807 890 1234",
     schedule: "Mon-Fri, 8AM-5PM",
     patients: 0,
     initials: "MU",
   },
   {
-    id: "S007",
-    name: "Dr. Samuel Dung",
-    role: "Emergency Physician",
-    department: "Emergency Medicine",
-    specialization: "Emergency Care",
-    email: "samuel.dung@unijos.edu.ng",
-    phone: "08078901234",
-    schedule: "24/7 Shifts",
-    patients: 25,
-    initials: "SD",
-  },
-  {
     id: "S008",
-    name: "Dr. Mary Gyang",
-    role: "Counselor",
-    department: "Mental Health",
-    specialization: "Student Counseling",
-    email: "mary.gyang@unijos.edu.ng",
-    phone: "08089012345",
-    schedule: "Mon-Fri, 9AM-5PM",
-    patients: 18,
-    initials: "MG",
-  },
-  {
-    id: "S009",
-    name: "Nurse Ibrahim Yakubu",
-    role: "Senior Nurse",
-    department: "Nursing",
-    specialization: "Emergency Nursing",
-    email: "ibrahim.yakubu@unijos.edu.ng",
-    phone: "08090123456",
-    schedule: "Mon-Fri, 3PM-11PM",
-    patients: 0,
-    initials: "IY",
-  },
-  {
-    id: "S010",
-    name: "Dr. Ruth Laven",
-    role: "General Practitioner",
-    department: "General Medicine",
-    specialization: "Primary Care",
-    email: "ruth.laven@unijos.edu.ng",
-    phone: "08001234567",
-    schedule: "Mon-Fri, 8AM-4PM",
-    patients: 38,
-    initials: "RL",
-  },
-  {
-    id: "S011",
-    name: "Nurse Esther Bulus",
-    role: "Nurse",
-    department: "Nursing",
-    specialization: "General Nursing",
-    email: "esther.bulus@unijos.edu.ng",
-    phone: "08012345607",
-    schedule: "Mon-Fri, 11PM-7AM",
-    patients: 0,
-    initials: "EB",
-  },
-  {
-    id: "S012",
-    name: "Dr. Emmanuel Yakubu",
-    role: "Sleep Specialist",
-    department: "Sleep Medicine",
-    specialization: "Sleep Disorders",
-    email: "emmanuel.yakubu@unijos.edu.ng",
-    phone: "08023456708",
-    schedule: "Mon-Wed-Fri, 2PM-6PM",
-    patients: 15,
-    initials: "EY",
-  },
+    name: "Dr. Samuel Dung",
+    role: "Chief Medical Officer",
+    department: "Medical Center",
+    specialization: "Emergency Medicine",
+    email: "samuel.dung@unijos.edu.ng",
+    phone: "+234 808 901 2345",
+    schedule: "24/7 On-call",
+    patients: 45,
+    initials: "SD",
+  }
 ];
 
 const getRoleColor = (role: string) => {
   if (role.includes("Dr.")) return "bg-blue-100 text-blue-800";
-  if (role.includes("Nurse")) return "bg-green-100 text-green-800";
-  if (role.includes("Pharmacist")) return "bg-purple-100 text-purple-800";
+  if (role.includes("Director")) return "bg-purple-100 text-purple-800";
+  if (role.includes("Officer") || role.includes("Coordinator")) return "bg-green-100 text-green-800";
   return "bg-gray-100 text-gray-800";
 };
 
@@ -203,9 +155,9 @@ export const StaffManagement = () => {
             <div className="flex items-center">
               <UserCheck className="h-8 w-8 text-purple-600" />
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Nurses</p>
+                <p className="text-sm font-medium text-gray-600">Directors</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {staff.filter(s => s.role.includes("Nurse")).length}
+                  {staff.filter(s => s.role.includes("Director")).length}
                 </p>
               </div>
             </div>
@@ -218,7 +170,7 @@ export const StaffManagement = () => {
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Other Staff</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {staff.filter(s => !s.role.includes("Dr.") && !s.role.includes("Nurse")).length}
+                  {staff.filter(s => !s.role.includes("Dr.") && !s.role.includes("Director")).length}
                 </p>
               </div>
             </div>

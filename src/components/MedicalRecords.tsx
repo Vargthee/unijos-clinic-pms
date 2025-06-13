@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Plus, Download, Eye, UserCheck } from "lucide-react";
 import { NewRecordDialog } from "./NewRecordDialog";
 
+// 12 student medical records matching the patient management data
 const medicalRecords = [
   {
     id: "R001",
@@ -15,7 +16,7 @@ const medicalRecords = [
     diagnosis: "Stress-related headaches",
     doctor: "Dr. Fatima Aliyu",
     date: "2024-06-05",
-    medications: ["Paracetamol 500mg", "Diclofenac gel"],
+    medications: ["Paracetamol 500mg", "Stress management counseling"],
     notes: "Student reports frequent headaches during exam period. Advised stress management techniques and adequate sleep.",
     vitals: {
       temperature: "36.8°C",
@@ -129,12 +130,12 @@ const medicalRecords = [
   {
     id: "R007",
     name: "Amina Bello",
-    patientId: "P001250",
+    patientId: "P001240",
     matricNumber: "UJ/2023/EDU/0890",
     recordType: "Counseling",
     diagnosis: "Social anxiety disorder",
     doctor: "Dr. Mary Gyang",
-    date: "2024-06-03",
+    date: "2024-06-10",
     medications: ["Counseling sessions", "Relaxation techniques"],
     notes: "New student experiencing difficulty adjusting to university life. Referred to counseling services for support.",
     vitals: {
@@ -149,12 +150,12 @@ const medicalRecords = [
   {
     id: "R008",
     name: "David Pam",
-    patientId: "P001251",
+    patientId: "P001241",
     matricNumber: "UJ/2021/AGR/0456",
     recordType: "Treatment",
     diagnosis: "Allergic rhinitis (hay fever)",
     doctor: "Dr. Peter Bulus",
-    date: "2024-06-02",
+    date: "2024-06-11",
     medications: ["Loratadine", "Nasal spray", "Allergen avoidance"],
     notes: "Seasonal allergies triggered by campus vegetation. Student advised on environmental controls and medication schedule.",
     vitals: {
@@ -169,12 +170,12 @@ const medicalRecords = [
   {
     id: "R009",
     name: "Hauwa Mohammed",
-    patientId: "P001252",
+    patientId: "P001242",
     matricNumber: "UJ/2020/ENV/0123",
     recordType: "Consultation",
     diagnosis: "Migraine headaches",
     doctor: "Dr. Emmanuel Yakubu",
-    date: "2024-06-01",
+    date: "2024-06-12",
     medications: ["Sumatriptan", "Magnesium supplements", "Lifestyle modifications"],
     notes: "Frequent migraines affecting class attendance. Trigger identification and preventive measures discussed.",
     vitals: {
@@ -189,14 +190,14 @@ const medicalRecords = [
   {
     id: "R010",
     name: "Samuel Gyang",
-    patientId: "P001253",
+    patientId: "P001243",
     matricNumber: "UJ/2023/MSC/0789",
     recordType: "Treatment",
-    diagnosis: "Peptic ulcer disease",
+    diagnosis: "Iron deficiency anemia",
     doctor: "Dr. Ruth Laven",
-    date: "2024-05-30",
-    medications: ["Omeprazole", "Amoxicillin", "Clarithromycin", "Dietary changes"],
-    notes: "H. pylori positive. Triple therapy initiated. Student counseled on dietary modifications and stress management.",
+    date: "2024-06-13",
+    medications: ["Iron sulfate tablets", "Vitamin C", "Folic acid"],
+    notes: "Low hemoglobin levels detected during routine screening. Dietary counseling provided. Follow-up in 6 weeks.",
     vitals: {
       temperature: "36.8°C",
       bloodPressure: "118/75 mmHg",
@@ -208,13 +209,13 @@ const medicalRecords = [
   },
   {
     id: "R011",
-    name: "R Laven",
-    patientId: "P001254",
+    name: "Ruth Laven",
+    patientId: "P001244",
     matricNumber: "UJ/2022/VET/0456",
     recordType: "Emergency",
     diagnosis: "Severe asthma exacerbation",
     doctor: "Dr. Fatima Aliyu",
-    date: "2024-05-28",
+    date: "2024-06-14",
     medications: ["Salbutamol inhaler", "Prednisolone", "Montelukast"],
     notes: "Acute asthma attack triggered by dust exposure in dormitory. Emergency treatment successful. Action plan reviewed.",
     vitals: {
@@ -229,14 +230,14 @@ const medicalRecords = [
   {
     id: "R012",
     name: "Emmanuel Yakubu",
-    patientId: "P001255",
+    patientId: "P001245",
     matricNumber: "UJ/2021/ART/0234",
     recordType: "Follow-up",
-    diagnosis: "Type 1 diabetes mellitus",
+    diagnosis: "Chronic back pain",
     doctor: "Dr. John Okafor",
-    date: "2024-05-25",
-    medications: ["Insulin glargine", "Insulin aspart", "Blood glucose monitor"],
-    notes: "Regular diabetes management check-up. Blood sugar levels well controlled. Dietary compliance excellent.",
+    date: "2024-06-15",
+    medications: ["Physical therapy", "Anti-inflammatory drugs", "Ergonomic training"],
+    notes: "Chronic lower back pain from poor study posture. Physical therapy showing good results. Ergonomic improvements recommended.",
     vitals: {
       temperature: "36.7°C",
       bloodPressure: "115/70 mmHg",
@@ -245,169 +246,10 @@ const medicalRecords = [
     },
     faculty: "Arts",
     level: "300L"
-  },
-  {
-    id: "R013",
-    name: "Mary Gyang",
-    patientId: "P001256",
-    matricNumber: "UJ/2019/MED/0678",
-    recordType: "Treatment",
-    diagnosis: "Iron deficiency anemia",
-    doctor: "Dr. Aisha Mohammed",
-    date: "2024-05-22",
-    medications: ["Iron sulfate tablets", "Vitamin C", "Folic acid"],
-    notes: "Low hemoglobin levels detected during routine screening. Dietary counseling provided. Follow-up in 6 weeks.",
-    vitals: {
-      temperature: "36.5°C",
-      bloodPressure: "108/65 mmHg",
-      pulse: "88 bpm",
-      weight: "54 kg",
-    },
-    faculty: "Medicine",
-    level: "500L"
-  },
-  {
-    id: "R014",
-    name: "Peter Bulus",
-    patientId: "P001257",
-    matricNumber: "UJ/2023/ENG/0345",
-    recordType: "Consultation",
-    diagnosis: "Tension-type headaches",
-    doctor: "Dr. Grace Musa",
-    date: "2024-05-20",
-    medications: ["Acetaminophen", "Muscle relaxants", "Stress management"],
-    notes: "Frequent headaches related to study stress and poor posture. Ergonomic recommendations provided.",
-    vitals: {
-      temperature: "36.6°C",
-      bloodPressure: "120/78 mmHg",
-      pulse: "79 bpm",
-      weight: "71 kg",
-    },
-    faculty: "Engineering",
-    level: "100L"
-  },
-  {
-    id: "R015",
-    name: "Grace Danladi",
-    patientId: "P001258",
-    matricNumber: "UJ/2022/SSC/0567",
-    recordType: "Treatment",
-    diagnosis: "Urinary tract infection",
-    doctor: "Dr. Hauwa Ibrahim",
-    date: "2024-05-18",
-    medications: ["Nitrofurantoin", "Cranberry supplements", "Increased fluid intake"],
-    notes: "Recurrent UTI. Urine culture shows E. coli sensitivity. Preventive measures discussed.",
-    vitals: {
-      temperature: "37.3°C",
-      bloodPressure: "115/72 mmHg",
-      pulse: "86 bpm",
-      weight: "58 kg",
-    },
-    faculty: "Social Sciences",
-    level: "200L"
-  },
-  {
-    id: "R016",
-    name: "Daniel Kwaghe",
-    patientId: "P001259",
-    matricNumber: "UJ/2020/NSC/0890",
-    recordType: "Emergency",
-    diagnosis: "Acute appendicitis",
-    doctor: "Dr. Samuel Dung",
-    date: "2024-05-15",
-    medications: ["Post-operative antibiotics", "Pain management", "Wound care"],
-    notes: "Emergency appendectomy performed successfully. Student recovering well. Return to normal activities in 2 weeks.",
-    vitals: {
-      temperature: "38.1°C",
-      bloodPressure: "130/85 mmHg",
-      pulse: "95 bpm",
-      weight: "69 kg",
-    },
-    faculty: "Natural Sciences",
-    level: "400L"
-  },
-  {
-    id: "R017",
-    name: "Rebecca Gyang",
-    patientId: "P001260",
-    matricNumber: "UJ/2021/LAW/0123",
-    recordType: "Counseling",
-    diagnosis: "Eating disorder (anorexia nervosa)",
-    doctor: "Dr. Mary Gyang",
-    date: "2024-05-12",
-    medications: ["Nutritional counseling", "Psychological therapy", "Vitamin supplements"],
-    notes: "Significant weight loss and distorted body image. Comprehensive treatment plan involving psychiatry and nutrition.",
-    vitals: {
-      temperature: "36.2°C",
-      bloodPressure: "95/60 mmHg",
-      pulse: "105 bpm",
-      weight: "45 kg",
-    },
-    faculty: "Law",
-    level: "300L"
-  },
-  {
-    id: "R018",
-    name: "Maryam Umar",
-    patientId: "P001261",
-    matricNumber: "UJ/2023/PHM/0456",
-    recordType: "Treatment",
-    diagnosis: "Skin allergic reaction",
-    doctor: "Dr. Peter Bulus",
-    date: "2024-05-10",
-    medications: ["Topical corticosteroids", "Antihistamines", "Moisturizers"],
-    notes: "Allergic dermatitis from new detergent. Patch testing recommended. Hypoallergenic products advised.",
-    vitals: {
-      temperature: "36.8°C",
-      bloodPressure: "110/70 mmHg",
-      pulse: "77 bpm",
-      weight: "53 kg",
-    },
-    faculty: "Pharmacy",
-    level: "100L"
-  },
-  {
-    id: "R019",
-    name: "Ibrahim Hassan",
-    patientId: "P001262",
-    matricNumber: "UJ/2022/EDU/0789",
-    recordType: "Follow-up",
-    diagnosis: "Hypertension (high blood pressure)",
-    doctor: "Dr. Emmanuel Yakubu",
-    date: "2024-05-08",
-    medications: ["Amlodipine", "Lifestyle modifications", "Low sodium diet"],
-    notes: "Early-onset hypertension. Family history positive. Regular monitoring and lifestyle changes implemented.",
-    vitals: {
-      temperature: "36.7°C",
-      bloodPressure: "145/92 mmHg",
-      pulse: "83 bpm",
-      weight: "78 kg",
-    },
-    faculty: "Education",
-    level: "200L"
-  },
-  {
-    id: "R020",
-    name: "Joy Dung",
-    patientId: "P001263",
-    matricNumber: "UJ/2019/AGR/0234",
-    recordType: "Consultation",
-    diagnosis: "Chronic fatigue syndrome",
-    doctor: "Dr. Ruth Laven",
-    date: "2024-05-05",
-    medications: ["Multivitamin complex", "Graded exercise therapy", "Sleep hygiene"],
-    notes: "Persistent fatigue affecting academic performance. Comprehensive evaluation completed. Gradual activity increase planned.",
-    vitals: {
-      temperature: "36.4°C",
-      bloodPressure: "105/68 mmHg",
-      pulse: "90 bpm",
-      weight: "61 kg",
-    },
-    faculty: "Agriculture",
-    level: "500L"
   }
 ];
 
+// 8 staff medical records matching the patient management data
 const staffMedicalRecords = [
   {
     id: "SMR001",
@@ -584,51 +426,7 @@ const staffMedicalRecords = [
     },
     bloodType: "A+",
     allergies: ["Shellfish"],
-  },
-  {
-    id: "SMR009",
-    staffId: "S009",
-    name: "Mrs. Esther Bulus",
-    role: "Administrative Officer",
-    department: "Administration",
-    unit: "General Administration",
-    recordType: "Treatment",
-    diagnosis: "Thyroid dysfunction",
-    doctor: "Dr. John Okafor",
-    date: "2024-05-28",
-    medications: ["Levothyroxine", "Regular monitoring", "Dietary supplements"],
-    notes: "Hypothyroidism diagnosed during routine screening. Hormone replacement therapy initiated. Good response to treatment.",
-    vitals: {
-      temperature: "36.3°C",
-      bloodPressure: "110/70 mmHg",
-      pulse: "68 bpm",
-      weight: "64 kg",
-    },
-    bloodType: "O+",
-    allergies: ["Iodine"],
-  },
-  {
-    id: "SMR010",
-    staffId: "S010",
-    name: "Mr. Paul Nanbol",
-    role: "Student Counselor",
-    department: "Student Services",
-    unit: "Counseling Center",
-    recordType: "Counseling",
-    diagnosis: "Burnout syndrome",
-    doctor: "Dr. Grace Musa",
-    date: "2024-06-10",
-    medications: ["Stress reduction techniques", "Work-life balance counseling", "Relaxation therapy"],
-    notes: "Experiencing counselor burnout from heavy caseload. Stress management and workload adjustment recommended.",
-    vitals: {
-      temperature: "36.9°C",
-      bloodPressure: "140/90 mmHg",
-      pulse: "82 bpm",
-      weight: "73 kg",
-    },
-    bloodType: "B+",
-    allergies: ["Pollen"],
-  },
+  }
 ];
 
 const getRecordTypeColor = (type: string) => {
@@ -643,6 +441,10 @@ const getRecordTypeColor = (type: string) => {
       return "bg-purple-100 text-purple-800";
     case "Counseling":
       return "bg-orange-100 text-orange-800";
+    case "Vaccination":
+      return "bg-indigo-100 text-indigo-800";
+    case "Annual Checkup":
+      return "bg-emerald-100 text-emerald-800";
     default:
       return "bg-gray-100 text-gray-800";
   }
