@@ -149,12 +149,12 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto dark:bg-gray-800 dark:border-gray-700">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2 dark:text-gray-100">
             <FileText className="h-5 w-5 text-primary" />
             Medical Records - {patientName}
-            <span className="text-sm text-muted-foreground">({patientId})</span>
+            <span className="text-sm text-muted-foreground dark:text-gray-400">({patientId})</span>
           </DialogTitle>
         </DialogHeader>
         
@@ -162,16 +162,16 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           {records.map((record) => {
             const IconComponent = record.icon;
             return (
-              <Card key={record.id} className="border border-border/50 hover-lift">
+              <Card key={record.id} className="border border-border/50 hover-lift dark:bg-gray-900 dark:border-gray-600">
                 <CardContent className="p-4">
                   <div className="flex justify-between items-start mb-3">
                     <div className="flex items-center gap-2">
                       <Badge className={getRecordTypeColor(record.type)}>
                         {record.type}
                       </Badge>
-                      <span className="text-sm text-muted-foreground">{record.date}</span>
+                      <span className="text-sm text-muted-foreground dark:text-gray-400">{record.date}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
                       <User className="h-4 w-4" />
                       {record.doctor}
                     </div>
@@ -179,36 +179,36 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                      <h4 className="font-semibold text-foreground dark:text-gray-100 mb-2 flex items-center gap-2">
                         <IconComponent className="h-4 w-4 text-primary" />
                         Diagnosis
                       </h4>
-                      <p className="text-sm text-muted-foreground mb-3">{record.diagnosis}</p>
-                      <h5 className="font-medium text-foreground mb-1">Notes</h5>
-                      <p className="text-xs text-muted-foreground">{record.notes}</p>
+                      <p className="text-sm text-muted-foreground dark:text-gray-300 mb-3">{record.diagnosis}</p>
+                      <h5 className="font-medium text-foreground dark:text-gray-200 mb-1">Notes</h5>
+                      <p className="text-xs text-muted-foreground dark:text-gray-400">{record.notes}</p>
                     </div>
                     
                     <div>
-                      <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                      <h4 className="font-semibold text-foreground dark:text-gray-100 mb-2 flex items-center gap-2">
                         <Stethoscope className="h-4 w-4" />
                         Vital Signs
                       </h4>
                       <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div className="bg-muted p-2 rounded">
-                          <p className="font-medium">Temperature</p>
-                          <p className="text-muted-foreground">{record.vitals.temperature}</p>
+                        <div className="bg-muted dark:bg-gray-700 p-2 rounded">
+                          <p className="font-medium dark:text-gray-200">Temperature</p>
+                          <p className="text-muted-foreground dark:text-gray-400">{record.vitals.temperature}</p>
                         </div>
-                        <div className="bg-muted p-2 rounded">
-                          <p className="font-medium">BP</p>
-                          <p className="text-muted-foreground">{record.vitals.bloodPressure}</p>
+                        <div className="bg-muted dark:bg-gray-700 p-2 rounded">
+                          <p className="font-medium dark:text-gray-200">BP</p>
+                          <p className="text-muted-foreground dark:text-gray-400">{record.vitals.bloodPressure}</p>
                         </div>
-                        <div className="bg-muted p-2 rounded">
-                          <p className="font-medium">Pulse</p>
-                          <p className="text-muted-foreground">{record.vitals.pulse}</p>
+                        <div className="bg-muted dark:bg-gray-700 p-2 rounded">
+                          <p className="font-medium dark:text-gray-200">Pulse</p>
+                          <p className="text-muted-foreground dark:text-gray-400">{record.vitals.pulse}</p>
                         </div>
-                        <div className="bg-muted p-2 rounded">
-                          <p className="font-medium">Weight</p>
-                          <p className="text-muted-foreground">{record.vitals.weight}</p>
+                        <div className="bg-muted dark:bg-gray-700 p-2 rounded">
+                          <p className="font-medium dark:text-gray-200">Weight</p>
+                          <p className="text-muted-foreground dark:text-gray-400">{record.vitals.weight}</p>
                         </div>
                       </div>
                     </div>
@@ -220,7 +220,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
         </div>
         
         <div className="flex justify-end pt-4">
-          <Button variant="outline" onClick={() => onOpenChange(false)} className="hover-scale">
+          <Button variant="outline" onClick={() => onOpenChange(false)} className="hover-scale dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-700">
             Close
           </Button>
         </div>
