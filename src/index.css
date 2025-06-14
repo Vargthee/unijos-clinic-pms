@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -47,41 +48,41 @@
   }
 
   .dark {
-    --background: 222 20% 4%;
+    --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
-    --card: 222 20% 6%;
-    --card-foreground: 210 40% 96%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 222 20% 6%;
-    --popover-foreground: 210 40% 96%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
     --primary: 217 91% 70%;
-    --primary-foreground: 222 20% 4%;
+    --primary-foreground: 222.2 84% 4.9%;
 
-    --secondary: 217 25% 12%;
-    --secondary-foreground: 210 40% 92%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 217 25% 12%;
-    --muted-foreground: 217.9 10.6% 64.9%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217 25% 15%;
-    --accent-foreground: 210 40% 92%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 50%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 25% 15%;
-    --input: 217 25% 15%;
-    --ring: 217 91% 70%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
 
-    --sidebar-background: 222 20% 2%;
-    --sidebar-foreground: 210 40% 88%;
+    --sidebar-background: 222.2 84% 4.9%;
+    --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 217 91% 70%;
-    --sidebar-primary-foreground: 222 20% 4%;
-    --sidebar-accent: 217 25% 8%;
-    --sidebar-accent-foreground: 217 91% 80%;
-    --sidebar-border: 217 25% 8%;
+    --sidebar-primary-foreground: 222.2 84% 4.9%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
     --sidebar-ring: 217 91% 70%;
   }
 }
@@ -100,30 +101,40 @@
     @apply font-poppins;
   }
 
+  /* Enhanced dark mode styling */
   .dark {
-    background: linear-gradient(135deg, hsl(222, 20%, 4%) 0%, hsl(217, 25%, 6%) 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   }
 
   .dark .card {
-    background: linear-gradient(145deg, hsl(222, 20%, 6%) 0%, hsl(217, 25%, 8%) 100%);
-    border: 1px solid hsl(217, 25%, 15%);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(145deg, #1e293b 0%, #334155 100%);
+    border: 1px solid #334155;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   }
 
   .dark .sidebar {
-    background: linear-gradient(180deg, hsl(222, 20%, 2%) 0%, hsl(217, 25%, 4%) 100%);
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
     backdrop-filter: blur(20px);
-    border-right: 1px solid hsl(217, 25%, 8%);
+    border-right: 1px solid #334155;
   }
 
-  /* Improved text contrast in dark mode */
+  /* Improved text contrast */
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-    color: hsl(210, 40%, 98%);
+    color: #f8fafc;
     font-weight: 600;
   }
 
   .dark p, .dark span, .dark div {
-    color: hsl(210, 40%, 88%);
+    color: #e2e8f0;
+  }
+
+  /* Enhanced button styling for dark mode */
+  .dark button {
+    transition: all 0.2s ease;
+  }
+
+  .dark button:hover {
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
   }
 
   /* Glass effect improvements */
@@ -134,11 +145,11 @@
   }
 
   .dark .glass-effect {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(15, 23, 42, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Hover effects */
+  /* Enhanced hover effects */
   .hover-lift {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -149,7 +160,8 @@
   }
 
   .dark .hover-lift:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    transform: translateY(-6px);
   }
 
   /* Scale effects */
@@ -167,16 +179,40 @@
   }
 
   .dark ::-webkit-scrollbar-track {
-    background: hsl(217, 25%, 8%);
+    background: #1e293b;
   }
 
   .dark ::-webkit-scrollbar-thumb {
-    background: hsl(217, 25%, 20%);
+    background: #475569;
     border-radius: 4px;
   }
 
   .dark ::-webkit-scrollbar-thumb:hover {
-    background: hsl(217, 25%, 30%);
+    background: #64748b;
+  }
+
+  /* Enhanced form elements for dark mode */
+  .dark input, .dark select, .dark textarea {
+    background: #1e293b;
+    border: 1px solid #475569;
+    color: #f8fafc;
+  }
+
+  .dark input:focus, .dark select:focus, .dark textarea:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  }
+
+  /* Better dropdown styling */
+  .dark [data-radix-popper-content-wrapper] {
+    background: #1e293b !important;
+    border: 1px solid #475569 !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Smooth transitions for all interactive elements */
+  button, input, select, textarea, .card {
+    transition: all 0.2s ease;
   }
 }
 
@@ -219,4 +255,19 @@
   .lg\:grid-cols-2 {
     @apply grid-cols-1;
   }
+}
+
+/* Performance optimizations */
+.card-grid {
+  contain: layout style paint;
+}
+
+.patient-card {
+  will-change: transform;
+}
+
+/* Focus management for accessibility */
+.dark *:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
