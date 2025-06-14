@@ -1,29 +1,22 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
-  FileText,
-  User,
   Mail,
   Phone,
-  Edit,
-  Trash2,
-  Search,
-  Download,
   Eye,
-  Calendar,
-  Stethoscope,
-  Plus,
   UserPlus,
   Users,
   UserCheck,
+  Download,
 } from "lucide-react";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
 
+// Using the same data as Medical Records for consistency
 const patients = [
   {
     id: "P001234",
@@ -44,11 +37,7 @@ const patients = [
     phone: "08012345678",
     email: "adaora.okonkwo@unijos.edu.ng",
     emergencyContact: "08098765432",
-    address: "No. 45 Zaria Road, Jos",
-    medicalHistory: [
-      "Typhoid fever (2023)",
-      "Recurrent malaria episodes"
-    ]
+    address: "No. 45 Zaria Road, Jos"
   },
   {
     id: "P001235",
@@ -59,7 +48,7 @@ const patients = [
     department: "Medicine & Surgery",
     level: "400L",
     matricNumber: "UJ/2020/MED/0456",
-    condition: "Sickle cell crisis management",
+    condition: "Sickle cell vaso-occlusive crisis",
     status: "Under Treatment",
     lastVisit: "2024-06-07",
     nextAppointment: "2024-06-15",
@@ -69,12 +58,7 @@ const patients = [
     phone: "08023456789",
     email: "ibrahim.musa@unijos.edu.ng",
     emergencyContact: "08087654321",
-    address: "No. 12 Bauchi Road, Jos",
-    medicalHistory: [
-      "Sickle cell disease (chronic)",
-      "Multiple pain crises",
-      "Leg ulcers (healed)"
-    ]
+    address: "No. 12 Bauchi Road, Jos"
   },
   {
     id: "P001236",
@@ -95,11 +79,7 @@ const patients = [
     phone: "08034567890",
     email: "blessing.eze@unijos.edu.ng",
     emergencyContact: "08076543210",
-    address: "No. 78 Tudun Wada, Jos",
-    medicalHistory: [
-      "H. pylori infection",
-      "Gastritis"
-    ]
+    address: "No. 78 Tudun Wada, Jos"
   },
   {
     id: "P001237",
@@ -120,11 +100,7 @@ const patients = [
     phone: "08045678901",
     email: "yusuf.abdullahi@unijos.edu.ng",
     emergencyContact: "08065432109",
-    address: "No. 23 Lamingo, Jos",
-    medicalHistory: [
-      "Childhood asthma",
-      "Allergic rhinitis"
-    ]
+    address: "No. 23 Lamingo, Jos"
   },
   {
     id: "P001238",
@@ -145,11 +121,7 @@ const patients = [
     phone: "08056789012",
     email: "fatima.aliyu.student@unijos.edu.ng",
     emergencyContact: "08054321098",
-    address: "No. 67 Rayfield, Jos",
-    medicalHistory: [
-      "Heavy menstrual bleeding",
-      "Previous iron deficiency"
-    ]
+    address: "No. 67 Rayfield, Jos"
   },
   {
     id: "P001239",
@@ -170,11 +142,7 @@ const patients = [
     phone: "08067890123",
     email: "chidi.okafor@unijos.edu.ng",
     emergencyContact: "08043210987",
-    address: "No. 34 Bukuru, Jos",
-    medicalHistory: [
-      "Acute hepatitis B",
-      "Previous jaundice episode"
-    ]
+    address: "No. 34 Bukuru, Jos"
   },
   {
     id: "P001240",
@@ -195,11 +163,7 @@ const patients = [
     phone: "08078901234",
     email: "amina.bello@unijos.edu.ng",
     emergencyContact: "08032109876",
-    address: "No. 89 Anglo Jos, Jos",
-    medicalHistory: [
-      "Recurrent UTIs",
-      "Kidney stones (small)"
-    ]
+    address: "No. 89 Anglo Jos, Jos"
   },
   {
     id: "P001241",
@@ -210,7 +174,7 @@ const patients = [
     department: "Animal Science",
     level: "300L",
     matricNumber: "UJ/2021/AGR/0456",
-    condition: "Meningitis (recovering)",
+    condition: "Bacterial meningitis (recovering)",
     status: "Stable",
     lastVisit: "2024-06-11",
     nextAppointment: "2024-06-19",
@@ -220,11 +184,7 @@ const patients = [
     phone: "08089012345",
     email: "david.pam@unijos.edu.ng",
     emergencyContact: "08021098765",
-    address: "No. 56 Plateau State University Road, Jos",
-    medicalHistory: [
-      "Bacterial meningitis",
-      "Previous headache episodes"
-    ]
+    address: "No. 56 Plateau State University Road, Jos"
   },
   {
     id: "P001242",
@@ -245,11 +205,7 @@ const patients = [
     phone: "08090123456",
     email: "hauwa.mohammed@unijos.edu.ng",
     emergencyContact: "08010987654",
-    address: "No. 45 Jenta Adamu, Jos",
-    medicalHistory: [
-      "Rheumatic fever (childhood)",
-      "Heart murmur"
-    ]
+    address: "No. 45 Jenta Adamu, Jos"
   },
   {
     id: "P001243",
@@ -260,7 +216,7 @@ const patients = [
     department: "Business Administration",
     level: "100L",
     matricNumber: "UJ/2023/MSC/0789",
-    condition: "Tuberculosis (on treatment)",
+    condition: "Pulmonary tuberculosis (on treatment)",
     status: "Under Treatment",
     lastVisit: "2024-06-13",
     nextAppointment: "2024-06-20",
@@ -270,11 +226,7 @@ const patients = [
     phone: "08012346789",
     email: "samuel.gyang@unijos.edu.ng",
     emergencyContact: "08098767890",
-    address: "No. 23 Dogon Dutse, Jos",
-    medicalHistory: [
-      "Pulmonary tuberculosis",
-      "Contact with TB patient"
-    ]
+    address: "No. 23 Dogon Dutse, Jos"
   },
   {
     id: "P001244",
@@ -285,7 +237,7 @@ const patients = [
     department: "Veterinary Medicine",
     level: "200L",
     matricNumber: "UJ/2022/VET/0456",
-    condition: "Thyroid disorder (hyperthyroidism)",
+    condition: "Hyperthyroidism",
     status: "Stable",
     lastVisit: "2024-06-14",
     nextAppointment: "2024-07-14",
@@ -295,11 +247,7 @@ const patients = [
     phone: "08023457890",
     email: "ruth.laven@unijos.edu.ng",
     emergencyContact: "08087657891",
-    address: "No. 67 Vom Road, Jos",
-    medicalHistory: [
-      "Goiter",
-      "Weight loss episodes"
-    ]
+    address: "No. 67 Vom Road, Jos"
   },
   {
     id: "P001245",
@@ -320,94 +268,22 @@ const patients = [
     phone: "08034568901",
     email: "emmanuel.yakubu.student@unijos.edu.ng",
     emergencyContact: "08076548902",
-    address: "No. 12 Hwolshe, Jos",
-    medicalHistory: [
-      "Hypertension",
-      "Proteinuria"
-    ]
+    address: "No. 12 Hwolshe, Jos"
   }
 ];
 
-const staff = [
-  {
-    id: "S001",
-    name: "Dr. Hauwa Abdullahi",
-    role: "Registrar",
-    department: "Academic Registry",
-    patients: 0,
-    initials: "HA",
-  },
-  {
-    id: "S002",
-    name: "Mr. James Dung",
-    role: "Chief Librarian",
-    department: "Library Services",
-    patients: 0,
-    initials: "JD",
-  },
-  {
-    id: "S003",
-    name: "Mrs. Grace Yakubu",
-    role: "Security Coordinator",
-    department: "Security Services",
-    patients: 0,
-    initials: "GY",
-  },
-  {
-    id: "S004",
-    name: "Engr. Emmanuel Bulus",
-    role: "ICT Director",
-    department: "Information Technology",
-    patients: 0,
-    initials: "EB",
-  },
-  {
-    id: "S005",
-    name: "Mrs. Rebecca Gyang",
-    role: "Bursary Officer",
-    department: "Bursary",
-    patients: 0,
-    initials: "RG",
-  },
-  {
-    id: "S006",
-    name: "Mr. Daniel Kwaghe",
-    role: "Estate Officer",
-    department: "Estate Management",
-    patients: 0,
-    initials: "DK",
-  },
-  {
-    id: "S007",
-    name: "Mrs. Maryam Umar",
-    role: "HR Director",
-    department: "Human Resources",
-    patients: 0,
-    initials: "MU",
-  },
-  {
-    id: "S008",
-    name: "Dr. Samuel Dung",
-    role: "Chief Medical Officer",
-    department: "Medical Center",
-    patients: 45,
-    initials: "SD",
-  }
-];
-
-const getConditionColor = (condition: string) => {
-  if (condition.includes("Stable")) return "bg-green-100 text-green-800";
-  if (condition.includes("Treatment")) return "bg-orange-100 text-orange-800";
-  if (condition.includes("Recovering")) return "bg-blue-100 text-blue-800";
+const getConditionColor = (status: string) => {
+  if (status.includes("Stable")) return "bg-green-100 text-green-800";
+  if (status.includes("Treatment")) return "bg-orange-100 text-orange-800";
+  if (status.includes("Recovering")) return "bg-blue-100 text-blue-800";
   return "bg-gray-100 text-gray-800";
 };
 
 export const PatientManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFaculty, setSelectedFaculty] = useState("");
-  const [isAddPatientOpen, setIsAddPatientOpen] = useState(false);
   const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
-  const [selectedPatient, setSelectedPatient] = useState(null);
+  const [selectedPatient, setSelectedPatient] = useState<typeof patients[0] | null>(null);
 
   const faculties = [...new Set(patients.map((patient) => patient.faculty))];
 
@@ -418,7 +294,7 @@ export const PatientManagement = () => {
     return matchesSearch && matchesFaculty;
   });
 
-  const handleViewRecords = (patient) => {
+  const handleViewRecords = (patient: typeof patients[0]) => {
     setSelectedPatient(patient);
     setIsViewRecordsOpen(true);
   };
@@ -564,8 +440,8 @@ export const PatientManagement = () => {
       <ViewRecordsDialog
         open={isViewRecordsOpen}
         onOpenChange={(open) => setIsViewRecordsOpen(open)}
-        patientName={selectedPatient?.name}
-        patientId={selectedPatient?.id}
+        patientName={selectedPatient?.name || ""}
+        patientId={selectedPatient?.id || ""}
       />
     </div>
   );
