@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
 
-// Using the same data as Medical Records for consistency
+// Using the same patients data as Medical Records for consistency
 const patients = [
   {
     id: "P001234",
@@ -69,7 +69,7 @@ const patients = [
     department: "Psychology",
     level: "100L",
     matricNumber: "UJ/2023/SSC/0123",
-    condition: "Peptic ulcer disease",
+    condition: "Typhoid fever (severe)",
     status: "Recovering",
     lastVisit: "2024-06-08",
     nextAppointment: "2024-06-25",
@@ -281,7 +281,7 @@ const getConditionColor = (status: string) => {
 
 export const PatientManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedFaculty, setSelectedFaculty] = useState("");
+  const [selectedFaculty, setSelectedFaculty] = useState("all");
   const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<typeof patients[0] | null>(null);
 
@@ -290,7 +290,7 @@ export const PatientManagement = () => {
   const filteredPatients = patients.filter((patient) => {
     const searchRegex = new RegExp(searchQuery, "i");
     const matchesSearch = searchRegex.test(patient.name) || searchRegex.test(patient.matricNumber);
-    const matchesFaculty = selectedFaculty ? patient.faculty === selectedFaculty : true;
+    const matchesFaculty = selectedFaculty === "all" ? true : patient.faculty === selectedFaculty;
     return matchesSearch && matchesFaculty;
   });
 
@@ -368,7 +368,7 @@ export const PatientManagement = () => {
               <SelectValue placeholder="Filter by Faculty" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Faculties</SelectItem>
+              <SelectItem value="all">All Faculties</SelectItem>
               {faculties.map((faculty) => (
                 <SelectItem key={faculty} value={faculty}>
                   {faculty}
