@@ -13,69 +13,122 @@ interface ViewRecordsDialogProps {
 }
 
 export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }: ViewRecordsDialogProps) => {
-  // More diverse medical records data with Nigerian conditions
-  const records = [
-    {
-      id: "R001",
-      date: "2024-06-05",
-      type: "Emergency",
-      diagnosis: "Severe malaria with cerebral complications",
-      doctor: "Dr. Fatima Aliyu",
-      vitals: {
-        temperature: "40.1°C",
-        bloodPressure: "90/60 mmHg",
-        pulse: "120 bpm",
-        weight: "58 kg",
-      },
-      notes: "Patient presented with high fever, altered consciousness, and convulsions. Rapid diagnostic test positive for P. falciparum.",
-      icon: Heart
-    },
-    {
-      id: "R002",
-      date: "2024-05-20",
-      type: "Treatment",
-      diagnosis: "Sickle cell vaso-occlusive crisis",
-      doctor: "Dr. John Okafor",
-      vitals: {
-        temperature: "37.8°C",
-        bloodPressure: "130/85 mmHg",
-        pulse: "95 bpm",
-        weight: "61 kg",
-      },
-      notes: "Severe bone pain in extremities. Managed with strong analgesics and IV hydration therapy.",
-      icon: Stethoscope
-    },
-    {
-      id: "R003",
-      date: "2024-04-15",
-      type: "Follow-up",
-      diagnosis: "Pulmonary tuberculosis - treatment monitoring",
-      doctor: "Dr. Aisha Mohammed",
-      vitals: {
-        temperature: "36.8°C",
-        bloodPressure: "120/75 mmHg",
-        pulse: "72 bpm",
-        weight: "59 kg",
-      },
-      notes: "Month 4 of anti-TB treatment. Sputum conversion achieved. Patient showing good clinical improvement.",
-      icon: Eye
-    },
-    {
-      id: "R004",
-      date: "2024-03-10",
-      type: "Consultation",
-      diagnosis: "Chronic kidney disease secondary to hypertension",
-      doctor: "Dr. Peter Nnamdi",
-      vitals: {
-        temperature: "36.6°C",
-        bloodPressure: "160/95 mmHg",
-        pulse: "85 bpm",
-        weight: "57 kg",
-      },
-      notes: "Stage 3 CKD with declining eGFR. Blood pressure control initiated. Dietary protein restriction advised.",
-      icon: Brain
-    }
-  ];
+  // Different medical records for different patients
+  const getPatientRecords = (patientId: string) => {
+    const recordsMap: Record<string, any[]> = {
+      "P001234": [ // Adaora Okonkwo
+        {
+          id: "R001",
+          date: "2024-06-05",
+          type: "Emergency",
+          diagnosis: "Severe malaria with cerebral complications",
+          doctor: "Dr. Fatima Aliyu",
+          vitals: { temperature: "40.1°C", bloodPressure: "90/60 mmHg", pulse: "120 bpm", weight: "58 kg" },
+          notes: "Patient presented with high fever, altered consciousness, and convulsions. Rapid diagnostic test positive for P. falciparum.",
+          icon: Heart
+        }
+      ],
+      "P001235": [ // Ibrahim Musa
+        {
+          id: "R002",
+          date: "2024-06-07",
+          type: "Treatment",
+          diagnosis: "Sickle cell vaso-occlusive crisis",
+          doctor: "Dr. John Okafor",
+          vitals: { temperature: "37.8°C", bloodPressure: "130/85 mmHg", pulse: "95 bpm", weight: "61 kg" },
+          notes: "Severe bone pain in extremities. Managed with strong analgesics and IV hydration therapy.",
+          icon: Stethoscope
+        }
+      ],
+      "P001236": [ // Blessing Eze
+        {
+          id: "R003",
+          date: "2024-06-08",
+          type: "Follow-up",
+          diagnosis: "Typhoid fever - severe case",
+          doctor: "Dr. Aisha Mohammed",
+          vitals: { temperature: "39.2°C", bloodPressure: "110/70 mmHg", pulse: "88 bpm", weight: "52 kg" },
+          notes: "Rose spots visible on trunk. Blood culture positive for Salmonella Typhi. Started on IV antibiotics.",
+          icon: Eye
+        }
+      ],
+      "P001237": [ // Yusuf Abdullahi
+        {
+          id: "R004",
+          date: "2024-06-09",
+          type: "Consultation",
+          diagnosis: "Acute bronchial asthma exacerbation",
+          doctor: "Dr. Grace Musa",
+          vitals: { temperature: "36.8°C", bloodPressure: "125/80 mmHg", pulse: "102 bpm", weight: "65 kg" },
+          notes: "Wheezing and shortness of breath. Peak flow reduced to 60% of predicted. Nebulizer treatment given.",
+          icon: Brain
+        }
+      ],
+      "P001238": [ // Fatima Aliyu (Student)
+        {
+          id: "R005",
+          date: "2024-06-06",
+          type: "Treatment",
+          diagnosis: "Iron deficiency anemia",
+          doctor: "Dr. Hauwa Ibrahim",
+          vitals: { temperature: "36.5°C", bloodPressure: "100/65 mmHg", pulse: "78 bpm", weight: "55 kg" },
+          notes: "Hemoglobin level at 8.2 g/dL. Started on oral iron supplementation. Dietary counseling provided.",
+          icon: Heart
+        }
+      ],
+      "P001239": [ // Chidi Okafor
+        {
+          id: "R006",
+          date: "2024-06-04",
+          type: "Follow-up",
+          diagnosis: "Chronic Hepatitis B infection",
+          doctor: "Dr. Samuel Dung",
+          vitals: { temperature: "36.7°C", bloodPressure: "120/75 mmHg", pulse: "70 bpm", weight: "68 kg" },
+          notes: "HBsAg positive, viral load monitoring. Liver function tests within normal limits. Continue antiviral therapy.",
+          icon: Stethoscope
+        }
+      ],
+      "S001": [ // Dr. Fatima Aliyu (Staff)
+        {
+          id: "R007",
+          date: "2024-06-01",
+          type: "Check-up",
+          diagnosis: "Annual health screening - normal",
+          doctor: "Dr. John Okafor",
+          vitals: { temperature: "36.6°C", bloodPressure: "118/72 mmHg", pulse: "68 bpm", weight: "62 kg" },
+          notes: "Routine health check for staff member. All parameters within normal limits. Immunization status up to date.",
+          icon: Eye
+        }
+      ],
+      "S002": [ // Prof. John Okafor (Staff)
+        {
+          id: "R008",
+          date: "2024-05-15",
+          type: "Treatment",
+          diagnosis: "Essential hypertension",
+          doctor: "Dr. Aisha Mohammed",
+          vitals: { temperature: "36.4°C", bloodPressure: "145/92 mmHg", pulse: "75 bpm", weight: "78 kg" },
+          notes: "Blood pressure control with ACE inhibitors. Lifestyle modification counseling. Regular monitoring advised.",
+          icon: Heart
+        }
+      ]
+    };
+
+    return recordsMap[patientId] || [
+      {
+        id: "R999",
+        date: "2024-06-01",
+        type: "Consultation",
+        diagnosis: "General health consultation",
+        doctor: "Dr. General Practitioner",
+        vitals: { temperature: "36.5°C", bloodPressure: "120/80 mmHg", pulse: "72 bpm", weight: "65 kg" },
+        notes: "Routine consultation. No specific complaints. General health advice given.",
+        icon: Stethoscope
+      }
+    ];
+  };
+
+  const records = getPatientRecords(patientId);
 
   const getRecordTypeColor = (type: string) => {
     switch (type) {
@@ -83,9 +136,9 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
         return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
       case "Emergency":
         return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
-      case "Specialist":
-        return "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300";
-      case "Mental Health":
+      case "Treatment":
+        return "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300";
+      case "Follow-up":
         return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
       case "Check-up":
         return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";

@@ -6,18 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
-  Mail,
-  Phone,
   Eye,
   UserPlus,
-  Users,
-  UserCheck,
   Download,
 } from "lucide-react";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
 
-// Using the same patients data as Medical Records for consistency
-const patients = [
+// Combined patients and staff data
+const allPatients = [
   {
     id: "P001234",
     name: "Adaora Okonkwo",
@@ -37,7 +33,8 @@ const patients = [
     phone: "08012345678",
     email: "adaora.okonkwo@unijos.edu.ng",
     emergencyContact: "08098765432",
-    address: "No. 45 Zaria Road, Jos"
+    address: "No. 45 Zaria Road, Jos",
+    type: "Student"
   },
   {
     id: "P001235",
@@ -58,7 +55,8 @@ const patients = [
     phone: "08023456789",
     email: "ibrahim.musa@unijos.edu.ng",
     emergencyContact: "08087654321",
-    address: "No. 12 Bauchi Road, Jos"
+    address: "No. 12 Bauchi Road, Jos",
+    type: "Student"
   },
   {
     id: "P001236",
@@ -79,7 +77,52 @@ const patients = [
     phone: "08034567890",
     email: "blessing.eze@unijos.edu.ng",
     emergencyContact: "08076543210",
-    address: "No. 78 Tudun Wada, Jos"
+    address: "No. 78 Tudun Wada, Jos",
+    type: "Student"
+  },
+  {
+    id: "S001",
+    name: "Dr. Fatima Aliyu",
+    age: 35,
+    gender: "Female",
+    faculty: "Medical Staff",
+    department: "General Medicine",
+    level: "Senior Consultant",
+    matricNumber: "STAFF/2018/MED/001",
+    condition: "Routine health check",
+    status: "Healthy",
+    lastVisit: "2024-06-01",
+    nextAppointment: "2024-12-01",
+    doctor: "Dr. John Okafor",
+    bloodType: "A+",
+    allergies: ["None known"],
+    phone: "08012345001",
+    email: "fatima.aliyu@unijos.edu.ng",
+    emergencyContact: "08098765001",
+    address: "Medical Staff Quarters, Jos",
+    type: "Staff"
+  },
+  {
+    id: "S002",
+    name: "Prof. John Okafor",
+    age: 48,
+    gender: "Male",
+    faculty: "Medical Staff",
+    department: "Cardiology",
+    level: "Chief Medical Officer",
+    matricNumber: "STAFF/2010/MED/002",
+    condition: "Hypertension management",
+    status: "Stable",
+    lastVisit: "2024-05-15",
+    nextAppointment: "2024-07-15",
+    doctor: "Dr. Aisha Mohammed",
+    bloodType: "O-",
+    allergies: ["None known"],
+    phone: "08012345002",
+    email: "john.okafor@unijos.edu.ng",
+    emergencyContact: "08098765002",
+    address: "Senior Staff Quarters, Jos",
+    type: "Staff"
   },
   {
     id: "P001237",
@@ -100,7 +143,8 @@ const patients = [
     phone: "08045678901",
     email: "yusuf.abdullahi@unijos.edu.ng",
     emergencyContact: "08065432109",
-    address: "No. 23 Lamingo, Jos"
+    address: "No. 23 Lamingo, Jos",
+    type: "Student"
   },
   {
     id: "P001238",
@@ -121,7 +165,8 @@ const patients = [
     phone: "08056789012",
     email: "fatima.aliyu.student@unijos.edu.ng",
     emergencyContact: "08054321098",
-    address: "No. 67 Rayfield, Jos"
+    address: "No. 67 Rayfield, Jos",
+    type: "Student"
   },
   {
     id: "P001239",
@@ -142,7 +187,8 @@ const patients = [
     phone: "08067890123",
     email: "chidi.okafor@unijos.edu.ng",
     emergencyContact: "08043210987",
-    address: "No. 34 Bukuru, Jos"
+    address: "No. 34 Bukuru, Jos",
+    type: "Student"
   },
   {
     id: "P001240",
@@ -163,7 +209,8 @@ const patients = [
     phone: "08078901234",
     email: "amina.bello@unijos.edu.ng",
     emergencyContact: "08032109876",
-    address: "No. 89 Anglo Jos, Jos"
+    address: "No. 89 Anglo Jos, Jos",
+    type: "Student"
   },
   {
     id: "P001241",
@@ -184,7 +231,8 @@ const patients = [
     phone: "08089012345",
     email: "david.pam@unijos.edu.ng",
     emergencyContact: "08021098765",
-    address: "No. 56 Plateau State University Road, Jos"
+    address: "No. 56 Plateau State University Road, Jos",
+    type: "Student"
   },
   {
     id: "P001242",
@@ -205,7 +253,8 @@ const patients = [
     phone: "08090123456",
     email: "hauwa.mohammed@unijos.edu.ng",
     emergencyContact: "08010987654",
-    address: "No. 45 Jenta Adamu, Jos"
+    address: "No. 45 Jenta Adamu, Jos",
+    type: "Student"
   },
   {
     id: "P001243",
@@ -226,75 +275,27 @@ const patients = [
     phone: "08012346789",
     email: "samuel.gyang@unijos.edu.ng",
     emergencyContact: "08098767890",
-    address: "No. 23 Dogon Dutse, Jos"
-  },
-  {
-    id: "P001244",
-    name: "Ruth Laven",
-    age: 20,
-    gender: "Female",
-    faculty: "Veterinary Medicine",
-    department: "Veterinary Medicine",
-    level: "200L",
-    matricNumber: "UJ/2022/VET/0456",
-    condition: "Hyperthyroidism",
-    status: "Stable",
-    lastVisit: "2024-06-14",
-    nextAppointment: "2024-07-14",
-    doctor: "Dr. Fatima Aliyu",
-    bloodType: "A+",
-    allergies: ["Iodine"],
-    phone: "08023457890",
-    email: "ruth.laven@unijos.edu.ng",
-    emergencyContact: "08087657891",
-    address: "No. 67 Vom Road, Jos"
-  },
-  {
-    id: "P001245",
-    name: "Emmanuel Yakubu",
-    age: 21,
-    gender: "Male",
-    faculty: "Arts",
-    department: "English Language",
-    level: "300L",
-    matricNumber: "UJ/2021/ART/0234",
-    condition: "Chronic kidney disease (early stage)",
-    status: "Under Treatment",
-    lastVisit: "2024-06-15",
-    nextAppointment: "2024-06-25",
-    doctor: "Dr. John Okafor",
-    bloodType: "B+",
-    allergies: ["None known"],
-    phone: "08034568901",
-    email: "emmanuel.yakubu.student@unijos.edu.ng",
-    emergencyContact: "08076548902",
-    address: "No. 12 Hwolshe, Jos"
+    address: "No. 23 Dogon Dutse, Jos",
+    type: "Student"
   }
 ];
-
-const getConditionColor = (status: string) => {
-  if (status.includes("Stable")) return "bg-green-100 text-green-800";
-  if (status.includes("Treatment")) return "bg-orange-100 text-orange-800";
-  if (status.includes("Recovering")) return "bg-blue-100 text-blue-800";
-  return "bg-gray-100 text-gray-800";
-};
 
 export const PatientManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFaculty, setSelectedFaculty] = useState("all");
   const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
-  const [selectedPatient, setSelectedPatient] = useState<typeof patients[0] | null>(null);
+  const [selectedPatient, setSelectedPatient] = useState<typeof allPatients[0] | null>(null);
 
-  const faculties = [...new Set(patients.map((patient) => patient.faculty))];
+  const faculties = [...new Set(allPatients.map((patient) => patient.faculty))];
 
-  const filteredPatients = patients.filter((patient) => {
+  const filteredPatients = allPatients.filter((patient) => {
     const searchRegex = new RegExp(searchQuery, "i");
     const matchesSearch = searchRegex.test(patient.name) || searchRegex.test(patient.matricNumber);
     const matchesFaculty = selectedFaculty === "all" ? true : patient.faculty === selectedFaculty;
     return matchesSearch && matchesFaculty;
   });
 
-  const handleViewRecords = (patient: typeof patients[0]) => {
+  const handleViewRecords = (patient: typeof allPatients[0]) => {
     setSelectedPatient(patient);
     setIsViewRecordsOpen(true);
   };
@@ -304,53 +305,12 @@ export const PatientManagement = () => {
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Patient Management</h2>
-          <p className="text-gray-600">Manage student medical records and appointments</p>
+          <p className="text-gray-600">Manage student and staff medical records and appointments</p>
         </div>
         <Button className="bg-blue-600 hover:bg-blue-700">
           <UserPlus className="h-4 w-4 mr-2" />
           Add New Patient
         </Button>
-      </div>
-
-      {/* Patient Statistics */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center">
-              <Users className="h-8 w-8 text-blue-600" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Patients</p>
-                <p className="text-2xl font-bold text-gray-900">{patients.length}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center">
-              <UserCheck className="h-8 w-8 text-green-600" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Stable Condition</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {patients.filter(p => p.status.includes("Stable")).length}
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center">
-              <UserCheck className="h-8 w-8 text-orange-600" />
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Under Treatment</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {patients.filter(p => p.status.includes("Treatment")).length}
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
       {/* Search and Filter */}
@@ -391,7 +351,7 @@ export const PatientManagement = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPatients.map((patient) => (
-              <Card key={patient.id} className="hover:shadow-lg transition-shadow">
+              <Card key={patient.id} className="hover:shadow-lg hover:scale-105 transition-all duration-200 cursor-pointer">
                 <CardContent className="pt-6">
                   <div className="flex items-center space-x-4 mb-4">
                     <Avatar className="h-12 w-12">
@@ -401,8 +361,8 @@ export const PatientManagement = () => {
                     </Avatar>
                     <div>
                       <h3 className="font-semibold text-gray-900">{patient.name}</h3>
-                      <span className={`px-2 py-1 rounded text-xs font-medium ${getConditionColor(patient.status)}`}>
-                        {patient.condition}
+                      <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                        {patient.type}
                       </span>
                     </div>
                   </div>
@@ -411,21 +371,13 @@ export const PatientManagement = () => {
                     <p><span className="font-medium">Faculty:</span> {patient.faculty}</p>
                     <p><span className="font-medium">Department:</span> {patient.department}</p>
                     <p><span className="font-medium">Level:</span> {patient.level}</p>
-                    <p><span className="font-medium">Matric No:</span> {patient.matricNumber}</p>
+                    <p><span className="font-medium">{patient.type === "Staff" ? "Staff ID" : "Matric No"}:</span> {patient.matricNumber}</p>
                     <p><span className="font-medium">Last Visit:</span> {patient.lastVisit}</p>
                     <p><span className="font-medium">Next Appointment:</span> {patient.nextAppointment}</p>
                   </div>
 
-                  <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200">
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Mail className="h-4 w-4 mr-1" />
-                      Email
-                    </Button>
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Phone className="h-4 w-4 mr-1" />
-                      Call
-                    </Button>
-                    <Button variant="outline" size="sm" className="flex-1" onClick={() => handleViewRecords(patient)}>
+                  <div className="flex justify-center mt-4 pt-4 border-t border-gray-200">
+                    <Button variant="outline" size="sm" onClick={() => handleViewRecords(patient)} className="w-full">
                       <Eye className="h-4 w-4 mr-1" />
                       View Records
                     </Button>
