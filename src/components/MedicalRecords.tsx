@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Plus, Download, Eye, UserCheck } from "lucide-react";
 import { NewRecordDialog } from "./NewRecordDialog";
+import { ViewRecordsDialog } from "./ViewRecordsDialog";
 
 // 10 student medical records with diverse Nigerian medical conditions
 const medicalRecords = [
@@ -412,6 +413,16 @@ const getRecordTypeColor = (type: string) => {
 
 export const MedicalRecords = () => {
   const [isNewRecordOpen, setIsNewRecordOpen] = useState(false);
+  const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
+  const [selectedPatient, setSelectedPatient] = useState<{ name: string; patientId: string } | null>(null);
+
+  const handleViewRecord = (record: any, isStaff: boolean) => {
+    setSelectedPatient({
+      name: record.name,
+      patientId: isStaff ? record.staffId : record.patientId
+    });
+    setIsViewRecordsOpen(true);
+  };
 
   const RecordCard = ({ record, isStaff = false }) => (
     <Card key={record.id} className="hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
@@ -453,7 +464,12 @@ export const MedicalRecords = () => {
             </div>
           </div>
           <div className="flex gap-1 sm:gap-2 ml-2">
-            <Button variant="outline" size="sm" className="h-8 w-8 sm:h-9 sm:w-auto sm:px-3">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="h-8 w-8 sm:h-9 sm:w-auto sm:px-3"
+              onClick={() => handleViewRecord(record, isStaff)}
+            >
               <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline ml-1">View</span>
             </Button>
@@ -557,6 +573,13 @@ export const MedicalRecords = () => {
       <NewRecordDialog 
         open={isNewRecordOpen} 
         onOpenChange={setIsNewRecordOpen} 
+      />
+
+      <ViewRecordsDialog
+        open={isViewRecordsOpen}
+        onOpenChange={setIsViewRecordsOpen}
+        patientName={selectedPatient?.name || ""}
+        patientId={selectedPatient?.patientId || ""}
       />
     </div>
   );
