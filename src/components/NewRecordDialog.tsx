@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Loading } from "@/components/ui/loading";
 import { useToast } from "@/hooks/use-toast";
+import { FileUpload } from "./FileUpload";
 
 interface NewRecordDialogProps {
   open: boolean;
@@ -17,6 +18,7 @@ interface NewRecordDialogProps {
 export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
   const [formData, setFormData] = useState({
     patientId: "",
     recordType: "",
@@ -44,13 +46,12 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
 
     setIsSubmitting(true);
     
-    // Simulate API call
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       toast({
         title: "Success",
-        description: "Medical record created successfully",
+        description: `Medical record created successfully${files.length > 0 ? ` with ${files.length} file(s)` : ''}`,
       });
       
       // Reset form and close dialog
@@ -66,6 +67,7 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
         pulse: "",
         weight: ""
       });
+      setFiles([]);
       onOpenChange(false);
     } catch (error) {
       toast({
@@ -84,15 +86,16 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[95vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Create New Medical Record</DialogTitle>
+          <DialogTitle className="text-lg md:text-xl">Create New Medical Record</DialogTitle>
         </DialogHeader>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Patient Info Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="patientId">Patient ID *</Label>
+              <Label htmlFor="patientId" className="text-sm font-medium">Patient ID *</Label>
               <Input
                 id="patientId"
                 value={formData.patientId}
@@ -100,17 +103,18 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
                 placeholder="P001234"
                 required
                 disabled={isSubmitting}
+                className="h-12 text-base"
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="recordType">Record Type</Label>
+              <Label htmlFor="recordType" className="text-sm font-medium">Record Type</Label>
               <Select 
                 value={formData.recordType} 
                 onValueChange={(value) => handleInputChange("recordType", value)}
                 disabled={isSubmitting}
               >
-                <SelectTrigger>
+                <SelectTrigger className="h-12 text-base">
                   <SelectValue placeholder="Select record type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -124,109 +128,134 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="diagnosis">Diagnosis *</Label>
-            <Input
-              id="diagnosis"
-              value={formData.diagnosis}
-              onChange={(e) => handleInputChange("diagnosis", e.target.value)}
-              placeholder="Enter diagnosis"
-              required
-            />
+          {/* Medical Info Section */}
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="diagnosis" className="text-sm font-medium">Diagnosis *</Label>
+              <Input
+                id="diagnosis"
+                value={formData.diagnosis}
+                onChange={(e) => handleInputChange("diagnosis", e.target.value)}
+                placeholder="Enter diagnosis"
+                required
+                className="h-12 text-base"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="doctor" className="text-sm font-medium">Doctor *</Label>
+              <Select value={formData.doctor} onValueChange={(value) => handleInputChange("doctor", value)}>
+                <SelectTrigger className="h-12 text-base">
+                  <SelectValue placeholder="Select doctor" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Dr. Fatima Aliyu">Dr. Fatima Aliyu</SelectItem>
+                  <SelectItem value="Dr. John Okafor">Dr. John Okafor</SelectItem>
+                  <SelectItem value="Dr. Aisha Mohammed">Dr. Aisha Mohammed</SelectItem>
+                  <SelectItem value="Dr. Peter Nnamdi">Dr. Peter Nnamdi</SelectItem>
+                  <SelectItem value="Dr. Grace Musa">Dr. Grace Musa</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="medications" className="text-sm font-medium">Medications</Label>
+              <Textarea
+                id="medications"
+                value={formData.medications}
+                onChange={(e) => handleInputChange("medications", e.target.value)}
+                placeholder="List medications (one per line)"
+                rows={3}
+                className="text-base resize-none"
+              />
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="doctor">Doctor *</Label>
-            <Select value={formData.doctor} onValueChange={(value) => handleInputChange("doctor", value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select doctor" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Dr. Fatima Aliyu">Dr. Fatima Aliyu</SelectItem>
-                <SelectItem value="Dr. John Okafor">Dr. John Okafor</SelectItem>
-                <SelectItem value="Dr. Aisha Mohammed">Dr. Aisha Mohammed</SelectItem>
-                <SelectItem value="Dr. Peter Nnamdi">Dr. Peter Nnamdi</SelectItem>
-                <SelectItem value="Dr. Grace Musa">Dr. Grace Musa</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="medications">Medications</Label>
-            <Textarea
-              id="medications"
-              value={formData.medications}
-              onChange={(e) => handleInputChange("medications", e.target.value)}
-              placeholder="List medications (one per line)"
-              rows={3}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label>Vital Signs</Label>
-            <div className="grid grid-cols-2 gap-4">
+          {/* Vital Signs Section */}
+          <div className="space-y-4">
+            <Label className="text-sm font-medium">Vital Signs</Label>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="temperature">Temperature</Label>
+                <Label htmlFor="temperature" className="text-xs">Temperature</Label>
                 <Input
                   id="temperature"
                   value={formData.temperature}
                   onChange={(e) => handleInputChange("temperature", e.target.value)}
                   placeholder="36.5°C"
+                  className="h-11 text-base"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="bloodPressure">Blood Pressure</Label>
+                <Label htmlFor="bloodPressure" className="text-xs">Blood Pressure</Label>
                 <Input
                   id="bloodPressure"
                   value={formData.bloodPressure}
                   onChange={(e) => handleInputChange("bloodPressure", e.target.value)}
                   placeholder="120/80 mmHg"
+                  className="h-11 text-base"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="pulse">Pulse</Label>
+                <Label htmlFor="pulse" className="text-xs">Pulse</Label>
                 <Input
                   id="pulse"
                   value={formData.pulse}
                   onChange={(e) => handleInputChange("pulse", e.target.value)}
                   placeholder="78 bpm"
+                  className="h-11 text-base"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="weight">Weight</Label>
+                <Label htmlFor="weight" className="text-xs">Weight</Label>
                 <Input
                   id="weight"
                   value={formData.weight}
                   onChange={(e) => handleInputChange("weight", e.target.value)}
                   placeholder="65 kg"
+                  className="h-11 text-base"
                 />
               </div>
             </div>
           </div>
 
+          {/* File Upload Section */}
+          <div className="space-y-4">
+            <Label className="text-sm font-medium">Medical Documents</Label>
+            <FileUpload
+              onFilesChange={setFiles}
+              maxFiles={5}
+              acceptedTypes={['image/*', 'application/pdf', '.doc', '.docx']}
+              maxSize={10}
+            />
+          </div>
+
+          {/* Clinical Notes Section */}
           <div className="space-y-2">
-            <Label htmlFor="notes">Clinical Notes</Label>
+            <Label htmlFor="notes" className="text-sm font-medium">Clinical Notes</Label>
             <Textarea
               id="notes"
               value={formData.notes}
               onChange={(e) => handleInputChange("notes", e.target.value)}
               placeholder="Enter clinical notes and observations"
               rows={4}
+              className="text-base resize-none"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-4">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t">
             <Button 
               type="button" 
               variant="outline" 
               onClick={() => onOpenChange(false)}
               disabled={isSubmitting}
+              className="h-12 text-base flex-1"
             >
               Cancel
             </Button>
             <Button 
               type="submit" 
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-blue-600 hover:bg-blue-700 h-12 text-base flex-1"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
