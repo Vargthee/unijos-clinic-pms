@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Sidebar } from "@/components/Sidebar";
 import { Dashboard } from "@/components/Dashboard";
@@ -6,7 +5,7 @@ import { PatientManagement } from "@/components/PatientManagement";
 import { Appointments } from "@/components/Appointments";
 import { ComprehensiveMedicalRecords } from "@/components/ComprehensiveMedicalRecords";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Moon, Sun, LogIn } from "lucide-react";
+import { Moon, Sun, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +22,11 @@ const Index = () => {
   if (!mounted) {
     return null;
   }
+
+  const handleSignOut = () => {
+    console.log("Signing out...");
+    navigate("/signin");
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -48,11 +52,11 @@ const Index = () => {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => navigate("/signin")}
+              onClick={handleSignOut}
               className="gap-2"
             >
-              <LogIn className="h-4 w-4" />
-              Sign In
+              <LogOut className="h-4 w-4" />
+              Sign Out
             </Button>
             <Button
               variant="outline"
