@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Plus, Download, Eye, UserCheck } from "lucide-react";
 import { NewRecordDialog } from "./NewRecordDialog";
 
-// 12 student medical records with diverse Nigerian medical conditions
+// 10 student medical records with diverse Nigerian medical conditions
 const medicalRecords = [
   {
     id: "R001",
@@ -206,46 +206,6 @@ const medicalRecords = [
     },
     faculty: "Management Sciences",
     level: "100L"
-  },
-  {
-    id: "R011",
-    name: "Ruth Laven",
-    patientId: "P001244",
-    matricNumber: "UJ/2022/VET/0456",
-    recordType: "Treatment",
-    diagnosis: "Thyroid disorder (hyperthyroidism)",
-    doctor: "Dr. Fatima Aliyu",
-    date: "2024-06-14",
-    medications: ["Carbimazole", "Propranolol", "Thyroid monitoring"],
-    notes: "Hyperthyroidism with enlarged thyroid gland. Anti-thyroid medication started. Regular monitoring required.",
-    vitals: {
-      temperature: "37.1°C",
-      bloodPressure: "135/88 mmHg",
-      pulse: "115 bpm",
-      weight: "56 kg",
-    },
-    faculty: "Veterinary Medicine",
-    level: "200L"
-  },
-  {
-    id: "R012",
-    name: "Emmanuel Yakubu",
-    patientId: "P001245",
-    matricNumber: "UJ/2021/ART/0234",
-    recordType: "Follow-up",
-    diagnosis: "Chronic kidney disease (early stage)",
-    doctor: "Dr. John Okafor",
-    date: "2024-06-15",
-    medications: ["ACE inhibitors", "Calcium supplements", "Dietary restrictions"],
-    notes: "Early stage CKD secondary to hypertension. Blood pressure control achieved. Nephrology referral made.",
-    vitals: {
-      temperature: "36.8°C",
-      bloodPressure: "140/90 mmHg",
-      pulse: "78 bpm",
-      weight: "64 kg",
-    },
-    faculty: "Arts",
-    level: "300L"
   }
 ];
 

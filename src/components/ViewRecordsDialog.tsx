@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +12,7 @@ interface ViewRecordsDialogProps {
 }
 
 export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }: ViewRecordsDialogProps) => {
-  // Different medical records for different patients
+  // Different medical records for different patients - updated to reflect 10 student records
   const getPatientRecords = (patientId: string) => {
     const recordsMap: Record<string, any[]> = {
       "P001234": [ // Adaora Okonkwo
@@ -88,9 +87,57 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           icon: Stethoscope
         }
       ],
-      "S001": [ // Dr. Fatima Aliyu (Staff)
+      "P001240": [ // Amina Bello
         {
           id: "R007",
+          date: "2024-06-10",
+          type: "Treatment",
+          diagnosis: "Urinary tract infection (UTI)",
+          doctor: "Dr. Mary Gyang",
+          vitals: { temperature: "37.5°C", bloodPressure: "112/70 mmHg", pulse: "82 bpm", weight: "51 kg" },
+          notes: "Recurrent UTI with E. coli bacteria. Antibiotic sensitivity test done. Hygiene education provided.",
+          icon: Eye
+        }
+      ],
+      "P001241": [ // David Pam
+        {
+          id: "R008",
+          date: "2024-06-11",
+          type: "Emergency",
+          diagnosis: "Meningitis (recovering)",
+          doctor: "Dr. Peter Bulus",
+          vitals: { temperature: "37.2°C", bloodPressure: "118/75 mmHg", pulse: "85 bpm", weight: "74 kg" },
+          notes: "Bacterial meningitis successfully treated. Neurological examination normal. Follow-up scheduled.",
+          icon: Brain
+        }
+      ],
+      "P001242": [ // Hauwa Mohammed
+        {
+          id: "R009",
+          date: "2024-06-12",
+          type: "Follow-up",
+          diagnosis: "Rheumatic heart disease",
+          doctor: "Dr. Emmanuel Yakubu",
+          vitals: { temperature: "36.6°C", bloodPressure: "125/82 mmHg", pulse: "88 bpm", weight: "63 kg" },
+          notes: "Stable rheumatic heart disease. Echo shows mild mitral regurgitation. Regular cardiology follow-up needed.",
+          icon: Heart
+        }
+      ],
+      "P001243": [ // Samuel Gyang
+        {
+          id: "R010",
+          date: "2024-06-13",
+          type: "Treatment",
+          diagnosis: "Tuberculosis (on treatment)",
+          doctor: "Dr. Ruth Laven",
+          vitals: { temperature: "37.3°C", bloodPressure: "115/70 mmHg", pulse: "92 bpm", weight: "67 kg" },
+          notes: "Pulmonary tuberculosis on intensive phase. Sputum conversion expected. Contact tracing completed.",
+          icon: Stethoscope
+        }
+      ],
+      "S001": [ // Dr. Fatima Aliyu (Staff)
+        {
+          id: "R011",
           date: "2024-06-01",
           type: "Check-up",
           diagnosis: "Annual health screening - normal",
@@ -102,7 +149,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
       ],
       "S002": [ // Prof. John Okafor (Staff)
         {
-          id: "R008",
+          id: "R012",
           date: "2024-05-15",
           type: "Treatment",
           diagnosis: "Essential hypertension",
