@@ -1,9 +1,7 @@
-
 import { LoadingSpinner } from "@/components/ui/loading";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { DashboardStats } from "@/components/DashboardStats";
 import { RecentPatientsList } from "@/components/RecentPatientsList";
-import { QuickActions } from "@/components/QuickActions";
 import { useDashboard } from "@/hooks/useDashboard";
 import { AlertTriangle } from "lucide-react";
 
@@ -45,14 +43,7 @@ export const Dashboard = () => {
       
       <DashboardStats stats={stats} />
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          <RecentPatientsList patients={recentPatients} />
-        </div>
-        <div>
-          <QuickActions />
-        </div>
-      </div>
+      <RecentPatientsList patients={recentPatients} />
     </div>
   );
 };
