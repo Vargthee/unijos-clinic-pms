@@ -2,6 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 import { 
   UserPlus, 
   CalendarPlus, 
@@ -42,22 +43,34 @@ const quickActions = [
     description: "Register a new patient",
     icon: UserPlus,
     color: "bg-blue-500 hover:bg-blue-600",
+    action: "add-patient",
   },
   {
     title: "Schedule Appointment",
     description: "Book new appointment",
     icon: CalendarPlus,
     color: "bg-green-500 hover:bg-green-600",
+    action: "schedule-appointment",
   },
   {
     title: "New Medical Record",
     description: "Create patient record",
     icon: FileText,
     color: "bg-purple-500 hover:bg-purple-600",
+    action: "new-record",
   },
 ];
 
 export const QuickActions = () => {
+  const { toast } = useToast();
+
+  const handleQuickAction = (action: string, title: string) => {
+    toast({
+      title: `${title} Selected`,
+      description: "This feature will be implemented soon.",
+    });
+  };
+
   return (
     <div className="space-y-6">
       <Card className="border border-border/50 bg-card/80 backdrop-blur-sm">
@@ -111,6 +124,7 @@ export const QuickActions = () => {
                 key={index}
                 variant="outline"
                 className="w-full justify-start h-auto p-4 hover:scale-[1.02] transition-all duration-200"
+                onClick={() => handleQuickAction(action.action, action.title)}
               >
                 <div className={`p-2 rounded-lg ${action.color} text-white mr-3`}>
                   <Icon className="h-4 w-4" />

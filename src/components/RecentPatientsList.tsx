@@ -1,9 +1,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, User, Phone, Mail, MapPin, MoreHorizontal } from "lucide-react";
+import { Calendar, User, Phone, MoreHorizontal } from "lucide-react";
 import { Patient } from "@/types";
-import { getInitials, truncateText } from "@/utils";
+import { getInitials } from "@/utils";
 
 interface RecentPatientsListProps {
   patients: Patient[];
@@ -24,7 +24,7 @@ export const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
           {patients.map((patient, index) => (
             <div 
               key={patient.id} 
-              className="group flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-gradient-to-r from-muted/30 to-muted/10 dark:from-muted/20 dark:to-muted/5 rounded-xl gap-3 hover:from-muted/50 hover:to-muted/20 dark:hover:from-muted/30 dark:hover:to-muted/10 transition-all duration-300 hover:shadow-md border border-transparent hover:border-border/50"
+              className="group flex items-center justify-between p-4 bg-gradient-to-r from-muted/30 to-muted/10 dark:from-muted/20 dark:to-muted/5 rounded-xl hover:from-muted/50 hover:to-muted/20 dark:hover:from-muted/30 dark:hover:to-muted/10 transition-all duration-300 hover:shadow-md border border-transparent hover:border-border/50"
               style={{ animationDelay: `${index * 0.05}s` }}
             >
               <div className="flex items-center gap-4 min-w-0 flex-1">
@@ -51,41 +51,26 @@ export const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
                     </span>
                   </div>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
                     <span className="flex items-center gap-1">
                       <User className="h-3 w-3 flex-shrink-0" />
                       <span className="truncate">{patient.id}</span>
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Mail className="h-3 w-3 flex-shrink-0" />
-                      <span className="truncate">{truncateText(patient.email, 15)}</span>
                     </span>
                     <span className="flex items-center gap-1">
                       <Phone className="h-3 w-3 flex-shrink-0" />
                       <span className="truncate">{patient.phone}</span>
                     </span>
                   </div>
-                  
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground/70 mt-1">
-                    <MapPin className="h-3 w-3 flex-shrink-0" />
-                    <span className="truncate">{truncateText(patient.address, 30)}</span>
-                  </div>
                 </div>
               </div>
               
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <div className="text-right hidden sm:block">
-                  <p className="text-xs text-muted-foreground">DOB</p>
-                  <p className="text-sm font-medium text-foreground">{patient.dateOfBirth}</p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                >
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              >
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
             </div>
           ))}
         </div>

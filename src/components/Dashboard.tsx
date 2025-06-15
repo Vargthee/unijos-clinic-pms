@@ -3,7 +3,6 @@ import { LoadingSpinner } from "@/components/ui/loading";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { DashboardStats } from "@/components/DashboardStats";
 import { RecentPatientsList } from "@/components/RecentPatientsList";
-import { DashboardCharts } from "@/components/DashboardCharts";
 import { QuickActions } from "@/components/QuickActions";
 import { useDashboard } from "@/hooks/useDashboard";
 import { AlertTriangle } from "lucide-react";
@@ -37,7 +36,7 @@ export const Dashboard = () => {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold text-foreground">
-          Welcome to UNIJOS Clinic Dashboard
+          Welcome to University of Jos Clinic Dashboard
         </h1>
         <p className="text-muted-foreground">
           Overview of clinic operations and recent activities
@@ -47,11 +46,10 @@ export const Dashboard = () => {
       <DashboardStats stats={stats} />
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2">
           <RecentPatientsList patients={recentPatients} />
-          <DashboardCharts />
         </div>
-        <div className="space-y-6">
+        <div>
           <QuickActions />
         </div>
       </div>
