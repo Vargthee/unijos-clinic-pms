@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigation } from "@/hooks/useNavigation";
 import { 
   UserPlus, 
   CalendarPlus, 
@@ -42,32 +43,40 @@ const quickActions = [
     title: "Add New Patient",
     description: "Register a new patient",
     icon: UserPlus,
-    color: "bg-blue-500 hover:bg-blue-600",
+    color: "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700",
     action: "add-patient",
+    tab: "patients" as const,
   },
   {
     title: "Schedule Appointment",
     description: "Book new appointment",
     icon: CalendarPlus,
-    color: "bg-green-500 hover:bg-green-600",
+    color: "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700",
     action: "schedule-appointment",
+    tab: "appointments" as const,
   },
   {
     title: "New Medical Record",
     description: "Create patient record",
     icon: FileText,
-    color: "bg-purple-500 hover:bg-purple-600",
+    color: "bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700",
     action: "new-record",
+    tab: "records" as const,
   },
 ];
 
 export const QuickActions = () => {
   const { toast } = useToast();
+  const { setActiveTab } = useNavigation();
 
-  const handleQuickAction = (action: string, title: string) => {
+  const handleQuickAction = (action: string, title: string, tab: "patients" | "appointments" | "records") => {
+    // Navigate to the appropriate tab
+    setActiveTab(tab);
+    
+    // Show success message
     toast({
-      title: `${title} Selected`,
-      description: "This feature will be implemented soon.",
+      title: `${title}`,
+      description: `Navigated to ${tab} section. You can now ${action.replace('-', ' ')}.`,
     });
   };
 
@@ -116,23 +125,33 @@ export const QuickActions = () => {
         <CardHeader>
           <CardTitle className="text-lg font-semibold">Quick Actions</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-4">
           {quickActions.map((action, index) => {
             const Icon = action.icon;
             return (
               <Button
                 key={index}
                 variant="outline"
-                className="w-full justify-start h-auto p-4 hover:scale-[1.02] transition-all duration-200"
-                onClick={() => handleQuickAction(action.action, action.title)}
+                className="w-full justify-start h-auto p-0 hover:scale-[1.02] transition-all duration-300 border-2 hover:border-primary/20 group overflow-hidden relative"
+                onClick={() => handleQuickAction(action.action, action.title, action.tab)}
               >
-                <div className={`p-2 rounded-lg ${action.color} text-white mr-3`}>
-                  <Icon className="h-4 w-4" />
+                <div className="flex items-center w-full p-4">
+                  <div className={`p-3 rounded-xl ${action.color} text-white mr-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}>
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="text-left flex-1">
+                    <p className="font-semibold text-foreground group-hover:text-primary transition-colors duration-200">
+                      {action.title}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {action.description}
+                    </p>
+                  </div>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <p className="font-medium">{action.title}</p>
-                  <p className="text-xs text-muted-foreground">{action.description}</p>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
               </Button>
             );
           })}
