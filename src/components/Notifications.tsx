@@ -2,21 +2,22 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bell } from "lucide-react";
 
+// Updated notifications with real patient names from the records/dashboard
 const notifications = [
   {
-    title: "Appointment reminder: John Doe at 2:00 PM",
+    title: "Appointment reminder: Adaora Okonkwo at 2:00 PM",
     time: "10 mins ago",
   },
   {
-    title: "New lab results for Jane Smith are available.",
+    title: "New lab results for Blessing Eze are available.",
     time: "1 hour ago",
   },
   {
-    title: "Refill prescription for Michael Johnson.",
+    title: "Refill prescription for Ibrahim Musa.",
     time: "3 hours ago",
   },
   {
-    title: "Follow-up with Adaora Okonkwo.",
+    title: "Follow-up with Yusuf Abdullahi.",
     time: "Yesterday",
   },
 ];
