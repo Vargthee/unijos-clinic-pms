@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Sidebar } from "@/components/Sidebar";
 import { Dashboard } from "@/components/Dashboard";
@@ -7,13 +8,13 @@ import { ComprehensiveMedicalRecords } from "@/components/ComprehensiveMedicalRe
 import { useTheme } from "@/contexts/ThemeContext";
 import { Moon, Sun, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "@/hooks/useNavigation";
+import { TabType } from "@/types";
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const { activeTab, setActiveTab, handleSignOut } = useNavigation();
   const { theme, toggleTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setMounted(true);
@@ -23,24 +24,16 @@ const Index = () => {
     return null;
   }
 
-  const handleSignOut = () => {
-    console.log("Signing out...");
-    navigate("/signin");
-  };
-
   const renderContent = () => {
-    switch (activeTab) {
-      case "dashboard":
-        return <Dashboard />;
-      case "patients":
-        return <PatientManagement />;
-      case "appointments":
-        return <Appointments />;
-      case "records":
-        return <ComprehensiveMedicalRecords />;
-      default:
-        return <Dashboard />;
-    }
+    const components: Record<TabType, React.ComponentType> = {
+      dashboard: Dashboard,
+      patients: PatientManagement,
+      appointments: Appointments,
+      records: ComprehensiveMedicalRecords,
+    };
+
+    const Component = components[activeTab] || Dashboard;
+    return <Component />;
   };
 
   return (
