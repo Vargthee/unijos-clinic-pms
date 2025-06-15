@@ -1,6 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, User, Phone, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Calendar, User, Phone, Mail, MapPin, MoreHorizontal } from "lucide-react";
 import { Patient } from "@/types";
 import { getInitials, truncateText } from "@/utils";
 
@@ -11,47 +12,79 @@ interface RecentPatientsListProps {
 export const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
   return (
     <Card className="border border-border/50 bg-card/80 backdrop-blur-sm">
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-semibold text-foreground flex items-center gap-2">
           <Calendar className="h-5 w-5 text-primary" />
           Recent Patients
         </CardTitle>
+        <Button variant="outline" size="sm">View All</Button>
       </CardHeader>
       <CardContent>
-        <div className="space-y-3">
-          {patients.map((patient) => (
+        <div className="space-y-4">
+          {patients.map((patient, index) => (
             <div 
               key={patient.id} 
-              className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-muted/30 dark:bg-muted/20 rounded-lg gap-3 hover:bg-muted/50 transition-colors duration-200"
+              className="group flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-gradient-to-r from-muted/30 to-muted/10 dark:from-muted/20 dark:to-muted/5 rounded-xl gap-3 hover:from-muted/50 hover:to-muted/20 dark:hover:from-muted/30 dark:hover:to-muted/10 transition-all duration-300 hover:shadow-md border border-transparent hover:border-border/50"
+              style={{ animationDelay: `${index * 0.05}s` }}
             >
-              <div className="flex items-center gap-3 min-w-0 flex-1">
-                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-medium text-primary">
-                    {getInitials(patient.name)}
-                  </span>
+              <div className="flex items-center gap-4 min-w-0 flex-1">
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-sm font-semibold text-primary">
+                      {getInitials(patient.name)}
+                    </span>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background" />
                 </div>
+                
                 <div className="min-w-0 flex-1">
-                  <p className="font-medium text-foreground truncate">
-                    {patient.name}
-                  </p>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="font-semibold text-foreground truncate group-hover:text-primary transition-colors duration-200">
+                      {patient.name}
+                    </p>
+                    <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${
+                      patient.gender === 'male' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300' :
+                      patient.gender === 'female' ? 'bg-pink-100 text-pink-700 dark:bg-pink-900/20 dark:text-pink-300' :
+                      'bg-gray-100 text-gray-700 dark:bg-gray-900/20 dark:text-gray-300'
+                    }`}>
+                      {patient.gender}
+                    </span>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 text-sm text-muted-foreground">
                     <span className="flex items-center gap-1">
-                      <User className="h-3 w-3" />
-                      {patient.id}
+                      <User className="h-3 w-3 flex-shrink-0" />
+                      <span className="truncate">{patient.id}</span>
                     </span>
                     <span className="flex items-center gap-1">
-                      <Mail className="h-3 w-3" />
-                      {truncateText(patient.email, 20)}
+                      <Mail className="h-3 w-3 flex-shrink-0" />
+                      <span className="truncate">{truncateText(patient.email, 15)}</span>
                     </span>
                     <span className="flex items-center gap-1">
-                      <Phone className="h-3 w-3" />
-                      {patient.phone}
+                      <Phone className="h-3 w-3 flex-shrink-0" />
+                      <span className="truncate">{patient.phone}</span>
                     </span>
+                  </div>
+                  
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground/70 mt-1">
+                    <MapPin className="h-3 w-3 flex-shrink-0" />
+                    <span className="truncate">{truncateText(patient.address, 30)}</span>
                   </div>
                 </div>
               </div>
-              <div className="text-sm font-medium text-primary flex-shrink-0 bg-primary/10 px-2 py-1 rounded">
-                {patient.gender}
+              
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <div className="text-right hidden sm:block">
+                  <p className="text-xs text-muted-foreground">DOB</p>
+                  <p className="text-sm font-medium text-foreground">{patient.dateOfBirth}</p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                >
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
               </div>
             </div>
           ))}
