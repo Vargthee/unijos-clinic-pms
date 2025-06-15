@@ -6,13 +6,15 @@ import { PatientManagement } from "@/components/PatientManagement";
 import { Appointments } from "@/components/Appointments";
 import { ComprehensiveMedicalRecords } from "@/components/ComprehensiveMedicalRecords";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const { theme, toggleTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setMounted(true);
@@ -42,7 +44,16 @@ const Index = () => {
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <main className="flex-1 overflow-auto">
         <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border p-4">
-          <div className="flex justify-end">
+          <div className="flex justify-end gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate("/signin")}
+              className="gap-2"
+            >
+              <LogIn className="h-4 w-4" />
+              Sign In
+            </Button>
             <Button
               variant="outline"
               size="sm"
