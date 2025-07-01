@@ -52,7 +52,7 @@ const SignIn = () => {
               <Input
                 id="email"
                 type="email"
-                placeholder="doctor@unijos.edu.ng"
+                placeholder="dr.smith@unijosclinic.edu.ng"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -110,8 +110,8 @@ const SignIn = () => {
           <div className="mt-6 text-center text-sm text-muted-foreground">
             <p>Demo Credentials (Prototype):</p>
             <p className="font-mono text-xs mt-1">
-              Email: admin@unijos.edu.ng<br />
-              Password: demo123
+              Email: dr.admin@unijosclinic.edu.ng<br />
+              Password: clinic2024
             </p>
           </div>
         </CardContent>
