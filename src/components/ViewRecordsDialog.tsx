@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +12,6 @@ interface ViewRecordsDialogProps {
 }
 
 export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }: ViewRecordsDialogProps) => {
-  // Different medical records for different patients - updated to reflect 10 student records
   const getPatientRecords = (patientId: string) => {
     const recordsMap: Record<string, any[]> = {
       "P001234": [ // Adaora Okonkwo
@@ -197,34 +195,34 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <FileText className="h-5 w-5" />
+      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
+        <DialogHeader className="border-b border-gray-200 dark:border-gray-800 pb-4">
+          <DialogTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
+            <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
             Medical Records - {patientName} ({patientId})
           </DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-6">
+        <div className="space-y-6 pt-4">
           {records.map((record) => {
             const IconComponent = record.icon;
             return (
-              <Card key={record.id} className="border">
+              <Card key={record.id} className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-3">
-                      <IconComponent className="h-6 w-6 text-primary" />
+                      <IconComponent className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                       <div>
                         <Badge className={getRecordTypeColor(record.type)}>
                           {record.type}
                         </Badge>
-                        <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
                           {new Date(record.date).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                       <User className="h-4 w-4" />
                       {record.doctor}
                     </div>
@@ -232,37 +230,37 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold mb-3">Diagnosis & Treatment</h4>
+                      <h4 className="font-semibold mb-3 text-gray-900 dark:text-gray-100">Diagnosis & Treatment</h4>
                       <div className="space-y-3">
-                        <div className="bg-muted p-3 rounded">
-                          <p className="font-medium text-sm mb-1">Diagnosis:</p>
-                          <p className="text-sm">{record.diagnosis}</p>
+                        <div className="bg-gray-50 dark:bg-gray-800/50 p-3 rounded border border-gray-200 dark:border-gray-700">
+                          <p className="font-medium text-sm mb-1 text-gray-900 dark:text-gray-100">Diagnosis:</p>
+                          <p className="text-sm text-gray-700 dark:text-gray-300">{record.diagnosis}</p>
                         </div>
                         <div>
-                          <p className="font-medium text-sm mb-2">Clinical Notes:</p>
-                          <p className="text-sm text-muted-foreground">{record.notes}</p>
+                          <p className="font-medium text-sm mb-2 text-gray-900 dark:text-gray-100">Clinical Notes:</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{record.notes}</p>
                         </div>
                       </div>
                     </div>
                     
                     <div>
-                      <h4 className="font-semibold mb-3">Vital Signs</h4>
+                      <h4 className="font-semibold mb-3 text-gray-900 dark:text-gray-100">Vital Signs</h4>
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-blue-50 p-3 rounded">
-                          <p className="text-xs font-medium text-blue-700 mb-1">Temperature</p>
-                          <p className="text-lg font-bold text-blue-800">{record.vitals.temperature}</p>
+                        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded border border-blue-200 dark:border-blue-800">
+                          <p className="text-xs font-medium text-blue-700 dark:text-blue-300 mb-1">Temperature</p>
+                          <p className="text-lg font-bold text-blue-800 dark:text-blue-200">{record.vitals.temperature}</p>
                         </div>
-                        <div className="bg-red-50 p-3 rounded">
-                          <p className="text-xs font-medium text-red-700 mb-1">Blood Pressure</p>
-                          <p className="text-lg font-bold text-red-800">{record.vitals.bloodPressure}</p>
+                        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded border border-red-200 dark:border-red-800">
+                          <p className="text-xs font-medium text-red-700 dark:text-red-300 mb-1">Blood Pressure</p>
+                          <p className="text-lg font-bold text-red-800 dark:text-red-200">{record.vitals.bloodPressure}</p>
                         </div>
-                        <div className="bg-green-50 p-3 rounded">
-                          <p className="text-xs font-medium text-green-700 mb-1">Pulse Rate</p>
-                          <p className="text-lg font-bold text-green-800">{record.vitals.pulse}</p>
+                        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded border border-green-200 dark:border-green-800">
+                          <p className="text-xs font-medium text-green-700 dark:text-green-300 mb-1">Pulse Rate</p>
+                          <p className="text-lg font-bold text-green-800 dark:text-green-200">{record.vitals.pulse}</p>
                         </div>
-                        <div className="bg-purple-50 p-3 rounded">
-                          <p className="text-xs font-medium text-purple-700 mb-1">Weight</p>
-                          <p className="text-lg font-bold text-purple-800">{record.vitals.weight}</p>
+                        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded border border-purple-200 dark:border-purple-800">
+                          <p className="text-xs font-medium text-purple-700 dark:text-purple-300 mb-1">Weight</p>
+                          <p className="text-lg font-bold text-purple-800 dark:text-purple-200">{record.vitals.weight}</p>
                         </div>
                       </div>
                     </div>
@@ -273,8 +271,8 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           })}
         </div>
         
-        <div className="flex justify-end pt-4 border-t">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+        <div className="flex justify-end pt-4 border-t border-gray-200 dark:border-gray-800 mt-6">
+          <Button variant="outline" onClick={() => onOpenChange(false)} className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800">
             Close
           </Button>
         </div>
