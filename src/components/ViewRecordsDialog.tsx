@@ -1,4 +1,3 @@
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -197,12 +196,12 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl max-h-[85vh] overflow-y-auto dark:bg-gray-800 dark:border-gray-700">
-        <DialogHeader className="pb-4 border-b dark:border-gray-600">
+      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto dark:bg-gray-900 dark:border-gray-700">
+        <DialogHeader className="pb-6 border-b dark:border-gray-700">
           <DialogTitle className="flex items-center gap-3 dark:text-gray-100 text-xl">
             <FileText className="h-6 w-6 text-primary" />
             <div>
-              <span className="block">Medical Records</span>
+              <span className="block text-xl font-bold">Medical Records</span>
               <span className="text-lg font-normal text-muted-foreground dark:text-gray-400">
                 {patientName} ({patientId})
               </span>
@@ -210,42 +209,47 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           </DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-6 pt-4">
+        <div className="space-y-6 pt-6">
           {records.map((record) => {
             const IconComponent = record.icon;
             return (
-              <Card key={record.id} className="border border-border/50 shadow-sm hover:shadow-md transition-shadow dark:bg-gray-900 dark:border-gray-600">
-                <CardContent className="p-6">
-                  <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
-                    <div className="flex items-center gap-3">
-                      <IconComponent className="h-5 w-5 text-primary flex-shrink-0" />
+              <Card key={record.id} className="border border-border/50 shadow-lg hover:shadow-xl transition-all duration-200 dark:bg-gray-900 dark:border-gray-700">
+                <CardContent className="p-8">
+                  <div className="flex flex-col sm:flex-row justify-between items-start gap-6 mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 rounded-full bg-primary/10 dark:bg-primary/20">
+                        <IconComponent className="h-6 w-6 text-primary flex-shrink-0" />
+                      </div>
                       <div>
-                        <Badge className={getRecordTypeColor(record.type)} size="sm">
+                        <Badge className={getRecordTypeColor(record.type)}>
                           {record.type}
                         </Badge>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400 mt-1">{record.date}</p>
+                        <p className="text-base text-muted-foreground dark:text-gray-400 mt-2 font-medium">{record.date}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-gray-400">
-                      <User className="h-4 w-4" />
+                    <div className="flex items-center gap-3 text-base text-muted-foreground dark:text-gray-400 bg-muted/30 dark:bg-gray-800/30 px-4 py-2 rounded-lg">
+                      <User className="h-5 w-5" />
                       <span className="font-medium">{record.doctor}</span>
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2">
-                      <h4 className="font-semibold text-foreground dark:text-gray-100 mb-3 text-lg flex items-center gap-2">
-                        <Stethoscope className="h-4 w-4 text-primary" />
+                      <h4 className="font-bold text-foreground dark:text-gray-100 mb-4 text-xl flex items-center gap-3">
+                        <Stethoscope className="h-5 w-5 text-primary" />
                         Diagnosis & Treatment
                       </h4>
-                      <div className="space-y-4">
-                        <div className="bg-muted/50 dark:bg-gray-800/50 p-4 rounded-lg">
-                          <p className="font-medium text-sm text-muted-foreground dark:text-gray-400 mb-1">Diagnosis</p>
-                          <p className="text-foreground dark:text-gray-100 font-medium">{record.diagnosis}</p>
+                      <div className="space-y-5">
+                        <div className="bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 p-5 rounded-xl border border-primary/20">
+                          <p className="font-semibold text-sm text-primary dark:text-primary-foreground mb-2 uppercase tracking-wide">Primary Diagnosis</p>
+                          <p className="text-foreground dark:text-gray-100 font-bold text-lg">{record.diagnosis}</p>
                         </div>
                         <div>
-                          <p className="font-medium text-sm text-muted-foreground dark:text-gray-400 mb-2">Clinical Notes</p>
-                          <p className="text-sm text-muted-foreground dark:text-gray-300 leading-relaxed bg-muted/30 dark:bg-gray-800/30 p-3 rounded-lg">
+                          <p className="font-semibold text-base text-muted-foreground dark:text-gray-400 mb-3 flex items-center gap-2">
+                            <FileText className="h-4 w-4" />
+                            Clinical Notes & Treatment Plan
+                          </p>
+                          <p className="text-base text-muted-foreground dark:text-gray-300 leading-relaxed bg-muted/50 dark:bg-gray-800/50 p-4 rounded-xl border border-border/30">
                             {record.notes}
                           </p>
                         </div>
@@ -253,26 +257,26 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
                     </div>
                     
                     <div>
-                      <h4 className="font-semibold text-foreground dark:text-gray-100 mb-3 text-lg flex items-center gap-2">
-                        <Heart className="h-4 w-4 text-red-500" />
+                      <h4 className="font-bold text-foreground dark:text-gray-100 mb-4 text-xl flex items-center gap-3">
+                        <Heart className="h-5 w-5 text-red-500" />
                         Vital Signs
                       </h4>
-                      <div className="grid grid-cols-1 gap-3">
-                        <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-3 rounded-lg border border-blue-200 dark:border-blue-700">
-                          <p className="text-xs font-medium text-blue-700 dark:text-blue-300 uppercase tracking-wide">Temperature</p>
-                          <p className="text-lg font-bold text-blue-800 dark:text-blue-200">{record.vitals.temperature}</p>
+                      <div className="grid grid-cols-1 gap-4">
+                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 p-4 rounded-xl border border-blue-200 dark:border-blue-700 shadow-sm">
+                          <p className="text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-1">Temperature</p>
+                          <p className="text-2xl font-bold text-blue-800 dark:text-blue-200">{record.vitals.temperature}</p>
                         </div>
-                        <div className="bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 p-3 rounded-lg border border-red-200 dark:border-red-700">
-                          <p className="text-xs font-medium text-red-700 dark:text-red-300 uppercase tracking-wide">Blood Pressure</p>
-                          <p className="text-lg font-bold text-red-800 dark:text-red-200">{record.vitals.bloodPressure}</p>
+                        <div className="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 p-4 rounded-xl border border-red-200 dark:border-red-700 shadow-sm">
+                          <p className="text-xs font-bold text-red-700 dark:text-red-300 uppercase tracking-wider mb-1">Blood Pressure</p>
+                          <p className="text-2xl font-bold text-red-800 dark:text-red-200">{record.vitals.bloodPressure}</p>
                         </div>
-                        <div className="bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-3 rounded-lg border border-green-200 dark:border-green-700">
-                          <p className="text-xs font-medium text-green-700 dark:text-green-300 uppercase tracking-wide">Pulse Rate</p>
-                          <p className="text-lg font-bold text-green-800 dark:text-green-200">{record.vitals.pulse}</p>
+                        <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 p-4 rounded-xl border border-green-200 dark:border-green-700 shadow-sm">
+                          <p className="text-xs font-bold text-green-700 dark:text-green-300 uppercase tracking-wider mb-1">Pulse Rate</p>
+                          <p className="text-2xl font-bold text-green-800 dark:text-green-200">{record.vitals.pulse}</p>
                         </div>
-                        <div className="bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 p-3 rounded-lg border border-purple-200 dark:border-purple-700">
-                          <p className="text-xs font-medium text-purple-700 dark:text-purple-300 uppercase tracking-wide">Weight</p>
-                          <p className="text-lg font-bold text-purple-800 dark:text-purple-200">{record.vitals.weight}</p>
+                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 p-4 rounded-xl border border-purple-200 dark:border-purple-700 shadow-sm">
+                          <p className="text-xs font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wider mb-1">Weight</p>
+                          <p className="text-2xl font-bold text-purple-800 dark:text-purple-200">{record.vitals.weight}</p>
                         </div>
                       </div>
                     </div>
@@ -283,13 +287,13 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           })}
         </div>
         
-        <div className="flex justify-end pt-6 border-t dark:border-gray-600">
+        <div className="flex justify-end pt-8 border-t dark:border-gray-700">
           <Button 
             variant="outline" 
             onClick={() => onOpenChange(false)} 
-            className="hover:bg-muted dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-700 px-6"
+            className="hover:bg-muted dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-700 px-8 py-3 text-base font-medium"
           >
-            Close
+            Close Records
           </Button>
         </div>
       </DialogContent>
