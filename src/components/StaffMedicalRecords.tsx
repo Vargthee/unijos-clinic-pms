@@ -20,6 +20,9 @@ const staffMedicalRecords = [
     healthStatus: "Good",
     bmi: "23.5",
     bloodPressure: "120/80",
+    temperature: "36.7°C",
+    pulse: "72 bpm",
+    weight: "62 kg",
     notes: "Regular health maintenance, no concerns",
     initials: "FA",
   },
@@ -36,6 +39,9 @@ const staffMedicalRecords = [
     healthStatus: "Good",
     bmi: "25.1",
     bloodPressure: "125/85",
+    temperature: "36.8°C",
+    pulse: "75 bpm",
+    weight: "78 kg",
     notes: "Mild hypertension monitoring required",
     initials: "JO",
   },
@@ -52,6 +58,9 @@ const staffMedicalRecords = [
     healthStatus: "Excellent",
     bmi: "22.8",
     bloodPressure: "118/75",
+    temperature: "36.5°C",
+    pulse: "68 bpm",
+    weight: "58 kg",
     notes: "Excellent health status, no concerns",
     initials: "GD",
   },
@@ -68,6 +77,9 @@ const staffMedicalRecords = [
     healthStatus: "Good",
     bmi: "24.2",
     bloodPressure: "130/85",
+    temperature: "36.9°C",
+    pulse: "76 bpm",
+    weight: "66 kg",
     notes: "Due for routine blood work",
     initials: "MU",
   },
@@ -199,7 +211,31 @@ export const StaffMedicalRecords = () => {
                     </div>
 
                     <div className="space-y-4">
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Health Tracking</h4>
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Vital Signs</h4>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="bg-muted dark:bg-gray-700 p-3 rounded-lg">
+                          <p className="text-sm font-medium dark:text-gray-200">Temperature</p>
+                          <p className="text-lg font-semibold text-muted-foreground dark:text-gray-400">{staff.temperature}</p>
+                        </div>
+                        <div className="bg-muted dark:bg-gray-700 p-3 rounded-lg">
+                          <p className="text-sm font-medium dark:text-gray-200">Pulse</p>
+                          <p className="text-lg font-semibold text-muted-foreground dark:text-gray-400">{staff.pulse}</p>
+                        </div>
+                        <div className="bg-muted dark:bg-gray-700 p-3 rounded-lg">
+                          <p className="text-sm font-medium dark:text-gray-200">Weight</p>
+                          <p className="text-lg font-semibold text-muted-foreground dark:text-gray-400">{staff.weight}</p>
+                        </div>
+                        <div className="bg-muted dark:bg-gray-700 p-3 rounded-lg">
+                          <p className="text-sm font-medium dark:text-gray-200">BP</p>
+                          <p className="text-lg font-semibold text-muted-foreground dark:text-gray-400">{staff.bloodPressure}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Health Tracking</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-3">
                         <div>
                           <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Last Checkup</label>
