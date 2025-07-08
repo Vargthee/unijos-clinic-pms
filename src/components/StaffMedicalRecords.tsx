@@ -166,6 +166,31 @@ export const StaffMedicalRecords = () => {
                   <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{staff.bloodType}</span>
                 </div>
 
+                {/* Current Vitals Preview */}
+                <div className="bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg space-y-2">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                    <Heart className="h-3 w-3 text-red-500" />
+                    Current Vitals
+                  </h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="flex items-center gap-1">
+                      <Thermometer className="h-3 w-3 text-red-400" />
+                      <span className="text-gray-600 dark:text-gray-400">{staff.temperature}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Activity className="h-3 w-3 text-blue-400" />
+                      <span className="text-gray-600 dark:text-gray-400">{staff.bloodPressure}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Heart className="h-3 w-3 text-green-400" />
+                      <span className="text-gray-600 dark:text-gray-400">{staff.pulse}</span>
+                    </div>
+                    <div className="text-gray-600 dark:text-gray-400">
+                      BMI: {staff.bmi}
+                    </div>
+                  </div>
+                </div>
+
                 {staff.allergies[0] !== "None known" && (
                   <div className="flex items-center gap-2 p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
                     <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
@@ -227,39 +252,39 @@ export const StaffMedicalRecords = () => {
                         <Heart className="h-5 w-5 text-red-500" />
                         Current Vital Signs
                       </h4>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg border border-red-200 dark:border-red-800">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Thermometer className="h-4 w-4 text-red-500" />
-                            <p className="text-xs font-medium text-red-700 dark:text-red-300">Temperature</p>
+                      <div className="grid grid-cols-1 gap-3">
+                        <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Thermometer className="h-5 w-5 text-red-500" />
+                            <p className="text-sm font-medium text-red-700 dark:text-red-300">Temperature</p>
                           </div>
-                          <p className="text-lg font-semibold text-red-800 dark:text-red-200">{staff.temperature}</p>
+                          <p className="text-xl font-semibold text-red-800 dark:text-red-200">{staff.temperature}</p>
                         </div>
-                        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Activity className="h-4 w-4 text-blue-500" />
-                            <p className="text-xs font-medium text-blue-700 dark:text-blue-300">Blood Pressure</p>
+                        <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Activity className="h-5 w-5 text-blue-500" />
+                            <p className="text-sm font-medium text-blue-700 dark:text-blue-300">Blood Pressure</p>
                           </div>
-                          <p className="text-lg font-semibold text-blue-800 dark:text-blue-200">{staff.bloodPressure}</p>
+                          <p className="text-xl font-semibold text-blue-800 dark:text-blue-200">{staff.bloodPressure}</p>
                         </div>
-                        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-200 dark:border-green-800">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Heart className="h-4 w-4 text-green-500" />
-                            <p className="text-xs font-medium text-green-700 dark:text-green-300">Pulse Rate</p>
+                        <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Heart className="h-5 w-5 text-green-500" />
+                            <p className="text-sm font-medium text-green-700 dark:text-green-300">Pulse Rate</p>
                           </div>
-                          <p className="text-lg font-semibold text-green-800 dark:text-green-200">{staff.pulse}</p>
+                          <p className="text-xl font-semibold text-green-800 dark:text-green-200">{staff.pulse}</p>
                         </div>
-                        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg border border-purple-200 dark:border-purple-800">
-                          <p className="text-xs font-medium text-purple-700 dark:text-purple-300 mb-1">Weight</p>
-                          <p className="text-lg font-semibold text-purple-800 dark:text-purple-200">{staff.weight}</p>
+                        <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
+                          <p className="text-sm font-medium text-purple-700 dark:text-purple-300 mb-2">Weight</p>
+                          <p className="text-xl font-semibold text-purple-800 dark:text-purple-200">{staff.weight}</p>
                         </div>
-                        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-lg border border-indigo-200 dark:border-indigo-800">
-                          <p className="text-xs font-medium text-indigo-700 dark:text-indigo-300 mb-1">Respiratory Rate</p>
-                          <p className="text-lg font-semibold text-indigo-800 dark:text-indigo-200">{staff.respiratoryRate}</p>
+                        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                          <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300 mb-2">Respiratory Rate</p>
+                          <p className="text-xl font-semibold text-indigo-800 dark:text-indigo-200">{staff.respiratoryRate}</p>
                         </div>
-                        <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg border border-orange-200 dark:border-orange-800">
-                          <p className="text-xs font-medium text-orange-700 dark:text-orange-300 mb-1">O2 Saturation</p>
-                          <p className="text-lg font-semibold text-orange-800 dark:text-orange-200">{staff.oxygenSaturation}</p>
+                        <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg border border-orange-200 dark:border-orange-800">
+                          <p className="text-sm font-medium text-orange-700 dark:text-orange-300 mb-2">O2 Saturation</p>
+                          <p className="text-xl font-semibold text-orange-800 dark:text-orange-200">{staff.oxygenSaturation}</p>
                         </div>
                       </div>
                     </div>
