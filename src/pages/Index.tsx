@@ -5,6 +5,7 @@ import { Dashboard } from "@/components/Dashboard";
 import { PatientManagement } from "@/components/PatientManagement";
 import { Appointments } from "@/components/Appointments";
 import { ComprehensiveMedicalRecords } from "@/components/ComprehensiveMedicalRecords";
+import { Reports } from "@/components/Reports";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Moon, Sun, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,7 @@ const Index = () => {
       patients: PatientManagement,
       appointments: Appointments,
       records: ComprehensiveMedicalRecords,
+      reports: Reports,
     };
 
     const Component = components[activeTab] || Dashboard;

@@ -4,7 +4,8 @@ import {
   FileText, 
   Users, 
   Home,
-  Stethoscope
+  Stethoscope,
+  TrendingUp
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
@@ -18,6 +19,7 @@ const sidebarItems = [
   { id: "patients", label: "Patient Management", icon: Users },
   { id: "appointments", label: "Appointments", icon: Calendar },
   { id: "records", label: "Medical Records", icon: FileText },
+  { id: "reports", label: "Reports & Analytics", icon: TrendingUp },
 ];
 
 export const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {

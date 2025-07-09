@@ -119,13 +119,13 @@ export const StaffMedicalRecords = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <Stethoscope className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+          <Stethoscope className="h-6 w-6 text-primary" />
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Staff Medical Records</h2>
-            <p className="text-gray-600 dark:text-gray-400">Health records for clinic staff members</p>
+            <h2 className="text-2xl font-bold text-foreground">Staff Medical Records</h2>
+            <p className="text-muted-foreground">Health records for clinic staff members</p>
           </div>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">
+        <Button>
           <Plus className="h-4 w-4 mr-2" />
           Add Record
         </Button>
@@ -134,17 +134,17 @@ export const StaffMedicalRecords = () => {
       {/* Staff Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {staffMedicalRecords.map((staff) => (
-          <Card key={staff.id} className="hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer dark:hover:shadow-2xl dark:hover:shadow-blue-500/20" onClick={() => setSelectedStaff(staff.id)}>
+          <Card key={staff.id} className="hover-lift cursor-pointer" onClick={() => setSelectedStaff(staff.id)}>
             <CardContent className="pt-6">
               <div className="flex items-center space-x-4 mb-4">
                 <Avatar className="h-12 w-12">
-                  <AvatarFallback className="bg-blue-100 text-blue-700 font-semibold dark:bg-blue-900 dark:text-blue-300">
+                  <AvatarFallback className="bg-primary/10 text-primary font-semibold">
                     {staff.initials}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-gray-100">{staff.name}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{staff.role}</p>
+                  <h3 className="font-semibold text-foreground">{staff.name}</h3>
+                  <p className="text-sm text-muted-foreground">{staff.role}</p>
                 </div>
               </div>
               
