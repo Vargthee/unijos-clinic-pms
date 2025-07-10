@@ -134,7 +134,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           icon: Stethoscope
         }
       ],
-      "S001": [ // Dr. Fatima Aliyu (Staff)
+      "S001": [ // Dr. Hauwa Abdullahi (Staff)
         {
           id: "R011",
           date: "2024-06-01",
@@ -147,7 +147,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           icon: Eye
         }
       ],
-      "S002": [ // Prof. John Okafor (Staff)
+      "S002": [ // Mr. James Dung (Staff)
         {
           id: "R012",
           date: "2024-05-15",
@@ -160,9 +160,87 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           icon: Heart
         }
       ],
-      "UNIJOS/REG/001": [ // Dr. Hauwa Abdullahi (University Staff)
+      "S003": [ // Mrs. Grace Yakubu (Staff)
         {
           id: "R013",
+          date: "2024-05-20",
+          type: "Check-up",
+          diagnosis: "Security health assessment - good",
+          doctor: "Dr. Fatima Aliyu",
+          vitals: { temperature: "36.8°C", bloodPressure: "125/80 mmHg", pulse: "75 bpm", weight: "65 kg" },
+          currentVitals: { temperature: "36.6°C", bloodPressure: "122/78 mmHg", pulse: "72 bpm", weight: "65 kg", oxygenSaturation: "98%", respiratoryRate: "15 breaths/min" },
+          notes: "Regular fitness assessments for security personnel. All vitals within normal range.",
+          icon: Stethoscope
+        }
+      ],
+      "S004": [ // Engr. Emmanuel Bulus (Staff)
+        {
+          id: "R014",
+          date: "2024-05-10",
+          type: "Consultation",
+          diagnosis: "Work-related stress management",
+          doctor: "Dr. John Okafor",
+          vitals: { temperature: "36.9°C", bloodPressure: "130/85 mmHg", pulse: "82 bpm", weight: "75 kg" },
+          currentVitals: { temperature: "36.7°C", bloodPressure: "125/82 mmHg", pulse: "78 bpm", weight: "75 kg", oxygenSaturation: "97%", respiratoryRate: "17 breaths/min" },
+          notes: "Stress management counseling. Regular exercise and work-life balance recommended.",
+          icon: Brain
+        }
+      ],
+      "S005": [ // Mrs. Rebecca Gyang (Staff)
+        {
+          id: "R015",
+          date: "2024-05-05",
+          type: "Treatment",
+          diagnosis: "Respiratory allergy management",
+          doctor: "Dr. Mary Gyang",
+          vitals: { temperature: "36.5°C", bloodPressure: "115/70 mmHg", pulse: "68 bpm", weight: "58 kg" },
+          currentVitals: { temperature: "36.4°C", bloodPressure: "112/68 mmHg", pulse: "65 bpm", weight: "58 kg", oxygenSaturation: "99%", respiratoryRate: "14 breaths/min" },
+          notes: "Allergy medications effective. Environmental modifications recommended.",
+          icon: Heart
+        }
+      ],
+      "S006": [ // Mr. Daniel Kwaghe (Staff)
+        {
+          id: "R016",
+          date: "2024-04-20",
+          type: "Treatment",
+          diagnosis: "Back pain management",
+          doctor: "Dr. Peter Bulus",
+          vitals: { temperature: "36.7°C", bloodPressure: "128/80 mmHg", pulse: "74 bpm", weight: "72 kg" },
+          currentVitals: { temperature: "36.6°C", bloodPressure: "125/78 mmHg", pulse: "71 bpm", weight: "72 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
+          notes: "Physiotherapy sessions ongoing. Ergonomic workplace adjustments made.",
+          icon: Stethoscope
+        }
+      ],
+      "S007": [ // Mrs. Maryam Umar (Staff)
+        {
+          id: "R017",
+          date: "2024-05-30",
+          type: "Treatment",
+          diagnosis: "Migraine management",
+          doctor: "Dr. Emmanuel Yakubu",
+          vitals: { temperature: "36.4°C", bloodPressure: "110/70 mmHg", pulse: "66 bpm", weight: "60 kg" },
+          currentVitals: { temperature: "36.3°C", bloodPressure: "108/68 mmHg", pulse: "64 bpm", weight: "60 kg", oxygenSaturation: "99%", respiratoryRate: "15 breaths/min" },
+          notes: "Light sensitivity managed with environmental controls. Stress reduction techniques effective.",
+          icon: Brain
+        }
+      ],
+      "S008": [ // Dr. Samuel Dung (Staff)
+        {
+          id: "R018",
+          date: "2024-06-01",
+          type: "Follow-up",
+          diagnosis: "Post-surgery recovery monitoring",
+          doctor: "Dr. Ruth Laven",
+          vitals: { temperature: "36.8°C", bloodPressure: "120/75 mmHg", pulse: "70 bpm", weight: "68 kg" },
+          currentVitals: { temperature: "36.7°C", bloodPressure: "118/72 mmHg", pulse: "68 bpm", weight: "68 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
+          notes: "Recovery progressing well. Return to full duties approved.",
+          icon: Heart
+        }
+      ],
+      "UNIJOS/REG/001": [ // Dr. Hauwa Abdullahi (University Staff)
+        {
+          id: "R019",
           date: "2024-05-20",
           type: "Check-up",
           diagnosis: "Annual health screening - good health",
