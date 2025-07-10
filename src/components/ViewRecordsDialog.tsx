@@ -159,6 +159,19 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           notes: "Blood pressure control with ACE inhibitors. Lifestyle modification counseling. Regular monitoring advised.",
           icon: Heart
         }
+      ],
+      "UNIJOS/REG/001": [ // Dr. Hauwa Abdullahi (University Staff)
+        {
+          id: "R013",
+          date: "2024-05-20",
+          type: "Check-up",
+          diagnosis: "Annual health screening - good health",
+          doctor: "Dr. Fatima Aliyu",
+          vitals: { temperature: "36.8°C", bloodPressure: "125/80 mmHg", pulse: "75 bpm", weight: "65 kg" },
+          currentVitals: { temperature: "36.7°C", bloodPressure: "120/78 mmHg", pulse: "72 bpm", weight: "65 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
+          notes: "Lifestyle modification, blood pressure monitoring. Hypertension (mild)",
+          icon: Stethoscope
+        }
       ]
     };
 
