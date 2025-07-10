@@ -73,6 +73,16 @@ const universityStaffRecords = [
       lastAssessment: "2024-05-20",
       status: "Good",
       recommendations: "Regular stress management, work-life balance"
+    },
+    vitals: {
+      temperature: "36.8°C",
+      bloodPressure: "135/85 mmHg",
+      pulse: "78 bpm",
+      weight: "68 kg",
+      height: "165 cm",
+      bmi: "25.0",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "98%"
     }
   },
   {
@@ -119,6 +129,16 @@ const universityStaffRecords = [
       lastAssessment: "2024-04-15",
       status: "Excellent",
       recommendations: "Maintain current mental wellness practices"
+    },
+    vitals: {
+      temperature: "36.7°C",
+      bloodPressure: "120/75 mmHg",
+      pulse: "72 bpm",
+      weight: "75 kg",
+      height: "178 cm",
+      bmi: "23.7",
+      respiratoryRate: "15 breaths/min",
+      oxygenSaturation: "99%"
     }
   },
   {
@@ -165,6 +185,16 @@ const universityStaffRecords = [
       lastAssessment: "2024-06-01",
       status: "Good",
       recommendations: "Stress management for high-pressure work environment"
+    },
+    vitals: {
+      temperature: "36.9°C",
+      bloodPressure: "128/82 mmHg",
+      pulse: "75 bpm",
+      weight: "65 kg",
+      height: "162 cm",
+      bmi: "24.8",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "98%"
     }
   },
   {
@@ -211,6 +241,16 @@ const universityStaffRecords = [
       lastAssessment: "2024-03-25",
       status: "Good",
       recommendations: "Work-life balance, regular digital detox"
+    },
+    vitals: {
+      temperature: "36.6°C",
+      bloodPressure: "125/80 mmHg",
+      pulse: "74 bpm",
+      weight: "80 kg",
+      height: "175 cm",
+      bmi: "26.1",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "97%"
     }
   },
   {
@@ -257,6 +297,16 @@ const universityStaffRecords = [
       lastAssessment: "2024-05-05",
       status: "Good",
       recommendations: "Continue stress management techniques"
+    },
+    vitals: {
+      temperature: "36.5°C",
+      bloodPressure: "118/72 mmHg",
+      pulse: "70 bpm",
+      weight: "60 kg",
+      height: "160 cm",
+      bmi: "23.4",
+      respiratoryRate: "15 breaths/min",
+      oxygenSaturation: "99%"
     }
   },
   {
@@ -303,6 +353,16 @@ const universityStaffRecords = [
       lastAssessment: "2024-04-20",
       status: "Good",
       recommendations: "Regular exercise, outdoor activities"
+    },
+    vitals: {
+      temperature: "36.7°C",
+      bloodPressure: "122/76 mmHg",
+      pulse: "73 bpm",
+      weight: "70 kg",
+      height: "172 cm",
+      bmi: "23.7",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "98%"
     }
   },
   {
@@ -341,6 +401,16 @@ const universityStaffRecords = [
       lastAssessment: "2024-05-30",
       status: "Excellent",
       recommendations: "Continue wellness programs"
+    },
+    vitals: {
+      temperature: "36.4°C",
+      bloodPressure: "115/70 mmHg",
+      pulse: "68 bpm",
+      weight: "62 kg",
+      height: "168 cm",
+      bmi: "22.0",
+      respiratoryRate: "15 breaths/min",
+      oxygenSaturation: "99%"
     }
   }
 ];
