@@ -54,6 +54,6 @@ export interface DashboardStats {
   recordsUpdated: number;
 }
 
-export type TabType = 'dashboard' | 'patients' | 'appointments' | 'records' | 'reports';
+export type TabType = 'dashboard' | 'patients' | 'appointments' | 'records';
 
 export type Theme = 'light' | 'dark';

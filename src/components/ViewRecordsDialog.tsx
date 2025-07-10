@@ -142,6 +142,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           diagnosis: "Annual health screening - normal",
           doctor: "Dr. John Okafor",
           vitals: { temperature: "36.6°C", bloodPressure: "118/72 mmHg", pulse: "68 bpm", weight: "62 kg" },
+          currentVitals: { temperature: "36.7°C", bloodPressure: "120/75 mmHg", pulse: "70 bpm", weight: "62 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
           notes: "Routine health check for staff member. All parameters within normal limits. Immunization status up to date.",
           icon: Eye
         }
@@ -154,6 +155,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           diagnosis: "Essential hypertension",
           doctor: "Dr. Aisha Mohammed",
           vitals: { temperature: "36.4°C", bloodPressure: "145/92 mmHg", pulse: "75 bpm", weight: "78 kg" },
+          currentVitals: { temperature: "36.5°C", bloodPressure: "138/85 mmHg", pulse: "72 bpm", weight: "78 kg", oxygenSaturation: "97%", respiratoryRate: "18 breaths/min" },
           notes: "Blood pressure control with ACE inhibitors. Lifestyle modification counseling. Regular monitoring advised.",
           icon: Heart
         }
@@ -263,6 +265,38 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
                           <p className="text-lg font-bold text-purple-800 dark:text-purple-200">{record.vitals.weight}</p>
                         </div>
                       </div>
+                      
+                      {record.currentVitals && (
+                        <div className="mt-6">
+                          <h5 className="font-semibold mb-3 text-gray-900 dark:text-gray-100">Current Vitals</h5>
+                          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+                            <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded border border-blue-200 dark:border-blue-800">
+                              <p className="text-xs font-medium text-blue-700 dark:text-blue-300 mb-1">Temperature</p>
+                              <p className="text-lg font-bold text-blue-800 dark:text-blue-200">{record.currentVitals.temperature}</p>
+                            </div>
+                            <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded border border-red-200 dark:border-red-800">
+                              <p className="text-xs font-medium text-red-700 dark:text-red-300 mb-1">Blood Pressure</p>
+                              <p className="text-lg font-bold text-red-800 dark:text-red-200">{record.currentVitals.bloodPressure}</p>
+                            </div>
+                            <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded border border-green-200 dark:border-green-800">
+                              <p className="text-xs font-medium text-green-700 dark:text-green-300 mb-1">Pulse Rate</p>
+                              <p className="text-lg font-bold text-green-800 dark:text-green-200">{record.currentVitals.pulse}</p>
+                            </div>
+                            <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded border border-purple-200 dark:border-purple-800">
+                              <p className="text-xs font-medium text-purple-700 dark:text-purple-300 mb-1">Weight</p>
+                              <p className="text-lg font-bold text-purple-800 dark:text-purple-200">{record.currentVitals.weight}</p>
+                            </div>
+                            <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded border border-orange-200 dark:border-orange-800">
+                              <p className="text-xs font-medium text-orange-700 dark:text-orange-300 mb-1">Oxygen Saturation</p>
+                              <p className="text-lg font-bold text-orange-800 dark:text-orange-200">{record.currentVitals.oxygenSaturation}</p>
+                            </div>
+                            <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded border border-teal-200 dark:border-teal-800">
+                              <p className="text-xs font-medium text-teal-700 dark:text-teal-300 mb-1">Respiratory Rate</p>
+                              <p className="text-lg font-bold text-teal-800 dark:text-teal-200">{record.currentVitals.respiratoryRate}</p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </CardContent>
