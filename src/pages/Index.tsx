@@ -41,7 +41,7 @@ const Index = () => {
     <div className="min-h-screen flex w-full bg-background">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <main className="flex-1 overflow-auto">
-        <div className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b border-border p-4">
+        <div className="glass-card sticky top-0 z-10 p-4">
           <div className="flex justify-end gap-2">
             <Button
               variant="outline"
@@ -72,7 +72,7 @@ const Index = () => {
             </Button>
           </div>
         </div>
-        <div className="p-4 sm:p-6 lg:p-8">
+        <div className="p-4 sm:p-6 lg:p-8 animate-fade-in">
           {renderContent()}
         </div>
       </main>
