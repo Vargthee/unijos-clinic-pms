@@ -412,6 +412,150 @@ const universityStaffRecords = [
       respiratoryRate: "15 breaths/min",
       oxygenSaturation: "99%"
     }
+  },
+  {
+    id: "USR008",
+    staffId: "UNIJOS/MED/008",
+    name: "Dr. Samuel Gyang",
+    role: "Emergency Medicine Doctor",
+    department: "Emergency Medicine",
+    unit: "Emergency Room",
+    faculty: "Medical Staff",
+    email: "samuel.gyang@unijos.edu.ng",
+    phone: "08012345008",
+    dateOfBirth: "1985-04-15",
+    bloodType: "AB+",
+    address: "Medical Staff Quarters, Jos",
+    emergencyContact: "08098765008",
+    lastCheckup: "2024-05-28",
+    nextCheckup: "2024-08-28",
+    healthStatus: "Good",
+    initials: "SG",
+    medicalHistory: [
+      {
+        date: "2024-05-28",
+        type: "Routine Checkup",
+        diagnosis: "Excellent health",
+        treatment: "Continue current lifestyle",
+        doctor: "Dr. Fatima Aliyu"
+      }
+    ],
+    prescriptions: [],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-03-15", nextDue: "2025-03-15" },
+      { vaccine: "Hepatitis B", date: "2023-01-10", nextDue: "2028-01-10" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-05-28",
+      status: "Good",
+      recommendations: "Stress management for emergency work"
+    },
+    vitals: {
+      temperature: "36.6°C",
+      bloodPressure: "125/80 mmHg",
+      pulse: "74 bpm",
+      weight: "80 kg",
+      height: "175 cm",
+      bmi: "26.1",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "98%"
+    }
+  },
+  {
+    id: "USR009",
+    staffId: "UNIJOS/MED/009",
+    name: "Dr. Grace Musa",
+    role: "Maternity Unit Doctor",
+    department: "Obstetrics & Gynaecology",
+    unit: "Maternity Ward",
+    faculty: "Medical Staff",
+    email: "grace.musa@unijos.edu.ng",
+    phone: "08012345009",
+    dateOfBirth: "1987-08-22",
+    bloodType: "B-",
+    address: "Medical Staff Quarters, Jos",
+    emergencyContact: "08098765009",
+    lastCheckup: "2024-06-05",
+    nextCheckup: "2024-12-05",
+    healthStatus: "Excellent",
+    initials: "GM",
+    medicalHistory: [
+      {
+        date: "2024-06-05",
+        type: "Annual Checkup",
+        diagnosis: "Perfect health",
+        treatment: "Continue wellness routine",
+        doctor: "Dr. Amina Hassan"
+      }
+    ],
+    prescriptions: [],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-02-20", nextDue: "2025-02-20" },
+      { vaccine: "Rubella", date: "2020-01-15", nextDue: "2030-01-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-05",
+      status: "Excellent",
+      recommendations: "Continue work-life balance"
+    },
+    vitals: {
+      temperature: "36.5°C",
+      bloodPressure: "115/70 mmHg",
+      pulse: "68 bpm",
+      weight: "62 kg",
+      height: "168 cm",
+      bmi: "22.0",
+      respiratoryRate: "15 breaths/min",
+      oxygenSaturation: "99%"
+    }
+  },
+  {
+    id: "USR010",
+    staffId: "UNIJOS/AMB/010",
+    name: "Dr. Emmanuel Yakubu",
+    role: "Ambulance Services Director",
+    department: "Emergency Services",
+    unit: "Ambulance Unit",
+    faculty: "Medical Staff",
+    email: "emmanuel.yakubu@unijos.edu.ng",
+    phone: "08012345010",
+    dateOfBirth: "1983-11-30",
+    bloodType: "O-",
+    address: "Medical Staff Quarters, Jos",
+    emergencyContact: "08098765010",
+    lastCheckup: "2024-05-18",
+    nextCheckup: "2024-08-18",
+    healthStatus: "Good",
+    initials: "EY",
+    medicalHistory: [
+      {
+        date: "2024-05-18",
+        type: "Occupational Health",
+        diagnosis: "Work-related stress",
+        treatment: "Counseling, stress management",
+        doctor: "Dr. Mary Gyang"
+      }
+    ],
+    prescriptions: [],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-01-25", nextDue: "2025-01-25" },
+      { vaccine: "Hepatitis B", date: "2022-06-10", nextDue: "2027-06-10" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-05-18",
+      status: "Fair",
+      recommendations: "Regular counseling sessions, workload management"
+    },
+    vitals: {
+      temperature: "36.8°C",
+      bloodPressure: "130/85 mmHg",
+      pulse: "76 bpm",
+      weight: "75 kg",
+      height: "172 cm",
+      bmi: "25.3",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "98%"
+    }
   }
 ];
 
@@ -898,6 +1042,233 @@ const studentRecords = [
       { date: "2024-06-11", reason: "Allergic reaction", doctor: "Dr. Peter Bulus" },
       { date: "2024-05-05", reason: "Laceration treatment", doctor: "Dr. John Okafor" },
       { date: "2024-02-15", reason: "Vaccination", doctor: "Dr. Ruth Laven" }
+    ]
+  },
+  {
+    id: "STU009",
+    patientId: "P001244",
+    name: "Khadijah Usman",
+    matricNumber: "UJ/2022/NUR/0345",
+    faculty: "Nursing Sciences",
+    department: "Nursing",
+    level: "200L",
+    email: "khadijah.usman@unijos.edu.ng",
+    phone: "08012347890",
+    bloodType: "A+",
+    lastVisit: "2024-06-14",
+    healthStatus: "Pregnant - 2nd Trimester",
+    initials: "KU",
+    medicalHistory: [
+      {
+        date: "2024-06-14",
+        type: "Prenatal Care",
+        diagnosis: "Normal pregnancy progression",
+        treatment: "Prenatal vitamins, regular checkups",
+        doctor: "Dr. Grace Musa"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Prenatal vitamins",
+        dosage: "Once daily",
+        duration: "Throughout pregnancy",
+        prescribedBy: "Dr. Grace Musa",
+        date: "2024-06-14"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-01-15", nextDue: "2025-01-15" },
+      { vaccine: "Tetanus", date: "2024-03-20", nextDue: "2034-03-20" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-14",
+      status: "Good",
+      recommendations: "Pregnancy counseling, stress management"
+    },
+    vitals: {
+      temperature: "36.6°C",
+      bloodPressure: "110/70 mmHg",
+      pulse: "85 bpm",
+      weight: "68 kg",
+      height: "165 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "99%",
+      bmi: "25.0"
+    },
+    previousVisits: [
+      { date: "2024-06-14", reason: "Prenatal checkup", doctor: "Dr. Grace Musa" },
+      { date: "2024-05-14", reason: "First prenatal visit", doctor: "Dr. Grace Musa" },
+      { date: "2024-03-20", reason: "Vaccination", doctor: "Dr. Ruth Laven" }
+    ]
+  },
+  {
+    id: "STU010",
+    patientId: "P001245",
+    name: "Joseph Danladi",
+    matricNumber: "UJ/2020/ART/0123",
+    faculty: "Arts",
+    department: "History",
+    level: "400L",
+    email: "joseph.danladi@unijos.edu.ng",
+    phone: "08012348901",
+    bloodType: "O-",
+    lastVisit: "2024-06-15",
+    healthStatus: "Recovering",
+    initials: "JD",
+    medicalHistory: [
+      {
+        date: "2024-06-15",
+        type: "Emergency",
+        diagnosis: "Motorcycle accident - minor injuries",
+        treatment: "Wound care, pain management",
+        doctor: "Dr. Emmanuel Yakubu"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Paracetamol 500mg",
+        dosage: "As needed for pain",
+        duration: "1 week",
+        prescribedBy: "Dr. Emmanuel Yakubu",
+        date: "2024-06-15"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "Tetanus", date: "2024-06-15", nextDue: "2034-06-15" },
+      { vaccine: "COVID-19", date: "2023-12-10", nextDue: "2024-12-10" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-15",
+      status: "Mild anxiety",
+      recommendations: "Post-accident counseling, stress management"
+    },
+    vitals: {
+      temperature: "36.9°C",
+      bloodPressure: "125/80 mmHg",
+      pulse: "82 bpm",
+      weight: "70 kg",
+      height: "175 cm",
+      respiratoryRate: "17/min",
+      oxygenSaturation: "98%",
+      bmi: "22.9"
+    },
+    previousVisits: [
+      { date: "2024-06-15", reason: "Accident injuries", doctor: "Dr. Emmanuel Yakubu" },
+      { date: "2024-03-10", reason: "Routine checkup", doctor: "Dr. Samuel Dung" }
+    ]
+  },
+  {
+    id: "STU011",
+    patientId: "P001246",
+    name: "Zainab Abdullahi",
+    matricNumber: "UJ/2022/VET/0456",
+    faculty: "Veterinary Medicine",
+    department: "Veterinary Medicine",
+    level: "200L",
+    email: "zainab.abdullahi@unijos.edu.ng",
+    phone: "08012349012",
+    bloodType: "B+",
+    lastVisit: "2024-06-16",
+    healthStatus: "Good",
+    initials: "ZA",
+    medicalHistory: [
+      {
+        date: "2024-06-16",
+        type: "Consultation",
+        diagnosis: "Allergic rhinitis from animal exposure",
+        treatment: "Antihistamines, allergen avoidance",
+        doctor: "Dr. Mary Gyang"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Loratadine 10mg",
+        dosage: "Once daily",
+        duration: "As needed",
+        prescribedBy: "Dr. Mary Gyang",
+        date: "2024-06-16"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-02-20", nextDue: "2025-02-20" },
+      { vaccine: "Rabies", date: "2022-10-01", nextDue: "2025-10-01" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-16",
+      status: "Good",
+      recommendations: "Stress management for academic demands"
+    },
+    vitals: {
+      temperature: "36.8°C",
+      bloodPressure: "115/75 mmHg",
+      pulse: "76 bpm",
+      weight: "60 kg",
+      height: "163 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "22.6"
+    },
+    previousVisits: [
+      { date: "2024-06-16", reason: "Allergic rhinitis", doctor: "Dr. Mary Gyang" },
+      { date: "2024-04-10", reason: "Routine checkup", doctor: "Dr. Peter Bulus" },
+      { date: "2024-02-20", reason: "Vaccination", doctor: "Dr. Ruth Laven" }
+    ]
+  },
+  {
+    id: "STU012",
+    patientId: "P001247",
+    name: "Michael Pam",
+    matricNumber: "UJ/2021/ENG/0890",
+    faculty: "Engineering",
+    department: "Electrical Engineering",
+    level: "300L",
+    email: "michael.pam@unijos.edu.ng",
+    phone: "08012350123",
+    bloodType: "AB-",
+    lastVisit: "2024-06-17",
+    healthStatus: "Good",
+    initials: "MP",
+    medicalHistory: [
+      {
+        date: "2024-06-17",
+        type: "Treatment",
+        diagnosis: "Minor electrical burn from lab work",
+        treatment: "Wound care, burn management",
+        doctor: "Dr. Samuel Gyang"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Silver sulfadiazine cream",
+        dosage: "Apply twice daily",
+        duration: "1 week",
+        prescribedBy: "Dr. Samuel Gyang",
+        date: "2024-06-17"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "Tetanus", date: "2024-06-17", nextDue: "2034-06-17" },
+      { vaccine: "COVID-19", date: "2024-01-05", nextDue: "2025-01-05" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-17",
+      status: "Good",
+      recommendations: "Safety awareness, stress management"
+    },
+    vitals: {
+      temperature: "36.7°C",
+      bloodPressure: "120/78 mmHg",
+      pulse: "74 bpm",
+      weight: "72 kg",
+      height: "176 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "23.2"
+    },
+    previousVisits: [
+      { date: "2024-06-17", reason: "Electrical burn", doctor: "Dr. Samuel Gyang" },
+      { date: "2024-04-05", reason: "Routine checkup", doctor: "Dr. Emmanuel Yakubu" },
+      { date: "2024-01-05", reason: "Vaccination", doctor: "Dr. Grace Musa" }
     ]
   }
 ];
