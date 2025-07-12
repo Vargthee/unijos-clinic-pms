@@ -13,7 +13,7 @@ const appointments = [
     patientId: "P001238",
     doctor: "Dr. Fatima Aliyu",
     department: "General Medicine",
-    date: "2024-06-09",
+    date: "2025-01-15",
     time: "09:00 AM",
     status: "Confirmed",
     type: "Consultation",
@@ -25,7 +25,7 @@ const appointments = [
     patientId: "P001239",
     doctor: "Dr. John Okafor",
     department: "Mental Health",
-    date: "2024-06-09",
+    date: "2025-01-15",
     time: "10:30 AM",
     status: "Pending",
     type: "Check-up",
@@ -37,7 +37,7 @@ const appointments = [
     patientId: "P001240",
     doctor: "Dr. Aisha Mohammed",
     department: "Cardiology",
-    date: "2024-06-09",
+    date: "2025-01-15",
     time: "02:00 PM",
     status: "Confirmed",
     type: "Follow-up",
@@ -49,7 +49,7 @@ const appointments = [
     patientId: "P001241",
     doctor: "Dr. Peter Nnamdi",
     department: "Orthopedics",
-    date: "2024-06-10",
+    date: "2025-01-16",
     time: "11:00 AM",
     status: "Scheduled",
     type: "Consultation",
@@ -110,13 +110,13 @@ export const Appointments = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="h-5 w-5 text-primary" />
-            Today's Schedule - June 9, 2024
+            Today's Schedule - January 15, 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {appointments
-              .filter((apt) => apt.date === "2024-06-09")
+              .filter((apt) => apt.date === "2025-01-15")
               .map((appointment) => (
                 <div
                   key={appointment.id}
