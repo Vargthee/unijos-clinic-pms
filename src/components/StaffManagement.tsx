@@ -104,7 +104,7 @@ const staff = [
 ];
 
 const getRoleColor = (role: string) => {
-  if (role.includes("Dr.")) return "bg-blue-100 text-blue-800";
+  if (role.includes("Dr.")) return "bg-primary/10 text-primary";
   if (role.includes("Director")) return "bg-purple-100 text-purple-800";
   if (role.includes("Officer") || role.includes("Coordinator")) return "bg-green-100 text-green-800";
   return "bg-gray-100 text-gray-800";
@@ -118,7 +118,7 @@ export const StaffManagement = () => {
           <h2 className="text-2xl font-bold text-gray-900">Staff Management</h2>
           <p className="text-gray-600">Manage clinic staff and their schedules</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button className="bg-primary hover:bg-primary/90">
           <Plus className="h-4 w-4 mr-2" />
           Add Staff Member
         </Button>
@@ -129,7 +129,7 @@ export const StaffManagement = () => {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center">
-              <UserCheck className="h-8 w-8 text-blue-600" />
+              <UserCheck className="h-8 w-8 text-primary" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Staff</p>
                 <p className="text-2xl font-bold text-gray-900">{staff.length}</p>
@@ -190,7 +190,7 @@ export const StaffManagement = () => {
                 <CardContent className="pt-6">
                   <div className="flex items-center space-x-4 mb-4">
                     <Avatar className="h-12 w-12">
-                      <AvatarFallback className="bg-blue-100 text-blue-700 font-semibold">
+                      <AvatarFallback className="bg-primary/10 text-primary font-semibold">
                         {member.initials}
                       </AvatarFallback>
                     </Avatar>

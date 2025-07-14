@@ -13,7 +13,7 @@ const appointments = [
     patientId: "P001238",
     doctor: "Dr. Fatima Aliyu",
     department: "General Medicine",
-    date: "2025-01-15",
+    date: "2025-06-15",
     time: "09:00 AM",
     status: "Confirmed",
     type: "Consultation",
@@ -25,7 +25,7 @@ const appointments = [
     patientId: "P001239",
     doctor: "Dr. John Okafor",
     department: "Mental Health",
-    date: "2025-01-15",
+    date: "2025-06-15",
     time: "10:30 AM",
     status: "Pending",
     type: "Check-up",
@@ -37,7 +37,7 @@ const appointments = [
     patientId: "P001240",
     doctor: "Dr. Aisha Mohammed",
     department: "Cardiology",
-    date: "2025-01-15",
+    date: "2025-06-15",
     time: "02:00 PM",
     status: "Confirmed",
     type: "Follow-up",
@@ -49,7 +49,7 @@ const appointments = [
     patientId: "P001241",
     doctor: "Dr. Peter Nnamdi",
     department: "Orthopedics",
-    date: "2025-01-16",
+    date: "2025-06-16",
     time: "11:00 AM",
     status: "Scheduled",
     type: "Consultation",
@@ -64,7 +64,7 @@ const getStatusColor = (status: string) => {
     case "Pending":
       return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
     case "Scheduled":
-      return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
+      return "bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary";
     default:
       return "bg-gray-100 text-gray-800 dark:bg-gray-800/30 dark:text-gray-300";
   }
@@ -110,13 +110,13 @@ export const Appointments = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="h-5 w-5 text-primary" />
-            Today's Schedule - January 15, 2025
+            Today's Schedule - June 15, 2025
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {appointments
-              .filter((apt) => apt.date === "2025-01-15")
+              .filter((apt) => apt.date === "2025-06-15")
               .map((appointment) => (
                 <div
                   key={appointment.id}

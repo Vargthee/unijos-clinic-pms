@@ -15,11 +15,11 @@ const appointmentData = [
 ];
 
 const departmentData = [
-  { name: "General Medicine", patients: 45, color: "#0088FE" },
-  { name: "Pediatrics", patients: 32, color: "#00C49F" },
-  { name: "Cardiology", patients: 28, color: "#FFBB28" },
-  { name: "Orthopedics", patients: 21, color: "#FF8042" },
-  { name: "Dermatology", patients: 18, color: "#8884D8" },
+  { name: "General Medicine", patients: 45, color: "hsl(var(--primary))" },
+  { name: "Pediatrics", patients: 32, color: "hsl(var(--medical-green))" },
+  { name: "Cardiology", patients: 28, color: "hsl(158 64% 45%)" },
+  { name: "Orthopedics", patients: 21, color: "hsl(25 95% 53%)" },
+  { name: "Dermatology", patients: 18, color: "hsl(250 84% 54%)" },
 ];
 
 const monthlyTrend = [

@@ -528,7 +528,7 @@ export const PatientManagement = () => {
           <p className="text-gray-600 dark:text-gray-300">Manage student and staff medical records and appointments</p>
         </div>
         <Button 
-          className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground"
           onClick={() => setIsAddPatientOpen(true)}
         >
           <UserPlus className="h-4 w-4 mr-2" />
@@ -576,12 +576,12 @@ export const PatientManagement = () => {
             {filteredPatients.map((patient) => (
               <Card 
                 key={patient.id} 
-                className="hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 hover:shadow-blue-500/20 dark:hover:shadow-blue-400/20"
+                className="hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-border hover:shadow-primary/20"
               >
                 <CardContent className="pt-6">
                   <div className="flex items-center space-x-4 mb-4">
                     <Avatar className="h-12 w-12">
-                      <AvatarFallback className="bg-blue-100 text-blue-700 font-semibold dark:bg-blue-900 dark:text-blue-300">
+                      <AvatarFallback className="bg-primary/10 text-primary font-semibold">
                         {patient.name.substring(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>

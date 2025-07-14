@@ -255,7 +255,7 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
             </Button>
             <Button 
               type="submit" 
-              className="bg-blue-600 hover:bg-blue-700 h-12 text-base flex-1"
+              className="bg-primary hover:bg-primary/90 h-12 text-base flex-1"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
