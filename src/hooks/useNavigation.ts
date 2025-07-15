@@ -15,7 +15,7 @@ export const useNavigation = () => {
   const handleSignOut = useCallback(() => {
     console.log("Signing out...");
     // In a real app, you'd clear authentication tokens here
-    navigate("/signin");
+    navigate("/");
   }, [navigate]);
 
   return {
