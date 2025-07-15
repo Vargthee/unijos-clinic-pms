@@ -25,7 +25,7 @@ const SignIn = () => {
       console.log("Sign in attempt:", { email, password });
       setIsLoading(false);
       // Navigate to dashboard after "successful" login
-      navigate("/");
+      navigate("/dashboard");
     }, 1000);
   };
 
