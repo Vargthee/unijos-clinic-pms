@@ -33,20 +33,20 @@ export const Dashboard = () => {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold text-foreground">
+    <div className="space-y-4 sm:space-y-6 animate-fade-in">
+      <div className="flex flex-col gap-1 sm:gap-2">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
           Welcome to University of Jos Clinic Dashboard
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground">
           Overview of clinic operations and recent activities
         </p>
       </div>
       
       <DashboardStats stats={stats} />
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+        <div className="xl:col-span-2">
           <RecentPatientsList patients={recentPatients} />
         </div>
         <div>

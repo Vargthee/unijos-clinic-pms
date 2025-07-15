@@ -38,41 +38,41 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex w-full bg-background">
+    <div className="min-h-screen flex flex-col lg:flex-row w-full bg-background">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <main className="flex-1 overflow-auto">
-        <div className="glass-card sticky top-0 z-10 p-4">
-          <div className="flex justify-end gap-2">
+      <main className="flex-1 overflow-auto min-w-0">
+        <div className="glass-card sticky top-0 z-10 p-2 sm:p-4">
+          <div className="flex flex-wrap justify-end gap-2">
             <Button
               variant="outline"
               size="sm"
               onClick={handleSignOut}
-              className="gap-2"
+              className="gap-1 sm:gap-2 text-xs sm:text-sm"
             >
-              <LogOut className="h-4 w-4" />
-              Sign Out
+              <LogOut className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Sign Out</span>
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={toggleTheme}
-              className="gap-2"
+              className="gap-1 sm:gap-2 text-xs sm:text-sm"
             >
               {theme === "dark" ? (
                 <>
-                  <Sun className="h-4 w-4" />
-                  Light
+                  <Sun className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden sm:inline">Light</span>
                 </>
               ) : (
                 <>
-                  <Moon className="h-4 w-4" />
-                  Dark
+                  <Moon className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden sm:inline">Dark</span>
                 </>
               )}
             </Button>
           </div>
         </div>
-        <div className="p-4 sm:p-6 lg:p-8 animate-fade-in">
+        <div className="p-2 sm:p-4 lg:p-6 xl:p-8 animate-fade-in">
           {renderContent()}
         </div>
       </main>
