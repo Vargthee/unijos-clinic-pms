@@ -30,8 +30,8 @@ export const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
             <Stethoscope className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-primary-foreground" />
           </div>
           <div className="min-w-0">
-            <h1 className="text-base sm:text-lg lg:text-xl font-bold text-sidebar-foreground bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent truncate">
-              UNIJOS Health
+            <h1 className="text-sm sm:text-base lg:text-lg font-bold text-sidebar-foreground bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent truncate">
+              University of Jos Health
             </h1>
             <p className="text-xs lg:text-sm text-sidebar-foreground/70 font-medium truncate">Medical Center</p>
           </div>
