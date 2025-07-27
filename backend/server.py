@@ -668,6 +668,36 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Health check endpoint
+@app.get("/health")
+async def health_check():
+    return {
+        "status": "healthy",
+        "service": "UNIJOS Health Management System",
+        "version": "1.0.0",
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+@app.on_event("startup")
+async def startup_event():
+    logger.info("Starting UNIJOS Health Management System API")
+    # Create indexes for better performance
+    await db.patients.create_index("id", unique=True)
+    await db.patients.create_index("email", unique=True)
+    await db.patients.create_index("matric_number", unique=True, sparse=True)
+    await db.patients.create_index("staff_id", unique=True, sparse=True)
+    await db.patients.create_index("age")
+    await db.patients.create_index("patient_type")
+    await db.patients.create_index("faculty")
+    await db.medical_records.create_index("patient_id")
+    await db.medical_records.create_index("date")
+    logger.info("Database indexes created successfully")
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
+    logger.info("Shutting down UNIJOS Health Management System API")
     client.close()
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8001)
