@@ -438,10 +438,17 @@ async def create_patient(patient_data: PatientCreate):
         warnings = validate_medical_consistency(patient_obj)
         
         # Insert into database
-        result = await db.patients.insert_one(patient_obj.dict())
+        patient_dict = patient_obj.dict()
+        # Convert date objects to strings for MongoDB
+        if 'date_of_birth' in patient_dict and hasattr(patient_dict['date_of_birth'], 'isoformat'):
+            patient_dict['date_of_birth'] = patient_dict['date_of_birth'].isoformat()
+        if 'last_tetanus_shot' in patient_dict and patient_dict['last_tetanus_shot'] and hasattr(patient_dict['last_tetanus_shot'], 'isoformat'):
+            patient_dict['last_tetanus_shot'] = patient_dict['last_tetanus_shot'].isoformat()
+        
+        result = await db.patients.insert_one(patient_dict)
         
         # Return created patient with warnings if any
-        response_data = patient_obj.dict()
+        response_data = patient_dict
         if warnings:
             response_data["warnings"] = warnings
         
