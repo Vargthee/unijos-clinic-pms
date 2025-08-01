@@ -40,6 +40,7 @@ const universityStaffRecords = [
     email: "hauwa.abdullahi@unijos.edu.ng",
     phone: "08012345678",
     dateOfBirth: "1975-03-15",
+    age: 49,
     bloodType: "O+",
     address: "GRA, Jos",
     emergencyContact: "08098765432",
@@ -75,6 +76,7 @@ const universityStaffRecords = [
       recommendations: "Regular stress management, work-life balance"
     },
     vitals: {
+      age: "49 years",
       temperature: "36.8°C",
       bloodPressure: "135/85 mmHg",
       pulse: "78 bpm",
@@ -733,6 +735,7 @@ const studentRecords = [
       recommendations: "Academic support, peer counseling"
     },
     vitals: {
+      age: "18 years",
       temperature: "38.2°C",
       bloodPressure: "110/70 mmHg",
       pulse: "88 bpm",
@@ -1457,6 +1460,13 @@ export const ComprehensiveMedicalRecords = () => {
             <div className="space-y-3">
               {record.vitals && (
                 <div className="grid gap-3">
+                  <Card className="p-3 bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-800">
+                    <div className="flex items-center gap-2 mb-1">
+                      <User className="h-4 w-4 text-indigo-500" />
+                      <span className="text-xs font-medium text-indigo-700 dark:text-indigo-300">Age</span>
+                    </div>
+                    <p className="text-lg font-bold text-indigo-800 dark:text-indigo-200">{record.vitals.age}</p>
+                  </Card>
                   <Card className="p-3">
                     <div className="flex items-center gap-2 mb-1">
                       <Thermometer className="h-4 w-4 text-red-500" />
