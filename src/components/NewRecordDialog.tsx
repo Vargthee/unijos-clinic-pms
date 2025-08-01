@@ -26,10 +26,14 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
     doctor: "",
     medications: "",
     notes: "",
+    age: "",
     temperature: "",
     bloodPressure: "",
     pulse: "",
-    weight: ""
+    weight: "",
+    height: "",
+    respiratoryRate: "",
+    oxygenSaturation: ""
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -180,12 +184,22 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
             <Label className="text-sm font-medium">Vital Signs</Label>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="temperature" className="text-xs">Temperature</Label>
+                <Label htmlFor="age" className="text-xs">Age (years)</Label>
+                <Input
+                  id="age"
+                  value={formData.age}
+                  onChange={(e) => handleInputChange("age", e.target.value)}
+                  placeholder="20"
+                  className="h-11 text-base"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="temperature" className="text-xs">Temperature (°C)</Label>
                 <Input
                   id="temperature"
                   value={formData.temperature}
                   onChange={(e) => handleInputChange("temperature", e.target.value)}
-                  placeholder="36.5°C"
+                  placeholder="36.5"
                   className="h-11 text-base"
                 />
               </div>
@@ -200,22 +214,52 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="pulse" className="text-xs">Pulse</Label>
+                <Label htmlFor="pulse" className="text-xs">Pulse (bpm)</Label>
                 <Input
                   id="pulse"
                   value={formData.pulse}
                   onChange={(e) => handleInputChange("pulse", e.target.value)}
-                  placeholder="78 bpm"
+                  placeholder="72"
                   className="h-11 text-base"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="weight" className="text-xs">Weight</Label>
+                <Label htmlFor="weight" className="text-xs">Weight (kg)</Label>
                 <Input
                   id="weight"
                   value={formData.weight}
                   onChange={(e) => handleInputChange("weight", e.target.value)}
-                  placeholder="65 kg"
+                  placeholder="65"
+                  className="h-11 text-base"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="height" className="text-xs">Height (cm)</Label>
+                <Input
+                  id="height"
+                  value={formData.height}
+                  onChange={(e) => handleInputChange("height", e.target.value)}
+                  placeholder="170"
+                  className="h-11 text-base"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="respiratoryRate" className="text-xs">Respiratory Rate</Label>
+                <Input
+                  id="respiratoryRate"
+                  value={formData.respiratoryRate}
+                  onChange={(e) => handleInputChange("respiratoryRate", e.target.value)}
+                  placeholder="16"
+                  className="h-11 text-base"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="oxygenSaturation" className="text-xs">Oxygen Saturation (%)</Label>
+                <Input
+                  id="oxygenSaturation"
+                  value={formData.oxygenSaturation}
+                  onChange={(e) => handleInputChange("oxygenSaturation", e.target.value)}
+                  placeholder="98"
                   className="h-11 text-base"
                 />
               </div>
