@@ -121,7 +121,17 @@ export const AddMedicalEntryDialog = ({ open, onOpenChange, patientName }: AddMe
           {/* Vital Signs Section */}
           <div className="border-t pt-4">
             <h4 className="font-semibold mb-3 text-sm">Vital Signs</h4>
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
+              <div>
+                <Label htmlFor="age" className="text-xs">Age (years)</Label>
+                <Input
+                  id="age"
+                  value={formData.age}
+                  onChange={(e) => setFormData({...formData, age: e.target.value})}
+                  placeholder="20"
+                  className="h-11 text-base"
+                />
+              </div>
               <div>
                 <Label htmlFor="temperature" className="text-xs">Temperature (°C)</Label>
                 <Input
@@ -182,7 +192,7 @@ export const AddMedicalEntryDialog = ({ open, onOpenChange, patientName }: AddMe
                   className="h-11 text-base"
                 />
               </div>
-              <div className="col-span-2 lg:col-span-1">
+              <div>
                 <Label htmlFor="oxygenSaturation" className="text-xs">Oxygen Saturation (%)</Label>
                 <Input
                   id="oxygenSaturation"

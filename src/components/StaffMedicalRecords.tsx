@@ -11,6 +11,7 @@ const staffMedicalRecords = [
     id: "SMR001",
     staffId: "S001",
     name: "Dr. Fatima Aliyu",
+    age: 35,
     role: "Senior Physician",
     lastCheckup: "2024-05-15",
     nextCheckup: "2024-11-15",
@@ -26,13 +27,14 @@ const staffMedicalRecords = [
     height: "165 cm",
     respiratoryRate: "16/min",
     oxygenSaturation: "98%",
-    notes: "Regular health maintenance, no concerns",
+    notes: "35-year-old physician in good health. Regular health maintenance, all parameters normal. Immunizations up to date.",
     initials: "FA",
   },
   {
     id: "SMR002",
     staffId: "S002",
     name: "Dr. John Okafor",
+    age: 48,
     role: "Psychiatrist",
     lastCheckup: "2024-04-20",
     nextCheckup: "2024-10-20",
@@ -48,13 +50,14 @@ const staffMedicalRecords = [
     height: "178 cm",
     respiratoryRate: "18/min",
     oxygenSaturation: "97%",
-    notes: "Mild hypertension monitoring required",
+    notes: "48-year-old psychiatrist with borderline hypertension. Lifestyle modifications recommended. Regular monitoring continues.",
     initials: "JO",
   },
   {
     id: "SMR003",
     staffId: "S004",
     name: "Nurse Grace Danladi",
+    age: 32,
     role: "Head Nurse",
     lastCheckup: "2024-03-10",
     nextCheckup: "2024-09-10",
@@ -70,13 +73,14 @@ const staffMedicalRecords = [
     height: "162 cm",
     respiratoryRate: "15/min",
     oxygenSaturation: "99%",
-    notes: "Excellent health status, no concerns",
+    notes: "32-year-old head nurse in excellent health. All health parameters optimal. Exemplary health maintenance.",
     initials: "GD",
   },
   {
     id: "SMR004",
     staffId: "S006",
     name: "Pharmacist Maryam Umar",
+    age: 39,
     role: "Chief Pharmacist",
     lastCheckup: "2024-06-01",
     nextCheckup: "2024-12-01",
@@ -92,7 +96,7 @@ const staffMedicalRecords = [
     height: "170 cm",
     respiratoryRate: "17/min",
     oxygenSaturation: "98%",
-    notes: "Due for routine blood work",
+    notes: "39-year-old chief pharmacist in good health. Due for routine blood work and lipid profile. Sulfa drug allergy documented.",
     initials: "MU",
   },
 ];
@@ -229,6 +233,10 @@ export const StaffMedicalRecords = () => {
                       <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Basic Information</h4>
                       <div className="space-y-3">
                         <div>
+                          <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Age</label>
+                          <p className="text-gray-900 dark:text-gray-100">{staff.age} years</p>
+                        </div>
+                        <div>
                           <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Staff ID</label>
                           <p className="text-gray-900 dark:text-gray-100">{staff.staffId}</p>
                         </div>
@@ -253,6 +261,13 @@ export const StaffMedicalRecords = () => {
                         Current Vital Signs
                       </h4>
                       <div className="grid grid-cols-1 gap-3">
+                        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                          <div className="flex items-center gap-2 mb-2">
+                            <User className="h-5 w-5 text-indigo-500" />
+                            <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">Age</p>
+                          </div>
+                          <p className="text-xl font-semibold text-indigo-800 dark:text-indigo-200">{staff.age} years</p>
+                        </div>
                         <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
                           <div className="flex items-center gap-2 mb-2">
                             <Thermometer className="h-5 w-5 text-red-500" />

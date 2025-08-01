@@ -339,6 +339,10 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
                     <div>
                       <h4 className="font-semibold mb-3 text-gray-900 dark:text-gray-100">Vital Signs</h4>
                       <div className="grid grid-cols-2 gap-3">
+                        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded border border-indigo-200 dark:border-indigo-800">
+                          <p className="text-xs font-medium text-indigo-700 dark:text-indigo-300 mb-1">Age</p>
+                          <p className="text-lg font-bold text-indigo-800 dark:text-indigo-200">{record.vitals.age}</p>
+                        </div>
                         <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded border border-blue-200 dark:border-blue-800">
                           <p className="text-xs font-medium text-blue-700 dark:text-blue-300 mb-1">Temperature</p>
                           <p className="text-lg font-bold text-blue-800 dark:text-blue-200">{record.vitals.temperature}</p>
@@ -355,12 +359,34 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
                           <p className="text-xs font-medium text-purple-700 dark:text-purple-300 mb-1">Weight</p>
                           <p className="text-lg font-bold text-purple-800 dark:text-purple-200">{record.vitals.weight}</p>
                         </div>
+                        {record.vitals.height && (
+                          <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded border border-orange-200 dark:border-orange-800">
+                            <p className="text-xs font-medium text-orange-700 dark:text-orange-300 mb-1">Height</p>
+                            <p className="text-lg font-bold text-orange-800 dark:text-orange-200">{record.vitals.height}</p>
+                          </div>
+                        )}
+                        {record.vitals.respiratoryRate && (
+                          <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded border border-teal-200 dark:border-teal-800">
+                            <p className="text-xs font-medium text-teal-700 dark:text-teal-300 mb-1">Respiratory Rate</p>
+                            <p className="text-lg font-bold text-teal-800 dark:text-teal-200">{record.vitals.respiratoryRate}</p>
+                          </div>
+                        )}
+                        {record.vitals.oxygenSaturation && (
+                          <div className="bg-cyan-50 dark:bg-cyan-900/20 p-3 rounded border border-cyan-200 dark:border-cyan-800">
+                            <p className="text-xs font-medium text-cyan-700 dark:text-cyan-300 mb-1">O2 Saturation</p>
+                            <p className="text-lg font-bold text-cyan-800 dark:text-cyan-200">{record.vitals.oxygenSaturation}</p>
+                          </div>
+                        )}
                       </div>
                       
                       {record.currentVitals && (
                         <div className="mt-6">
                           <h5 className="font-semibold mb-3 text-gray-900 dark:text-gray-100">Current Vitals</h5>
-                          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+                          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded border border-indigo-200 dark:border-indigo-800">
+                              <p className="text-xs font-medium text-indigo-700 dark:text-indigo-300 mb-1">Age</p>
+                              <p className="text-lg font-bold text-indigo-800 dark:text-indigo-200">{record.currentVitals.age}</p>
+                            </div>
                             <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded border border-blue-200 dark:border-blue-800">
                               <p className="text-xs font-medium text-blue-700 dark:text-blue-300 mb-1">Temperature</p>
                               <p className="text-lg font-bold text-blue-800 dark:text-blue-200">{record.currentVitals.temperature}</p>
@@ -377,9 +403,15 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
                               <p className="text-xs font-medium text-purple-700 dark:text-purple-300 mb-1">Weight</p>
                               <p className="text-lg font-bold text-purple-800 dark:text-purple-200">{record.currentVitals.weight}</p>
                             </div>
-                            <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded border border-orange-200 dark:border-orange-800">
-                              <p className="text-xs font-medium text-orange-700 dark:text-orange-300 mb-1">Oxygen Saturation</p>
-                              <p className="text-lg font-bold text-orange-800 dark:text-orange-200">{record.currentVitals.oxygenSaturation}</p>
+                            {record.currentVitals.height && (
+                              <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded border border-orange-200 dark:border-orange-800">
+                                <p className="text-xs font-medium text-orange-700 dark:text-orange-300 mb-1">Height</p>
+                                <p className="text-lg font-bold text-orange-800 dark:text-orange-200">{record.currentVitals.height}</p>
+                              </div>
+                            )}
+                            <div className="bg-cyan-50 dark:bg-cyan-900/20 p-3 rounded border border-cyan-200 dark:border-cyan-800">
+                              <p className="text-xs font-medium text-cyan-700 dark:text-cyan-300 mb-1">O2 Saturation</p>
+                              <p className="text-lg font-bold text-cyan-800 dark:text-cyan-200">{record.currentVitals.oxygenSaturation}</p>
                             </div>
                             <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded border border-teal-200 dark:border-teal-800">
                               <p className="text-xs font-medium text-teal-700 dark:text-teal-300 mb-1">Respiratory Rate</p>

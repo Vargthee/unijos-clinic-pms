@@ -38,6 +38,18 @@ export const BasicInfoSection = ({ formData, handleInputChange }: BasicInfoSecti
         </div>
 
         <div className="space-y-2">
+          <Label htmlFor="age" className="dark:text-gray-200">Age</Label>
+          <Input
+            id="age"
+            type="number"
+            value={formData.age}
+            onChange={(e) => handleInputChange("age", e.target.value)}
+            placeholder="20"
+            className="dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 h-12 text-base"
+          />
+        </div>
+        
+        <div className="space-y-2">
           <Label htmlFor="dateOfBirth" className="dark:text-gray-200">Date of Birth</Label>
           <Input
             id="dateOfBirth"

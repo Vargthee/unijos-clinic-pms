@@ -62,10 +62,14 @@ export const NewRecordDialog = ({ open, onOpenChange }: NewRecordDialogProps) =>
         doctor: "",
         medications: "",
         notes: "",
+        age: "",
         temperature: "",
         bloodPressure: "",
         pulse: "",
-        weight: ""
+        weight: "",
+        height: "",
+        respiratoryRate: "",
+        oxygenSaturation: ""
       });
       setFiles([]);
       onOpenChange(false);
