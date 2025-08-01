@@ -594,7 +594,10 @@ export const PatientManagement = () => {
                   </div>
 
                   <div className="space-y-2 text-sm">
-                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Age:</span> {patient.age} years</p>
+                    <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-900/20 p-2 rounded border border-blue-200 dark:border-blue-800">
+                      <span className="font-medium text-blue-700 dark:text-blue-300">Age:</span> 
+                      <span className="font-bold text-blue-800 dark:text-blue-200">{patient.age} years</span>
+                    </div>
                     <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Faculty:</span> {patient.faculty}</p>
                     <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Department:</span> {patient.department}</p>
                     <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Level:</span> {patient.level}</p>

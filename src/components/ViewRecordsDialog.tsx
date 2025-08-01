@@ -21,7 +21,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Emergency",
           diagnosis: "Severe malaria with cerebral complications",
           doctor: "Dr. Fatima Aliyu",
-          vitals: { temperature: "40.1°C", bloodPressure: "90/60 mmHg", pulse: "120 bpm", weight: "58 kg" },
+          vitals: { age: "20 years", temperature: "40.1°C", bloodPressure: "90/60 mmHg", pulse: "120 bpm", weight: "58 kg", height: "165 cm", respiratoryRate: "20/min", oxygenSaturation: "97%" },
           notes: "Patient presented with high fever, altered consciousness, and convulsions. Rapid diagnostic test positive for P. falciparum.",
           icon: Heart
         }
@@ -33,7 +33,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Treatment",
           diagnosis: "Sickle cell vaso-occlusive crisis",
           doctor: "Dr. John Okafor",
-          vitals: { temperature: "37.8°C", bloodPressure: "130/85 mmHg", pulse: "95 bpm", weight: "61 kg" },
+          vitals: { age: "22 years", temperature: "37.8°C", bloodPressure: "130/85 mmHg", pulse: "95 bpm", weight: "61 kg", height: "178 cm", respiratoryRate: "22/min", oxygenSaturation: "94%" },
           notes: "Severe bone pain in extremities. Managed with strong analgesics and IV hydration therapy.",
           icon: Stethoscope
         }
@@ -45,7 +45,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Follow-up",
           diagnosis: "Typhoid fever - severe case",
           doctor: "Dr. Aisha Mohammed",
-          vitals: { temperature: "39.2°C", bloodPressure: "110/70 mmHg", pulse: "88 bpm", weight: "52 kg" },
+          vitals: { age: "18 years", temperature: "39.2°C", bloodPressure: "110/70 mmHg", pulse: "88 bpm", weight: "52 kg", height: "162 cm", respiratoryRate: "18/min", oxygenSaturation: "99%" },
           notes: "Rose spots visible on trunk. Blood culture positive for Salmonella Typhi. Started on IV antibiotics.",
           icon: Eye
         }
@@ -57,7 +57,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Consultation",
           diagnosis: "Acute bronchial asthma exacerbation",
           doctor: "Dr. Grace Musa",
-          vitals: { temperature: "36.8°C", bloodPressure: "125/80 mmHg", pulse: "102 bpm", weight: "65 kg" },
+          vitals: { age: "21 years", temperature: "36.8°C", bloodPressure: "125/80 mmHg", pulse: "102 bpm", weight: "65 kg", height: "175 cm", respiratoryRate: "28/min", oxygenSaturation: "92%" },
           notes: "Wheezing and shortness of breath. Peak flow reduced to 60% of predicted. Nebulizer treatment given.",
           icon: Brain
         }
@@ -69,7 +69,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Treatment",
           diagnosis: "Iron deficiency anemia",
           doctor: "Dr. Hauwa Ibrahim",
-          vitals: { temperature: "36.5°C", bloodPressure: "100/65 mmHg", pulse: "78 bpm", weight: "55 kg" },
+          vitals: { age: "23 years", temperature: "36.5°C", bloodPressure: "100/65 mmHg", pulse: "78 bpm", weight: "55 kg", height: "168 cm", respiratoryRate: "20/min", oxygenSaturation: "98%" },
           notes: "Hemoglobin level at 8.2 g/dL. Started on oral iron supplementation. Dietary counseling provided.",
           icon: Heart
         }
