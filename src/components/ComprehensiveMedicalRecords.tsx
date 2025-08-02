@@ -133,6 +133,7 @@ const universityStaffRecords = [
       recommendations: "Maintain current mental wellness practices"
     },
     vitals: {
+      age: "44 years",
       temperature: "36.7°C",
       bloodPressure: "120/75 mmHg",
       pulse: "72 bpm",
@@ -189,6 +190,7 @@ const universityStaffRecords = [
       recommendations: "Stress management for high-pressure work environment"
     },
     vitals: {
+      age: "46 years",
       temperature: "36.9°C",
       bloodPressure: "128/82 mmHg",
       pulse: "75 bpm",
@@ -245,6 +247,7 @@ const universityStaffRecords = [
       recommendations: "Work-life balance, regular digital detox"
     },
     vitals: {
+      age: "42 years",
       temperature: "36.6°C",
       bloodPressure: "125/80 mmHg",
       pulse: "74 bpm",
@@ -301,6 +304,7 @@ const universityStaffRecords = [
       recommendations: "Continue stress management techniques"
     },
     vitals: {
+      age: "39 years",
       temperature: "36.5°C",
       bloodPressure: "118/72 mmHg",
       pulse: "70 bpm",
@@ -357,6 +361,7 @@ const universityStaffRecords = [
       recommendations: "Regular exercise, outdoor activities"
     },
     vitals: {
+      age: "45 years",
       temperature: "36.7°C",
       bloodPressure: "122/76 mmHg",
       pulse: "73 bpm",
@@ -405,6 +410,7 @@ const universityStaffRecords = [
       recommendations: "Continue wellness programs"
     },
     vitals: {
+      age: "48 years",
       temperature: "36.4°C",
       bloodPressure: "115/70 mmHg",
       pulse: "68 bpm",
@@ -453,6 +459,7 @@ const universityStaffRecords = [
       recommendations: "Stress management for emergency work"
     },
     vitals: {
+      age: "39 years",
       temperature: "36.6°C",
       bloodPressure: "125/80 mmHg",
       pulse: "74 bpm",
@@ -501,6 +508,7 @@ const universityStaffRecords = [
       recommendations: "Continue work-life balance"
     },
     vitals: {
+      age: "37 years",
       temperature: "36.5°C",
       bloodPressure: "115/70 mmHg",
       pulse: "68 bpm",
@@ -549,6 +557,7 @@ const universityStaffRecords = [
       recommendations: "Regular counseling sessions, workload management"
     },
     vitals: {
+      age: "41 years",
       temperature: "36.8°C",
       bloodPressure: "130/85 mmHg",
       pulse: "76 bpm",
@@ -612,6 +621,7 @@ const studentRecords = [
       recommendations: "Regular counseling, stress management workshops"
     },
     vitals: {
+      age: "20 years",
       temperature: "36.8°C",
       bloodPressure: "115/75 mmHg",
       pulse: "78 bpm",

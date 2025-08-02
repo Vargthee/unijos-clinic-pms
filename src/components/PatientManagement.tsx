@@ -8,6 +8,7 @@ import {
   Eye,
   UserPlus,
   Download,
+  User,
 } from "lucide-react";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
 import { AddPatientDialog } from "./AddPatientDialog";
@@ -580,31 +581,43 @@ export const PatientManagement = () => {
               >
                 <CardContent className="pt-6">
                   <div className="flex items-center space-x-4 mb-4">
-                    <Avatar className="h-12 w-12">
-                      <AvatarFallback className="bg-primary/10 text-primary font-semibold">
+                    <Avatar className="h-16 w-16">
+                      <AvatarFallback className="bg-gradient-to-br from-primary/20 to-primary/30 text-primary font-bold text-lg">
                         {patient.name.substring(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white">{patient.name}</h3>
-                      <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
-                        {patient.type}
-                      </span>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{patient.name}</h3>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                          {patient.type}
+                        </span>
+                        <div className="flex items-center gap-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-3 py-1 rounded-full">
+                          <User className="h-3 w-3" />
+                          <span className="text-xs font-bold">{patient.age}y</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-900/20 p-2 rounded border border-blue-200 dark:border-blue-800">
-                      <span className="font-medium text-blue-700 dark:text-blue-300">Age:</span> 
-                      <span className="font-bold text-blue-800 dark:text-blue-200">{patient.age} years</span>
+                  <div className="space-y-3 text-sm">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="bg-blue-50 dark:bg-blue-900/20 p-2 rounded border border-blue-200 dark:border-blue-800">
+                        <span className="text-xs font-medium text-blue-700 dark:text-blue-300">Faculty</span> 
+                        <p className="font-semibold text-blue-800 dark:text-blue-200 truncate">{patient.faculty}</p>
+                      </div>
+                      <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded border border-green-200 dark:border-green-800">
+                        <span className="text-xs font-medium text-green-700 dark:text-green-300">Level</span> 
+                        <p className="font-semibold text-green-800 dark:text-green-200">{patient.level}</p>
+                      </div>
                     </div>
-                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Faculty:</span> {patient.faculty}</p>
                     <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Department:</span> {patient.department}</p>
-                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Level:</span> {patient.level}</p>
                     <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">{patient.type === "Staff" ? "Staff ID" : "Matric No"}:</span> {patient.matricNumber}</p>
-                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Last Visit:</span> {patient.lastVisit}</p>
-                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Next Appointment:</span> {patient.nextAppointment}</p>
-                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Attending Physician:</span> {patient.attendingPhysician}</p>
+                    <div className="bg-amber-50 dark:bg-amber-900/20 p-2 rounded border border-amber-200 dark:border-amber-800">
+                      <p className="text-amber-700 dark:text-amber-300 text-xs"><span className="font-medium">Last Visit:</span> {patient.lastVisit}</p>
+                      <p className="text-amber-700 dark:text-amber-300 text-xs"><span className="font-medium">Next:</span> {patient.nextAppointment}</p>
+                    </div>
+                    <p className="text-gray-700 dark:text-gray-300 text-xs"><span className="font-medium">Physician:</span> {patient.attendingPhysician}</p>
                   </div>
 
                   <div className="flex justify-center mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
