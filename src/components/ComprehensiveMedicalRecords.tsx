@@ -1,503 +1,1751 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   FileText, 
   Plus, 
-  Download, 
-  Eye, 
-  UserCheck, 
   Search,
-  Filter,
+  Users, 
+  UserCheck,
   Calendar,
-  User,
   Stethoscope,
+  Shield,
+  Brain,
+  PillBottle,
+  Clock,
+  User,
+  Eye,
+  Download,
   Heart,
-  Activity,
   Thermometer,
-  GraduationCap,
-  Briefcase
+  Activity
 } from "lucide-react";
-import { NewRecordDialog } from "./NewRecordDialog";
-import { ViewRecordsDialog } from "./ViewRecordsDialog";
+import { AddMedicalEntryDialog } from "./AddMedicalEntryDialog";
+import { ScheduleAppointmentDialog } from "./ScheduleAppointmentDialog";
 
-// Enhanced student medical records with age in vitals and accurate conditions
-const medicalRecords = [
+// Expanded University staff data with realistic Nigerian names and departments
+const universityStaffRecords = [
   {
-    id: "R001",
-    name: "Adaora Okonkwo",
-    patientId: "P001234",
-    age: 20,
-    matricNumber: "UJ/2022/ENG/0234",
-    recordType: "Treatment",
-    diagnosis: "Uncomplicated malaria (P. falciparum)",
-    doctor: "Dr. Fatima Aliyu",
-    date: "2024-06-05",
-    medications: ["Artemether-Lumefantrine (Coartem)", "Paracetamol 500mg", "ORS sachets"],
-    notes: "20-year-old female with uncomplicated malaria. Rapid diagnostic test positive for P. falciparum. Good response to ACT. Counseled on ITN use and prevention.",
-    vitals: {
-      age: "20 years",
-      temperature: "39.2°C",
-      bloodPressure: "110/70 mmHg",
-      pulse: "88 bpm",
-      weight: "58 kg",
-      height: "165 cm",
-      respiratoryRate: "20/min",
-      oxygenSaturation: "97%"
-    },
-    faculty: "Engineering",
-    level: "200L",
-    severity: "Moderate"
-  },
-  {
-    id: "R002",
-    name: "Ibrahim Musa",
-    patientId: "P001235",
-    age: 22,
-    matricNumber: "UJ/2020/MED/0456",
-    recordType: "Emergency",
-    diagnosis: "Sickle cell disease - vaso-occlusive crisis",
-    doctor: "Dr. John Okafor",
-    date: "2024-06-07",
-    medications: ["Morphine 10mg IV", "Hydroxyurea 500mg", "Folic acid 5mg", "Normal saline IV", "Oxygen therapy"],
-    notes: "22-year-old male with known SCD presenting with severe bone pain crisis. Managed with analgesics, hydration, and oxygen. Pain score reduced from 9/10 to 4/10.",
-    vitals: {
-      age: "22 years",
-      temperature: "37.8°C",
-      bloodPressure: "130/85 mmHg",
-      pulse: "110 bpm",
-      weight: "72 kg",
-      height: "178 cm",
-      respiratoryRate: "22/min",
-      oxygenSaturation: "94% (on room air)"
-    },
-    faculty: "Medicine",
-    level: "400L",
-    severity: "High"
-  },
-  {
-    id: "R003",
-    name: "Blessing Eze",
-    patientId: "P001236",
-    age: 18,
-    matricNumber: "UJ/2023/SSC/0123",
-    recordType: "Treatment",
-    diagnosis: "Gastroenteritis (acute)",
-    doctor: "Dr. Aisha Mohammed",
-    date: "2024-06-08",
-    medications: ["ORS sachets", "Loperamide 2mg", "Probiotics", "Zinc supplements"],
-    notes: "18-year-old female with acute gastroenteritis. Likely food-borne illness. Well hydrated, no signs of severe dehydration. Dietary advice given.",
-    vitals: {
-      age: "18 years",
-      temperature: "36.8°C",
-      bloodPressure: "115/75 mmHg",
-      pulse: "78 bpm",
-      weight: "55 kg",
-      height: "162 cm",
-      respiratoryRate: "18/min",
-      oxygenSaturation: "99%"
-    },
-    faculty: "Social Sciences",
-    level: "100L",
-    severity: "Low"
-  },
-  {
-    id: "R004",
-    name: "Yusuf Abdullahi",
-    patientId: "P001237",
-    age: 21,
-    matricNumber: "UJ/2021/NSC/0789",
-    recordType: "Emergency",
-    diagnosis: "Acute asthma exacerbation",
-    doctor: "Dr. Grace Musa",
-    date: "2024-06-09",
-    medications: ["Salbutamol nebulizer", "Prednisolone 40mg", "Ipratropium bromide", "Peak flow meter"],
-    notes: "21-year-old male with acute asthma exacerbation triggered by dust exposure. Peak flow 40% of predicted. Good response to bronchodilators. Asthma action plan reviewed.",
-    vitals: {
-      age: "21 years",
-      temperature: "36.9°C",
-      bloodPressure: "125/80 mmHg",
-      pulse: "95 bpm",
-      weight: "68 kg",
-      height: "175 cm",
-      respiratoryRate: "28/min",
-      oxygenSaturation: "92% (improved to 97% post-treatment)"
-    },
-    faculty: "Natural Sciences",
-    level: "300L",
-    severity: "Moderate"
-  },
-  {
-    id: "R005",
-    name: "Fatima Aliyu",
-    patientId: "P001238",
-    age: 23,
-    matricNumber: "UJ/2019/LAW/0345",
-    recordType: "Treatment",
-    diagnosis: "Iron deficiency anemia",
-    doctor: "Dr. Hauwa Ibrahim",
-    date: "2024-06-06",
-    medications: ["Ferrous sulfate 200mg", "Vitamin C 500mg", "Folic acid 5mg", "Tranexamic acid"],
-    notes: "23-year-old female with iron deficiency anemia (Hb: 7.8g/dL). Associated with menorrhagia. Iron supplementation started. Gynecological consultation arranged.",
-    vitals: {
-      age: "23 years",
-      temperature: "36.5°C",
-      bloodPressure: "100/65 mmHg",
-      pulse: "105 bpm",
-      weight: "62 kg",
-      height: "168 cm",
-      respiratoryRate: "20/min",
-      oxygenSaturation: "98%"
-    },
-    faculty: "Law",
-    level: "500L",
-    severity: "Moderate"
-  }
-];
-
-// Enhanced staff medical records
-const staffMedicalRecords = [
-  {
-    id: "SMR001",
-    staffId: "S001",
+    id: "USR001",
+    staffId: "UNIJOS/REG/001",
     name: "Dr. Hauwa Abdullahi",
-    age: 45,
     role: "Registrar",
     department: "Academic Registry",
     unit: "Student Records",
-    recordType: "Treatment",
-    diagnosis: "Hypertension (essential) - well controlled",
-    doctor: "Dr. Samuel Dung",
-    date: "2024-05-20",
-    medications: ["Lisinopril 10mg", "Amlodipine 5mg", "Lifestyle modifications"],
-    notes: "45-year-old female with well-controlled essential hypertension. Regular monitoring shows good BP control. Lifestyle modifications effective.",
-    vitals: {
-      age: "45 years",
-      temperature: "36.7°C",
-      bloodPressure: "125/82 mmHg",
-      pulse: "75 bpm",
-      weight: "62 kg",
-      height: "164 cm",
-      respiratoryRate: "16/min",
-      oxygenSaturation: "98%"
-    },
+    faculty: "Administration",
+    email: "hauwa.abdullahi@unijos.edu.ng",
+    phone: "08012345678",
+    dateOfBirth: "1975-03-15",
+    age: 49,
     bloodType: "O+",
-    allergies: ["None known"],
-    severity: "Low"
+    address: "GRA, Jos",
+    emergencyContact: "08098765432",
+    lastCheckup: "2024-05-20",
+    nextCheckup: "2024-11-20",
+    healthStatus: "Good",
+    initials: "HA",
+    medicalHistory: [
+      {
+        date: "2024-05-20",
+        type: "Annual Checkup",
+        diagnosis: "Hypertension (mild)",
+        treatment: "Lifestyle modification, blood pressure monitoring",
+        doctor: "Dr. Fatima Aliyu"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Amlodipine 5mg",
+        dosage: "Once daily",
+        duration: "Ongoing",
+        prescribedBy: "Dr. Fatima Aliyu",
+        date: "2024-05-20"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-03-15", nextDue: "2025-03-15" },
+      { vaccine: "Hepatitis B", date: "2023-01-10", nextDue: "2028-01-10" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-05-20",
+      status: "Good",
+      recommendations: "Regular stress management, work-life balance"
+    },
+    vitals: {
+      age: "49 years",
+      temperature: "36.8°C",
+      bloodPressure: "135/85 mmHg",
+      pulse: "78 bpm",
+      weight: "68 kg",
+      height: "165 cm",
+      bmi: "25.0",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "98%"
+    }
   },
   {
-    id: "SMR002",
-    staffId: "S002",
+    id: "USR002",
+    staffId: "UNIJOS/LIB/002",
     name: "Mr. James Dung",
-    age: 52,
     role: "Chief Librarian",
     department: "Library Services",
     unit: "Main Library",
-    recordType: "Follow-up",
-    diagnosis: "Type 2 diabetes mellitus - well controlled",
-    doctor: "Dr. Grace Musa",
-    date: "2024-04-15",
-    medications: ["Metformin 500mg BD", "Glimepiride 2mg", "Dietary counseling"],
-    notes: "52-year-old male with well-controlled T2DM. HbA1c: 6.8%. Good compliance with medications and diet. Regular monitoring continues.",
+    faculty: "Administration",
+    email: "james.dung@unijos.edu.ng",
+    phone: "08023456789",
+    dateOfBirth: "1980-07-22",
+    bloodType: "A+",
+    address: "Rayfield, Jos",
+    emergencyContact: "08087654321",
+    lastCheckup: "2024-04-15",
+    nextCheckup: "2024-10-15",
+    healthStatus: "Excellent",
+    initials: "JD",
+    medicalHistory: [
+      {
+        date: "2024-04-15",
+        type: "Routine Checkup",
+        diagnosis: "Excellent health",
+        treatment: "Continue current lifestyle",
+        doctor: "Dr. Ruth Laven"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Multivitamin",
+        dosage: "Once daily",
+        duration: "Ongoing",
+        prescribedBy: "Dr. Ruth Laven",
+        date: "2024-04-15"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-01-20", nextDue: "2025-01-20" },
+      { vaccine: "Annual Flu Shot", date: "2024-03-01", nextDue: "2025-03-01" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-04-15",
+      status: "Excellent",
+      recommendations: "Maintain current mental wellness practices"
+    },
     vitals: {
-      age: "52 years",
-      temperature: "36.8°C",
-      bloodPressure: "130/85 mmHg",
+      age: "44 years",
+      temperature: "36.7°C",
+      bloodPressure: "120/75 mmHg",
       pulse: "72 bpm",
       weight: "75 kg",
-      height: "176 cm",
-      respiratoryRate: "16/min",
-      oxygenSaturation: "97%"
+      height: "178 cm",
+      bmi: "23.7",
+      respiratoryRate: "15 breaths/min",
+      oxygenSaturation: "99%"
+    }
+  },
+  {
+    id: "USR003",
+    staffId: "UNIJOS/SEC/003",
+    name: "Mrs. Grace Yakubu",
+    role: "Security Coordinator",
+    department: "Security Services",
+    unit: "Campus Security",
+    faculty: "Administration",
+    email: "grace.yakubu@unijos.edu.ng",
+    phone: "08034567890",
+    dateOfBirth: "1978-11-05",
+    bloodType: "B+",
+    address: "Bukuru, Jos",
+    emergencyContact: "08076543210",
+    lastCheckup: "2024-06-01",
+    nextCheckup: "2024-12-01",
+    healthStatus: "Good",
+    initials: "GY",
+    medicalHistory: [
+      {
+        date: "2024-06-01",
+        type: "Occupational Health Check",
+        diagnosis: "Lower back strain",
+        treatment: "Physiotherapy, ergonomic training",
+        doctor: "Dr. Peter Nnamdi"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Ibuprofen 400mg",
+        dosage: "As needed for pain",
+        duration: "2 weeks",
+        prescribedBy: "Dr. Peter Nnamdi",
+        date: "2024-06-01"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-02-28", nextDue: "2025-02-28" },
+      { vaccine: "Hepatitis B", date: "2023-05-15", nextDue: "2028-05-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-01",
+      status: "Good",
+      recommendations: "Stress management for high-pressure work environment"
     },
-    bloodType: "A+",
-    allergies: ["None known"],
-    severity: "Low"
+    vitals: {
+      age: "46 years",
+      temperature: "36.9°C",
+      bloodPressure: "128/82 mmHg",
+      pulse: "75 bpm",
+      weight: "65 kg",
+      height: "162 cm",
+      bmi: "24.8",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "98%"
+    }
+  },
+  {
+    id: "USR004",
+    staffId: "UNIJOS/ICT/004",
+    name: "Engr. Emmanuel Bulus",
+    role: "ICT Director",
+    department: "Information Technology",
+    unit: "ICT Center",
+    faculty: "Administration",
+    email: "emmanuel.bulus@unijos.edu.ng",
+    phone: "08045678901",
+    dateOfBirth: "1982-01-18",
+    bloodType: "AB+",
+    address: "Anglo Jos, Jos",
+    emergencyContact: "08065432109",
+    lastCheckup: "2024-03-25",
+    nextCheckup: "2024-09-25",
+    healthStatus: "Good",
+    initials: "EB",
+    medicalHistory: [
+      {
+        date: "2024-03-25",
+        type: "Consultation",
+        diagnosis: "Computer Vision Syndrome",
+        treatment: "Blue light glasses, regular eye breaks",
+        doctor: "Dr. Samuel Dung"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Artificial tears",
+        dosage: "As needed",
+        duration: "Ongoing",
+        prescribedBy: "Dr. Samuel Dung",
+        date: "2024-03-25"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-04-10", nextDue: "2025-04-10" },
+      { vaccine: "Annual Flu Shot", date: "2024-02-15", nextDue: "2025-02-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-03-25",
+      status: "Good",
+      recommendations: "Work-life balance, regular digital detox"
+    },
+    vitals: {
+      age: "42 years",
+      temperature: "36.6°C",
+      bloodPressure: "125/80 mmHg",
+      pulse: "74 bpm",
+      weight: "80 kg",
+      height: "175 cm",
+      bmi: "26.1",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "97%"
+    }
+  },
+  {
+    id: "USR005",
+    staffId: "UNIJOS/BUR/005",
+    name: "Mrs. Rebecca Gyang",
+    role: "Bursary Officer",
+    department: "Bursary",
+    unit: "Financial Services",
+    faculty: "Administration",
+    email: "rebecca.gyang@unijos.edu.ng",
+    phone: "08056789012",
+    dateOfBirth: "1985-09-12",
+    bloodType: "O-",
+    address: "Lamingo, Jos",
+    emergencyContact: "08054321098",
+    lastCheckup: "2024-05-05",
+    nextCheckup: "2024-11-05",
+    healthStatus: "Good",
+    initials: "RG",
+    medicalHistory: [
+      {
+        date: "2024-05-05",
+        type: "Routine Checkup",
+        diagnosis: "Anemia (mild)",
+        treatment: "Iron supplements, dietary counseling",
+        doctor: "Dr. Aisha Mohammed"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Ferrous sulfate 325mg",
+        dosage: "Twice daily",
+        duration: "3 months",
+        prescribedBy: "Dr. Aisha Mohammed",
+        date: "2024-05-05"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-01-15", nextDue: "2025-01-15" },
+      { vaccine: "Hepatitis B", date: "2023-08-20", nextDue: "2028-08-20" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-05-05",
+      status: "Good",
+      recommendations: "Continue stress management techniques"
+    },
+    vitals: {
+      age: "39 years",
+      temperature: "36.5°C",
+      bloodPressure: "118/72 mmHg",
+      pulse: "70 bpm",
+      weight: "60 kg",
+      height: "160 cm",
+      bmi: "23.4",
+      respiratoryRate: "15 breaths/min",
+      oxygenSaturation: "99%"
+    }
+  },
+  {
+    id: "USR006",
+    staffId: "UNIJOS/EST/006",
+    name: "Mr. Daniel Kwaghe",
+    role: "Estate Officer",
+    department: "Estate Management",
+    unit: "Facilities",
+    faculty: "Administration",
+    email: "daniel.kwaghe@unijos.edu.ng",
+    phone: "08067890123",
+    dateOfBirth: "1979-06-30",
+    bloodType: "A-",
+    address: "Dogon Dutse, Jos",
+    emergencyContact: "08043210987",
+    lastCheckup: "2024-04-20",
+    nextCheckup: "2024-10-20",
+    healthStatus: "Good",
+    initials: "DK",
+    medicalHistory: [
+      {
+        date: "2024-04-20",
+        type: "Treatment",
+        diagnosis: "Allergic rhinitis",
+        treatment: "Antihistamines, avoid allergens",
+        doctor: "Dr. Mary Gyang"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Loratadine 10mg",
+        dosage: "Once daily",
+        duration: "As needed",
+        prescribedBy: "Dr. Mary Gyang",
+        date: "2024-04-20"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-02-10", nextDue: "2025-02-10" },
+      { vaccine: "Tetanus", date: "2022-08-15", nextDue: "2032-08-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-04-20",
+      status: "Good",
+      recommendations: "Regular exercise, outdoor activities"
+    },
+    vitals: {
+      age: "45 years",
+      temperature: "36.7°C",
+      bloodPressure: "122/76 mmHg",
+      pulse: "73 bpm",
+      weight: "70 kg",
+      height: "172 cm",
+      bmi: "23.7",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "98%"
+    }
+  },
+  {
+    id: "USR007",
+    staffId: "UNIJOS/HR/007",
+    name: "Mrs. Maryam Umar",
+    role: "HR Director",
+    department: "Human Resources",
+    unit: "Staff Development",
+    faculty: "Administration",
+    email: "maryam.umar@unijos.edu.ng",
+    phone: "08078901234",
+    dateOfBirth: "1976-12-08",
+    bloodType: "B-",
+    address: "Plateau State University Road, Jos",
+    emergencyContact: "08032109876",
+    lastCheckup: "2024-05-30",
+    nextCheckup: "2024-11-30",
+    healthStatus: "Excellent",
+    initials: "MU",
+    medicalHistory: [
+      {
+        date: "2024-05-30",
+        type: "Annual Checkup",
+        diagnosis: "Perfect health",
+        treatment: "Continue healthy lifestyle",
+        doctor: "Dr. Emmanuel Yakubu"
+      }
+    ],
+    prescriptions: [],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-03-20", nextDue: "2025-03-20" },
+      { vaccine: "Annual Flu Shot", date: "2024-04-05", nextDue: "2025-04-05" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-05-30",
+      status: "Excellent",
+      recommendations: "Continue wellness programs"
+    },
+    vitals: {
+      age: "48 years",
+      temperature: "36.4°C",
+      bloodPressure: "115/70 mmHg",
+      pulse: "68 bpm",
+      weight: "62 kg",
+      height: "168 cm",
+      bmi: "22.0",
+      respiratoryRate: "15 breaths/min",
+      oxygenSaturation: "99%"
+    }
+  },
+  {
+    id: "USR008",
+    staffId: "UNIJOS/MED/008",
+    name: "Dr. Samuel Gyang",
+    role: "Emergency Medicine Doctor",
+    department: "Emergency Medicine",
+    unit: "Emergency Room",
+    faculty: "Medical Staff",
+    email: "samuel.gyang@unijos.edu.ng",
+    phone: "08012345008",
+    dateOfBirth: "1985-04-15",
+    bloodType: "AB+",
+    address: "Medical Staff Quarters, Jos",
+    emergencyContact: "08098765008",
+    lastCheckup: "2024-05-28",
+    nextCheckup: "2024-08-28",
+    healthStatus: "Good",
+    initials: "SG",
+    medicalHistory: [
+      {
+        date: "2024-05-28",
+        type: "Routine Checkup",
+        diagnosis: "Excellent health",
+        treatment: "Continue current lifestyle",
+        doctor: "Dr. Fatima Aliyu"
+      }
+    ],
+    prescriptions: [],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-03-15", nextDue: "2025-03-15" },
+      { vaccine: "Hepatitis B", date: "2023-01-10", nextDue: "2028-01-10" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-05-28",
+      status: "Good",
+      recommendations: "Stress management for emergency work"
+    },
+    vitals: {
+      age: "39 years",
+      temperature: "36.6°C",
+      bloodPressure: "125/80 mmHg",
+      pulse: "74 bpm",
+      weight: "80 kg",
+      height: "175 cm",
+      bmi: "26.1",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "98%"
+    }
+  },
+  {
+    id: "USR009",
+    staffId: "UNIJOS/MED/009",
+    name: "Dr. Grace Musa",
+    role: "Maternity Unit Doctor",
+    department: "Obstetrics & Gynaecology",
+    unit: "Maternity Ward",
+    faculty: "Medical Staff",
+    email: "grace.musa@unijos.edu.ng",
+    phone: "08012345009",
+    dateOfBirth: "1987-08-22",
+    bloodType: "B-",
+    address: "Medical Staff Quarters, Jos",
+    emergencyContact: "08098765009",
+    lastCheckup: "2024-06-05",
+    nextCheckup: "2024-12-05",
+    healthStatus: "Excellent",
+    initials: "GM",
+    medicalHistory: [
+      {
+        date: "2024-06-05",
+        type: "Annual Checkup",
+        diagnosis: "Perfect health",
+        treatment: "Continue wellness routine",
+        doctor: "Dr. Amina Hassan"
+      }
+    ],
+    prescriptions: [],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-02-20", nextDue: "2025-02-20" },
+      { vaccine: "Rubella", date: "2020-01-15", nextDue: "2030-01-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-05",
+      status: "Excellent",
+      recommendations: "Continue work-life balance"
+    },
+    vitals: {
+      age: "37 years",
+      temperature: "36.5°C",
+      bloodPressure: "115/70 mmHg",
+      pulse: "68 bpm",
+      weight: "62 kg",
+      height: "168 cm",
+      bmi: "22.0",
+      respiratoryRate: "15 breaths/min",
+      oxygenSaturation: "99%"
+    }
+  },
+  {
+    id: "USR010",
+    staffId: "UNIJOS/AMB/010",
+    name: "Dr. Emmanuel Yakubu",
+    role: "Ambulance Services Director",
+    department: "Emergency Services",
+    unit: "Ambulance Unit",
+    faculty: "Medical Staff",
+    email: "emmanuel.yakubu@unijos.edu.ng",
+    phone: "08012345010",
+    dateOfBirth: "1983-11-30",
+    bloodType: "O-",
+    address: "Medical Staff Quarters, Jos",
+    emergencyContact: "08098765010",
+    lastCheckup: "2024-05-18",
+    nextCheckup: "2024-08-18",
+    healthStatus: "Good",
+    initials: "EY",
+    medicalHistory: [
+      {
+        date: "2024-05-18",
+        type: "Occupational Health",
+        diagnosis: "Work-related stress",
+        treatment: "Counseling, stress management",
+        doctor: "Dr. Mary Gyang"
+      }
+    ],
+    prescriptions: [],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-01-25", nextDue: "2025-01-25" },
+      { vaccine: "Hepatitis B", date: "2022-06-10", nextDue: "2027-06-10" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-05-18",
+      status: "Fair",
+      recommendations: "Regular counseling sessions, workload management"
+    },
+    vitals: {
+      age: "41 years",
+      temperature: "36.8°C",
+      bloodPressure: "130/85 mmHg",
+      pulse: "76 bpm",
+      weight: "75 kg",
+      height: "172 cm",
+      bmi: "25.3",
+      respiratoryRate: "16 breaths/min",
+      oxygenSaturation: "98%"
+    }
   }
 ];
 
-const getRecordTypeColor = (type: string) => {
-  switch (type) {
-    case "Consultation":
-      return "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800";
-    case "Treatment":
-      return "bg-green-50 text-green-700 border-green-200 dark:bg-green-950/50 dark:text-green-300 dark:border-green-800";
-    case "Emergency":
-      return "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/50 dark:text-red-300 dark:border-red-800";
-    case "Follow-up":
-      return "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/50 dark:text-purple-300 dark:border-purple-800";
-    default:
-      return "bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-700";
+// Expanded Student records with more realistic Nigerian names and additional health records
+const studentRecords = [
+  {
+    id: "STU001",
+    patientId: "P001234",
+    name: "Adaora Okonkwo",
+    matricNumber: "UJ/2022/ENG/0234",
+    faculty: "Engineering",
+    department: "Computer Engineering",
+    level: "200L",
+    email: "adaora.okonkwo@unijos.edu.ng",
+    phone: "08012345678",
+    bloodType: "O+",
+    lastVisit: "2024-06-05",
+    healthStatus: "Good",
+    initials: "AO",
+    medicalHistory: [
+      {
+        date: "2024-06-05",
+        type: "Consultation",
+        diagnosis: "Stress-related headaches",
+        treatment: "Stress management, adequate sleep",
+        doctor: "Dr. Fatima Aliyu"
+      },
+      {
+        date: "2024-04-12",
+        type: "Follow-up",
+        diagnosis: "Academic stress",
+        treatment: "Counseling sessions",
+        doctor: "Dr. Mary Gyang"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Paracetamol 500mg",
+        dosage: "As needed",
+        duration: "1 week",
+        prescribedBy: "Dr. Fatima Aliyu",
+        date: "2024-06-05"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "Meningitis", date: "2022-09-01", nextDue: "2027-09-01" },
+      { vaccine: "COVID-19", date: "2023-01-15", nextDue: "2024-01-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-05",
+      status: "Mild stress",
+      recommendations: "Regular counseling, stress management workshops"
+    },
+    vitals: {
+      age: "20 years",
+      temperature: "36.8°C",
+      bloodPressure: "115/75 mmHg",
+      pulse: "78 bpm",
+      weight: "58 kg",
+      height: "165 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "21.3"
+    },
+    previousVisits: [
+      { date: "2024-06-05", reason: "Stress headaches", doctor: "Dr. Fatima Aliyu" },
+      { date: "2024-04-12", reason: "Academic stress follow-up", doctor: "Dr. Mary Gyang" },
+      { date: "2024-02-20", reason: "Routine check-up", doctor: "Dr. Samuel Dung" }
+    ]
+  },
+  {
+    id: "STU002",
+    patientId: "P001235",
+    name: "Ibrahim Musa",
+    matricNumber: "UJ/2020/MED/0456",
+    faculty: "Medicine",
+    department: "Medicine & Surgery",
+    level: "400L",
+    email: "ibrahim.musa@unijos.edu.ng",
+    phone: "08023456789",
+    bloodType: "A+",
+    lastVisit: "2024-06-07",
+    healthStatus: "Good",
+    initials: "IM",
+    medicalHistory: [
+      {
+        date: "2024-06-07",
+        type: "Emergency",
+        diagnosis: "Ankle sprain (sports injury)",
+        treatment: "RICE protocol, physiotherapy",
+        doctor: "Dr. John Okafor"
+      },
+      {
+        date: "2024-05-20",
+        type: "Treatment",
+        diagnosis: "Minor cut during clinical practice",
+        treatment: "Wound cleaning, tetanus shot",
+        doctor: "Dr. Ruth Laven"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Ibuprofen 400mg",
+        dosage: "Three times daily",
+        duration: "1 week",
+        prescribedBy: "Dr. John Okafor",
+        date: "2024-06-07"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-01-10", nextDue: "2025-01-10" },
+      { vaccine: "Hepatitis B", date: "2020-09-15", nextDue: "2025-09-15" },
+      { vaccine: "Tetanus", date: "2024-05-20", nextDue: "2034-05-20" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-07",
+      status: "Good",
+      recommendations: "Continue sports activities, stress relief"
+    },
+    vitals: {
+      temperature: "37.0°C",
+      bloodPressure: "120/80 mmHg",
+      pulse: "85 bpm",
+      weight: "72 kg",
+      height: "175 cm",
+      respiratoryRate: "18/min",
+      oxygenSaturation: "99%",
+      bmi: "23.5"
+    },
+    previousVisits: [
+      { date: "2024-06-07", reason: "Ankle sprain", doctor: "Dr. John Okafor" },
+      { date: "2024-05-20", reason: "Minor injury", doctor: "Dr. Ruth Laven" },
+      { date: "2024-03-15", reason: "Vaccination update", doctor: "Dr. Aisha Mohammed" },
+      { date: "2024-01-10", reason: "Annual check-up", doctor: "Dr. Emmanuel Yakubu" }
+    ]
+  },
+  {
+    id: "STU003",
+    patientId: "P001236",
+    name: "Blessing Eze",
+    matricNumber: "UJ/2023/SSC/0123",
+    faculty: "Social Sciences",
+    department: "Psychology",
+    level: "100L",
+    email: "blessing.eze@unijos.edu.ng",
+    phone: "08034567890",
+    bloodType: "B+",
+    lastVisit: "2024-06-08",
+    healthStatus: "Good",
+    initials: "BE",
+    medicalHistory: [
+      {
+        date: "2024-06-08",
+        type: "Treatment",
+        diagnosis: "Upper respiratory tract infection",
+        treatment: "Antibiotics, rest, fluids",
+        doctor: "Dr. Aisha Mohammed"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Amoxicillin 500mg",
+        dosage: "Three times daily",
+        duration: "5 days",
+        prescribedBy: "Dr. Aisha Mohammed",
+        date: "2024-06-08"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19", date: "2023-02-20", nextDue: "2024-02-20" },
+      { vaccine: "Meningitis", date: "2023-09-01", nextDue: "2028-09-01" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-08",
+      status: "Good",
+      recommendations: "Academic support, peer counseling"
+    },
+    vitals: {
+      age: "18 years",
+      temperature: "38.2°C",
+      bloodPressure: "110/70 mmHg",
+      pulse: "88 bpm",
+      weight: "55 kg",
+      height: "162 cm",
+      respiratoryRate: "20/min",
+      oxygenSaturation: "97%",
+      bmi: "20.9"
+    },
+    previousVisits: [
+      { date: "2024-06-08", reason: "URTI", doctor: "Dr. Aisha Mohammed" },
+      { date: "2024-04-15", reason: "Orientation health check", doctor: "Dr. Grace Musa" }
+    ]
+  },
+  {
+    id: "STU004",
+    patientId: "P001237",
+    name: "Yusuf Abdullahi",
+    matricNumber: "UJ/2021/NSC/0789",
+    faculty: "Natural Sciences",
+    department: "Computer Science",
+    level: "300L",
+    email: "yusuf.abdullahi@unijos.edu.ng",
+    phone: "08045678901",
+    bloodType: "AB+",
+    lastVisit: "2024-06-09",
+    healthStatus: "Good",
+    initials: "YA",
+    medicalHistory: [
+      {
+        date: "2024-06-09",
+        type: "Follow-up",
+        diagnosis: "Computer vision syndrome",
+        treatment: "Eye exercises, blue light glasses",
+        doctor: "Dr. Grace Musa"
+      },
+      {
+        date: "2024-05-15",
+        type: "Consultation",
+        diagnosis: "Dry eyes from excessive screen time",
+        treatment: "Artificial tears, screen breaks",
+        doctor: "Dr. Grace Musa"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Artificial tears",
+        dosage: "As needed",
+        duration: "Ongoing",
+        prescribedBy: "Dr. Grace Musa",
+        date: "2024-06-09"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-03-15", nextDue: "2025-03-15" },
+      { vaccine: "Annual Flu Shot", date: "2024-02-20", nextDue: "2025-02-20" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-09",
+      status: "Good",
+      recommendations: "Digital wellness, study-life balance"
+    },
+    vitals: {
+      age: "21 years",
+      temperature: "36.5°C",
+      bloodPressure: "118/78 mmHg",
+      pulse: "72 bmp",
+      weight: "68 kg",
+      height: "170 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "23.5"
+    },
+    previousVisits: [
+      { date: "2024-06-09", reason: "CVS follow-up", doctor: "Dr. Grace Musa" },
+      { date: "2024-05-15", reason: "Eye strain", doctor: "Dr. Grace Musa" },
+      { date: "2024-03-15", reason: "Vaccination", doctor: "Dr. Samuel Dung" }
+    ]
+  },
+  {
+    id: "STU005",
+    patientId: "P001238",
+    name: "Fatima Aliyu",
+    matricNumber: "UJ/2019/LAW/0345",
+    faculty: "Law",
+    department: "Law",
+    level: "500L",
+    email: "fatima.aliyu.student@unijos.edu.ng",
+    phone: "08056789012",
+    bloodType: "O-",
+    lastVisit: "2024-06-06",
+    healthStatus: "Good",
+    initials: "FA",
+    medicalHistory: [
+      {
+        date: "2024-06-06",
+        type: "Consultation",
+        diagnosis: "Dysmenorrhea",
+        treatment: "Pain management, hormonal evaluation",
+        doctor: "Dr. Hauwa Ibrahim"
+      },
+      {
+        date: "2024-04-20",
+        type: "Counseling",
+        diagnosis: "Final year academic pressure",
+        treatment: "Stress management counseling",
+        doctor: "Dr. Mary Gyang"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Mefenamic acid 500mg",
+        dosage: "Three times daily during menstruation",
+        duration: "As needed",
+        prescribedBy: "Dr. Hauwa Ibrahim",
+        date: "2024-06-06"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-01-05", nextDue: "2025-01-05" },
+      { vaccine: "HPV", date: "2019-10-15", nextDue: "2024-10-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-06",
+      status: "Good",
+      recommendations: "Final year support, career counseling"
+    },
+    vitals: {
+      age: "24 years",
+      temperature: "36.9°C",
+      bloodPressure: "108/68 mmHg",
+      pulse: "76 bpm",
+      weight: "62 kg",
+      height: "168 cm",
+      respiratoryRate: "15/min",
+      oxygenSaturation: "99%",
+      bmi: "22.0"
+    },
+    previousVisits: [
+      { date: "2024-06-06", reason: "Dysmenorrhea", doctor: "Dr. Hauwa Ibrahim" },
+      { date: "2024-04-20", reason: "Academic stress counseling", doctor: "Dr. Mary Gyang" },
+      { date: "2024-02-10", reason: "Routine check-up", doctor: "Dr. Peter Bulus" },
+      { date: "2024-01-05", reason: "Vaccination", doctor: "Dr. Ruth Laven" }
+    ]
+  },
+  {
+    id: "STU006",
+    patientId: "P001239",
+    name: "Chidi Okafor",
+    matricNumber: "UJ/2022/PHM/0567",
+    faculty: "Pharmacy",
+    department: "Pharmacy",
+    level: "200L",
+    email: "chidi.okafor@unijos.edu.ng",
+    phone: "08067890123",
+    bloodType: "A-",
+    lastVisit: "2024-06-04",
+    healthStatus: "Good",
+    initials: "CO",
+    medicalHistory: [
+      {
+        date: "2024-06-04",
+        type: "Emergency",
+        diagnosis: "Acute gastroenteritis",
+        treatment: "Rehydration therapy, dietary modification",
+        doctor: "Dr. Samuel Dung"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "ORS sachets",
+        dosage: "As directed",
+        duration: "3 days",
+        prescribedBy: "Dr. Samuel Dung",
+        date: "2024-06-04"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19", date: "2022-11-20", nextDue: "2023-11-20" },
+      { vaccine: "Hepatitis B", date: "2022-09-01", nextDue: "2027-09-01" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-04",
+      status: "Good",
+      recommendations: "Stress management, healthy eating habits"
+    },
+    vitals: {
+      age: "20 years",
+      temperature: "37.8°C",
+      bloodPressure: "100/65 mmHg",
+      pulse: "95 bpm",
+      weight: "66 kg",
+      height: "173 cm",
+      respiratoryRate: "18/min",
+      oxygenSaturation: "97%",
+      bmi: "22.1"
+    },
+    previousVisits: [
+      { date: "2024-06-04", reason: "Gastroenteritis", doctor: "Dr. Samuel Dung" },
+      { date: "2024-03-10", reason: "Routine check-up", doctor: "Dr. Emmanuel Yakubu" }
+    ]
+  },
+  {
+    id: "STU007",
+    patientId: "P001250",
+    name: "Amina Bello",
+    matricNumber: "UJ/2023/EDU/0890",
+    faculty: "Education",
+    department: "Educational Psychology",
+    level: "100L",
+    email: "amina.bello@unijos.edu.ng",
+    phone: "08078901234",
+    bloodType: "B-",
+    lastVisit: "2024-06-10",
+    healthStatus: "Good",
+    initials: "AB",
+    medicalHistory: [
+      {
+        date: "2024-06-10",
+        type: "Consultation",
+        diagnosis: "Adjustment disorder",
+        treatment: "Counseling, stress management",
+        doctor: "Dr. Mary Gyang"
+      }
+    ],
+    prescriptions: [],
+    vaccinations: [
+      { vaccine: "COVID-19", date: "2023-03-15", nextDue: "2024-03-15" },
+      { vaccine: "Meningitis", date: "2023-09-01", nextDue: "2028-09-01" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-10",
+      status: "Mild adjustment issues",
+      recommendations: "Regular counseling sessions, peer support groups"
+    },
+    vitals: {
+      age: "18 years",
+      temperature: "36.7°C",
+      bloodPressure: "112/72 mmHg",
+      pulse: "74 bpm",
+      weight: "59 kg",
+      height: "164 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "21.9"
+    },
+    previousVisits: [
+      { date: "2024-06-10", reason: "Adjustment counseling", doctor: "Dr. Mary Gyang" },
+      { date: "2024-04-25", reason: "Orientation health screening", doctor: "Dr. Aisha Mohammed" }
+    ]
+  },
+  {
+    id: "STU008",
+    patientId: "P001251",
+    name: "David Pam",
+    matricNumber: "UJ/2021/AGR/0456",
+    faculty: "Agriculture",
+    department: "Animal Science",
+    level: "300L",
+    email: "david.pam@unijos.edu.ng",
+    phone: "08089012345",
+    bloodType: "A+",
+    lastVisit: "2024-06-11",
+    healthStatus: "Good",
+    initials: "DP",
+    medicalHistory: [
+      {
+        date: "2024-06-11",
+        type: "Treatment",
+        diagnosis: "Allergic reaction to animal dander",
+        treatment: "Antihistamines, allergen avoidance",
+        doctor: "Dr. Peter Bulus"
+      },
+      {
+        date: "2024-05-05",
+        type: "Emergency",
+        diagnosis: "Minor laceration from farm equipment",
+        treatment: "Wound suturing, tetanus shot",
+        doctor: "Dr. John Okafor"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Cetirizine 10mg",
+        dosage: "Once daily",
+        duration: "2 weeks",
+        prescribedBy: "Dr. Peter Bulus",
+        date: "2024-06-11"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "Tetanus", date: "2024-05-05", nextDue: "2034-05-05" },
+      { vaccine: "COVID-19 Booster", date: "2024-02-15", nextDue: "2025-02-15" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-11",
+      status: "Good",
+      recommendations: "Stress management for practical work"
+    },
+    vitals: {
+      age: "22 years",
+      temperature: "36.8°C",
+      bloodPressure: "125/80 mmHg",
+      pulse: "80 bpm",
+      weight: "75 kg",
+      height: "178 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "23.7"
+    },
+    previousVisits: [
+      { date: "2024-06-11", reason: "Allergic reaction", doctor: "Dr. Peter Bulus" },
+      { date: "2024-05-05", reason: "Laceration treatment", doctor: "Dr. John Okafor" },
+      { date: "2024-02-15", reason: "Vaccination", doctor: "Dr. Ruth Laven" }
+    ]
+  },
+  {
+    id: "STU009",
+    patientId: "P001244",
+    name: "Khadijah Usman",
+    matricNumber: "UJ/2022/NUR/0345",
+    faculty: "Nursing Sciences",
+    department: "Nursing",
+    level: "200L",
+    email: "khadijah.usman@unijos.edu.ng",
+    phone: "08012347890",
+    bloodType: "A+",
+    lastVisit: "2024-06-14",
+    healthStatus: "Pregnant - 2nd Trimester",
+    initials: "KU",
+    medicalHistory: [
+      {
+        date: "2024-06-14",
+        type: "Prenatal Care",
+        diagnosis: "Normal pregnancy progression",
+        treatment: "Prenatal vitamins, regular checkups",
+        doctor: "Dr. Grace Musa"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Prenatal vitamins",
+        dosage: "Once daily",
+        duration: "Throughout pregnancy",
+        prescribedBy: "Dr. Grace Musa",
+        date: "2024-06-14"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-01-15", nextDue: "2025-01-15" },
+      { vaccine: "Tetanus", date: "2024-03-20", nextDue: "2034-03-20" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-14",
+      status: "Good",
+      recommendations: "Pregnancy counseling, stress management"
+    },
+    vitals: {
+      age: "21 years",
+      temperature: "36.6°C",
+      bloodPressure: "110/70 mmHg",
+      pulse: "85 bpm",
+      weight: "68 kg",
+      height: "165 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "99%",
+      bmi: "25.0"
+    },
+    previousVisits: [
+      { date: "2024-06-14", reason: "Prenatal checkup", doctor: "Dr. Grace Musa" },
+      { date: "2024-05-14", reason: "First prenatal visit", doctor: "Dr. Grace Musa" },
+      { date: "2024-03-20", reason: "Vaccination", doctor: "Dr. Ruth Laven" }
+    ]
+  },
+  {
+    id: "STU010",
+    patientId: "P001245",
+    name: "Joseph Danladi",
+    matricNumber: "UJ/2020/ART/0123",
+    faculty: "Arts",
+    department: "History",
+    level: "400L",
+    email: "joseph.danladi@unijos.edu.ng",
+    phone: "08012348901",
+    bloodType: "O-",
+    lastVisit: "2024-06-15",
+    healthStatus: "Recovering",
+    initials: "JD",
+    medicalHistory: [
+      {
+        date: "2024-06-15",
+        type: "Emergency",
+        diagnosis: "Motorcycle accident - minor injuries",
+        treatment: "Wound care, pain management",
+        doctor: "Dr. Emmanuel Yakubu"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Paracetamol 500mg",
+        dosage: "As needed for pain",
+        duration: "1 week",
+        prescribedBy: "Dr. Emmanuel Yakubu",
+        date: "2024-06-15"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "Tetanus", date: "2024-06-15", nextDue: "2034-06-15" },
+      { vaccine: "COVID-19", date: "2023-12-10", nextDue: "2024-12-10" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-15",
+      status: "Mild anxiety",
+      recommendations: "Post-accident counseling, stress management"
+    },
+    vitals: {
+      age: "23 years",
+      temperature: "36.9°C",
+      bloodPressure: "125/80 mmHg",
+      pulse: "82 bpm",
+      weight: "70 kg",
+      height: "175 cm",
+      respiratoryRate: "17/min",
+      oxygenSaturation: "98%",
+      bmi: "22.9"
+    },
+    previousVisits: [
+      { date: "2024-06-15", reason: "Accident injuries", doctor: "Dr. Emmanuel Yakubu" },
+      { date: "2024-03-10", reason: "Routine checkup", doctor: "Dr. Samuel Dung" }
+    ]
+  },
+  {
+    id: "STU011",
+    patientId: "P001246",
+    name: "Zainab Abdullahi",
+    matricNumber: "UJ/2022/VET/0456",
+    faculty: "Veterinary Medicine",
+    department: "Veterinary Medicine",
+    level: "200L",
+    email: "zainab.abdullahi@unijos.edu.ng",
+    phone: "08012349012",
+    bloodType: "B+",
+    lastVisit: "2024-06-16",
+    healthStatus: "Good",
+    initials: "ZA",
+    medicalHistory: [
+      {
+        date: "2024-06-16",
+        type: "Consultation",
+        diagnosis: "Allergic rhinitis from animal exposure",
+        treatment: "Antihistamines, allergen avoidance",
+        doctor: "Dr. Mary Gyang"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Loratadine 10mg",
+        dosage: "Once daily",
+        duration: "As needed",
+        prescribedBy: "Dr. Mary Gyang",
+        date: "2024-06-16"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "COVID-19 Booster", date: "2024-02-20", nextDue: "2025-02-20" },
+      { vaccine: "Rabies", date: "2022-10-01", nextDue: "2025-10-01" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-16",
+      status: "Good",
+      recommendations: "Stress management for academic demands"
+    },
+    vitals: {
+      age: "20 years",
+      temperature: "36.8°C",
+      bloodPressure: "115/75 mmHg",
+      pulse: "76 bpm",
+      weight: "60 kg",
+      height: "163 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "22.6"
+    },
+    previousVisits: [
+      { date: "2024-06-16", reason: "Allergic rhinitis", doctor: "Dr. Mary Gyang" },
+      { date: "2024-04-10", reason: "Routine checkup", doctor: "Dr. Peter Bulus" },
+      { date: "2024-02-20", reason: "Vaccination", doctor: "Dr. Ruth Laven" }
+    ]
+  },
+  {
+    id: "STU012",
+    patientId: "P001247",
+    name: "Michael Pam",
+    matricNumber: "UJ/2021/ENG/0890",
+    faculty: "Engineering",
+    department: "Electrical Engineering",
+    level: "300L",
+    email: "michael.pam@unijos.edu.ng",
+    phone: "08012350123",
+    bloodType: "AB-",
+    lastVisit: "2024-06-17",
+    healthStatus: "Good",
+    initials: "MP",
+    medicalHistory: [
+      {
+        date: "2024-06-17",
+        type: "Treatment",
+        diagnosis: "Minor electrical burn from lab work",
+        treatment: "Wound care, burn management",
+        doctor: "Dr. Samuel Gyang"
+      }
+    ],
+    prescriptions: [
+      {
+        medication: "Silver sulfadiazine cream",
+        dosage: "Apply twice daily",
+        duration: "1 week",
+        prescribedBy: "Dr. Samuel Gyang",
+        date: "2024-06-17"
+      }
+    ],
+    vaccinations: [
+      { vaccine: "Tetanus", date: "2024-06-17", nextDue: "2034-06-17" },
+      { vaccine: "COVID-19", date: "2024-01-05", nextDue: "2025-01-05" }
+    ],
+    mentalHealth: {
+      lastAssessment: "2024-06-17",
+      status: "Good",
+      recommendations: "Safety awareness, stress management"
+    },
+    vitals: {
+      age: "22 years",
+      temperature: "36.7°C",
+      bloodPressure: "120/78 mmHg",
+      pulse: "74 bpm",
+      weight: "72 kg",
+      height: "176 cm",
+      respiratoryRate: "16/min",
+      oxygenSaturation: "98%",
+      bmi: "23.2"
+    },
+    previousVisits: [
+      { date: "2024-06-17", reason: "Electrical burn", doctor: "Dr. Samuel Gyang" },
+      { date: "2024-04-05", reason: "Routine checkup", doctor: "Dr. Emmanuel Yakubu" },
+      { date: "2024-01-05", reason: "Vaccination", doctor: "Dr. Grace Musa" }
+    ]
   }
-};
+];
 
-const getSeverityColor = (severity: string) => {
-  switch (severity) {
-    case "Low":
-      return "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800";
-    case "Moderate":
-      return "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800";
-    case "High":
-      return "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/50 dark:text-red-300 dark:border-red-800";
+const getHealthStatusColor = (status: string) => {
+  switch (status) {
+    case "Excellent":
+      return "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300";
+    case "Good":
+      return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
+    case "Fair":
+      return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
+    case "Poor":
+      return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
     default:
-      return "bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-700";
+      return "bg-gray-100 text-gray-800 dark:bg-gray-800/30 dark:text-gray-300";
   }
 };
 
 export const ComprehensiveMedicalRecords = () => {
-  const [isNewRecordOpen, setIsNewRecordOpen] = useState(false);
-  const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
-  const [selectedPatient, setSelectedPatient] = useState<{ name: string; patientId: string } | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedDepartment, setSelectedDepartment] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedRecord, setSelectedRecord] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState("overview");
+  const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
-  const handleViewRecord = (record: any, isStaff: boolean) => {
-    setSelectedPatient({
-      name: record.name,
-      patientId: isStaff ? record.staffId : record.patientId
-    });
-    setIsViewRecordsOpen(true);
+  const filteredStaff = universityStaffRecords.filter(staff =>
+    staff.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    staff.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    staff.staffId.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredStudents = studentRecords.filter(student =>
+    student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    student.faculty.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    student.matricNumber.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleViewRecord = (record: any) => {
+    setSelectedRecord(record);
+    setActiveTab("overview");
   };
 
-  const RecordCard = ({ record, isStaff = false }) => {
-    const filteredBySearch = searchQuery === "" || 
-      record.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      record.diagnosis.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (isStaff ? record.staffId : record.patientId).toLowerCase().includes(searchQuery.toLowerCase());
+  const handleAddEntry = () => {
+    if (selectedRecord) {
+      setIsAddEntryOpen(true);
+    }
+  };
 
-    const filteredByDepartment = selectedDepartment === "all" || 
-      record.department === selectedDepartment ||
-      record.faculty === selectedDepartment;
+  const handleScheduleAppointment = () => {
+    if (selectedRecord) {
+      setIsScheduleOpen(true);
+    }
+  };
 
-    if (!filteredBySearch || !filteredByDepartment) return null;
-
-    return (
-      <Card className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-1 border-0 shadow-sm bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-sm overflow-hidden">
-        {/* Status Bar */}
-        <div className="h-1 bg-gradient-to-r from-primary/60 to-primary/30"></div>
+  const RecordCard = ({ record, isStaff = false }) => (
+    <Card 
+      key={record.id} 
+      className="hover-lift cursor-pointer transition-all duration-300"
+      onClick={() => handleViewRecord(record)}
+    >
+      <CardContent className="p-4 sm:p-6">
+        <div className="flex items-center gap-4 mb-4">
+          <Avatar className="h-12 w-12 sm:h-14 sm:w-14">
+            <AvatarFallback className="bg-primary/10 text-primary font-semibold text-lg">
+              {record.initials}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-2 mb-1">
+              <h3 className="font-semibold text-lg text-foreground truncate">{record.name}</h3>
+              <Badge className={getHealthStatusColor(record.healthStatus)}>
+                {record.healthStatus}
+              </Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              {isStaff ? record.staffId : record.matricNumber}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {isStaff ? `${record.role} - ${record.department}` : `${record.faculty} - ${record.level}`}
+            </p>
+          </div>
+        </div>
         
-        <CardContent className="p-6 space-y-4">
-          {/* Header */}
-          <div className="flex items-start justify-between">
-            <div className="flex items-center gap-3 min-w-0 flex-1">
-              <div className="flex-shrink-0">
-                {isStaff ? (
-                  <UserCheck className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                ) : (
-                  <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+        <div className="grid grid-cols-2 gap-4 text-sm mb-4">
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4 text-muted-foreground" />
+            <span className="text-muted-foreground">{isStaff ? record.lastCheckup : record.lastVisit}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Stethoscope className="h-4 w-4 text-muted-foreground" />
+            <span className="text-muted-foreground">{record.bloodType}</span>
+          </div>
+        </div>
+
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" className="flex-1">
+            <Eye className="h-3 w-3 mr-1" />
+            View Full Record
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  const DetailedView = ({ record, isStaff }) => (
+    <Card className="mt-6 border-2 border-primary/20">
+      <CardHeader>
+        <div className="flex justify-between items-center">
+          <CardTitle className="flex items-center gap-2 text-xl">
+            <FileText className="h-6 w-6 text-primary" />
+            Medical Record - {record.name}
+          </CardTitle>
+          <Button variant="outline" onClick={() => setSelectedRecord(null)}>
+            Close
+          </Button>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          {/* Personal Information */}
+          <div className="lg:col-span-1">
+            <div className="space-y-4">
+              <div className="text-center">
+                <Avatar className="h-20 w-20 mx-auto mb-4">
+                  <AvatarFallback className="bg-primary/10 text-primary font-semibold text-2xl">
+                    {record.initials}
+                  </AvatarFallback>
+                </Avatar>
+                <h3 className="font-semibold text-lg">{record.name}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {isStaff ? record.staffId : record.matricNumber}
+                </p>
+                <Badge className={getHealthStatusColor(record.healthStatus)}>
+                  {record.healthStatus}
+                </Badge>
+              </div>
+              
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Blood Type</label>
+                  <p className="text-sm font-medium">{record.bloodType}</p>
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Email</label>
+                  <p className="text-sm">{record.email}</p>
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Phone</label>
+                  <p className="text-sm">{record.phone}</p>
+                </div>
+                {isStaff && (
+                  <>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Department</label>
+                      <p className="text-sm">{record.department}</p>
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Unit</label>
+                      <p className="text-sm">{record.unit}</p>
+                    </div>
+                  </>
+                )}
+                {!isStaff && (
+                  <>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Faculty</label>
+                      <p className="text-sm">{record.faculty}</p>
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-muted-foreground">Level</label>
+                      <p className="text-sm">{record.level}</p>
+                    </div>
+                  </>
                 )}
               </div>
-              <div className="min-w-0 flex-1">
-                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300 truncate">
-                  {record.name}
-                </h3>
-                <p className="text-sm text-muted-foreground truncate">
-                  {isStaff ? record.staffId : record.patientId}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 flex-shrink-0">
-              <Badge className={`text-xs px-2 py-1 border ${getRecordTypeColor(record.recordType)}`}>
-                {record.recordType}
-              </Badge>
-              <Badge className={`text-xs px-2 py-1 border ${getSeverityColor(record.severity)}`}>
-                {record.severity}
-              </Badge>
             </div>
           </div>
 
-          {/* Patient/Staff Info */}
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-                <span className="text-muted-foreground">{record.date}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4 text-muted-foreground" />
-                <span className="text-muted-foreground truncate">{record.doctor}</span>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                {isStaff ? (
-                  <Briefcase className="h-4 w-4 text-muted-foreground" />
-                ) : (
-                  <GraduationCap className="h-4 w-4 text-muted-foreground" />
-                )}
-                <span className="text-muted-foreground truncate">
-                  {isStaff ? record.department : record.faculty}
-                </span>
-              </div>
-              {!isStaff && (
-                <Badge variant="secondary" className="text-xs">
-                  {record.level}
-                </Badge>
+          {/* Vital Signs */}
+          <div className="lg:col-span-1">
+            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
+              <Heart className="h-5 w-5 text-primary" />
+              Current Vitals
+            </h4>
+            <div className="space-y-3">
+              {record.vitals && (
+                <div className="grid gap-3">
+                  <Card className="p-3 bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-800">
+                    <div className="flex items-center gap-2 mb-1">
+                      <User className="h-4 w-4 text-indigo-500" />
+                      <span className="text-xs font-medium text-indigo-700 dark:text-indigo-300">Age</span>
+                    </div>
+                    <p className="text-lg font-bold text-indigo-800 dark:text-indigo-200">{record.vitals.age}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Thermometer className="h-4 w-4 text-red-500" />
+                      <span className="text-xs font-medium">Temperature</span>
+                    </div>
+                    <p className="text-sm font-semibold">{record.vitals.temperature}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Activity className="h-4 w-4 text-blue-500" />
+                      <span className="text-xs font-medium">Blood Pressure</span>
+                    </div>
+                    <p className="text-sm font-semibold">{record.vitals.bloodPressure}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Heart className="h-4 w-4 text-red-500" />
+                      <span className="text-xs font-medium">Pulse</span>
+                    </div>
+                    <p className="text-sm font-semibold">{record.vitals.pulse}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="text-xs font-medium mb-1">Weight</div>
+                    <p className="text-sm font-semibold">{record.vitals.weight}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="text-xs font-medium mb-1">Height</div>
+                    <p className="text-sm font-semibold">{record.vitals.height}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="text-xs font-medium mb-1">BMI</div>
+                    <p className="text-sm font-semibold">{record.vitals.bmi}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="text-xs font-medium mb-1">Respiratory Rate</div>
+                    <p className="text-sm font-semibold">{record.vitals.respiratoryRate}</p>
+                  </Card>
+                  <Card className="p-3">
+                    <div className="text-xs font-medium mb-1">O2 Saturation</div>
+                    <p className="text-sm font-semibold">{record.vitals.oxygenSaturation}</p>
+                  </Card>
+                </div>
               )}
             </div>
           </div>
 
-          {/* Diagnosis */}
-          <div className="bg-muted/30 dark:bg-muted/20 rounded-lg p-3">
-            <div className="flex items-center gap-2 mb-2">
-              <Stethoscope className="h-4 w-4 text-primary" />
-              <span className="font-medium text-foreground">Diagnosis</span>
+          {/* Medical History & Previous Visits */}
+          <div className="lg:col-span-1">
+            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
+              <Clock className="h-5 w-5 text-primary" />
+              Medical History
+            </h4>
+            <div className="space-y-3 mb-6">
+              {record.medicalHistory?.map((entry, index) => (
+                <Card key={index} className="p-3">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-start">
+                      <Badge variant="outline" className="text-xs">{entry.type}</Badge>
+                      <span className="text-xs text-muted-foreground">{entry.date}</span>
+                    </div>
+                    <h5 className="font-medium text-sm">{entry.diagnosis}</h5>
+                    <p className="text-xs text-muted-foreground">{entry.treatment}</p>
+                    <p className="text-xs text-muted-foreground">👨‍⚕️ {entry.doctor}</p>
+                  </div>
+                </Card>
+              ))}
             </div>
-            <p className="text-sm text-muted-foreground">{record.diagnosis}</p>
+
+            {record.previousVisits && (
+              <>
+                <h5 className="font-semibold text-sm mb-3">Previous Visits</h5>
+                <div className="space-y-2">
+                  {record.previousVisits.map((visit, index) => (
+                    <Card key={index} className="p-2">
+                      <div className="text-xs">
+                        <div className="font-medium">{visit.date}</div>
+                        <div className="text-muted-foreground">{visit.reason}</div>
+                        <div className="text-muted-foreground">👨‍⚕️ {visit.doctor}</div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
-          {/* Vital Signs Preview */}
-          <div className="grid grid-cols-4 gap-2">
-            <div className="bg-red-50 dark:bg-red-950/30 p-2 rounded text-center">
-              <Thermometer className="h-3 w-3 text-red-500 mx-auto mb-1" />
-              <p className="text-xs font-medium text-red-700 dark:text-red-300">{record.vitals.temperature}</p>
+          {/* Prescriptions */}
+          <div className="lg:col-span-1">
+            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
+              <PillBottle className="h-5 w-5 text-primary" />
+              Medications
+            </h4>
+            <div className="space-y-3 mb-6">
+              {record.prescriptions?.length > 0 ? record.prescriptions.map((prescription, index) => (
+                <Card key={index} className="p-3">
+                  <div className="space-y-2">
+                    <h5 className="font-medium text-sm">{prescription.medication}</h5>
+                    <div className="text-xs space-y-1">
+                      <p><strong>Dosage:</strong> {prescription.dosage}</p>
+                      <p><strong>Duration:</strong> {prescription.duration}</p>
+                      <p><strong>Date:</strong> {prescription.date}</p>
+                    </div>
+                  </div>
+                </Card>
+              )) : (
+                <p className="text-sm text-muted-foreground">No current medications</p>
+              )}
             </div>
-            <div className="bg-blue-50 dark:bg-blue-950/30 p-2 rounded text-center">
-              <Activity className="h-3 w-3 text-blue-500 mx-auto mb-1" />
-              <p className="text-xs font-medium text-blue-700 dark:text-blue-300">{record.vitals.bloodPressure}</p>
-            </div>
-            <div className="bg-green-50 dark:bg-green-950/30 p-2 rounded text-center">
-              <Heart className="h-3 w-3 text-green-500 mx-auto mb-1" />
-              <p className="text-xs font-medium text-green-700 dark:text-green-300">{record.vitals.pulse}</p>
-            </div>
-            <div className="bg-purple-50 dark:bg-purple-950/30 p-2 rounded text-center">
-              <User className="h-3 w-3 text-purple-500 mx-auto mb-1" />
-              <p className="text-xs font-medium text-purple-700 dark:text-purple-300">{record.vitals.age}</p>
-            </div>
+
+            {/* Mental Health */}
+            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
+              <Brain className="h-5 w-5 text-primary" />
+              Mental Health
+            </h4>
+            <Card className="p-4">
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Last Assessment</label>
+                  <p className="text-sm">{record.mentalHealth?.lastAssessment}</p>
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Status</label>
+                  <Badge className={getHealthStatusColor(record.mentalHealth?.status || "Good")}>
+                    {record.mentalHealth?.status}
+                  </Badge>
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-muted-foreground">Recommendations</label>
+                  <p className="text-xs bg-muted p-2 rounded mt-1">
+                    {record.mentalHealth?.recommendations}
+                  </p>
+                </div>
+              </div>
+            </Card>
           </div>
 
-          {/* Actions */}
-          <div className="flex gap-2 pt-2">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={() => handleViewRecord(record, isStaff)}
-              className="flex-1 h-9 border-border/50 hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300"
-            >
-              <Eye className="h-4 w-4 mr-2" />
-              View Details
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm"
-              className="h-9 px-3 border-border/50 hover:bg-accent/50"
-            >
-              <Download className="h-4 w-4" />
-            </Button>
+          {/* Vaccinations */}
+          <div className="lg:col-span-1">
+            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
+              <Shield className="h-5 w-5 text-primary" />
+              Vaccines
+            </h4>
+            <div className="space-y-3">
+              {record.vaccinations?.map((vaccination, index) => (
+                <Card key={index} className="p-3">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-start">
+                      <h5 className="font-medium text-sm">{vaccination.vaccine}</h5>
+                      <Badge 
+                        className={new Date(vaccination.nextDue) > new Date() 
+                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300" 
+                          : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
+                        }
+                      >
+                        {new Date(vaccination.nextDue) > new Date() ? "Current" : "Due"}
+                      </Badge>
+                    </div>
+                    <div className="text-xs space-y-1">
+                      <p><strong>Given:</strong> {vaccination.date}</p>
+                      <p><strong>Next:</strong> {vaccination.nextDue}</p>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
           </div>
-        </CardContent>
-      </Card>
-    );
-  };
+        </div>
 
-  const departments = [...new Set([
-    ...medicalRecords.map(r => r.faculty),
-    ...staffMedicalRecords.map(r => r.department)
-  ])];
+        {/* Action Buttons */}
+        <div className="flex gap-2 mt-6 pt-4 border-t">
+          <Button variant="outline" className="flex-1">
+            <Download className="h-4 w-4 mr-2" />
+            Export Record
+          </Button>
+          <Button variant="outline" className="flex-1" onClick={handleScheduleAppointment}>
+            <Calendar className="h-4 w-4 mr-2" />
+            Schedule Appointment
+          </Button>
+          <Button className="flex-1" onClick={handleAddEntry}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Entry
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="space-y-1">
-          <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Medical Records</h1>
-          <p className="text-muted-foreground">Comprehensive health records system</p>
+        <div className="flex items-center gap-3">
+          <FileText className="h-8 w-8 text-primary" />
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Medical Records</h2>
+            <p className="text-muted-foreground">Comprehensive health management system</p>
+          </div>
         </div>
-        <Button 
-          className="btn-primary shadow-lg hover:shadow-xl transition-all duration-300"
-          onClick={() => setIsNewRecordOpen(true)}
-        >
+        <Button className="bg-primary hover:bg-primary/90" onClick={() => setIsAddEntryOpen(true)}>
           <Plus className="h-4 w-4 mr-2" />
           New Record
         </Button>
       </div>
 
-      {/* Search and Filters */}
-      <Card className="border-0 shadow-sm bg-card/50 backdrop-blur-sm">
-        <CardContent className="p-6">
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Search records by name, diagnosis, or ID..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 h-11 bg-background/50 border-border/50 focus:border-primary/50 focus:ring-primary/20"
-              />
-            </div>
-            <div className="flex gap-3">
-              <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
-                <SelectTrigger className="w-[180px] h-11 bg-background/50 border-border/50">
-                  <Filter className="h-4 w-4 mr-2" />
-                  <SelectValue placeholder="Department" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Departments</SelectItem>
-                  {departments.map((dept) => (
-                    <SelectItem key={dept} value={dept}>
-                      {dept}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Button variant="outline" className="h-11 px-4 border-border/50 hover:bg-accent/50">
-                <Download className="h-4 w-4 mr-2" />
-                Export
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Search Bar */}
+      <div className="relative max-w-md">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+        <Input
+          placeholder="Search records..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="pl-10"
+        />
+      </div>
 
-      {/* Tabs */}
-      <Tabs defaultValue="students" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 h-12 bg-muted/30 dark:bg-muted/20">
-          <TabsTrigger value="students" className="h-10 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-            <GraduationCap className="h-4 w-4 mr-2" />
-            Student Records
+      <Tabs defaultValue="staff" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 mb-6">
+          <TabsTrigger value="staff" className="flex items-center gap-2">
+            <UserCheck className="h-4 w-4" />
+            University Staff ({filteredStaff.length})
           </TabsTrigger>
-          <TabsTrigger value="staff" className="h-10 data-[state=active]:bg-background data-[state=active]:shadow-sm">
-            <Briefcase className="h-4 w-4 mr-2" />
-            Staff Records
+          <TabsTrigger value="students" className="flex items-center gap-2">
+            <Users className="h-4 w-4" />
+            Students ({filteredStudents.length})
           </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="students" className="mt-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-            {medicalRecords.map((record, index) => (
-              <div key={record.id} style={{ animationDelay: `${index * 0.1}s` }}>
-                <RecordCard record={record} isStaff={false} />
-              </div>
+        <TabsContent value="staff" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredStaff.map((staff) => (
+              <RecordCard key={staff.id} record={staff} isStaff={true} />
             ))}
           </div>
         </TabsContent>
         
-        <TabsContent value="staff" className="mt-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-            {staffMedicalRecords.map((record, index) => (
-              <div key={record.id} style={{ animationDelay: `${index * 0.1}s` }}>
-                <RecordCard record={record} isStaff={true} />
-              </div>
+        <TabsContent value="students" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredStudents.map((student) => (
+              <RecordCard key={student.id} record={student} isStaff={false} />
             ))}
           </div>
         </TabsContent>
       </Tabs>
 
-      {/* Dialogs */}
-      <NewRecordDialog 
-        open={isNewRecordOpen} 
-        onOpenChange={setIsNewRecordOpen} 
+      {selectedRecord && (
+        <DetailedView 
+          record={selectedRecord} 
+          isStaff={selectedRecord.staffId ? true : false} 
+        />
+      )}
+
+      <AddMedicalEntryDialog 
+        open={isAddEntryOpen} 
+        onOpenChange={setIsAddEntryOpen}
+        patientName={selectedRecord?.name || "Patient"}
       />
 
-      <ViewRecordsDialog
-        open={isViewRecordsOpen}
-        onOpenChange={setIsViewRecordsOpen}
-        patientName={selectedPatient?.name || ""}
-        patientId={selectedPatient?.patientId || ""}
+      <ScheduleAppointmentDialog 
+        open={isScheduleOpen} 
+        onOpenChange={setIsScheduleOpen}
+        patientName={selectedRecord?.name || "Patient"}
       />
     </div>
   );
