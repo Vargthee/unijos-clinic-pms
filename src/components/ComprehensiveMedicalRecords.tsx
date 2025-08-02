@@ -809,9 +809,10 @@ const studentRecords = [
       recommendations: "Digital wellness, study-life balance"
     },
     vitals: {
+      age: "21 years",
       temperature: "36.5°C",
       bloodPressure: "118/78 mmHg",
-      pulse: "72 bpm",
+      pulse: "72 bmp",
       weight: "68 kg",
       height: "170 cm",
       respiratoryRate: "16/min",
@@ -873,6 +874,7 @@ const studentRecords = [
       recommendations: "Final year support, career counseling"
     },
     vitals: {
+      age: "24 years",
       temperature: "36.9°C",
       bloodPressure: "108/68 mmHg",
       pulse: "76 bpm",
@@ -931,6 +933,7 @@ const studentRecords = [
       recommendations: "Stress management, healthy eating habits"
     },
     vitals: {
+      age: "20 years",
       temperature: "37.8°C",
       bloodPressure: "100/65 mmHg",
       pulse: "95 bpm",
@@ -979,6 +982,7 @@ const studentRecords = [
       recommendations: "Regular counseling sessions, peer support groups"
     },
     vitals: {
+      age: "18 years",
       temperature: "36.7°C",
       bloodPressure: "112/72 mmHg",
       pulse: "74 bpm",
@@ -1042,6 +1046,7 @@ const studentRecords = [
       recommendations: "Stress management for practical work"
     },
     vitals: {
+      age: "22 years",
       temperature: "36.8°C",
       bloodPressure: "125/80 mmHg",
       pulse: "80 bpm",
@@ -1099,6 +1104,7 @@ const studentRecords = [
       recommendations: "Pregnancy counseling, stress management"
     },
     vitals: {
+      age: "21 years",
       temperature: "36.6°C",
       bloodPressure: "110/70 mmHg",
       pulse: "85 bpm",
@@ -1156,6 +1162,7 @@ const studentRecords = [
       recommendations: "Post-accident counseling, stress management"
     },
     vitals: {
+      age: "23 years",
       temperature: "36.9°C",
       bloodPressure: "125/80 mmHg",
       pulse: "82 bpm",
@@ -1212,6 +1219,7 @@ const studentRecords = [
       recommendations: "Stress management for academic demands"
     },
     vitals: {
+      age: "20 years",
       temperature: "36.8°C",
       bloodPressure: "115/75 mmHg",
       pulse: "76 bpm",
@@ -1269,6 +1277,7 @@ const studentRecords = [
       recommendations: "Safety awareness, stress management"
     },
     vitals: {
+      age: "22 years",
       temperature: "36.7°C",
       bloodPressure: "120/78 mmHg",
       pulse: "74 bpm",

@@ -592,7 +592,7 @@ export const PatientManagement = () => {
                         <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
                           {patient.type}
                         </span>
-                        <div className="flex items-center gap-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-3 py-1 rounded-full">
+                        <div className="flex items-center gap-1 bg-gradient-to-r from-primary to-medical-green text-primary-foreground px-3 py-1 rounded-full shadow-elegant">
                           <User className="h-3 w-3" />
                           <span className="text-xs font-bold">{patient.age}y</span>
                         </div>
