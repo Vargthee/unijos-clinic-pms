@@ -81,7 +81,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Follow-up",
           diagnosis: "Chronic Hepatitis B infection",
           doctor: "Dr. Samuel Dung",
-          vitals: { temperature: "36.7°C", bloodPressure: "120/75 mmHg", pulse: "70 bpm", weight: "68 kg" },
+          vitals: { age: "24 years", temperature: "36.7°C", bloodPressure: "120/75 mmHg", pulse: "70 bpm", weight: "68 kg" },
           notes: "HBsAg positive, viral load monitoring. Liver function tests within normal limits. Continue antiviral therapy.",
           icon: Stethoscope
         }
@@ -93,7 +93,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Treatment",
           diagnosis: "Urinary tract infection (UTI)",
           doctor: "Dr. Mary Gyang",
-          vitals: { temperature: "37.5°C", bloodPressure: "112/70 mmHg", pulse: "82 bpm", weight: "51 kg" },
+          vitals: { age: "19 years", temperature: "37.5°C", bloodPressure: "112/70 mmHg", pulse: "82 bpm", weight: "51 kg" },
           notes: "Recurrent UTI with E. coli bacteria. Antibiotic sensitivity test done. Hygiene education provided.",
           icon: Eye
         }
@@ -105,7 +105,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Emergency",
           diagnosis: "Meningitis (recovering)",
           doctor: "Dr. Peter Bulus",
-          vitals: { temperature: "37.2°C", bloodPressure: "118/75 mmHg", pulse: "85 bpm", weight: "74 kg" },
+          vitals: { age: "20 years", temperature: "37.2°C", bloodPressure: "118/75 mmHg", pulse: "85 bpm", weight: "74 kg" },
           notes: "Bacterial meningitis successfully treated. Neurological examination normal. Follow-up scheduled.",
           icon: Brain
         }
@@ -117,7 +117,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Follow-up",
           diagnosis: "Rheumatic heart disease",
           doctor: "Dr. Emmanuel Yakubu",
-          vitals: { temperature: "36.6°C", bloodPressure: "125/82 mmHg", pulse: "88 bpm", weight: "63 kg" },
+          vitals: { age: "22 years", temperature: "36.6°C", bloodPressure: "125/82 mmHg", pulse: "88 bpm", weight: "63 kg" },
           notes: "Stable rheumatic heart disease. Echo shows mild mitral regurgitation. Regular cardiology follow-up needed.",
           icon: Heart
         }
@@ -129,7 +129,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Treatment",
           diagnosis: "Tuberculosis (on treatment)",
           doctor: "Dr. Ruth Laven",
-          vitals: { temperature: "37.3°C", bloodPressure: "115/70 mmHg", pulse: "92 bpm", weight: "67 kg" },
+          vitals: { age: "21 years", temperature: "37.3°C", bloodPressure: "115/70 mmHg", pulse: "92 bpm", weight: "67 kg" },
           notes: "Pulmonary tuberculosis on intensive phase. Sputum conversion expected. Contact tracing completed.",
           icon: Stethoscope
         }
@@ -141,8 +141,8 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Check-up",
           diagnosis: "Annual health screening - normal",
           doctor: "Dr. John Okafor",
-          vitals: { temperature: "36.6°C", bloodPressure: "118/72 mmHg", pulse: "68 bpm", weight: "62 kg" },
-          currentVitals: { temperature: "36.7°C", bloodPressure: "120/75 mmHg", pulse: "70 bpm", weight: "62 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
+          vitals: { age: "49 years", temperature: "36.6°C", bloodPressure: "118/72 mmHg", pulse: "68 bpm", weight: "62 kg" },
+          currentVitals: { age: "49 years", temperature: "36.7°C", bloodPressure: "120/75 mmHg", pulse: "70 bpm", weight: "62 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
           notes: "Routine health check for staff member. All parameters within normal limits. Immunization status up to date.",
           icon: Eye
         }
@@ -154,8 +154,8 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Treatment",
           diagnosis: "Essential hypertension",
           doctor: "Dr. Aisha Mohammed",
-          vitals: { temperature: "36.4°C", bloodPressure: "145/92 mmHg", pulse: "75 bpm", weight: "78 kg" },
-          currentVitals: { temperature: "36.5°C", bloodPressure: "138/85 mmHg", pulse: "72 bpm", weight: "78 kg", oxygenSaturation: "97%", respiratoryRate: "18 breaths/min" },
+          vitals: { age: "52 years", temperature: "36.4°C", bloodPressure: "145/92 mmHg", pulse: "75 bpm", weight: "78 kg" },
+          currentVitals: { age: "52 years", temperature: "36.5°C", bloodPressure: "138/85 mmHg", pulse: "72 bpm", weight: "78 kg", oxygenSaturation: "97%", respiratoryRate: "18 breaths/min" },
           notes: "Blood pressure control with ACE inhibitors. Lifestyle modification counseling. Regular monitoring advised.",
           icon: Heart
         }
@@ -167,8 +167,8 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Check-up",
           diagnosis: "Security health assessment - good",
           doctor: "Dr. Fatima Aliyu",
-          vitals: { temperature: "36.8°C", bloodPressure: "125/80 mmHg", pulse: "75 bpm", weight: "65 kg" },
-          currentVitals: { temperature: "36.6°C", bloodPressure: "122/78 mmHg", pulse: "72 bpm", weight: "65 kg", oxygenSaturation: "98%", respiratoryRate: "15 breaths/min" },
+          vitals: { age: "45 years", temperature: "36.8°C", bloodPressure: "125/80 mmHg", pulse: "75 bpm", weight: "65 kg" },
+          currentVitals: { age: "45 years", temperature: "36.6°C", bloodPressure: "122/78 mmHg", pulse: "72 bpm", weight: "65 kg", oxygenSaturation: "98%", respiratoryRate: "15 breaths/min" },
           notes: "Regular fitness assessments for security personnel. All vitals within normal range.",
           icon: Stethoscope
         }
@@ -180,8 +180,8 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Consultation",
           diagnosis: "Work-related stress management",
           doctor: "Dr. John Okafor",
-          vitals: { temperature: "36.9°C", bloodPressure: "130/85 mmHg", pulse: "82 bpm", weight: "75 kg" },
-          currentVitals: { temperature: "36.7°C", bloodPressure: "125/82 mmHg", pulse: "78 bpm", weight: "75 kg", oxygenSaturation: "97%", respiratoryRate: "17 breaths/min" },
+          vitals: { age: "48 years", temperature: "36.9°C", bloodPressure: "130/85 mmHg", pulse: "82 bpm", weight: "75 kg" },
+          currentVitals: { age: "48 years", temperature: "36.7°C", bloodPressure: "125/82 mmHg", pulse: "78 bpm", weight: "75 kg", oxygenSaturation: "97%", respiratoryRate: "17 breaths/min" },
           notes: "Stress management counseling. Regular exercise and work-life balance recommended.",
           icon: Brain
         }
@@ -193,8 +193,8 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Treatment",
           diagnosis: "Respiratory allergy management",
           doctor: "Dr. Mary Gyang",
-          vitals: { temperature: "36.5°C", bloodPressure: "115/70 mmHg", pulse: "68 bpm", weight: "58 kg" },
-          currentVitals: { temperature: "36.4°C", bloodPressure: "112/68 mmHg", pulse: "65 bpm", weight: "58 kg", oxygenSaturation: "99%", respiratoryRate: "14 breaths/min" },
+          vitals: { age: "42 years", temperature: "36.5°C", bloodPressure: "115/70 mmHg", pulse: "68 bpm", weight: "58 kg" },
+          currentVitals: { age: "42 years", temperature: "36.4°C", bloodPressure: "112/68 mmHg", pulse: "65 bpm", weight: "58 kg", oxygenSaturation: "99%", respiratoryRate: "14 breaths/min" },
           notes: "Allergy medications effective. Environmental modifications recommended.",
           icon: Heart
         }
@@ -206,8 +206,8 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Treatment",
           diagnosis: "Back pain management",
           doctor: "Dr. Peter Bulus",
-          vitals: { temperature: "36.7°C", bloodPressure: "128/80 mmHg", pulse: "74 bpm", weight: "72 kg" },
-          currentVitals: { temperature: "36.6°C", bloodPressure: "125/78 mmHg", pulse: "71 bpm", weight: "72 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
+          vitals: { age: "38 years", temperature: "36.7°C", bloodPressure: "128/80 mmHg", pulse: "74 bpm", weight: "72 kg" },
+          currentVitals: { age: "38 years", temperature: "36.6°C", bloodPressure: "125/78 mmHg", pulse: "71 bpm", weight: "72 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
           notes: "Physiotherapy sessions ongoing. Ergonomic workplace adjustments made.",
           icon: Stethoscope
         }
@@ -219,8 +219,8 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Treatment",
           diagnosis: "Migraine management",
           doctor: "Dr. Emmanuel Yakubu",
-          vitals: { temperature: "36.4°C", bloodPressure: "110/70 mmHg", pulse: "66 bpm", weight: "60 kg" },
-          currentVitals: { temperature: "36.3°C", bloodPressure: "108/68 mmHg", pulse: "64 bpm", weight: "60 kg", oxygenSaturation: "99%", respiratoryRate: "15 breaths/min" },
+          vitals: { age: "35 years", temperature: "36.4°C", bloodPressure: "110/70 mmHg", pulse: "66 bpm", weight: "60 kg" },
+          currentVitals: { age: "35 years", temperature: "36.3°C", bloodPressure: "108/68 mmHg", pulse: "64 bpm", weight: "60 kg", oxygenSaturation: "99%", respiratoryRate: "15 breaths/min" },
           notes: "Light sensitivity managed with environmental controls. Stress reduction techniques effective.",
           icon: Brain
         }
@@ -232,8 +232,8 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Follow-up",
           diagnosis: "Post-surgery recovery monitoring",
           doctor: "Dr. Ruth Laven",
-          vitals: { temperature: "36.8°C", bloodPressure: "120/75 mmHg", pulse: "70 bpm", weight: "68 kg" },
-          currentVitals: { temperature: "36.7°C", bloodPressure: "118/72 mmHg", pulse: "68 bpm", weight: "68 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
+          vitals: { age: "46 years", temperature: "36.8°C", bloodPressure: "120/75 mmHg", pulse: "70 bpm", weight: "68 kg" },
+          currentVitals: { age: "46 years", temperature: "36.7°C", bloodPressure: "118/72 mmHg", pulse: "68 bpm", weight: "68 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
           notes: "Recovery progressing well. Return to full duties approved.",
           icon: Heart
         }
@@ -245,8 +245,8 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           type: "Check-up",
           diagnosis: "Annual health screening - good health",
           doctor: "Dr. Fatima Aliyu",
-          vitals: { temperature: "36.8°C", bloodPressure: "125/80 mmHg", pulse: "75 bpm", weight: "65 kg" },
-          currentVitals: { temperature: "36.7°C", bloodPressure: "120/78 mmHg", pulse: "72 bpm", weight: "65 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
+          vitals: { age: "49 years", temperature: "36.8°C", bloodPressure: "125/80 mmHg", pulse: "75 bpm", weight: "65 kg" },
+          currentVitals: { age: "49 years", temperature: "36.7°C", bloodPressure: "120/78 mmHg", pulse: "72 bpm", weight: "65 kg", oxygenSaturation: "98%", respiratoryRate: "16 breaths/min" },
           notes: "Lifestyle modification, blood pressure monitoring. Hypertension (mild)",
           icon: Stethoscope
         }
@@ -260,7 +260,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
         type: "Consultation",
         diagnosis: "General health consultation",
         doctor: "Dr. General Practitioner",
-        vitals: { temperature: "36.5°C", bloodPressure: "120/80 mmHg", pulse: "72 bpm", weight: "65 kg" },
+        vitals: { age: "25 years", temperature: "36.5°C", bloodPressure: "120/80 mmHg", pulse: "72 bpm", weight: "65 kg" },
         notes: "Routine consultation. No specific complaints. General health advice given.",
         icon: Stethoscope
       }
