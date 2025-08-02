@@ -4,16 +4,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import {
   Eye,
   UserPlus,
   Download,
   User,
+  Search,
+  Filter,
+  Calendar,
+  Phone,
+  Mail,
+  MapPin,
+  Stethoscope,
+  GraduationCap,
+  Briefcase,
 } from "lucide-react";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
 import { AddPatientDialog } from "./AddPatientDialog";
 
-// Combined patients and staff data
+// Combined patients and staff data with improved medical accuracy
 const allPatients = [
   {
     id: "P001234",
@@ -34,7 +44,8 @@ const allPatients = [
     email: "adaora.okonkwo@unijos.edu.ng",
     emergencyContact: "08098765432",
     address: "No. 45 Zaria Road, Jos",
-    type: "Student"
+    type: "Student",
+    condition: "Uncomplicated malaria"
   },
   {
     id: "P001235",
@@ -55,7 +66,8 @@ const allPatients = [
     email: "ibrahim.musa@unijos.edu.ng",
     emergencyContact: "08087654321",
     address: "No. 12 Bauchi Road, Jos",
-    type: "Student"
+    type: "Student",
+    condition: "Sickle cell disease"
   },
   {
     id: "P001236",
@@ -76,217 +88,8 @@ const allPatients = [
     email: "blessing.eze@unijos.edu.ng",
     emergencyContact: "08076543210",
     address: "No. 78 Tudun Wada, Jos",
-    type: "Student"
-  },
-  {
-    id: "S001",
-    name: "Dr. Fatima Aliyu",
-    age: 35,
-    gender: "Female",
-    faculty: "Medical Staff",
-    department: "General Medicine",
-    level: "Senior Consultant",
-    matricNumber: "STAFF/2018/MED/001",
-    status: "Healthy",
-    lastVisit: "2024-06-01",
-    nextAppointment: "2024-12-01",
-    attendingPhysician: "Dr. John Okafor",
-    bloodType: "A+",
-    allergies: ["None known"],
-    phone: "08012345001",
-    email: "fatima.aliyu@unijos.edu.ng",
-    emergencyContact: "08098765001",
-    address: "Medical Staff Quarters, Jos",
-    type: "Staff"
-  },
-  {
-    id: "S002",
-    name: "Prof. John Okafor",
-    age: 48,
-    gender: "Male",
-    faculty: "Medical Staff",
-    department: "Cardiology",
-    level: "Chief Medical Officer",
-    matricNumber: "STAFF/2010/MED/002",
-    status: "Stable",
-    lastVisit: "2024-05-15",
-    nextAppointment: "2024-07-15",
-    attendingPhysician: "Dr. Aisha Mohammed",
-    bloodType: "O-",
-    allergies: ["None known"],
-    phone: "08012345002",
-    email: "john.okafor@unijos.edu.ng",
-    emergencyContact: "08098765002",
-    address: "Senior Staff Quarters, Jos",
-    type: "Staff"
-  },
-  {
-    id: "S003",
-    name: "Dr. Amina Hassan",
-    age: 42,
-    gender: "Female",
-    faculty: "Medical Staff",
-    department: "Obstetrics & Gynaecology",
-    level: "Senior Consultant",
-    matricNumber: "STAFF/2015/MED/003",
-    status: "Healthy",
-    lastVisit: "2024-06-03",
-    nextAppointment: "2024-09-03",
-    attendingPhysician: "Prof. John Okafor",
-    bloodType: "B+",
-    allergies: ["None known"],
-    phone: "08012345003",
-    email: "amina.hassan@unijos.edu.ng",
-    emergencyContact: "08098765003",
-    address: "Medical Staff Quarters, Jos",
-    type: "Staff"
-  },
-  {
-    id: "S004",
-    name: "Dr. Samuel Gyang",
-    age: 39,
-    gender: "Male",
-    faculty: "Medical Staff",
-    department: "Emergency Medicine",
-    level: "Consultant",
-    matricNumber: "STAFF/2018/MED/004",
-    status: "Good",
-    lastVisit: "2024-05-28",
-    nextAppointment: "2024-08-28",
-    attendingPhysician: "Dr. Fatima Aliyu",
-    bloodType: "AB+",
-    allergies: ["Peanuts"],
-    phone: "08012345004",
-    email: "samuel.gyang@unijos.edu.ng",
-    emergencyContact: "08098765004",
-    address: "Staff Quarters Block C, Jos",
-    type: "Staff"
-  },
-  {
-    id: "S005",
-    name: "Dr. Ruth Laven",
-    age: 44,
-    gender: "Female",
-    faculty: "Medical Staff",
-    department: "Pediatrics",
-    level: "Senior Consultant",
-    matricNumber: "STAFF/2012/MED/005",
-    status: "Excellent",
-    lastVisit: "2024-06-10",
-    nextAppointment: "2024-10-10",
-    attendingPhysician: "Dr. Amina Hassan",
-    bloodType: "O+",
-    allergies: ["None known"],
-    phone: "08012345005",
-    email: "ruth.laven@unijos.edu.ng",
-    emergencyContact: "08098765005",
-    address: "Senior Staff Quarters, Jos",
-    type: "Staff"
-  },
-  {
-    id: "S006",
-    name: "Dr. Peter Nnamdi",
-    age: 36,
-    gender: "Male",
-    faculty: "Medical Staff",
-    department: "Anesthesiology",
-    level: "Consultant",
-    matricNumber: "STAFF/2019/MED/006",
-    status: "Good",
-    lastVisit: "2024-05-20",
-    nextAppointment: "2024-11-20",
-    attendingPhysician: "Dr. Samuel Gyang",
-    bloodType: "A-",
-    allergies: ["Latex"],
-    phone: "08012345006",
-    email: "peter.nnamdi@unijos.edu.ng",
-    emergencyContact: "08098765006",
-    address: "Medical Staff Quarters, Jos",
-    type: "Staff"
-  },
-  {
-    id: "S007",
-    name: "Dr. Grace Musa",
-    age: 33,
-    gender: "Female",
-    faculty: "Medical Staff",
-    department: "Maternity Unit",
-    level: "Medical Officer",
-    matricNumber: "STAFF/2020/MED/007",
-    status: "Healthy",
-    lastVisit: "2024-06-05",
-    nextAppointment: "2024-12-05",
-    attendingPhysician: "Dr. Amina Hassan",
-    bloodType: "B-",
-    allergies: ["None known"],
-    phone: "08012345007",
-    email: "grace.musa@unijos.edu.ng",
-    emergencyContact: "08098765007",
-    address: "Junior Staff Quarters, Jos",
-    type: "Staff"
-  },
-  {
-    id: "S008",
-    name: "Dr. Emmanuel Yakubu",
-    age: 41,
-    gender: "Male",
-    faculty: "Medical Staff",
-    department: "Ambulance Services",
-    level: "Senior Medical Officer",
-    matricNumber: "STAFF/2016/MED/008",
-    status: "Good",
-    lastVisit: "2024-05-18",
-    nextAppointment: "2024-08-18",
-    attendingPhysician: "Dr. Samuel Gyang",
-    bloodType: "O-",
-    allergies: ["Shellfish"],
-    phone: "08012345008",
-    email: "emmanuel.yakubu@unijos.edu.ng",
-    emergencyContact: "08098765008",
-    address: "Staff Quarters Block A, Jos",
-    type: "Staff"
-  },
-  {
-    id: "S009",
-    name: "Dr. Mary Gyang",
-    age: 38,
-    gender: "Female",
-    faculty: "Medical Staff",
-    department: "Internal Medicine",
-    level: "Consultant",
-    matricNumber: "STAFF/2017/MED/009",
-    status: "Excellent",
-    lastVisit: "2024-06-01",
-    nextAppointment: "2024-09-01",
-    attendingPhysician: "Prof. John Okafor",
-    bloodType: "A+",
-    allergies: ["Sulfa drugs"],
-    phone: "08012345009",
-    email: "mary.gyang@unijos.edu.ng",
-    emergencyContact: "08098765009",
-    address: "Medical Staff Quarters, Jos",
-    type: "Staff"
-  },
-  {
-    id: "S010",
-    name: "Dr. Daniel Kwaghe",
-    age: 35,
-    gender: "Male",
-    faculty: "Medical Staff",
-    department: "Surgery",
-    level: "Medical Officer",
-    matricNumber: "STAFF/2021/MED/010",
-    status: "Good",
-    lastVisit: "2024-05-25",
-    nextAppointment: "2024-11-25",
-    attendingPhysician: "Dr. Peter Nnamdi",
-    bloodType: "AB-",
-    allergies: ["None known"],
-    phone: "08012345010",
-    email: "daniel.kwaghe@unijos.edu.ng",
-    emergencyContact: "08098765010",
-    address: "Junior Staff Quarters, Jos",
-    type: "Staff"
+    type: "Student",
+    condition: "Acute gastroenteritis"
   },
   {
     id: "P001237",
@@ -307,7 +110,8 @@ const allPatients = [
     email: "yusuf.abdullahi@unijos.edu.ng",
     emergencyContact: "08065432109",
     address: "No. 23 Lamingo, Jos",
-    type: "Student"
+    type: "Student",
+    condition: "Bronchial asthma"
   },
   {
     id: "P001238",
@@ -328,7 +132,8 @@ const allPatients = [
     email: "fatima.aliyu.student@unijos.edu.ng",
     emergencyContact: "08054321098",
     address: "No. 67 Rayfield, Jos",
-    type: "Student"
+    type: "Student",
+    condition: "Iron deficiency anemia"
   },
   {
     id: "P001239",
@@ -349,160 +154,59 @@ const allPatients = [
     email: "chidi.okafor@unijos.edu.ng",
     emergencyContact: "08043210987",
     address: "No. 34 Bukuru, Jos",
-    type: "Student"
+    type: "Student",
+    condition: "Upper respiratory infection"
   },
   {
-    id: "P001240",
-    name: "Amina Bello",
-    age: 19,
+    id: "S001",
+    name: "Dr. Fatima Aliyu",
+    age: 35,
     gender: "Female",
-    faculty: "Education",
-    department: "Educational Psychology",
-    level: "100L",
-    matricNumber: "UJ/2023/EDU/0890",
-    status: "Recovering",
-    lastVisit: "2024-06-10",
-    nextAppointment: "2024-06-17",
-    attendingPhysician: "Dr. Mary Gyang",
-    bloodType: "B-",
-    allergies: ["None known"],
-    phone: "08078901234",
-    email: "amina.bello@unijos.edu.ng",
-    emergencyContact: "08032109876",
-    address: "No. 89 Anglo Jos, Jos",
-    type: "Student"
-  },
-  {
-    id: "P001241",
-    name: "David Pam",
-    age: 21,
-    gender: "Male",
-    faculty: "Agriculture",
-    department: "Animal Science",
-    level: "300L",
-    matricNumber: "UJ/2021/AGR/0456",
-    status: "Stable",
-    lastVisit: "2024-06-11",
-    nextAppointment: "2024-06-19",
-    attendingPhysician: "Dr. Peter Bulus",
+    faculty: "Medical Staff",
+    department: "General Medicine",
+    level: "Senior Consultant",
+    matricNumber: "STAFF/2018/MED/001",
+    status: "Healthy",
+    lastVisit: "2024-06-01",
+    nextAppointment: "2024-12-01",
+    attendingPhysician: "Dr. John Okafor",
     bloodType: "A+",
     allergies: ["None known"],
-    phone: "08089012345",
-    email: "david.pam@unijos.edu.ng",
-    emergencyContact: "08021098765",
-    address: "No. 56 Plateau State University Road, Jos",
-    type: "Student"
+    phone: "08012345001",
+    email: "fatima.aliyu@unijos.edu.ng",
+    emergencyContact: "08098765001",
+    address: "Medical Staff Quarters, Jos",
+    type: "Staff",
+    condition: "Annual health screening"
   },
   {
-    id: "P001242",
-    name: "Hauwa Mohammed",
-    age: 22,
-    gender: "Female",
-    faculty: "Environmental Sciences",
-    department: "Geography",
-    level: "400L",
-    matricNumber: "UJ/2020/ENV/0123",
+    id: "S002",
+    name: "Prof. John Okafor",
+    age: 48,
+    gender: "Male",
+    faculty: "Medical Staff",
+    department: "Cardiology",
+    level: "Chief Medical Officer",
+    matricNumber: "STAFF/2010/MED/002",
     status: "Stable",
-    lastVisit: "2024-06-12",
-    nextAppointment: "2024-07-12",
-    attendingPhysician: "Dr. Emmanuel Yakubu",
-    bloodType: "AB-",
-    allergies: ["Aspirin"],
-    phone: "08090123456",
-    email: "hauwa.mohammed@unijos.edu.ng",
-    emergencyContact: "08010987654",
-    address: "No. 45 Jenta Adamu, Jos",
-    type: "Student"
-  },
-  {
-    id: "P001243",
-    name: "Samuel Gyang",
-    age: 18,
-    gender: "Male",
-    faculty: "Management Sciences",
-    department: "Business Administration",
-    level: "100L",
-    matricNumber: "UJ/2023/MSC/0789",
-    status: "Under Treatment",
-    lastVisit: "2024-06-13",
-    nextAppointment: "2024-06-20",
-    attendingPhysician: "Dr. Ruth Laven",
-    bloodType: "O+",
-    allergies: ["None known"],
-    phone: "08012346789",
-    email: "samuel.gyang@unijos.edu.ng",
-    emergencyContact: "08098767890",
-    address: "No. 23 Dogon Dutse, Jos",
-    type: "Student"
-  },
-  {
-    id: "P001244",
-    name: "Khadijah Usman",
-    age: 20,
-    gender: "Female",
-    faculty: "Nursing Sciences",
-    department: "Nursing",
-    level: "200L",
-    matricNumber: "UJ/2022/NUR/0345",
-    status: "Pregnant - 2nd Trimester",
-    lastVisit: "2024-06-14",
-    nextAppointment: "2024-06-21",
-    attendingPhysician: "Dr. Grace Musa",
-    bloodType: "A+",
-    allergies: ["None known"],
-    phone: "08012347890",
-    email: "khadijah.usman@unijos.edu.ng",
-    emergencyContact: "08098768901",
-    address: "No. 67 Gangare, Jos",
-    type: "Student"
-  },
-  {
-    id: "P001245",
-    name: "Joseph Danladi",
-    age: 22,
-    gender: "Male",
-    faculty: "Arts",
-    department: "History",
-    level: "400L",
-    matricNumber: "UJ/2020/ART/0123",
-    status: "Recovering",
-    lastVisit: "2024-06-15",
-    nextAppointment: "2024-06-22",
-    attendingPhysician: "Dr. Emmanuel Yakubu",
+    lastVisit: "2024-05-15",
+    nextAppointment: "2024-07-15",
+    attendingPhysician: "Dr. Aisha Mohammed",
     bloodType: "O-",
-    allergies: ["Dust"],
-    phone: "08012348901",
-    email: "joseph.danladi@unijos.edu.ng",
-    emergencyContact: "08098769012",
-    address: "No. 34 Rayfield Extension, Jos",
-    type: "Student"
+    allergies: ["None known"],
+    phone: "08012345002",
+    email: "john.okafor@unijos.edu.ng",
+    emergencyContact: "08098765002",
+    address: "Senior Staff Quarters, Jos",
+    type: "Staff",
+    condition: "Essential hypertension"
   },
-  {
-    id: "P001246",
-    name: "Zainab Abdullahi",
-    age: 19,
-    gender: "Female",
-    faculty: "Veterinary Medicine",
-    department: "Veterinary Medicine",
-    level: "200L",
-    matricNumber: "UJ/2022/VET/0456",
-    status: "Stable",
-    lastVisit: "2024-06-16",
-    nextAppointment: "2024-07-16",
-    attendingPhysician: "Dr. Mary Gyang",
-    bloodType: "B+",
-    allergies: ["Animal dander"],
-    phone: "08012349012",
-    email: "zainab.abdullahi@unijos.edu.ng",
-    emergencyContact: "08098770123",
-    address: "No. 78 Terminus, Jos",
-    type: "Student"
-  }
 ];
 
 export const PatientManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFaculty, setSelectedFaculty] = useState("all");
+  const [selectedType, setSelectedType] = useState("all");
   const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
   const [isAddPatientOpen, setIsAddPatientOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<typeof allPatients[0] | null>(null);
@@ -511,9 +215,13 @@ export const PatientManagement = () => {
 
   const filteredPatients = allPatients.filter((patient) => {
     const searchRegex = new RegExp(searchQuery, "i");
-    const matchesSearch = searchRegex.test(patient.name) || searchRegex.test(patient.matricNumber);
+    const matchesSearch = 
+      searchRegex.test(patient.name) || 
+      searchRegex.test(patient.matricNumber) ||
+      searchRegex.test(patient.id);
     const matchesFaculty = selectedFaculty === "all" ? true : patient.faculty === selectedFaculty;
-    return matchesSearch && matchesFaculty;
+    const matchesType = selectedType === "all" ? true : patient.type === selectedType;
+    return matchesSearch && matchesFaculty && matchesType;
   });
 
   const handleViewRecords = (patient: typeof allPatients[0]) => {
@@ -521,126 +229,242 @@ export const PatientManagement = () => {
     setIsViewRecordsOpen(true);
   };
 
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "Healthy":
+        return "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800";
+      case "Stable":
+        return "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800";
+      case "Under Treatment":
+        return "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800";
+      case "Recovering":
+        return "bg-green-50 text-green-700 border-green-200 dark:bg-green-950/50 dark:text-green-300 dark:border-green-800";
+      default:
+        return "bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-700";
+    }
+  };
+
+  const getTypeIcon = (type: string) => {
+    return type === "Student" ? GraduationCap : Briefcase;
+  };
+
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Patient Management</h2>
-          <p className="text-gray-600 dark:text-gray-300">Manage student and staff medical records and appointments</p>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="space-y-1">
+          <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Patient Directory</h1>
+          <p className="text-muted-foreground">Manage student and staff medical records</p>
         </div>
         <Button 
-          className="bg-primary hover:bg-primary/90 text-primary-foreground"
+          className="btn-primary shadow-lg hover:shadow-xl transition-all duration-300"
           onClick={() => setIsAddPatientOpen(true)}
         >
           <UserPlus className="h-4 w-4 mr-2" />
-          Add New Patient
+          Add Patient
         </Button>
       </div>
 
-      {/* Search and Filter */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center space-x-2">
-          <Input
-            type="text"
-            placeholder="Search by name or matric number..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="md:w-80 bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
-          />
-          <Select value={selectedFaculty} onValueChange={setSelectedFaculty}>
-            <SelectTrigger className="w-[180px] bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white">
-              <SelectValue placeholder="Filter by Faculty" />
-            </SelectTrigger>
-            <SelectContent className="bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600">
-              <SelectItem value="all">All Faculties</SelectItem>
-              {faculties.map((faculty) => (
-                <SelectItem key={faculty} value={faculty} className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
-                  {faculty}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <Button variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
-          <Download className="h-4 w-4 mr-2" />
-          Export Data
-        </Button>
-      </div>
-
-      {/* Patient Directory */}
-      <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700">
-        <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-white">Patient Directory</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPatients.map((patient) => (
-              <Card 
-                key={patient.id} 
-                className="hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-border hover:shadow-primary/20"
-              >
-                <CardContent className="pt-6">
-                  <div className="flex items-center space-x-4 mb-4">
-                    <Avatar className="h-16 w-16">
-                      <AvatarFallback className="bg-gradient-to-br from-primary/20 to-primary/30 text-primary font-bold text-lg">
-                        {patient.name.substring(0, 2).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{patient.name}</h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
-                          {patient.type}
-                        </span>
-                        <div className="flex items-center gap-1 bg-gradient-to-r from-primary to-medical-green text-primary-foreground px-3 py-1 rounded-full shadow-elegant">
-                          <User className="h-3 w-3" />
-                          <span className="text-xs font-bold">{patient.age}y</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 text-sm">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-blue-50 dark:bg-blue-900/20 p-2 rounded border border-blue-200 dark:border-blue-800">
-                        <span className="text-xs font-medium text-blue-700 dark:text-blue-300">Faculty</span> 
-                        <p className="font-semibold text-blue-800 dark:text-blue-200 truncate">{patient.faculty}</p>
-                      </div>
-                      <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded border border-green-200 dark:border-green-800">
-                        <span className="text-xs font-medium text-green-700 dark:text-green-300">Level</span> 
-                        <p className="font-semibold text-green-800 dark:text-green-200">{patient.level}</p>
-                      </div>
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Department:</span> {patient.department}</p>
-                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">{patient.type === "Staff" ? "Staff ID" : "Matric No"}:</span> {patient.matricNumber}</p>
-                    <div className="bg-amber-50 dark:bg-amber-900/20 p-2 rounded border border-amber-200 dark:border-amber-800">
-                      <p className="text-amber-700 dark:text-amber-300 text-xs"><span className="font-medium">Last Visit:</span> {patient.lastVisit}</p>
-                      <p className="text-amber-700 dark:text-amber-300 text-xs"><span className="font-medium">Next:</span> {patient.nextAppointment}</p>
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-300 text-xs"><span className="font-medium">Physician:</span> {patient.attendingPhysician}</p>
-                  </div>
-
-                  <div className="flex justify-center mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => handleViewRecords(patient)} 
-                      className="w-full border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <Eye className="h-4 w-4 mr-1" />
-                      View Records
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+      {/* Search and Filters */}
+      <Card className="border-0 shadow-sm bg-card/50 backdrop-blur-sm">
+        <CardContent className="p-6">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Search by name, ID, or matric number..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 h-11 bg-background/50 border-border/50 focus:border-primary/50 focus:ring-primary/20"
+              />
+            </div>
+            <div className="flex gap-3">
+              <Select value={selectedType} onValueChange={setSelectedType}>
+                <SelectTrigger className="w-[140px] h-11 bg-background/50 border-border/50">
+                  <Filter className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Types</SelectItem>
+                  <SelectItem value="Student">Students</SelectItem>
+                  <SelectItem value="Staff">Staff</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={selectedFaculty} onValueChange={setSelectedFaculty}>
+                <SelectTrigger className="w-[180px] h-11 bg-background/50 border-border/50">
+                  <SelectValue placeholder="All Faculties" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Faculties</SelectItem>
+                  {faculties.map((faculty) => (
+                    <SelectItem key={faculty} value={faculty}>
+                      {faculty}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Button variant="outline" className="h-11 px-4 border-border/50 hover:bg-accent/50">
+                <Download className="h-4 w-4 mr-2" />
+                Export
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
 
+      {/* Results Summary */}
+      <div className="flex items-center justify-between text-sm text-muted-foreground">
+        <span>Showing {filteredPatients.length} of {allPatients.length} patients</span>
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+            Healthy
+          </span>
+          <span className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+            Under Treatment
+          </span>
+          <span className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+            Stable
+          </span>
+        </div>
+      </div>
+
+      {/* Patient Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {filteredPatients.map((patient, index) => {
+          const TypeIcon = getTypeIcon(patient.type);
+          
+          return (
+            <Card 
+              key={patient.id} 
+              className="group relative overflow-hidden border-0 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-sm"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              {/* Status Indicator */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/60 to-primary/30"></div>
+              
+              <CardContent className="p-6 space-y-4">
+                {/* Header */}
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <Avatar className="h-12 w-12 ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
+                        <AvatarFallback className="bg-gradient-to-br from-primary/20 to-primary/10 text-primary font-semibold text-sm group-hover:from-primary/30 group-hover:to-primary/20 transition-all duration-300">
+                          {getInitials(patient.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-background flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300 truncate">
+                        {patient.name}
+                      </h3>
+                      <div className="flex items-center gap-2 mt-1">
+                        <Badge variant="outline" className="text-xs px-2 py-0.5 border-border/50">
+                          <TypeIcon className="h-3 w-3 mr-1" />
+                          {patient.type}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground">Age {patient.age}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <Badge className={`text-xs px-2 py-1 border ${getStatusColor(patient.status)}`}>
+                    {patient.status}
+                  </Badge>
+                </div>
+
+                {/* Patient Info */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-sm">
+                    <User className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <span className="text-muted-foreground truncate">{patient.matricNumber}</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 text-sm">
+                    <GraduationCap className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <span className="text-foreground truncate">{patient.faculty}</span>
+                    {patient.level && (
+                      <Badge variant="secondary" className="text-xs ml-auto">
+                        {patient.level}
+                      </Badge>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-2 text-sm">
+                    <Stethoscope className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <span className="text-muted-foreground truncate">{patient.condition}</span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-sm">
+                    <Phone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <span className="text-muted-foreground truncate">{patient.phone}</span>
+                  </div>
+                </div>
+
+                {/* Medical Info */}
+                <div className="bg-muted/30 dark:bg-muted/20 rounded-lg p-3 space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground">Last Visit</span>
+                    <span className="font-medium text-foreground">{patient.lastVisit}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground">Next Appointment</span>
+                    <span className="font-medium text-foreground">{patient.nextAppointment}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground">Physician</span>
+                    <span className="font-medium text-foreground truncate ml-2">{patient.attendingPhysician}</span>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-2 pt-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => handleViewRecords(patient)}
+                    className="flex-1 h-9 border-border/50 hover:bg-primary/5 hover:border-primary/30 hover:text-primary transition-all duration-300"
+                  >
+                    <Eye className="h-4 w-4 mr-2" />
+                    View Records
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* Empty State */}
+      {filteredPatients.length === 0 && (
+        <Card className="border-dashed border-2 border-border/50">
+          <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+            <User className="h-12 w-12 text-muted-foreground/50 mb-4" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">No patients found</h3>
+            <p className="text-muted-foreground mb-4">
+              {searchQuery ? "Try adjusting your search criteria" : "Get started by adding your first patient"}
+            </p>
+            <Button onClick={() => setIsAddPatientOpen(true)}>
+              <UserPlus className="h-4 w-4 mr-2" />
+              Add Patient
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Dialogs */}
       <ViewRecordsDialog
         open={isViewRecordsOpen}
-        onOpenChange={(open) => setIsViewRecordsOpen(open)}
+        onOpenChange={setIsViewRecordsOpen}
         patientName={selectedPatient?.name || ""}
         patientId={selectedPatient?.id || ""}
       />
