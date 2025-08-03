@@ -1,4 +1,5 @@
 
+import { memo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity, Users, Calendar, FileText, TrendingUp, TrendingDown } from "lucide-react";
 import { DashboardStats as DashboardStatsType } from "@/types";
@@ -16,7 +17,7 @@ interface DashboardStatsProps {
   stats: DashboardStatsType;
 }
 
-export const DashboardStats = ({ stats }: DashboardStatsProps) => {
+const DashboardStats = ({ stats }: DashboardStatsProps) => {
   const statItems: StatItem[] = [
     {
       title: "Total Patients",
@@ -53,7 +54,7 @@ export const DashboardStats = ({ stats }: DashboardStatsProps) => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 will-change-transform">
       {statItems.map((stat, index) => {
         const Icon = stat.icon;
         const isPositive = stat.change.startsWith('+');
@@ -62,10 +63,10 @@ export const DashboardStats = ({ stats }: DashboardStatsProps) => {
         return (
           <Card 
             key={stat.title} 
-            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-border/50 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-sm relative overflow-hidden"
+            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-border/50 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md relative overflow-hidden will-change-transform"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 will-change-opacity" />
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 sm:pb-2 relative z-10">
               <div className="min-w-0 flex-1">
                 <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground mb-1 truncate">
@@ -75,7 +76,7 @@ export const DashboardStats = ({ stats }: DashboardStatsProps) => {
                   {stat.description}
                 </p>
               </div>
-              <div className={`p-2 sm:p-3 rounded-xl bg-background/50 backdrop-blur-sm ${stat.color} group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+              <div className={`p-2 sm:p-3 rounded-xl bg-background/50 backdrop-blur-sm ${stat.color} group-hover:scale-110 transition-transform duration-300 flex-shrink-0 will-change-transform`}>
                 <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
             </CardHeader>
@@ -96,4 +97,3 @@ export const DashboardStats = ({ stats }: DashboardStatsProps) => {
       })}
     </div>
   );
-};

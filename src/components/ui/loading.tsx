@@ -14,15 +14,19 @@ export const Loading = ({ size = 'md', className }: LoadingProps) => {
   };
 
   return (
-    <div className={cn("animate-spin rounded-full border-2 border-gray-300 border-t-blue-600", sizeClasses[size], className)} />
+    <div className={cn(
+      "animate-spin rounded-full border-2 border-muted border-t-primary will-change-transform", 
+      sizeClasses[size], 
+      className
+    )} />
   );
 };
 
-export const LoadingSpinner = ({ text = "Loading..." }: { text?: string }) => {
+export const LoadingSpinner = ({ text = "Loading...", className }: { text?: string; className?: string }) => {
   return (
-    <div className="flex flex-col items-center justify-center p-8 space-y-4">
+    <div className={cn("flex flex-col items-center justify-center p-8 space-y-4", className)}>
       <Loading size="lg" />
-      <p className="text-gray-600 dark:text-gray-400">{text}</p>
+      <p className="text-muted-foreground text-sm font-medium">{text}</p>
     </div>
   );
 };

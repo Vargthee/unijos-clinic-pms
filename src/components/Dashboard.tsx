@@ -1,4 +1,5 @@
 
+import { memo } from "react";
 import { LoadingSpinner } from "@/components/ui/loading";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { DashboardStats } from "@/components/DashboardStats";
@@ -7,11 +8,15 @@ import { useDashboard } from "@/hooks/useDashboard";
 import { AlertTriangle } from "lucide-react";
 import { Notifications } from "@/components/Notifications";
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const { stats, recentPatients, loading, error } = useDashboard();
 
   if (loading) {
-    return <LoadingSpinner text="Loading dashboard..." />;
+    return (
+      <div className="min-h-[400px] flex items-center justify-center">
+        <LoadingSpinner text="Loading dashboard..." />
+      </div>
+    );
   }
 
   if (error) {
@@ -33,7 +38,7 @@ export const Dashboard = () => {
   }
 
   return (
-    <div className="space-y-4 sm:space-y-6 animate-fade-in">
+    <div className="space-y-4 sm:space-y-6 animate-fade-in will-change-transform">
       <div className="flex flex-col gap-1 sm:gap-2">
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
           Welcome to University of Jos Clinic Dashboard
@@ -45,7 +50,7 @@ export const Dashboard = () => {
       
       <DashboardStats stats={stats} />
       
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 will-change-transform">
         <div className="xl:col-span-2">
           <RecentPatientsList patients={recentPatients} />
         </div>
@@ -55,4 +60,3 @@ export const Dashboard = () => {
       </div>
     </div>
   );
-};

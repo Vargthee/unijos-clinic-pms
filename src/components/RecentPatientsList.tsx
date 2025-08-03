@@ -1,4 +1,5 @@
 
+import { memo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, User, Phone, MoreHorizontal } from "lucide-react";
@@ -9,32 +10,34 @@ interface RecentPatientsListProps {
   patients: Patient[];
 }
 
-export const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
+const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
   return (
-    <Card className="border border-border/50 bg-card/80 backdrop-blur-sm">
+    <Card className="border border-border/50 bg-card/80 backdrop-blur-md will-change-transform">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-semibold text-foreground flex items-center gap-2">
           <Calendar className="h-5 w-5 text-primary" />
           Recent Patients
         </CardTitle>
-        <Button variant="outline" size="sm">View All</Button>
+        <Button variant="outline" size="sm" className="hover:scale-105 transition-transform duration-200">
+          View All
+        </Button>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           {patients.map((patient, index) => (
             <div 
               key={patient.id} 
-              className="group flex items-center justify-between p-4 bg-gradient-to-r from-muted/30 to-muted/10 dark:from-muted/20 dark:to-muted/5 rounded-xl hover:from-muted/50 hover:to-muted/20 dark:hover:from-muted/30 dark:hover:to-muted/10 transition-all duration-300 hover:shadow-md border border-transparent hover:border-border/50"
+              className="group flex items-center justify-between p-4 bg-gradient-to-r from-muted/30 to-muted/10 dark:from-muted/20 dark:to-muted/5 rounded-xl hover:from-muted/50 hover:to-muted/20 dark:hover:from-muted/30 dark:hover:to-muted/10 transition-all duration-300 hover:shadow-md border border-transparent hover:border-border/50 will-change-transform"
               style={{ animationDelay: `${index * 0.05}s` }}
             >
               <div className="flex items-center gap-4 min-w-0 flex-1">
                 <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 will-change-transform">
                     <span className="text-sm font-semibold text-primary">
                       {getInitials(patient.name)}
                     </span>
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background" />
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background animate-pulse" />
                 </div>
                 
                 <div className="min-w-0 flex-1">
@@ -67,7 +70,7 @@ export const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110 will-change-transform"
               >
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
@@ -77,4 +80,3 @@ export const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
       </CardContent>
     </Card>
   );
-};

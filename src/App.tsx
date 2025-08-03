@@ -3,14 +3,28 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
-import Index from "./pages/Index";
-import SignIn from "./pages/SignIn";
-import NotFound from "./pages/NotFound";
+import { Suspense, lazy } from "react";
+import { LoadingSpinner } from "@/components/ui/loading";
 
-const queryClient = new QueryClient();
+// Lazy load components for better performance
+const Index = lazy(() => import("./pages/Index"));
+const SignIn = lazy(() => import("./pages/SignIn"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
+// Optimize React Query configuration
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -20,12 +34,15 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<SignIn />} />
-              <Route path="/dashboard" element={<Index />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Suspense fallback={<LoadingSpinner text="Loading application..." />}>
+              <Routes>
+                <Route path="/" element={<SignIn />} />
+                <Route path="/dashboard" element={<Index />} />
+                <Route path="/signin" element={<Navigate to="/" replace />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </BrowserRouter>
         </TooltipProvider>
       </ErrorBoundary>
