@@ -522,121 +522,136 @@ export const PatientManagement = () => {
   };
 
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-6 p-4 md:p-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Patient Management</h2>
-          <p className="text-gray-600 dark:text-gray-300">Manage student and staff medical records and appointments</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground">Patient Management</h2>
+          <p className="text-muted-foreground mt-1">Manage student and staff medical records</p>
         </div>
         <Button 
-          className="bg-primary hover:bg-primary/90 text-primary-foreground"
           onClick={() => setIsAddPatientOpen(true)}
+          className="self-start sm:self-auto"
         >
           <UserPlus className="h-4 w-4 mr-2" />
-          Add New Patient
+          Add Patient
         </Button>
       </div>
 
       {/* Search and Filter */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center space-x-2">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <div className="flex-1">
           <Input
             type="text"
-            placeholder="Search by name or matric number..."
+            placeholder="Search by name or ID..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="md:w-80 bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
+            className="w-full"
           />
+        </div>
+        <div className="flex gap-2">
           <Select value={selectedFaculty} onValueChange={setSelectedFaculty}>
-            <SelectTrigger className="w-[180px] bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white">
-              <SelectValue placeholder="Filter by Faculty" />
+            <SelectTrigger className="w-full sm:w-[180px]">
+              <SelectValue placeholder="All Faculties" />
             </SelectTrigger>
-            <SelectContent className="bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-600">
+            <SelectContent>
               <SelectItem value="all">All Faculties</SelectItem>
               {faculties.map((faculty) => (
-                <SelectItem key={faculty} value={faculty} className="text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
+                <SelectItem key={faculty} value={faculty}>
                   {faculty}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
+          <Button variant="outline" size="icon" className="shrink-0">
+            <Download className="h-4 w-4" />
+          </Button>
         </div>
-        <Button variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
-          <Download className="h-4 w-4 mr-2" />
-          Export Data
-        </Button>
       </div>
 
       {/* Patient Directory */}
-      <Card className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700">
-        <CardHeader>
-          <CardTitle className="text-gray-900 dark:text-white">Patient Directory</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPatients.map((patient) => (
-              <Card 
-                key={patient.id} 
-                className="hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-border hover:shadow-primary/20"
-              >
-                <CardContent className="pt-6">
-                  <div className="flex items-center space-x-4 mb-4">
-                    <Avatar className="h-16 w-16">
-                      <AvatarFallback className="bg-gradient-to-br from-primary/20 to-primary/30 text-primary font-bold text-lg">
-                        {patient.name.substring(0, 2).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{patient.name}</h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
-                          {patient.type}
-                        </span>
-                        <div className="flex items-center gap-1 bg-gradient-to-r from-primary to-medical-green text-primary-foreground px-3 py-1 rounded-full shadow-elegant">
-                          <User className="h-3 w-3" />
-                          <span className="text-xs font-bold">{patient.age}y</span>
-                        </div>
-                      </div>
-                    </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {filteredPatients.map((patient) => (
+          <Card 
+            key={patient.id} 
+            className="group hover:shadow-md transition-all duration-200 cursor-pointer border bg-card"
+            onClick={() => handleViewRecords(patient)}
+          >
+            <CardContent className="p-4">
+              {/* Header with Avatar and Basic Info */}
+              <div className="flex items-start gap-3 mb-4">
+                <Avatar className="h-12 w-12 shrink-0">
+                  <AvatarFallback className="bg-primary/10 text-primary font-semibold">
+                    {patient.name.substring(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-semibold text-foreground text-sm leading-tight truncate">
+                    {patient.name}
+                  </h3>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground">
+                      {patient.type}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {patient.age}y, {patient.gender}
+                    </span>
                   </div>
+                </div>
+              </div>
 
-                  <div className="space-y-3 text-sm">
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-blue-50 dark:bg-blue-900/20 p-2 rounded border border-blue-200 dark:border-blue-800">
-                        <span className="text-xs font-medium text-blue-700 dark:text-blue-300">Faculty</span> 
-                        <p className="font-semibold text-blue-800 dark:text-blue-200 truncate">{patient.faculty}</p>
-                      </div>
-                      <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded border border-green-200 dark:border-green-800">
-                        <span className="text-xs font-medium text-green-700 dark:text-green-300">Level</span> 
-                        <p className="font-semibold text-green-800 dark:text-green-200">{patient.level}</p>
-                      </div>
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">Department:</span> {patient.department}</p>
-                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">{patient.type === "Staff" ? "Staff ID" : "Matric No"}:</span> {patient.matricNumber}</p>
-                    <div className="bg-amber-50 dark:bg-amber-900/20 p-2 rounded border border-amber-200 dark:border-amber-800">
-                      <p className="text-amber-700 dark:text-amber-300 text-xs"><span className="font-medium">Last Visit:</span> {patient.lastVisit}</p>
-                      <p className="text-amber-700 dark:text-amber-300 text-xs"><span className="font-medium">Next:</span> {patient.nextAppointment}</p>
-                    </div>
-                    <p className="text-gray-700 dark:text-gray-300 text-xs"><span className="font-medium">Physician:</span> {patient.attendingPhysician}</p>
+              {/* Key Information */}
+              <div className="space-y-2 text-xs">
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="bg-muted/50 p-2 rounded">
+                    <div className="text-muted-foreground font-medium">Faculty</div>
+                    <div className="text-foreground font-semibold truncate">{patient.faculty}</div>
                   </div>
+                  <div className="bg-muted/50 p-2 rounded">
+                    <div className="text-muted-foreground font-medium">Level</div>
+                    <div className="text-foreground font-semibold">{patient.level}</div>
+                  </div>
+                </div>
+                
+                <div className="bg-muted/30 p-2 rounded">
+                  <div className="text-muted-foreground font-medium">Department</div>
+                  <div className="text-foreground font-semibold truncate">{patient.department}</div>
+                </div>
 
-                  <div className="flex justify-center mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => handleViewRecords(patient)} 
-                      className="w-full border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <Eye className="h-4 w-4 mr-1" />
-                      View Records
-                    </Button>
+                <div className="bg-muted/30 p-2 rounded">
+                  <div className="text-muted-foreground font-medium">
+                    {patient.type === "Staff" ? "Staff ID" : "Matric No"}
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                  <div className="text-foreground font-semibold text-xs">{patient.matricNumber}</div>
+                </div>
+              </div>
+
+              {/* Footer with Status and Action */}
+              <div className="mt-4 pt-3 border-t border-border">
+                <div className="flex items-center justify-between text-xs">
+                  <div className="text-muted-foreground">
+                    Last: {patient.lastVisit}
+                  </div>
+                  <div className="flex items-center gap-1 text-primary group-hover:text-primary/80 transition-colors">
+                    <Eye className="h-3 w-3" />
+                    <span className="font-medium">View</span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Empty State */}
+      {filteredPatients.length === 0 && (
+        <div className="text-center py-12">
+          <div className="text-muted-foreground">
+            <User className="h-12 w-12 mx-auto mb-4 opacity-50" />
+            <p>No patients found matching your search criteria.</p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      )}
 
       <ViewRecordsDialog
         open={isViewRecordsOpen}
