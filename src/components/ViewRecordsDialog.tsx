@@ -306,7 +306,7 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
         date: "2024-06-01",
         type: "Consultation",
         diagnosis: "General health consultation",
-        doctor: "General Practitioner",
+        doctor: "Dr. Sijuwade Adedotun",
         vitals: { age: "25 years", temperature: "36.5°C", bloodPressure: "120/80 mmHg", pulse: "72 bpm", weight: "65 kg" },
         notes: "Routine consultation. No specific complaints. General health advice given.",
         icon: Stethoscope
