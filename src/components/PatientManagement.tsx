@@ -638,15 +638,15 @@ const PatientManagement = () => {
       )}
 
       {/* Patient Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 will-change-contents">
         {filteredPatients.map((patient, index) => (
           <div 
             key={patient.id}
             style={{ 
-              animationDelay: `${Math.min(index * 50, 500)}ms`,
+              animationDelay: `${Math.min(index * 30, 300)}ms`,
               animationFillMode: 'both'
             }}
-            className="animate-fade-in"
+            className="animate-fade-in will-change-transform"
           >
             <PatientCard patient={patient} onViewRecords={handleViewRecords} />
           </div>

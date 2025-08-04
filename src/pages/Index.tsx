@@ -49,16 +49,16 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row w-full bg-background transition-colors duration-200">
+    <div className="min-h-screen flex flex-col lg:flex-row w-full bg-background transition-colors duration-200 overflow-hidden">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <main className="flex-1 overflow-auto min-w-0 will-change-scroll">
-        <div className="glass-card sticky top-0 z-10 p-2 sm:p-4 backdrop-blur-md">
-          <div className="flex flex-wrap justify-end gap-2">
+      <main className="flex-1 overflow-auto min-w-0 will-change-scroll relative">
+        <div className="glass-card sticky top-0 z-10 p-2 sm:p-3 lg:p-4 backdrop-blur-md border-b border-border/20">
+          <div className="flex flex-wrap justify-end gap-1 sm:gap-2">
             <Button
               variant="outline"
               size="sm"
               onClick={handleSignOut}
-              className="gap-1 sm:gap-2 text-xs sm:text-sm transition-all duration-200 hover:scale-105"
+              className="gap-1 sm:gap-2 text-xs sm:text-sm transition-all duration-200 hover:scale-105 h-8 sm:h-9"
             >
               <LogOut className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="hidden sm:inline">Sign Out</span>
@@ -67,7 +67,7 @@ const Index = () => {
               variant="outline"
               size="sm"
               onClick={toggleTheme}
-              className="gap-1 sm:gap-2 text-xs sm:text-sm transition-all duration-200 hover:scale-105"
+              className="gap-1 sm:gap-2 text-xs sm:text-sm transition-all duration-200 hover:scale-105 h-8 sm:h-9"
             >
               {theme === "dark" ? (
                 <>
@@ -83,7 +83,7 @@ const Index = () => {
             </Button>
           </div>
         </div>
-        <div className="p-2 sm:p-4 lg:p-6 xl:p-8 animate-fade-in will-change-transform">
+        <div className="p-2 sm:p-3 lg:p-4 xl:p-6 animate-fade-in will-change-transform">
           {renderContent()}
         </div>
       </main>

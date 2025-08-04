@@ -38,19 +38,19 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="space-y-4 sm:space-y-6 animate-fade-in will-change-transform">
+    <div className="space-y-3 sm:space-y-4 lg:space-y-6 animate-fade-in will-change-transform">
       <div className="flex flex-col gap-1 sm:gap-2">
-        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
+        <h1 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-foreground leading-tight">
           Welcome to University of Jos Clinic Dashboard
         </h1>
-        <p className="text-sm sm:text-base text-muted-foreground">
+        <p className="text-xs sm:text-sm lg:text-base text-muted-foreground">
           Overview of clinic operations and recent activities
         </p>
       </div>
       
       <DashboardStats stats={stats} loading={loading} />
       
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 will-change-transform">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 will-change-transform">
         <div className="xl:col-span-2">
           <RecentPatientsList patients={recentPatients} loading={loading} />
         </div>

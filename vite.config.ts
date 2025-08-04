@@ -12,20 +12,30 @@ export default defineConfig(({ mode }) => ({
   build: {
     target: 'esnext',
     minify: 'esbuild',
+    cssMinify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-toast'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-toast', 'lucide-react'],
           charts: ['recharts'],
           router: ['react-router-dom'],
+          utils: ['clsx', 'tailwind-merge', 'class-variance-authority'],
         },
       },
     },
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 800,
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', '@tanstack/react-query'],
+    include: [
+      'react', 
+      'react-dom', 
+      'react-router-dom', 
+      '@tanstack/react-query',
+      'lucide-react',
+      'clsx',
+      'tailwind-merge'
+    ],
   },
   plugins: [
     react(),

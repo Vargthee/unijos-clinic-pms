@@ -13,40 +13,40 @@ interface RecentPatientsListProps {
 
 const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
   return (
-    <Card className="border border-border/50 bg-card/80 backdrop-blur-md will-change-transform">
+    <Card className="border border-border/50 bg-card/80 backdrop-blur-md will-change-transform h-full">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-lg font-semibold text-foreground flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-primary" />
+        <CardTitle className="text-base sm:text-lg font-semibold text-foreground flex items-center gap-2">
+          <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
           Recent Patients
         </CardTitle>
-        <Button variant="outline" size="sm" className="hover:scale-105 transition-transform duration-200">
+        <Button variant="outline" size="sm" className="hover:scale-105 transition-transform duration-200 text-xs sm:text-sm">
           View All
         </Button>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
+      <CardContent className="p-3 sm:p-6">
+        <div className="space-y-2 sm:space-y-4">
           {patients.map((patient, index) => (
             <div 
               key={patient.id} 
-              className="group flex items-center justify-between p-4 bg-gradient-to-r from-muted/30 to-muted/10 dark:from-muted/20 dark:to-muted/5 rounded-xl hover:from-muted/50 hover:to-muted/20 dark:hover:from-muted/30 dark:hover:to-muted/10 transition-all duration-300 hover:shadow-md border border-transparent hover:border-border/50 will-change-transform"
+              className="group flex items-center justify-between p-2 sm:p-3 lg:p-4 bg-gradient-to-r from-muted/30 to-muted/10 dark:from-muted/20 dark:to-muted/5 rounded-lg sm:rounded-xl hover:from-muted/50 hover:to-muted/20 dark:hover:from-muted/30 dark:hover:to-muted/10 transition-all duration-200 sm:duration-300 hover:shadow-sm sm:hover:shadow-md border border-transparent hover:border-border/50 will-change-transform"
               style={{ animationDelay: `${index * 0.05}s` }}
             >
-              <div className="flex items-center gap-4 min-w-0 flex-1">
+              <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 min-w-0 flex-1">
                 <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 will-change-transform">
-                    <span className="text-sm font-semibold text-primary">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-105 sm:group-hover:scale-110 transition-transform duration-200 sm:duration-300 will-change-transform">
+                    <span className="text-xs sm:text-sm font-semibold text-primary">
                       {getInitials(patient.name)}
                     </span>
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background animate-pulse" />
+                  <div className="absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 w-2 h-2 sm:w-3 sm:h-3 lg:w-4 lg:h-4 bg-green-500 rounded-full border-1 sm:border-2 border-background animate-pulse" />
                 </div>
                 
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <p className="font-semibold text-foreground truncate group-hover:text-primary transition-colors duration-200">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
+                    <p className="text-sm sm:text-base font-semibold text-foreground truncate group-hover:text-primary transition-colors duration-200">
                       {patient.name}
                     </p>
-                    <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${
+                    <span className={`px-1.5 py-0.5 text-xs rounded-full font-medium self-start sm:self-auto ${
                       patient.gender === 'male' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300' :
                       patient.gender === 'female' ? 'bg-pink-100 text-pink-700 dark:bg-pink-900/20 dark:text-pink-300' :
                       'bg-gray-100 text-gray-700 dark:bg-gray-900/20 dark:text-gray-300'
@@ -55,12 +55,12 @@ const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
                     </span>
                   </div>
                   
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 lg:gap-4 text-xs sm:text-sm text-muted-foreground">
+                    <span className="flex items-center gap-1 min-w-0">
                       <User className="h-3 w-3 flex-shrink-0" />
                       <span className="truncate">{patient.id}</span>
                     </span>
-                    <span className="flex items-center gap-1">
+                    <span className="flex items-center gap-1 min-w-0">
                       <Phone className="h-3 w-3 flex-shrink-0" />
                       <span className="truncate">{patient.phone}</span>
                     </span>
@@ -71,9 +71,9 @@ const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110 will-change-transform"
+                className="h-6 w-6 sm:h-8 sm:w-8 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-105 sm:hover:scale-110 will-change-transform flex-shrink-0"
               >
-                <MoreHorizontal className="h-4 w-4" />
+                <MoreHorizontal className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
             </div>
           ))}

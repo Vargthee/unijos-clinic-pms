@@ -55,7 +55,7 @@ const DashboardStats = ({ stats }: DashboardStatsProps) => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 will-change-transform">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 xl:gap-6 will-change-transform">
       {statItems.map((stat, index) => {
         const Icon = stat.icon;
         const isPositive = stat.change.startsWith('+');
@@ -64,33 +64,33 @@ const DashboardStats = ({ stats }: DashboardStatsProps) => {
         return (
           <Card 
             key={stat.title} 
-            className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-border/50 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md relative overflow-hidden will-change-transform"
+            className="group hover:shadow-lg sm:hover:shadow-xl transition-all duration-200 sm:duration-300 hover:-translate-y-1 sm:hover:-translate-y-2 border border-border/50 bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md relative overflow-hidden will-change-transform"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 will-change-opacity" />
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 sm:pb-2 relative z-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 sm:duration-300 will-change-opacity" />
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 sm:pb-2 p-3 sm:p-4 lg:p-6 relative z-10">
               <div className="min-w-0 flex-1">
-                <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground mb-1 truncate">
+                <CardTitle className="text-xs sm:text-sm lg:text-base font-medium text-muted-foreground mb-1 truncate leading-tight">
                   {stat.title}
                 </CardTitle>
-                <p className="text-xs text-muted-foreground/70 truncate">
+                <p className="text-xs sm:text-sm text-muted-foreground/70 truncate hidden sm:block">
                   {stat.description}
                 </p>
               </div>
-              <div className={`p-2 sm:p-3 rounded-xl bg-background/50 backdrop-blur-sm ${stat.color} group-hover:scale-110 transition-transform duration-300 flex-shrink-0 will-change-transform`}>
-                <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
+              <div className={`p-1.5 sm:p-2 lg:p-3 rounded-lg sm:rounded-xl bg-background/50 backdrop-blur-sm ${stat.color} group-hover:scale-105 sm:group-hover:scale-110 transition-transform duration-200 sm:duration-300 flex-shrink-0 will-change-transform`}>
+                <Icon className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
               </div>
             </CardHeader>
-            <CardContent className="relative z-10 pt-1 sm:pt-2">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-1 sm:mb-2 group-hover:text-primary transition-colors duration-300">
+            <CardContent className="relative z-10 pt-0 p-3 sm:p-4 lg:p-6">
+              <div className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-foreground mb-1 sm:mb-2 group-hover:text-primary transition-colors duration-200 sm:duration-300 leading-none">
                 {stat.value}
               </div>
-              <div className="flex items-center text-xs sm:text-sm">
-                <TrendIcon className={`h-3 w-3 sm:h-4 sm:w-4 mr-1 ${isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />
+              <div className="flex items-center text-xs sm:text-sm gap-1">
+                <TrendIcon className={`h-3 w-3 sm:h-4 sm:w-4 ${isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />
                 <span className={`font-medium ${isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                   {stat.change}
                 </span>
-                <span className="ml-1 text-muted-foreground hidden sm:inline">from last week</span>
+                <span className="text-muted-foreground hidden lg:inline text-xs">from last week</span>
               </div>
             </CardContent>
           </Card>

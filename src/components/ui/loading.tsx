@@ -24,9 +24,9 @@ export const Loading = ({ size = 'md', className }: LoadingProps) => {
 
 export const LoadingSpinner = ({ text = "Loading...", className }: { text?: string; className?: string }) => {
   return (
-    <div className={cn("flex flex-col items-center justify-center p-8 space-y-4", className)}>
-      <Loading size="lg" />
-      <p className="text-muted-foreground text-sm font-medium">{text}</p>
+    <div className={cn("flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 space-y-3 sm:space-y-4", className)}>
+      <Loading size="md" className="sm:h-8 sm:w-8 lg:h-12 lg:w-12" />
+      <p className="text-muted-foreground text-xs sm:text-sm font-medium text-center">{text}</p>
     </div>
   );
 };
