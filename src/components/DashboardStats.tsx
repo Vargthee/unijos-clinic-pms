@@ -15,6 +15,7 @@ interface StatItem {
 
 interface DashboardStatsProps {
   stats: DashboardStatsType;
+  loading?: boolean;
 }
 
 const DashboardStats = ({ stats }: DashboardStatsProps) => {
@@ -97,3 +98,6 @@ const DashboardStats = ({ stats }: DashboardStatsProps) => {
       })}
     </div>
   );
+};
+
+export default DashboardStats;

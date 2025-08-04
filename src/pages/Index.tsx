@@ -1,7 +1,7 @@
 
 import { useState, useEffect, lazy, Suspense } from "react";
-import { Sidebar } from "@/components/Sidebar";
-import { Dashboard } from "@/components/Dashboard";
+import Sidebar from "@/components/Sidebar";
+import Dashboard from "@/components/Dashboard";
 import { LoadingSpinner } from "@/components/ui/loading";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Moon, Sun, LogOut } from "lucide-react";

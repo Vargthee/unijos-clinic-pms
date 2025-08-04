@@ -62,3 +62,6 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
       </div>
     </Card>
   );
+};
+
+export default Sidebar;

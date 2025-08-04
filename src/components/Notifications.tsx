@@ -53,3 +53,6 @@ const Notifications = () => {
       </CardContent>
     </Card>
   );
+};
+
+export default Notifications;

@@ -70,7 +70,7 @@ const getStatusColor = (status: string) => {
   }
 };
 
-export const Appointments = () => {
+const Appointments = () => {
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState<any>(null);
@@ -250,3 +250,5 @@ export const Appointments = () => {
     </div>
   );
 };
+
+export default Appointments;

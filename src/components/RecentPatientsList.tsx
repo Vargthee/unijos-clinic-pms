@@ -8,6 +8,7 @@ import { getInitials } from "@/utils";
 
 interface RecentPatientsListProps {
   patients: Patient[];
+  loading?: boolean;
 }
 
 const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
@@ -80,3 +81,6 @@ const RecentPatientsList = ({ patients }: RecentPatientsListProps) => {
       </CardContent>
     </Card>
   );
+};
+
+export default RecentPatientsList;

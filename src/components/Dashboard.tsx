@@ -2,11 +2,11 @@
 import { memo } from "react";
 import { LoadingSpinner } from "@/components/ui/loading";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { DashboardStats } from "@/components/DashboardStats";
-import { RecentPatientsList } from "@/components/RecentPatientsList";
+import DashboardStats from "@/components/DashboardStats";
+import RecentPatientsList from "@/components/RecentPatientsList";
 import { useDashboard } from "@/hooks/useDashboard";
 import { AlertTriangle } from "lucide-react";
-import { Notifications } from "@/components/Notifications";
+import Notifications from "@/components/Notifications";
 
 const Dashboard = () => {
   const { stats, recentPatients, loading, error } = useDashboard();
@@ -48,11 +48,11 @@ const Dashboard = () => {
         </p>
       </div>
       
-      <DashboardStats stats={stats} />
+      <DashboardStats stats={stats} loading={loading} />
       
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 will-change-transform">
         <div className="xl:col-span-2">
-          <RecentPatientsList patients={recentPatients} />
+          <RecentPatientsList patients={recentPatients} loading={loading} />
         </div>
         <div>
           <Notifications />
@@ -60,5 +60,6 @@ const Dashboard = () => {
       </div>
     </div>
   );
+};
 
-}
+export default Dashboard;
