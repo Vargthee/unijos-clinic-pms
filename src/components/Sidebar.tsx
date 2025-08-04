@@ -22,8 +22,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 interface SidebarProps {
   activeTab: string;
-  onTabChange?: (tab: string) => void;
-  setActiveTab?: (tab: string) => void;
+  onTabChange: (tab: string) => void;
 }
 
 const navigation = [
@@ -37,8 +36,7 @@ const navigation = [
   { id: 'vaccinations', name: 'Vaccinations', icon: Shield },
 ];
 
-const SidebarContent = ({ activeTab, onTabChange, setActiveTab }: SidebarProps) => {
-  const handleTabChange = onTabChange || setActiveTab;
+const SidebarContent = ({ activeTab, onTabChange }: SidebarProps) => {
   return (
     <div className="flex h-full flex-col">
       {/* Logo */}
@@ -60,7 +58,7 @@ const SidebarContent = ({ activeTab, onTabChange, setActiveTab }: SidebarProps) 
           return (
             <button
               key={item.id}
-              onClick={() => handleTabChange?.(item.id)}
+              onClick={() => onTabChange(item.id)}
               className={cn(
                 'flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                 isActive
@@ -97,7 +95,7 @@ const SidebarContent = ({ activeTab, onTabChange, setActiveTab }: SidebarProps) 
       {/* Settings */}
       <div className="border-t p-3">
         <button
-          onClick={() => handleTabChange?.('settings')}
+          onClick={() => onTabChange('settings')}
           className={cn(
             'flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors',
             activeTab === 'settings'
@@ -113,13 +111,13 @@ const SidebarContent = ({ activeTab, onTabChange, setActiveTab }: SidebarProps) 
   );
 };
 
-export const Sidebar = ({ activeTab, onTabChange, setActiveTab }: SidebarProps) => {
+export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
   return (
     <>
       {/* Desktop Sidebar */}
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
         <div className="flex flex-col min-h-0 border-r bg-background">
-          <SidebarContent activeTab={activeTab} onTabChange={onTabChange} setActiveTab={setActiveTab} />
+          <SidebarContent activeTab={activeTab} onTabChange={onTabChange} />
         </div>
       </div>
 
@@ -135,7 +133,7 @@ export const Sidebar = ({ activeTab, onTabChange, setActiveTab }: SidebarProps) 
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-64 p-0">
-          <SidebarContent activeTab={activeTab} onTabChange={onTabChange} setActiveTab={setActiveTab} />
+          <SidebarContent activeTab={activeTab} onTabChange={onTabChange} />
         </SheetContent>
       </Sheet>
     </>

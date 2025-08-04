@@ -50,7 +50,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row w-full bg-background transition-colors duration-200">
-      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <main className="flex-1 overflow-auto min-w-0 will-change-scroll">
         <div className="glass-card sticky top-0 z-10 p-2 sm:p-4 backdrop-blur-md">
           <div className="flex flex-wrap justify-end gap-2">

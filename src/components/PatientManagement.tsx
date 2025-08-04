@@ -162,7 +162,7 @@ const mockPatients = [
   }
 ];
 
-const PatientManagement = () => {
+export const PatientManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddPatientOpen, setIsAddPatientOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'students' | 'staff'>('all');
@@ -350,5 +350,3 @@ const PatientManagement = () => {
     </div>
   );
 };
-
-export default PatientManagement;
