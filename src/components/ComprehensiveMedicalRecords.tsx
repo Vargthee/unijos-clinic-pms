@@ -1750,3 +1750,5 @@ export const ComprehensiveMedicalRecords = () => {
     </div>
   );
 };
+
+export default ComprehensiveMedicalRecords;

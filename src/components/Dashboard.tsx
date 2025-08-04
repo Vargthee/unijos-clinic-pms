@@ -8,7 +8,7 @@ import { useDashboard } from "@/hooks/useDashboard";
 import { AlertTriangle } from "lucide-react";
 import { Notifications } from "@/components/Notifications";
 
-const Dashboard = () => {
+export const Dashboard = () => {
   const { stats, recentPatients, loading, error } = useDashboard();
 
   if (loading) {
@@ -48,11 +48,11 @@ const Dashboard = () => {
         </p>
       </div>
       
-      <DashboardStats stats={stats} />
+      <DashboardStats stats={stats} loading={loading} />
       
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 will-change-transform">
         <div className="xl:col-span-2">
-          <RecentPatientsList patients={recentPatients} />
+          <RecentPatientsList patients={recentPatients} loading={loading} />
         </div>
         <div>
           <Notifications />
