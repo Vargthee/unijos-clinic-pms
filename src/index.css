@@ -108,9 +108,7 @@
     --sidebar-border: 217.2 32.6% 17.5%;
     --sidebar-ring: 217 91% 70%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
@@ -276,6 +274,54 @@
     outline-offset: 2px;
     transition: outline 0.2s ease;
   }
+
+  /* Focus management for accessibility */
+  .dark *:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+
+  /* Improved text readability */
+  .dark {
+    --foreground: 210 40% 98%;
+    --muted-foreground: 215 20.2% 75%;
+  }
+
+  /* Optimized loading states */
+  .loading-skeleton {
+    background: linear-gradient(90deg, 
+      hsl(var(--muted)) 25%, 
+      hsl(var(--muted-foreground) / 0.1) 50%, 
+      hsl(var(--muted)) 75%
+    );
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+  }
+
+  /* Enhanced hover effects with GPU acceleration */
+  .hover-lift-gpu {
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+  }
+
+  .hover-lift-gpu:hover {
+    transform: translate3d(0, -2px, 0);
+  }
+
+  /* Better focus states for accessibility */
+  .focus-ring {
+    transition: box-shadow 0.2s ease-out;
+  }
+
+  .focus-ring:focus-visible {
+    box-shadow: 0 0 0 2px hsl(var(--primary)), 0 0 0 4px hsl(var(--primary) / 0.2);
+  }
+
+  /* Optimized backdrop blur */
+  .backdrop-blur-optimized {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
 }
 
 /* Enhanced responsive design */
@@ -359,6 +405,15 @@
   animation: slide-up 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 /* Optimized scrolling */
 .will-change-scroll {
   will-change: scroll-position;
@@ -376,35 +431,26 @@
   will-change: opacity;
 }
 
-/* Improved hover effects with GPU acceleration */
-.hover-lift-gpu {
-  transition: transform 0.2s ease-out;
-  will-change: transform;
-}
-
-.hover-lift-gpu:hover {
-  transform: translate3d(0, -2px, 0);
-}
-
-/* Better focus states for accessibility */
-.focus-ring {
-  transition: box-shadow 0.2s ease-out;
-}
-
-.focus-ring:focus-visible {
-  box-shadow: 0 0 0 2px hsl(var(--primary)), 0 0 0 4px hsl(var(--primary) / 0.2);
-}
-
-/* Optimized backdrop blur */
-.backdrop-blur-optimized {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-/* Focus management for accessibility */
-.dark *:focus {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  .hover-lift {
+    transform: none;
+    transition: none;
+  }
+  
+  .hover-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .hover-scale {
+    transform: none;
+    transition: none;
+  }
+  
+  .hover-scale:hover {
+    transform: none;
+  }
 }
 
 /* Mobile-first responsive improvements */
@@ -434,29 +480,6 @@
   }
 }
 
-/* Performance optimizations for mobile */
-@media (max-width: 768px) {
-  .hover-lift {
-    transform: none;
-    transition: none;
-  }
-  
-  .hover-lift:hover {
-    transform: none;
-    box-shadow: none;
-  }
-  
-  .hover-scale {
-    transform: none;
-    transition: none;
-  }
-  
-  .hover-scale:hover {
-    transform: none;
-  }
-}
-
-/* Improved text readability */
 @media (max-width: 640px) {
   body {
     font-size: 14px;
@@ -474,32 +497,6 @@
   .text-sm {
     font-size: 0.875rem;
   }
-}
-
-/* Optimized loading states */
-.loading-skeleton {
-  background: linear-gradient(90deg, 
-    hsl(var(--muted)) 25%, 
-    hsl(var(--muted-foreground) / 0.1) 50%, 
-    hsl(var(--muted)) 75%
-  );
-  background-size: 200% 100%;
-  animation: loading-shimmer 1.5s infinite;
-}
-
-@keyframes loading-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-/* Enhanced contrast for better readability */
-.dark {
-  --foreground: 210 40% 98%;
-  --muted-foreground: 215 20.2% 75%;
 }
 
 /* Reduced motion for accessibility */
