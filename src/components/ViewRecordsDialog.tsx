@@ -26,65 +26,6 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           icon: Heart
         }
       ],
-      "P001235": [ // Ibrahim Musa
-        {
-          id: "R002",
-          date: "2024-06-07",
-          type: "Treatment",
-          diagnosis: "Sickle cell vaso-occlusive crisis",
-          doctor: "Dr. John Okafor",
-          vitals: { 
-            age: "22 years", 
-            temperature: "37.8°C", 
-            bloodPressure: "130/85 mmHg", 
-            pulse: "95 bpm", 
-            weight: "61 kg", 
-            height: "178 cm", 
-            respiratoryRate: "22/min", 
-            oxygenSaturation: "94%" 
-          },
-          notes: "22-year-old male with known sickle cell disease presenting with severe vaso-occlusive crisis. Pain score 9/10 in bilateral lower extremities. Managed with morphine 10mg IV, hydroxyurea 500mg, IV hydration with normal saline, and oxygen therapy. Pain reduced to 4/10 after treatment. Patient counseled on crisis prevention and hydration importance.",
-          icon: Stethoscope
-        },
-        {
-          id: "R002B",
-          date: "2024-05-15",
-          type: "Follow-up",
-          diagnosis: "Sickle cell disease - routine monitoring",
-          doctor: "Dr. John Okafor",
-          vitals: { 
-            age: "22 years", 
-            temperature: "36.8°C", 
-            bloodPressure: "125/80 mmHg", 
-            pulse: "78 bpm", 
-            weight: "62 kg", 
-            height: "178 cm", 
-            respiratoryRate: "18/min", 
-            oxygenSaturation: "97%" 
-          },
-          notes: "Routine follow-up for sickle cell disease. Patient reports good adherence to hydroxyurea therapy. No recent pain crises. Hemoglobin level stable at 9.2 g/dL. Folic acid supplementation continued. Next appointment in 3 months.",
-          icon: Heart
-        },
-        {
-          id: "R002C",
-          date: "2024-04-10",
-          type: "Emergency",
-          diagnosis: "Acute chest syndrome secondary to sickle cell disease",
-          doctor: "Dr. Grace Musa",
-          vitals: { 
-            age: "22 years", 
-            temperature: "38.5°C", 
-            bloodPressure: "140/90 mmHg", 
-            pulse: "110 bpm", 
-            weight: "61 kg", 
-            height: "178 cm", 
-            respiratoryRate: "26/min", 
-            oxygenSaturation: "89%" 
-          },
-          notes: "Emergency presentation with chest pain, fever, and shortness of breath. Chest X-ray showed bilateral infiltrates. Treated with oxygen therapy, antibiotics (ceftriaxone), bronchodilators, and exchange transfusion. Significant improvement after 48 hours.",
-          icon: Brain
-        }
-      ],
       "P001236": [ // Blessing Eze
         {
           id: "R003",
