@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Eye,
   UserPlus,
-  Download,
+  
   User,
 } from "lucide-react";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
@@ -565,7 +565,7 @@ const PatientManagement = () => {
         <div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">Patient Directory</h2>
           <p className="text-muted-foreground mt-1 text-sm sm:text-base">
-            {stats.filtered} of {stats.total} patients • {stats.students} students • {stats.staff} staff
+            Comprehensive patient management system
           </p>
         </div>
         <Button 
@@ -619,9 +619,6 @@ const PatientManagement = () => {
                 </SelectContent>
               </Select>
               
-              <Button variant="outline" size="icon" className="shrink-0 h-10 w-10 hover:scale-105 transition-transform duration-200">
-                <Download className="h-4 w-4" />
-              </Button>
             </div>
           </div>
         </CardContent>
@@ -680,35 +677,6 @@ const PatientManagement = () => {
         </Card>
       )}
 
-      {/* Quick Stats */}
-      {filteredPatients.length > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/30 border-blue-200 dark:border-blue-800/50">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">{stats.total}</div>
-              <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">Total Patients</div>
-            </CardContent>
-          </Card>
-          <Card className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/30 border-green-200 dark:border-green-800/50">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-700 dark:text-green-300">{stats.students}</div>
-              <div className="text-xs text-green-600 dark:text-green-400 font-medium">Students</div>
-            </CardContent>
-          </Card>
-          <Card className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/50 dark:to-purple-900/30 border-purple-200 dark:border-purple-800/50">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-purple-700 dark:text-purple-300">{stats.staff}</div>
-              <div className="text-xs text-purple-600 dark:text-purple-400 font-medium">Staff</div>
-            </CardContent>
-          </Card>
-          <Card className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/50 dark:to-orange-900/30 border-orange-200 dark:border-orange-800/50">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-700 dark:text-orange-300">{filteredPatients.length}</div>
-              <div className="text-xs text-orange-600 dark:text-orange-400 font-medium">Showing</div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
 
       {/* Dialogs */}
       <ViewRecordsDialog

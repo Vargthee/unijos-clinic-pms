@@ -37,15 +37,7 @@ const Index = () => {
 
     const Component = components[activeTab] || Dashboard;
     
-    if (activeTab === 'dashboard') {
-      return <Component />;
-    }
-    
-    return (
-      <Suspense fallback={<LoadingSpinner text={`Loading ${activeTab}...`} />}>
-        <Component />
-      </Suspense>
-    );
+    return <Component />;
   };
 
   return (

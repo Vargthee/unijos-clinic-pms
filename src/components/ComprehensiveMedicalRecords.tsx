@@ -641,6 +641,7 @@ const studentRecords = [
     id: "STU002",
     patientId: "P001235",
     name: "Ibrahim Musa",
+    age: 22,
     matricNumber: "UJ/2020/MED/0456",
     faculty: "Medicine",
     department: "Medicine & Surgery",
