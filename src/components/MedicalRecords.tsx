@@ -34,6 +34,31 @@ const medicalRecords = [
     level: "200L"
   },
   {
+    id: "R002",
+    name: "Ibrahim Musa",
+    patientId: "P001235",
+    age: 22,
+    matricNumber: "UJ/2020/MED/0456",
+    recordType: "Emergency",
+    diagnosis: "Sickle cell disease - vaso-occlusive crisis",
+    doctor: "Dr. John Okafor",
+    date: "2024-06-07",
+    medications: ["Morphine 10mg IV", "Hydroxyurea 500mg", "Folic acid 5mg", "Normal saline IV", "Oxygen therapy"],
+    notes: "22-year-old male with known SCD presenting with severe bone pain crisis. Managed with analgesics, hydration, and oxygen. Pain score reduced from 9/10 to 4/10.",
+    vitals: {
+      age: "22 years",
+      temperature: "37.8°C",
+      bloodPressure: "130/85 mmHg",
+      pulse: "110 bpm",
+      weight: "72 kg",
+      height: "178 cm",
+      respiratoryRate: "22/min",
+      oxygenSaturation: "94% (on room air)"
+    },
+    faculty: "Medicine",
+    level: "400L"
+  },
+  {
     id: "R003",
     name: "Blessing Eze",
     patientId: "P001236",

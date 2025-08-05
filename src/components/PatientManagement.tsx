@@ -39,6 +39,27 @@ const allPatients = [
     type: "Student"
   },
   {
+    id: "P001235",
+    name: "Ibrahim Musa",
+    age: 22,
+    gender: "Male",
+    faculty: "Medicine",
+    department: "Medicine & Surgery",
+    level: "400L",
+    matricNumber: "UJ/2020/MED/0456",
+    status: "Good",
+    lastVisit: "2024-06-07",
+    nextAppointment: "2024-06-15",
+    attendingPhysician: "Dr. John Okafor",
+    bloodType: "A+",
+    allergies: ["None known"],
+    phone: "08023456789",
+    email: "ibrahim.musa@unijos.edu.ng",
+    emergencyContact: "08087654321",
+    address: "No. 12 Bauchi Road, Jos",
+    type: "Student"
+  },
+  {
     id: "P001236",
     name: "Blessing Eze",
     age: 18,

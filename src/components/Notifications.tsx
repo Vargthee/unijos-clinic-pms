@@ -14,6 +14,10 @@ const notifications = [
     time: "1 hour ago",
   },
   {
+    title: "Refill prescription for Ibrahim Musa.",
+    time: "3 hours ago",
+  },
+  {
     title: "Follow-up with Yusuf Abdullahi.",
     time: "Yesterday",
   },
