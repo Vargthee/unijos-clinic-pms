@@ -6,9 +6,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
-import Index from "./pages/Index";
-import SignIn from "./pages/SignIn";
-import NotFound from "./pages/NotFound";
+import { Suspense, lazy } from "react";
+import { LoadingSpinner } from "@/components/ui/loading";
+
+// Lazy load components for better performance
+const Index = lazy(() => import("./pages/Index"));
+const SignIn = lazy(() => import("./pages/SignIn"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Optimize React Query configuration
 const queryClient = new QueryClient({
@@ -31,13 +35,15 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<SignIn />} />
-              <Route path="/dashboard" element={<Index />} />
-              <Route path="/signin" element={<Navigate to="/" replace />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Suspense fallback={null}>
+              <Routes>
+                <Route path="/" element={<SignIn />} />
+                <Route path="/dashboard" element={<Index />} />
+                <Route path="/signin" element={<Navigate to="/" replace />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </BrowserRouter>
         </TooltipProvider>
       </ErrorBoundary>
