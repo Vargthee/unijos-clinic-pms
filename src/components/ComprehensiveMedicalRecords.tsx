@@ -1244,442 +1244,346 @@ const getHealthStatusColor = (status: string) => {
   }
 };
 
-export const ComprehensiveMedicalRecords = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedRecord, setSelectedRecord] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState("overview");
-  const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
-  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
-
-  const filteredStaff = universityStaffRecords.filter(staff =>
-    staff.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    staff.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    staff.staffId.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const filteredStudents = studentRecords.filter(student =>
-    student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.faculty.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.matricNumber.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleViewRecord = (record: any) => {
-    setSelectedRecord(record);
-    setActiveTab("overview");
-  };
-
-  const handleAddEntry = () => {
-    if (selectedRecord) {
-      setIsAddEntryOpen(true);
-    }
-  };
-
-  const handleScheduleAppointment = () => {
-    if (selectedRecord) {
-      setIsScheduleOpen(true);
-    }
-  };
-
-  const RecordCard = ({ record, isStaff = false }) => (
-    <Card 
-      key={record.id} 
-      className="hover-lift cursor-pointer transition-all duration-300"
-      onClick={() => handleViewRecord(record)}
-    >
-      <CardContent className="p-4 sm:p-6">
-        <div className="flex items-center gap-4 mb-4">
-          <Avatar className="h-12 w-12 sm:h-14 sm:w-14">
-            <AvatarFallback className="bg-primary/10 text-primary font-semibold text-lg">
+// Enhanced UI Components for better design
+const PatientProfileCard = ({ record }: { record: any }) => (
+  <Card className="border border-border/30 bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-sm shadow-lg">
+    <CardContent className="p-6">
+      <div className="text-center space-y-4">
+        {/* Avatar */}
+        <div className="relative mx-auto w-20 h-20">
+          <Avatar className="w-20 h-20 border-4 border-primary/20 shadow-lg">
+            <AvatarFallback className="text-lg font-bold bg-gradient-to-br from-primary/30 to-primary/10 text-primary">
               {record.initials}
             </AvatarFallback>
           </Avatar>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between gap-2 mb-1">
-              <h3 className="font-semibold text-lg text-foreground truncate">{record.name}</h3>
-              <Badge className={getHealthStatusColor(record.healthStatus)}>
-                {record.healthStatus}
-              </Badge>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {isStaff ? record.staffId : record.matricNumber}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {isStaff ? `${record.role} - ${record.department}` : `${record.faculty} - ${record.level}`}
-            </p>
-          </div>
+          <div className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full border-2 border-background ${
+            record.healthStatus === 'Excellent' ? 'bg-green-500' :
+            record.healthStatus === 'Good' ? 'bg-blue-500' :
+            record.healthStatus === 'Stable' ? 'bg-yellow-500' :
+            'bg-orange-500'
+          }`} />
         </div>
         
-        <div className="grid grid-cols-2 gap-4 text-sm mb-4">
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground">{isStaff ? record.lastCheckup : record.lastVisit}</span>
+        {/* Patient Info */}
+        <div className="space-y-2">
+          <h3 className="text-xl font-bold text-foreground">{record.name}</h3>
+          <div className="flex items-center justify-center gap-2">
+            <Badge className="bg-primary/10 text-primary border-primary/20">
+              {record.matricNumber || record.staffId}
+            </Badge>
           </div>
-          <div className="flex items-center gap-2">
-            <Stethoscope className="h-4 w-4 text-muted-foreground" />
-            <span className="text-muted-foreground">{record.bloodType}</span>
-          </div>
-        </div>
-
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" className="flex-1">
-            <Eye className="h-3 w-3 mr-1" />
-            View Full Record
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
-  const DetailedView = ({ record, isStaff }) => (
-    <Card className="mt-6 border-2 border-primary/20">
-      <CardHeader>
-        <div className="flex justify-between items-center">
-          <CardTitle className="flex items-center gap-2 text-xl">
-            <FileText className="h-6 w-6 text-primary" />
-            Medical Record - {record.name}
-          </CardTitle>
-          <Button variant="outline" onClick={() => setSelectedRecord(null)}>
-            Close
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          {/* Personal Information */}
-          <div className="lg:col-span-1">
-            <div className="space-y-4">
-              <div className="text-center">
-                <Avatar className="h-20 w-20 mx-auto mb-4">
-                  <AvatarFallback className="bg-primary/10 text-primary font-semibold text-2xl">
-                    {record.initials}
-                  </AvatarFallback>
-                </Avatar>
-                <h3 className="font-semibold text-lg">{record.name}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {isStaff ? record.staffId : record.matricNumber}
-                </p>
-                <Badge className={getHealthStatusColor(record.healthStatus)}>
-                  {record.healthStatus}
-                </Badge>
-              </div>
-              
-              <div className="space-y-3">
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground">Blood Type</label>
-                  <p className="text-sm font-medium">{record.bloodType}</p>
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground">Email</label>
-                  <p className="text-sm">{record.email}</p>
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground">Phone</label>
-                  <p className="text-sm">{record.phone}</p>
-                </div>
-                {isStaff && (
-                  <>
-                    <div>
-                      <label className="text-xs font-medium text-muted-foreground">Department</label>
-                      <p className="text-sm">{record.department}</p>
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-muted-foreground">Unit</label>
-                      <p className="text-sm">{record.unit}</p>
-                    </div>
-                  </>
-                )}
-                {!isStaff && (
-                  <>
-                    <div>
-                      <label className="text-xs font-medium text-muted-foreground">Faculty</label>
-                      <p className="text-sm">{record.faculty}</p>
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-muted-foreground">Level</label>
-                      <p className="text-sm">{record.level}</p>
-                    </div>
-                  </>
-                )}
+          <div className="grid grid-cols-2 gap-3 mt-4 text-sm">
+            <div className="bg-muted/30 p-3 rounded-lg">
+              <div className="text-muted-foreground font-medium">Faculty</div>
+              <div className="font-semibold">{record.faculty}</div>
+            </div>
+            <div className="bg-muted/30 p-3 rounded-lg">
+              <div className="text-muted-foreground font-medium">Level</div>
+              <div className="font-semibold">{record.level}</div>
+            </div>
+            <div className="bg-muted/30 p-3 rounded-lg">
+              <div className="text-muted-foreground font-medium">Blood Type</div>
+              <div className="font-semibold text-red-600 dark:text-red-400">{record.bloodType}</div>
+            </div>
+            <div className="bg-muted/30 p-3 rounded-lg">
+              <div className="text-muted-foreground font-medium">Status</div>
+              <div className={`font-semibold ${
+                record.healthStatus === 'Excellent' ? 'text-green-600 dark:text-green-400' :
+                record.healthStatus === 'Good' ? 'text-blue-600 dark:text-blue-400' :
+                record.healthStatus === 'Stable' ? 'text-yellow-600 dark:text-yellow-400' :
+                'text-orange-600 dark:text-orange-400'
+              }`}>
+                {record.healthStatus}
               </div>
             </div>
           </div>
-
-          {/* Vital Signs */}
-          <div className="lg:col-span-1">
-            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
-              <Heart className="h-5 w-5 text-primary" />
-              Current Vitals
-            </h4>
-            <div className="space-y-3">
-              {record.vitals && (
-                <div className="grid gap-3">
-                  <Card className="p-3 bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-800">
-                    <div className="flex items-center gap-2 mb-1">
-                      <User className="h-4 w-4 text-indigo-500" />
-                      <span className="text-xs font-medium text-indigo-700 dark:text-indigo-300">Age</span>
-                    </div>
-                    <p className="text-lg font-bold text-indigo-800 dark:text-indigo-200">{record.vitals.age}</p>
-                  </Card>
-                  <Card className="p-3">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Thermometer className="h-4 w-4 text-red-500" />
-                      <span className="text-xs font-medium">Temperature</span>
-                    </div>
-                    <p className="text-sm font-semibold">{record.vitals.temperature}</p>
-                  </Card>
-                  <Card className="p-3">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Activity className="h-4 w-4 text-blue-500" />
-                      <span className="text-xs font-medium">Blood Pressure</span>
-                    </div>
-                    <p className="text-sm font-semibold">{record.vitals.bloodPressure}</p>
-                  </Card>
-                  <Card className="p-3">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Heart className="h-4 w-4 text-red-500" />
-                      <span className="text-xs font-medium">Pulse</span>
-                    </div>
-                    <p className="text-sm font-semibold">{record.vitals.pulse}</p>
-                  </Card>
-                  <Card className="p-3">
-                    <div className="text-xs font-medium mb-1">Weight</div>
-                    <p className="text-sm font-semibold">{record.vitals.weight}</p>
-                  </Card>
-                  <Card className="p-3">
-                    <div className="text-xs font-medium mb-1">Height</div>
-                    <p className="text-sm font-semibold">{record.vitals.height}</p>
-                  </Card>
-                  <Card className="p-3">
-                    <div className="text-xs font-medium mb-1">BMI</div>
-                    <p className="text-sm font-semibold">{record.vitals.bmi}</p>
-                  </Card>
-                  <Card className="p-3">
-                    <div className="text-xs font-medium mb-1">Respiratory Rate</div>
-                    <p className="text-sm font-semibold">{record.vitals.respiratoryRate}</p>
-                  </Card>
-                  <Card className="p-3">
-                    <div className="text-xs font-medium mb-1">O2 Saturation</div>
-                    <p className="text-sm font-semibold">{record.vitals.oxygenSaturation}</p>
-                  </Card>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Medical History & Previous Visits */}
-          <div className="lg:col-span-1">
-            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
-              <Clock className="h-5 w-5 text-primary" />
-              Medical History
-            </h4>
-            <div className="space-y-3 mb-6">
-              {record.medicalHistory?.map((entry, index) => (
-                <Card key={index} className="p-3">
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-start">
-                      <Badge variant="outline" className="text-xs">{entry.type}</Badge>
-                      <span className="text-xs text-muted-foreground">{entry.date}</span>
-                    </div>
-                    <h5 className="font-medium text-sm">{entry.diagnosis}</h5>
-                    <p className="text-xs text-muted-foreground">{entry.treatment}</p>
-                    <p className="text-xs text-muted-foreground">👨‍⚕️ {entry.doctor}</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
-
-            {record.previousVisits && (
-              <>
-                <h5 className="font-semibold text-sm mb-3">Previous Visits</h5>
-                <div className="space-y-2">
-                  {record.previousVisits.map((visit, index) => (
-                    <Card key={index} className="p-2">
-                      <div className="text-xs">
-                        <div className="font-medium">{visit.date}</div>
-                        <div className="text-muted-foreground">{visit.reason}</div>
-                        <div className="text-muted-foreground">👨‍⚕️ {visit.doctor}</div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Prescriptions */}
-          <div className="lg:col-span-1">
-            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
-              <PillBottle className="h-5 w-5 text-primary" />
-              Medications
-            </h4>
-            <div className="space-y-3 mb-6">
-              {record.prescriptions?.length > 0 ? record.prescriptions.map((prescription, index) => (
-                <Card key={index} className="p-3">
-                  <div className="space-y-2">
-                    <h5 className="font-medium text-sm">{prescription.medication}</h5>
-                    <div className="text-xs space-y-1">
-                      <p><strong>Dosage:</strong> {prescription.dosage}</p>
-                      <p><strong>Duration:</strong> {prescription.duration}</p>
-                      <p><strong>Date:</strong> {prescription.date}</p>
-                    </div>
-                  </div>
-                </Card>
-              )) : (
-                <p className="text-sm text-muted-foreground">No current medications</p>
-              )}
-            </div>
-
-            {/* Mental Health */}
-            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
-              <Brain className="h-5 w-5 text-primary" />
-              Mental Health
-            </h4>
-            <Card className="p-4">
-              <div className="space-y-3">
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground">Last Assessment</label>
-                  <p className="text-sm">{record.mentalHealth?.lastAssessment}</p>
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground">Status</label>
-                  <Badge className={getHealthStatusColor(record.mentalHealth?.status || "Good")}>
-                    {record.mentalHealth?.status}
-                  </Badge>
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground">Recommendations</label>
-                  <p className="text-xs bg-muted p-2 rounded mt-1">
-                    {record.mentalHealth?.recommendations}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Vaccinations */}
-          <div className="lg:col-span-1">
-            <h4 className="text-lg font-semibold flex items-center gap-2 mb-4">
-              <Shield className="h-5 w-5 text-primary" />
-              Vaccines
-            </h4>
-            <div className="space-y-3">
-              {record.vaccinations?.map((vaccination, index) => (
-                <Card key={index} className="p-3">
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-start">
-                      <h5 className="font-medium text-sm">{vaccination.vaccine}</h5>
-                      <Badge 
-                        className={new Date(vaccination.nextDue) > new Date() 
-                          ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300" 
-                          : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
-                        }
-                      >
-                        {new Date(vaccination.nextDue) > new Date() ? "Current" : "Due"}
-                      </Badge>
-                    </div>
-                    <div className="text-xs space-y-1">
-                      <p><strong>Given:</strong> {vaccination.date}</p>
-                      <p><strong>Next:</strong> {vaccination.nextDue}</p>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
         </div>
+      </div>
+    </CardContent>
+  </Card>
+);
 
-        {/* Action Buttons */}
-        <div className="flex gap-2 mt-6 pt-4 border-t">
-          <Button variant="outline" className="flex-1">
-            <Download className="h-4 w-4 mr-2" />
-            Export Record
-          </Button>
-          <Button variant="outline" className="flex-1" onClick={handleScheduleAppointment}>
-            <Calendar className="h-4 w-4 mr-2" />
-            Schedule Appointment
-          </Button>
-          <Button className="flex-1" onClick={handleAddEntry}>
-            <Plus className="h-4 w-4 mr-2" />
-            Add Entry
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
+const ComprehensiveMedicalRecords = () => {
+  const [selectedRecord, setSelectedRecord] = useState(studentRecords[0]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("students");
+  const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
+  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="flex items-center gap-3">
-          <FileText className="h-8 w-8 text-primary" />
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Medical Records</h2>
-            <p className="text-muted-foreground">Comprehensive health management system</p>
+    <div className="space-y-6 animate-fade-in">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+        <div>
+          <h2 className="text-2xl lg:text-3xl font-bold text-foreground">Medical Records</h2>
+          <p className="text-muted-foreground mt-1">
+            Comprehensive patient medical information and history
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <Button onClick={() => setIsAddEntryOpen(true)} className="gap-2">
+            <Plus className="h-4 w-4" />
+            Add Entry
+          </Button>
+          <Button onClick={() => setIsScheduleOpen(true)} variant="outline" className="gap-2">
+            <Calendar className="h-4 w-4" />
+            Schedule
+          </Button>
+        </div>
+      </div>
+
+      {/* Search and Filters */}
+      <Card className="border border-border/30 bg-card/60 backdrop-blur-sm">
+        <CardContent className="p-4">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                placeholder="Search by name, ID, or department..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 bg-background/50"
+              />
+            </div>
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
+              <TabsList className="grid w-full grid-cols-2 lg:w-auto">
+                <TabsTrigger value="students" className="gap-2">
+                  <Users className="h-4 w-4" />
+                  Students
+                </TabsTrigger>
+                <TabsTrigger value="staff" className="gap-2">
+                  <UserCheck className="h-4 w-4" />
+                  Staff
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Records Grid */}
+      <div className="grid lg:grid-cols-4 gap-6">
+        {/* Records List */}
+        <div className="lg:col-span-1">
+          <Card className="border border-border/30 bg-card/80">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <FileText className="h-5 w-5" />
+                Patient Records
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="space-y-2 p-4">
+                {studentRecords.map((record) => (
+                  <div
+                    key={record.id}
+                    onClick={() => setSelectedRecord(record)}
+                    className={`p-3 rounded-lg cursor-pointer transition-all duration-200 hover:bg-muted/50 ${
+                      selectedRecord.id === record.id ? 'bg-primary/10 border border-primary/20' : 'bg-muted/20'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-10 w-10">
+                        <AvatarFallback className="text-sm">{record.initials}</AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">{record.name}</p>
+                        <p className="text-xs text-muted-foreground">{record.matricNumber}</p>
+                        <p className="text-xs text-muted-foreground">{record.faculty}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Detailed Record View */}
+        <div className="lg:col-span-3">
+          <div className="lg:grid lg:grid-cols-3 lg:gap-6 space-y-6 lg:space-y-0">
+            {/* Patient Profile */}
+            <div className="lg:col-span-1 space-y-6">
+              <PatientProfileCard record={selectedRecord} />
+              
+              {/* Contact Information */}
+              <Card className="border border-border/30 bg-card/60 backdrop-blur-sm">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <User className="h-5 w-5 text-primary" />
+                    Contact Information
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="grid gap-3">
+                    <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
+                      <span className="text-muted-foreground font-medium">Email</span>
+                      <span className="font-mono text-sm">{selectedRecord.email}</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
+                      <span className="text-muted-foreground font-medium">Phone</span>
+                      <span className="font-mono text-sm">{selectedRecord.phone}</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
+                      <span className="text-muted-foreground font-medium">Last Visit</span>
+                      <span className="text-sm">{selectedRecord.lastVisit}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Vital Signs */}
+            <div className="lg:col-span-1">
+              <Card className="border border-border/30 bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-sm shadow-lg h-fit">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Heart className="h-5 w-5 text-red-500" />
+                    Current Vitals
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {selectedRecord.vitals && (
+                    <div className="grid gap-4">
+                      {/* Age - Special highlight */}
+                      <Card className="p-4 bg-gradient-to-r from-primary/10 to-primary/5 border-primary/30 shadow-sm">
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 bg-primary/20 rounded-lg">
+                            <User className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <div className="text-sm font-medium text-muted-foreground">Age</div>
+                            <div className="text-2xl font-bold text-primary">{selectedRecord.vitals.age}</div>
+                          </div>
+                        </div>
+                      </Card>
+                      
+                      {/* Other vitals in a grid */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <Card className="p-3 hover:shadow-md transition-shadow duration-200">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Thermometer className="h-4 w-4 text-red-500" />
+                            <span className="text-xs font-medium text-muted-foreground">Temperature</span>
+                          </div>
+                          <p className="text-sm font-bold">{selectedRecord.vitals.temperature}</p>
+                        </Card>
+                        
+                        <Card className="p-3 hover:shadow-md transition-shadow duration-200">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Activity className="h-4 w-4 text-blue-500" />
+                            <span className="text-xs font-medium text-muted-foreground">BP</span>
+                          </div>
+                          <p className="text-sm font-bold">{selectedRecord.vitals.bloodPressure}</p>
+                        </Card>
+                        
+                        <Card className="p-3 hover:shadow-md transition-shadow duration-200">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Heart className="h-4 w-4 text-red-500" />
+                            <span className="text-xs font-medium text-muted-foreground">Pulse</span>
+                          </div>
+                          <p className="text-sm font-bold">{selectedRecord.vitals.pulse}</p>
+                        </Card>
+                        
+                        <Card className="p-3 hover:shadow-md transition-shadow duration-200">
+                          <div className="text-xs font-medium text-muted-foreground mb-1">O2 Sat</div>
+                          <p className="text-sm font-bold">{selectedRecord.vitals.oxygenSaturation}</p>
+                        </Card>
+                        
+                        <Card className="p-3 hover:shadow-md transition-shadow duration-200">
+                          <div className="text-xs font-medium text-muted-foreground mb-1">Weight</div>
+                          <p className="text-sm font-bold">{selectedRecord.vitals.weight}</p>
+                        </Card>
+                        
+                        <Card className="p-3 hover:shadow-md transition-shadow duration-200">
+                          <div className="text-xs font-medium text-muted-foreground mb-1">Height</div>
+                          <p className="text-sm font-bold">{selectedRecord.vitals.height}</p>
+                        </Card>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Medical History */}
+            <div className="lg:col-span-1">
+              <Card className="border border-border/30 bg-gradient-to-br from-card/90 to-card/60 backdrop-blur-sm shadow-lg">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-primary" />
+                    Medical History
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4 mb-6">
+                    {selectedRecord.medicalHistory?.map((entry, index) => (
+                      <Card key={index} className="p-4 border border-border/30 hover:shadow-md transition-all duration-200">
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-start">
+                            <Badge 
+                              variant={entry.type === 'Emergency' ? 'destructive' : 'outline'} 
+                              className="text-xs"
+                            >
+                              {entry.type}
+                            </Badge>
+                            <span className="text-xs text-muted-foreground font-medium">{entry.date}</span>
+                          </div>
+                          <div>
+                            <h5 className="font-semibold text-sm text-foreground mb-1">{entry.diagnosis}</h5>
+                            <p className="text-xs text-muted-foreground leading-relaxed">{entry.treatment}</p>
+                          </div>
+                          <div className="flex items-center gap-2 pt-2 border-t border-border/30">
+                            <Stethoscope className="h-3 w-3 text-primary" />
+                            <span className="text-xs font-medium text-primary">{entry.doctor}</span>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+
+                  {selectedRecord.previousVisits && (
+                    <>
+                      <div className="border-t border-border/30 pt-4">
+                        <h5 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                          <Calendar className="h-4 w-4 text-primary" />
+                          Previous Visits
+                        </h5>
+                        <div className="space-y-3">
+                          {selectedRecord.previousVisits.map((visit, index) => (
+                            <Card key={index} className="p-3 bg-muted/20 border-border/20">
+                              <div className="space-y-1">
+                                <div className="flex justify-between items-center">
+                                  <span className="text-xs font-medium">{visit.date}</span>
+                                  <Badge variant="secondary" className="text-xs">{visit.reason}</Badge>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <Stethoscope className="h-3 w-3 text-muted-foreground" />
+                                  <span className="text-xs text-muted-foreground">{visit.doctor}</span>
+                                </div>
+                              </div>
+                            </Card>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
-        <Button className="bg-primary hover:bg-primary/90" onClick={() => setIsAddEntryOpen(true)}>
-          <Plus className="h-4 w-4 mr-2" />
-          New Record
-        </Button>
       </div>
 
-      {/* Search Bar */}
-      <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-        <Input
-          placeholder="Search records..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-10"
-        />
-      </div>
-
-      <Tabs defaultValue="staff" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-6">
-          <TabsTrigger value="staff" className="flex items-center gap-2">
-            <UserCheck className="h-4 w-4" />
-            University Staff ({filteredStaff.length})
-          </TabsTrigger>
-          <TabsTrigger value="students" className="flex items-center gap-2">
-            <Users className="h-4 w-4" />
-            Students ({filteredStudents.length})
-          </TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="staff" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredStaff.map((staff) => (
-              <RecordCard key={staff.id} record={staff} isStaff={true} />
-            ))}
-          </div>
-        </TabsContent>
-        
-        <TabsContent value="students" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredStudents.map((student) => (
-              <RecordCard key={student.id} record={student} isStaff={false} />
-            ))}
-          </div>
-        </TabsContent>
-      </Tabs>
-
-      {selectedRecord && (
-        <DetailedView 
-          record={selectedRecord} 
-          isStaff={selectedRecord.staffId ? true : false} 
-        />
-      )}
-
+      {/* Dialogs */}
       <AddMedicalEntryDialog 
         open={isAddEntryOpen} 
         onOpenChange={setIsAddEntryOpen}
-        patientName={selectedRecord?.name || "Patient"}
+        patientName={selectedRecord.name}
       />
-
       <ScheduleAppointmentDialog 
         open={isScheduleOpen} 
         onOpenChange={setIsScheduleOpen}
-        patientName={selectedRecord?.name || "Patient"}
+        patientName={selectedRecord.name}
       />
     </div>
   );
