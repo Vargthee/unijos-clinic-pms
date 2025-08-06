@@ -22,17 +22,6 @@ const mockRecentPatients: Patient[] = [
     emergencyContact: "+234-987-654-3210",
   },
   {
-    id: "P001235",
-    name: "Ibrahim Musa",
-    email: "ibrahim@email.com",
-    phone: "+234-123-456-7891",
-    dateOfBirth: "1985-08-22",
-    age: 39,
-    gender: "male",
-    address: "456 Plateau Street, Jos",
-    emergencyContact: "+234-987-654-3211",
-  },
-  {
     id: "P001236",
     name: "Blessing Eze",
     email: "blessing@email.com",

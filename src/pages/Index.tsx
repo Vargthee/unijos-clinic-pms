@@ -1,18 +1,15 @@
 
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import Dashboard from "@/components/Dashboard";
-import { LoadingSpinner } from "@/components/ui/loading";
+import PatientManagement from "@/components/PatientManagement";
+import Appointments from "@/components/Appointments";
+import ComprehensiveMedicalRecords from "@/components/ComprehensiveMedicalRecords";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Moon, Sun, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigation } from "@/hooks/useNavigation";
 import { TabType } from "@/types";
-
-// Lazy load heavy components
-const PatientManagement = lazy(() => import("@/components/PatientManagement"));
-const Appointments = lazy(() => import("@/components/Appointments"));
-const ComprehensiveMedicalRecords = lazy(() => import("@/components/ComprehensiveMedicalRecords"));
 
 const Index = () => {
   const { activeTab, setActiveTab, handleSignOut } = useNavigation();

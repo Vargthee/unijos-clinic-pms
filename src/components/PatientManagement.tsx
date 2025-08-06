@@ -8,7 +8,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Eye,
   UserPlus,
-  
+  Search,
+  Users,
   User,
 } from "lucide-react";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
@@ -36,27 +37,6 @@ const allPatients = [
     email: "adaora.okonkwo@unijos.edu.ng",
     emergencyContact: "08098765432",
     address: "No. 45 Zaria Road, Jos",
-    type: "Student"
-  },
-  {
-    id: "P001235",
-    name: "Ibrahim Musa",
-    age: 22,
-    gender: "Male",
-    faculty: "Medicine",
-    department: "Medicine & Surgery",
-    level: "400L",
-    matricNumber: "UJ/2020/MED/0456",
-    status: "Good",
-    lastVisit: "2024-06-07",
-    nextAppointment: "2024-06-15",
-    attendingPhysician: "Dr. John Okafor",
-    bloodType: "A+",
-    allergies: ["None known"],
-    phone: "08023456789",
-    email: "ibrahim.musa@unijos.edu.ng",
-    emergencyContact: "08087654321",
-    address: "No. 12 Bauchi Road, Jos",
     type: "Student"
   },
   {
@@ -577,48 +557,64 @@ const PatientManagement = () => {
         </Button>
       </div>
 
-      {/* Enhanced Search and Filter */}
-      <Card className="border border-border/50 bg-card/50 backdrop-blur-sm">
-        <CardContent className="p-4">
-          <div className="flex flex-col lg:flex-row gap-3 lg:gap-4">
-            <div className="flex-1">
+      {/* Enhanced Search and Filter Section */}
+      <Card className="border border-border/30 bg-gradient-to-r from-card/80 to-card/60 backdrop-blur-sm shadow-lg">
+        <CardContent className="p-4 lg:p-6">
+          <div className="space-y-4">
+            {/* Search Bar */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 type="text"
-                placeholder="Search by name, ID, department, or faculty..."
+                placeholder="Search patients by name, ID, department, or faculty..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-10 transition-all duration-200 focus:ring-2 focus:ring-primary/20"
+                className="pl-10 h-12 text-base bg-background/50 border-border/50 focus:border-primary/50 focus:bg-background transition-all duration-200"
               />
             </div>
-            <div className="flex flex-col sm:flex-row gap-2 lg:gap-3">
-              <Select value={selectedType} onValueChange={setSelectedType}>
-                <SelectTrigger className="w-full sm:w-[140px] h-10">
-                  <SelectValue placeholder="All Types" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  {types.map((type) => (
-                    <SelectItem key={type} value={type}>
-                      {type}s
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              
-              <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
-                <SelectTrigger className="w-full sm:w-[180px] h-10">
-                  <SelectValue placeholder="All Departments" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Departments</SelectItem>
-                  {departments.map((dept) => (
-                    <SelectItem key={dept} value={dept}>
-                      {dept}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              
+            
+            {/* Filter Controls */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <Select value={selectedType} onValueChange={setSelectedType}>
+                  <SelectTrigger className="h-11 bg-background/50 border-border/50 hover:border-border transition-colors">
+                    <SelectValue placeholder="All Types" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Types</SelectItem>
+                    {types.map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {type}s
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                
+                <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
+                  <SelectTrigger className="h-11 bg-background/50 border-border/50 hover:border-border transition-colors">
+                    <SelectValue placeholder="All Departments" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Departments</SelectItem>
+                    {departments.map((dept) => (
+                      <SelectItem key={dept} value={dept}>
+                        {dept}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                
+                {/* Quick Stats */}
+                <div className="hidden lg:flex items-center gap-2 px-3 py-2 bg-primary/10 rounded-lg border border-primary/20">
+                  <Users className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-medium text-foreground">{stats.total} Total</span>
+                </div>
+                
+                <div className="hidden lg:flex items-center gap-2 px-3 py-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                  <User className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                  <span className="text-sm font-medium text-foreground">{stats.students} Students</span>
+                </div>
+              </div>
             </div>
           </div>
         </CardContent>
@@ -634,16 +630,16 @@ const PatientManagement = () => {
         </div>
       )}
 
-      {/* Patient Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 will-change-contents">
+      {/* Enhanced Patient Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-4 lg:gap-6">
         {filteredPatients.map((patient, index) => (
           <div 
             key={patient.id}
             style={{ 
-              animationDelay: `${Math.min(index * 30, 300)}ms`,
+              animationDelay: `${Math.min(index * 50, 500)}ms`,
               animationFillMode: 'both'
             }}
-            className="animate-fade-in will-change-transform"
+            className="animate-fade-in hover:scale-[1.02] transition-transform duration-300 will-change-transform"
           >
             <PatientCard patient={patient} onViewRecords={handleViewRecords} />
           </div>
