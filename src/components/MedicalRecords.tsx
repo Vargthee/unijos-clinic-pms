@@ -1,12 +1,32 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Plus, Download, Eye, UserCheck } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { 
+  FileText, 
+  Plus, 
+  Download, 
+  Eye, 
+  UserCheck, 
+  Search, 
+  Filter,
+  Calendar,
+  User,
+  Stethoscope,
+  Heart,
+  Activity,
+  Clock,
+  ChevronRight,
+  FileX
+} from "lucide-react";
 import { NewRecordDialog } from "./NewRecordDialog";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-// 10 student medical records with diverse Nigerian medical conditions
+// Enhanced medical records with better organization
 const medicalRecords = [
   {
     id: "R001",
@@ -14,24 +34,23 @@ const medicalRecords = [
     patientId: "P001234",
     age: 20,
     matricNumber: "UJ/2022/ENG/0234",
-    recordType: "Treatment",
-    diagnosis: "Uncomplicated malaria (P. falciparum)",
+    recordType: "Emergency",
+    diagnosis: "Severe malaria with complications",
     doctor: "Dr. Fatima Aliyu",
     date: "2024-06-05",
-    medications: ["Artemether-Lumefantrine (Coartem)", "Paracetamol 500mg", "ORS sachets"],
-    notes: "20-year-old female with uncomplicated malaria. Rapid diagnostic test positive for P. falciparum. Good response to ACT. Counseled on ITN use and prevention.",
+    priority: "High",
+    status: "Active",
+    medications: ["Artemether-Lumefantrine", "IV Fluids", "Paracetamol"],
+    notes: "Patient responded well to treatment. Fever subsided after 48 hours.",
     vitals: {
-      age: "20 years",
       temperature: "39.2°C",
       bloodPressure: "110/70 mmHg",
       pulse: "88 bpm",
-      weight: "58 kg",
-      height: "165 cm",
-      respiratoryRate: "20/min",
-      oxygenSaturation: "97%"
+      weight: "58 kg"
     },
     faculty: "Engineering",
-    level: "200L"
+    level: "200L",
+    lastUpdated: "2 hours ago"
   },
   {
     id: "R003",
@@ -43,20 +62,19 @@ const medicalRecords = [
     diagnosis: "Gastroenteritis (acute)",
     doctor: "Dr. Aisha Mohammed",
     date: "2024-06-08",
-    medications: ["ORS sachets", "Loperamide 2mg", "Probiotics", "Zinc supplements"],
-    notes: "18-year-old female with acute gastroenteritis. Likely food-borne illness. Well hydrated, no signs of severe dehydration. Dietary advice given.",
+    priority: "Medium",
+    status: "Recovering",
+    medications: ["ORS sachets", "Probiotics", "Zinc supplements"],
+    notes: "Symptoms improving. Continue hydration therapy.",
     vitals: {
-      age: "18 years",
       temperature: "36.8°C",
       bloodPressure: "115/75 mmHg",
       pulse: "78 bpm",
-      weight: "55 kg",
-      height: "162 cm",
-      respiratoryRate: "18/min",
-      oxygenSaturation: "99%"
+      weight: "55 kg"
     },
     faculty: "Social Sciences",
-    level: "100L"
+    level: "100L",
+    lastUpdated: "1 day ago"
   },
   {
     id: "R004",
@@ -64,178 +82,26 @@ const medicalRecords = [
     patientId: "P001237",
     age: 21,
     matricNumber: "UJ/2021/NSC/0789",
-    recordType: "Emergency",
-    diagnosis: "Acute asthma exacerbation",
+    recordType: "Follow-up",
+    diagnosis: "Asthma management",
     doctor: "Dr. Grace Musa",
     date: "2024-06-09",
-    medications: ["Salbutamol nebulizer", "Prednisolone 40mg", "Ipratropium bromide", "Peak flow meter"],
-    notes: "21-year-old male with acute asthma exacerbation triggered by dust exposure. Peak flow 40% of predicted. Good response to bronchodilators. Asthma action plan reviewed.",
+    priority: "Medium",
+    status: "Stable",
+    medications: ["Salbutamol inhaler", "Prednisolone"],
+    notes: "Peak flow improved. Continue current medication regimen.",
     vitals: {
-      age: "21 years",
       temperature: "36.9°C",
       bloodPressure: "125/80 mmHg",
       pulse: "95 bpm",
-      weight: "68 kg",
-      height: "175 cm",
-      respiratoryRate: "28/min",
-      oxygenSaturation: "92% (improved to 97% post-treatment)"
+      weight: "68 kg"
     },
     faculty: "Natural Sciences",
-    level: "300L"
-  },
-  {
-    id: "R005",
-    name: "Fatima Aliyu",
-    patientId: "P001238",
-    age: 23,
-    matricNumber: "UJ/2019/LAW/0345",
-    recordType: "Treatment",
-    diagnosis: "Iron deficiency anemia",
-    doctor: "Dr. Hauwa Ibrahim",
-    date: "2024-06-06",
-    medications: ["Ferrous sulfate 200mg", "Vitamin C 500mg", "Folic acid 5mg", "Tranexamic acid"],
-    notes: "23-year-old female with iron deficiency anemia (Hb: 7.8g/dL). Associated with menorrhagia. Iron supplementation started. Gynecological consultation arranged.",
-    vitals: {
-      age: "23 years",
-      temperature: "36.5°C",
-      bloodPressure: "100/65 mmHg",
-      pulse: "105 bpm",
-      weight: "62 kg",
-      height: "168 cm",
-      respiratoryRate: "20/min",
-      oxygenSaturation: "98%"
-    },
-    faculty: "Law",
-    level: "500L"
-  },
-  {
-    id: "R006",
-    name: "Chidi Okafor",
-    patientId: "P001239",
-    age: 20,
-    matricNumber: "UJ/2022/PHM/0567",
-    recordType: "Follow-up",
-    diagnosis: "Upper respiratory tract infection",
-    doctor: "Dr. Samuel Dung",
-    date: "2024-06-04",
-    medications: ["Amoxicillin 500mg", "Loratadine 10mg", "Throat lozenges", "Steam inhalation"],
-    notes: "20-year-old male with viral upper respiratory tract infection. Mild bacterial superinfection suspected. Symptomatic treatment with antibiotics for 5 days.",
-    vitals: {
-      age: "20 years",
-      temperature: "36.7°C",
-      bloodPressure: "120/78 mmHg",
-      pulse: "76 bpm",
-      weight: "66 kg",
-      height: "172 cm",
-      respiratoryRate: "18/min",
-      oxygenSaturation: "98%"
-    },
-    faculty: "Pharmacy",
-    level: "200L"
-  },
-  {
-    id: "R007",
-    name: "Amina Bello",
-    patientId: "P001240",
-    age: 19,
-    matricNumber: "UJ/2023/EDU/0890",
-    recordType: "Treatment",
-    diagnosis: "Urinary tract infection (UTI)",
-    doctor: "Dr. Mary Gyang",
-    date: "2024-06-10",
-    medications: ["Ciprofloxacin 500mg", "Cranberry extract", "Increased fluid intake", "Paracetamol for pain"],
-    notes: "19-year-old female with uncomplicated UTI. Urine culture positive for E. coli. Sensitive to ciprofloxacin. Hygiene counseling and prevention strategies discussed.",
-    vitals: {
-      age: "19 years",
-      temperature: "37.5°C",
-      bloodPressure: "112/70 mmHg",
-      pulse: "82 bpm",
-      weight: "51 kg",
-      height: "160 cm",
-      respiratoryRate: "18/min",
-      oxygenSaturation: "99%"
-    },
-    faculty: "Education",
-    level: "100L"
-  },
-  {
-    id: "R008",
-    name: "David Pam",
-    patientId: "P001241",
-    age: 21,
-    matricNumber: "UJ/2021/AGR/0456",
-    recordType: "Emergency",
-    diagnosis: "Acute appendicitis (post-operative)",
-    doctor: "Dr. Peter Bulus",
-    date: "2024-06-11",
-    medications: ["Ceftriaxone 1g IV", "Metronidazole 500mg", "Tramadol 50mg", "IV fluids"],
-    notes: "21-year-old male post-appendectomy (laparoscopic). Uncomplicated acute appendicitis. Post-operative recovery excellent. Wound healing well, no complications.",
-    vitals: {
-      age: "21 years",
-      temperature: "37.2°C",
-      bloodPressure: "118/75 mmHg",
-      pulse: "85 bpm",
-      weight: "74 kg",
-      height: "180 cm",
-      respiratoryRate: "16/min",
-      oxygenSaturation: "98%"
-    },
-    faculty: "Agriculture",
-    level: "300L"
-  },
-  {
-    id: "R009",
-    name: "Hauwa Mohammed",
-    patientId: "P001242",
-    age: 22,
-    matricNumber: "UJ/2020/ENV/0123",
-    recordType: "Follow-up",
-    diagnosis: "Anxiety disorder (generalized)",
-    doctor: "Dr. Emmanuel Yakubu",
-    date: "2024-06-12",
-    medications: ["Sertraline 50mg", "Propranolol 10mg PRN", "Relaxation techniques", "Counseling sessions"],
-    notes: "22-year-old female with generalized anxiety disorder. Academic stress-related. Good response to SSRI therapy. Regular counseling sessions scheduled.",
-    vitals: {
-      age: "22 years",
-      temperature: "36.6°C",
-      bloodPressure: "125/82 mmHg",
-      pulse: "88 bpm",
-      weight: "63 kg",
-      height: "166 cm",
-      respiratoryRate: "18/min",
-      oxygenSaturation: "99%"
-    },
-    faculty: "Environmental Sciences",
-    level: "400L"
-  },
-  {
-    id: "R010",
-    name: "Samuel Gyang",
-    patientId: "P001243",
-    age: 18,
-    matricNumber: "UJ/2023/MSC/0789",
-    recordType: "Treatment",
-    diagnosis: "Allergic rhinitis (seasonal)",
-    doctor: "Dr. Ruth Laven",
-    date: "2024-06-13",
-    medications: ["Loratadine 10mg", "Fluticasone nasal spray", "Saline nasal rinse", "Antihistamine eye drops"],
-    notes: "18-year-old male with seasonal allergic rhinitis. Symptoms worsen during harmattan season. Good response to antihistamines and topical steroids.",
-    vitals: {
-      age: "18 years",
-      temperature: "37.3°C",
-      bloodPressure: "115/70 mmHg",
-      pulse: "92 bpm",
-      weight: "67 kg",
-      height: "174 cm",
-      respiratoryRate: "16/min",
-      oxygenSaturation: "98%"
-    },
-    faculty: "Management Sciences",
-    level: "100L"
+    level: "300L",
+    lastUpdated: "3 days ago"
   }
 ];
 
-// 8 staff medical records with diverse conditions
 const staffMedicalRecords = [
   {
     id: "SMR001",
@@ -244,242 +110,62 @@ const staffMedicalRecords = [
     age: 45,
     role: "Registrar",
     department: "Academic Registry",
-    unit: "Student Records",
-    recordType: "Treatment",
-    diagnosis: "Hypertension (essential) - well controlled",
+    recordType: "Check-up",
+    diagnosis: "Annual health screening - normal",
     doctor: "Dr. Samuel Dung",
     date: "2024-05-20",
-    medications: ["Lisinopril 10mg", "Amlodipine 5mg", "Lifestyle modifications"],
-    notes: "45-year-old female with well-controlled essential hypertension. Regular monitoring shows good BP control. Lifestyle modifications effective.",
+    priority: "Low",
+    status: "Completed",
+    medications: ["Multivitamins", "Calcium supplements"],
+    notes: "All health parameters within normal limits.",
     vitals: {
-      age: "45 years",
       temperature: "36.7°C",
-      bloodPressure: "125/82 mmHg",
-      pulse: "75 bpm",
-      weight: "62 kg",
-      height: "164 cm",
-      respiratoryRate: "16/min",
-      oxygenSaturation: "98%"
-    },
-    bloodType: "O+",
-    allergies: ["None known"],
-  },
-  {
-    id: "SMR002",
-    staffId: "S002",
-    name: "Mr. James Dung",
-    age: 52,
-    role: "Chief Librarian",
-    department: "Library Services",
-    unit: "Main Library",
-    recordType: "Follow-up",
-    diagnosis: "Type 2 diabetes mellitus - well controlled",
-    doctor: "Dr. Grace Musa",
-    date: "2024-04-15",
-    medications: ["Metformin 500mg BD", "Glimepiride 2mg", "Dietary counseling"],
-    notes: "52-year-old male with well-controlled T2DM. HbA1c: 6.8%. Good compliance with medications and diet. Regular monitoring continues.",
-    vitals: {
-      age: "52 years",
-      temperature: "36.8°C",
-      bloodPressure: "130/85 mmHg",
-      pulse: "72 bpm",
-      weight: "75 kg",
-      height: "176 cm",
-      respiratoryRate: "16/min",
-      oxygenSaturation: "97%"
-    },
-    bloodType: "A+",
-    allergies: ["None known"],
-  },
-  {
-    id: "SMR003",
-    staffId: "S003",
-    name: "Mrs. Grace Yakubu",
-    age: 38,
-    role: "Security Coordinator",
-    department: "Security Services",
-    unit: "Campus Security",
-    recordType: "Treatment",
-    diagnosis: "Musculoskeletal strain (occupational)",
-    doctor: "Dr. Aisha Mohammed",
-    date: "2024-06-01",
-    medications: ["Ibuprofen 400mg", "Muscle relaxants", "Physiotherapy", "Ergonomic assessment"],
-    notes: "38-year-old female with work-related musculoskeletal strain. Long hours of standing and walking. Physiotherapy and workplace modifications recommended.",
-    vitals: {
-      age: "38 years",
-      temperature: "36.5°C",
-      bloodPressure: "120/75 mmHg",
-      pulse: "68 bpm",
-      weight: "58 kg",
-      height: "163 cm",
-      respiratoryRate: "15/min",
-      oxygenSaturation: "99%"
-    },
-    bloodType: "B+",
-    allergies: ["None known"],
-  },
-  {
-    id: "SMR004",
-    staffId: "S004",
-    name: "Engr. Emmanuel Bulus",
-    age: 41,
-    role: "ICT Director",
-    department: "Information Technology",
-    unit: "ICT Center",
-    recordType: "Consultation",
-    diagnosis: "Computer vision syndrome",
-    doctor: "Dr. Peter Bulus",
-    date: "2024-03-25",
-    medications: ["Artificial tears", "Blue light glasses", "Eye exercises", "Screen break reminders"],
-    notes: "41-year-old male with computer vision syndrome. Prolonged screen exposure causing eye strain, dry eyes, and headaches. Ergonomic adjustments recommended.",
-    vitals: {
-      age: "41 years",
-      temperature: "36.9°C",
-      bloodPressure: "122/78 mmHg",
-      pulse: "85 bpm",
-      weight: "65 kg",
-      height: "171 cm",
-      respiratoryRate: "16/min",
-      oxygenSaturation: "98%"
-    },
-    bloodType: "AB+",
-    allergies: ["None known"],
-  },
-  {
-    id: "SMR005",
-    staffId: "S005",
-    name: "Mrs. Rebecca Gyang",
-    age: 35,
-    role: "Bursary Officer",
-    department: "Bursary",
-    unit: "Financial Services",
-    recordType: "Treatment",
-    diagnosis: "Migraine headaches",
-    doctor: "Dr. Ruth Laven",
-    date: "2024-05-05",
-    medications: ["Sumatriptan 50mg", "Propranolol 40mg", "Lifestyle modifications", "Stress management"],
-    notes: "35-year-old female with episodic migraine headaches. Work-related stress triggers identified. Good response to triptans. Preventive therapy initiated.",
-    vitals: {
-      age: "35 years",
-      temperature: "36.8°C",
       bloodPressure: "125/80 mmHg",
-      pulse: "78 bpm",
-      weight: "68 kg",
-      height: "167 cm",
-      respiratoryRate: "16/min",
-      oxygenSaturation: "99%"
-    },
-    bloodType: "O-",
-    allergies: ["None known"],
-  },
-  {
-    id: "SMR006",
-    staffId: "S006",
-    name: "Mr. Daniel Kwaghe",
-    age: 48,
-    role: "Estate Officer",
-    department: "Estate Management",
-    unit: "Facilities",
-    recordType: "Treatment",
-    diagnosis: "Lower back pain (mechanical)",
-    doctor: "Dr. Emmanuel Yakubu",
-    date: "2024-04-20",
-    medications: ["Diclofenac gel", "Paracetamol 1g", "Physiotherapy", "Core strengthening exercises"],
-    notes: "48-year-old male with mechanical lower back pain. Work-related lifting and bending. Good response to physiotherapy and ergonomic modifications.",
-    vitals: {
-      age: "48 years",
-      temperature: "36.6°C",
-      bloodPressure: "132/85 mmHg",
-      pulse: "76 bpm",
-      weight: "82 kg",
-      height: "177 cm",
-      respiratoryRate: "16/min",
-      oxygenSaturation: "98%"
-    },
-    bloodType: "A-",
-    allergies: ["None known"],
-  },
-  {
-    id: "SMR007",
-    staffId: "S007",
-    name: "Mrs. Maryam Umar",
-    age: 42,
-    role: "HR Director",
-    department: "Human Resources",
-    unit: "Staff Development",
-    recordType: "Treatment",
-    diagnosis: "Peptic ulcer disease (H. pylori positive)",
-    doctor: "Dr. Mary Gyang",
-    date: "2024-05-30",
-    medications: ["Omeprazole 20mg", "Clarithromycin 500mg", "Amoxicillin 1g", "Probiotics"],
-    notes: "42-year-old female with H. pylori positive peptic ulcer. Triple therapy initiated. Stress management and dietary modifications advised.",
-    vitals: {
-      age: "42 years",
-      temperature: "36.7°C",
-      bloodPressure: "118/74 mmHg",
-      pulse: "72 bpm",
-      weight: "59 kg",
-      height: "165 cm",
-      respiratoryRate: "15/min",
-      oxygenSaturation: "99%"
-    },
-    bloodType: "B-",
-    allergies: ["None known"],
-  },
-  {
-    id: "SMR008",
-    staffId: "S008",
-    name: "Dr. Samuel Dung",
-    age: 55,
-    role: "Chief Medical Officer",
-    department: "Medical Center",
-    unit: "Emergency Medicine",
-    recordType: "Follow-up",
-    diagnosis: "Benign prostatic hyperplasia (BPH)",
-    doctor: "Dr. Fatima Aliyu",
-    date: "2024-06-15",
-    medications: ["Tamsulosin 0.4mg", "Finasteride 5mg", "Regular monitoring"],
-    notes: "55-year-old male with benign prostatic hyperplasia. Mild to moderate urinary symptoms. Good response to alpha-blockers. PSA levels normal.",
-    vitals: {
-      age: "55 years",
-      temperature: "36.8°C",
-      bloodPressure: "138/92 mmHg",
       pulse: "75 bpm",
-      weight: "78 kg",
-      height: "175 cm",
-      respiratoryRate: "16/min",
-      oxygenSaturation: "97%"
+      weight: "62 kg"
     },
-    bloodType: "A+",
-    allergies: ["None known"],
+    lastUpdated: "1 week ago"
   }
 ];
 
 const getRecordTypeColor = (type: string) => {
-  switch (type) {
-    case "Consultation":
-      return "bg-blue-100 text-blue-800";
-    case "Treatment":
-      return "bg-green-100 text-green-800";
-    case "Emergency":
-      return "bg-red-100 text-red-800";
-    case "Follow-up":
-      return "bg-purple-100 text-purple-800";
-    case "Counseling":
-      return "bg-orange-100 text-orange-800";
-    case "Vaccination":
-      return "bg-indigo-100 text-indigo-800";
-    case "Annual Checkup":
-      return "bg-emerald-100 text-emerald-800";
-    default:
-      return "bg-gray-100 text-gray-800";
-  }
+  const colors = {
+    "Consultation": "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-800",
+    "Treatment": "bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800",
+    "Emergency": "bg-red-50 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800",
+    "Follow-up": "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-900/20 dark:text-purple-300 dark:border-purple-800",
+    "Check-up": "bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-900/20 dark:text-orange-300 dark:border-orange-800",
+    "Counseling": "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-900/20 dark:text-indigo-300 dark:border-indigo-800"
+  };
+  return colors[type] || "bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-900/20 dark:text-gray-300 dark:border-gray-800";
+};
+
+const getPriorityColor = (priority: string) => {
+  const colors = {
+    "High": "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
+    "Medium": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
+    "Low": "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
+  };
+  return colors[priority] || "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300";
+};
+
+const getStatusColor = (status: string) => {
+  const colors = {
+    "Active": "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+    "Recovering": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
+    "Stable": "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+    "Completed": "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300"
+  };
+  return colors[status] || "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300";
 };
 
 export const MedicalRecords = () => {
   const [isNewRecordOpen, setIsNewRecordOpen] = useState(false);
   const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<{ name: string; patientId: string } | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState("all");
+  const [filterPriority, setFilterPriority] = useState("all");
 
   const handleViewRecord = (record: any, isStaff: boolean) => {
     setSelectedPatient({
@@ -489,152 +175,440 @@ export const MedicalRecords = () => {
     setIsViewRecordsOpen(true);
   };
 
+  const filterRecords = (records: any[]) => {
+    return records.filter(record => {
+      const matchesSearch = !searchQuery || 
+        record.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        record.diagnosis.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        record.doctor.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesType = filterType === "all" || record.recordType === filterType;
+      const matchesPriority = filterPriority === "all" || record.priority === filterPriority;
+      
+      return matchesSearch && matchesType && matchesPriority;
+    });
+  };
+
   const RecordCard = ({ record, isStaff = false }) => (
-    <Card key={record.id} className="hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
-      <CardHeader className="pb-3">
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-              {isStaff ? <UserCheck className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400" /> : <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400" />}
-              <span className="truncate">{record.name}</span>
-              {!isStaff && <span className="hidden sm:inline">- {record.patientId}</span>}
-              {isStaff && <span className="hidden sm:inline">- {record.staffId}</span>}
-            </CardTitle>
-            <div className="flex flex-wrap items-center gap-2 mt-2">
-              <span className={`px-2 py-1 rounded text-xs font-medium ${getRecordTypeColor(record.recordType)}`}>
-                {record.recordType}
-              </span>
-              <span className="text-xs sm:text-sm text-muted-foreground">{record.date}</span>
-              <span className="text-xs sm:text-sm text-muted-foreground">{record.doctor}</span>
-              {!isStaff && (
-                <>
-                  <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded">
-                    {record.faculty} - {record.level}
-                  </span>
-                  <span className="text-xs bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 px-2 py-1 rounded">
-                    {record.matricNumber}
-                  </span>
-                </>
-              )}
-              {isStaff && (
-                <>
-                  <span className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 px-2 py-1 rounded">
-                    {record.department}
-                  </span>
-                  <span className="text-xs bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 px-2 py-1 rounded">
-                    {record.unit}
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
-          <div className="flex gap-1 sm:gap-2 ml-2">
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="h-8 w-8 sm:h-9 sm:w-auto sm:px-3"
-              onClick={() => handleViewRecord(record, isStaff)}
-            >
-              <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline ml-1">View</span>
-            </Button>
-            <Button variant="outline" size="sm" className="h-8 w-8 sm:h-9 sm:w-auto sm:px-3">
-              <Download className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline ml-1">Export</span>
-            </Button>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="pt-0">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-          <div>
-            <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Diagnosis & Treatment</h4>
-            <div className="space-y-2">
-              <p className="text-sm"><span className="font-medium">Diagnosis:</span> {record.diagnosis}</p>
-              <p className="text-sm"><span className="font-medium">Medications:</span></p>
-              <ul className="list-disc list-inside ml-4 text-xs sm:text-sm text-muted-foreground space-y-1">
-                {record.medications.map((med, index) => (
-                  <li key={index}>{med}</li>
-                ))}
-              </ul>
+    <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-[1.01] border border-border/50 bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-sm">
+      <CardContent className="p-6">
+        {/* Header Section */}
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <Avatar className="h-12 w-12 ring-2 ring-primary/20 group-hover:ring-primary/40 transition-all duration-300">
+              <AvatarFallback className="bg-gradient-to-br from-primary/20 to-primary/10 text-primary font-semibold">
+                {record.name.substring(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors duration-200 truncate">
+                {record.name}
+              </h3>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-sm text-muted-foreground">
+                  {isStaff ? record.staffId : record.patientId}
+                </span>
+                <span className="text-xs text-muted-foreground">•</span>
+                <span className="text-sm text-muted-foreground">
+                  {record.age}y
+                </span>
+              </div>
             </div>
           </div>
           
-          <div>
-            <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Vital Signs</h4>
-            <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
-              <div className="bg-muted p-2 rounded">
-                <p className="font-medium">Temperature</p>
-                <p className="text-muted-foreground">{record.vitals.temperature}</p>
-              </div>
-              <div className="bg-muted p-2 rounded">
-                <p className="font-medium">Blood Pressure</p>
-                <p className="text-muted-foreground">{record.vitals.bloodPressure}</p>
-              </div>
-              <div className="bg-muted p-2 rounded">
-                <p className="font-medium">Pulse</p>
-                <p className="text-muted-foreground">{record.vitals.pulse}</p>
-              </div>
-              <div className="bg-muted p-2 rounded">
-                <p className="font-medium">Weight</p>
-                <p className="text-muted-foreground">{record.vitals.weight}</p>
-              </div>
+          <div className="flex flex-col items-end gap-2">
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="h-8 px-3 hover:scale-105 transition-transform duration-200"
+                onClick={() => handleViewRecord(record, isStaff)}
+              >
+                <Eye className="h-3 w-3 mr-1" />
+                View
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="h-8 px-3 hover:scale-105 transition-transform duration-200"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                Export
+              </Button>
             </div>
+            <span className="text-xs text-muted-foreground">
+              Updated {record.lastUpdated}
+            </span>
           </div>
         </div>
-        
-        <div className="mt-4">
-          <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Clinical Notes</h4>
-          <p className="text-muted-foreground text-xs sm:text-sm bg-muted p-3 rounded">{record.notes}</p>
+
+        {/* Status Badges */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          <Badge className={`${getRecordTypeColor(record.recordType)} border font-medium`}>
+            {record.recordType}
+          </Badge>
+          {record.priority && (
+            <Badge className={getPriorityColor(record.priority)}>
+              {record.priority} Priority
+            </Badge>
+          )}
+          {record.status && (
+            <Badge className={getStatusColor(record.status)}>
+              {record.status}
+            </Badge>
+          )}
+          <Badge variant="outline" className="text-xs">
+            {new Date(record.date).toLocaleDateString()}
+          </Badge>
+        </div>
+
+        {/* Academic/Professional Info */}
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          {!isStaff ? (
+            <>
+              <div className="bg-muted/30 p-3 rounded-lg">
+                <p className="text-xs text-muted-foreground mb-1">Faculty</p>
+                <p className="text-sm font-medium text-foreground">{record.faculty}</p>
+              </div>
+              <div className="bg-muted/30 p-3 rounded-lg">
+                <p className="text-xs text-muted-foreground mb-1">Level</p>
+                <p className="text-sm font-medium text-foreground">{record.level}</p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="bg-muted/30 p-3 rounded-lg">
+                <p className="text-xs text-muted-foreground mb-1">Department</p>
+                <p className="text-sm font-medium text-foreground">{record.department}</p>
+              </div>
+              <div className="bg-muted/30 p-3 rounded-lg">
+                <p className="text-xs text-muted-foreground mb-1">Role</p>
+                <p className="text-sm font-medium text-foreground">{record.role}</p>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Medical Information */}
+        <div className="space-y-4">
+          <div className="bg-gradient-to-r from-blue-50/50 to-blue-100/30 dark:from-blue-900/20 dark:to-blue-800/10 p-4 rounded-lg border border-blue-200/50 dark:border-blue-800/30">
+            <div className="flex items-center gap-2 mb-2">
+              <Stethoscope className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+              <h4 className="font-semibold text-blue-900 dark:text-blue-100">Diagnosis</h4>
+            </div>
+            <p className="text-blue-800 dark:text-blue-200 font-medium">{record.diagnosis}</p>
+            <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+              Treated by {record.doctor}
+            </p>
+          </div>
+
+          {/* Quick Vitals */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+            <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg text-center border border-red-200/50 dark:border-red-800/30">
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <Activity className="h-3 w-3 text-red-600 dark:text-red-400" />
+                <span className="text-xs text-red-600 dark:text-red-400 font-medium">Temp</span>
+              </div>
+              <p className="text-sm font-bold text-red-800 dark:text-red-200">{record.vitals.temperature}</p>
+            </div>
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg text-center border border-blue-200/50 dark:border-blue-800/30">
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <Heart className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+                <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">BP</span>
+              </div>
+              <p className="text-sm font-bold text-blue-800 dark:text-blue-200">{record.vitals.bloodPressure}</p>
+            </div>
+            <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg text-center border border-green-200/50 dark:border-green-800/30">
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <Activity className="h-3 w-3 text-green-600 dark:text-green-400" />
+                <span className="text-xs text-green-600 dark:text-green-400 font-medium">Pulse</span>
+              </div>
+              <p className="text-sm font-bold text-green-800 dark:text-green-200">{record.vitals.pulse}</p>
+            </div>
+            <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg text-center border border-purple-200/50 dark:border-purple-800/30">
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <User className="h-3 w-3 text-purple-600 dark:text-purple-400" />
+                <span className="text-xs text-purple-600 dark:text-purple-400 font-medium">Weight</span>
+              </div>
+              <p className="text-sm font-bold text-purple-800 dark:text-purple-200">{record.vitals.weight}</p>
+            </div>
+          </div>
+
+          {/* Medications Preview */}
+          <div className="bg-muted/20 p-3 rounded-lg">
+            <h5 className="text-sm font-medium text-foreground mb-2 flex items-center gap-2">
+              <FileText className="h-4 w-4 text-primary" />
+              Current Medications
+            </h5>
+            <div className="flex flex-wrap gap-1">
+              {record.medications.slice(0, 3).map((med, index) => (
+                <Badge key={index} variant="outline" className="text-xs">
+                  {med}
+                </Badge>
+              ))}
+              {record.medications.length > 3 && (
+                <Badge variant="outline" className="text-xs">
+                  +{record.medications.length - 3} more
+                </Badge>
+              )}
+            </div>
+          </div>
+
+          {/* Action Button */}
+          <Button 
+            variant="ghost" 
+            className="w-full justify-between hover:bg-primary/5 group/btn"
+            onClick={() => handleViewRecord(record, isStaff)}
+          >
+            <span className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              View Complete Record
+            </span>
+            <ChevronRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
+          </Button>
         </div>
       </CardContent>
     </Card>
   );
 
+  const filteredStudentRecords = filterRecords(medicalRecords);
+  const filteredStaffRecords = filterRecords(staffMedicalRecords);
+
   return (
-    <div className="space-y-4 sm:space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="flex items-center gap-2 sm:gap-4">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <img 
-              src="/placeholder.svg" 
-              alt="University of Jos Logo" 
-              className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 object-contain"
-            />
+    <div className="space-y-6 max-w-7xl mx-auto">
+      {/* Enhanced Header */}
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div className="space-y-2">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <FileText className="h-6 w-6 text-primary" />
+            </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-foreground">Medical Records</h2>
-              <p className="text-muted-foreground text-xs sm:text-sm lg:text-base">University of Jos Health Records System</p>
+              <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Medical Records</h1>
+              <p className="text-muted-foreground">Comprehensive health records management</p>
             </div>
           </div>
         </div>
-        <Button 
-          className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
-          onClick={() => setIsNewRecordOpen(true)}
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          New Record
-        </Button>
+        
+        <div className="flex gap-3">
+          <Button 
+            variant="outline"
+            className="hover:scale-105 transition-transform duration-200"
+          >
+            <Download className="h-4 w-4 mr-2" />
+            Export All
+          </Button>
+          <Button 
+            className="bg-primary hover:bg-primary/90 hover:scale-105 transition-all duration-200"
+            onClick={() => setIsNewRecordOpen(true)}
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            New Record
+          </Button>
+        </div>
       </div>
 
+      {/* Enhanced Search and Filter Section */}
+      <Card className="border border-border/50 bg-gradient-to-r from-card/90 to-card/70 backdrop-blur-sm">
+        <CardContent className="p-6">
+          <div className="space-y-4">
+            {/* Search Bar */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input
+                type="text"
+                placeholder="Search by patient name, diagnosis, or doctor..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 h-12 text-base bg-background/80 border-border/50 focus:border-primary/50 transition-all duration-200"
+              />
+            </div>
+            
+            {/* Filter Controls */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <Select value={filterType} onValueChange={setFilterType}>
+                  <SelectTrigger className="h-11 bg-background/80 border-border/50">
+                    <Filter className="h-4 w-4 mr-2" />
+                    <SelectValue placeholder="Filter by type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Types</SelectItem>
+                    <SelectItem value="Emergency">Emergency</SelectItem>
+                    <SelectItem value="Treatment">Treatment</SelectItem>
+                    <SelectItem value="Follow-up">Follow-up</SelectItem>
+                    <SelectItem value="Consultation">Consultation</SelectItem>
+                    <SelectItem value="Check-up">Check-up</SelectItem>
+                  </SelectContent>
+                </Select>
+                
+                <Select value={filterPriority} onValueChange={setFilterPriority}>
+                  <SelectTrigger className="h-11 bg-background/80 border-border/50">
+                    <Activity className="h-4 w-4 mr-2" />
+                    <SelectValue placeholder="Filter by priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Priorities</SelectItem>
+                    <SelectItem value="High">High Priority</SelectItem>
+                    <SelectItem value="Medium">Medium Priority</SelectItem>
+                    <SelectItem value="Low">Low Priority</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Results Summary */}
+      {(searchQuery || filterType !== "all" || filterPriority !== "all") && (
+        <div className="flex items-center justify-between bg-muted/20 p-4 rounded-lg border border-border/30">
+          <div className="text-sm text-muted-foreground">
+            Showing {filteredStudentRecords.length + filteredStaffRecords.length} result(s)
+            {searchQuery && ` for "${searchQuery}"`}
+          </div>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => {
+              setSearchQuery("");
+              setFilterType("all");
+              setFilterPriority("all");
+            }}
+          >
+            Clear Filters
+          </Button>
+        </div>
+      )}
+
+      {/* Enhanced Tabs */}
       <Tabs defaultValue="students" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6">
-          <TabsTrigger value="students" className="text-xs sm:text-sm">Student Records</TabsTrigger>
-          <TabsTrigger value="staff" className="text-xs sm:text-sm">Staff Records</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 mb-6 h-12 bg-muted/50">
+          <TabsTrigger value="students" className="text-sm font-medium h-10 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+            <User className="h-4 w-4 mr-2" />
+            Student Records ({filteredStudentRecords.length})
+          </TabsTrigger>
+          <TabsTrigger value="staff" className="text-sm font-medium h-10 data-[state=active]:bg-background data-[state=active]:shadow-sm">
+            <UserCheck className="h-4 w-4 mr-2" />
+            Staff Records ({filteredStaffRecords.length})
+          </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="students" className="space-y-3 sm:space-y-4">
-          {medicalRecords.map((record) => (
-            <RecordCard key={record.id} record={record} isStaff={false} />
-          ))}
+        <TabsContent value="students" className="space-y-4">
+          {filteredStudentRecords.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+              {filteredStudentRecords.map((record, index) => (
+                <div 
+                  key={record.id}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="animate-fade-in"
+                >
+                  <RecordCard record={record} isStaff={false} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <Card className="border-dashed border-2 border-border/50">
+              <CardContent className="text-center py-12">
+                <FileX className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+                <h3 className="text-lg font-medium mb-2 text-foreground">No student records found</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {searchQuery || filterType !== "all" || filterPriority !== "all"
+                    ? "Try adjusting your search criteria or filters."
+                    : "No student medical records have been created yet."}
+                </p>
+                {(!searchQuery && filterType === "all" && filterPriority === "all") && (
+                  <Button 
+                    onClick={() => setIsNewRecordOpen(true)}
+                    variant="outline"
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create First Record
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
         
-        <TabsContent value="staff" className="space-y-3 sm:space-y-4">
-          {staffMedicalRecords.map((record) => (
-            <RecordCard key={record.id} record={record} isStaff={true} />
-          ))}
+        <TabsContent value="staff" className="space-y-4">
+          {filteredStaffRecords.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+              {filteredStaffRecords.map((record, index) => (
+                <div 
+                  key={record.id}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="animate-fade-in"
+                >
+                  <RecordCard record={record} isStaff={true} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <Card className="border-dashed border-2 border-border/50">
+              <CardContent className="text-center py-12">
+                <FileX className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+                <h3 className="text-lg font-medium mb-2 text-foreground">No staff records found</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {searchQuery || filterType !== "all" || filterPriority !== "all"
+                    ? "Try adjusting your search criteria or filters."
+                    : "No staff medical records have been created yet."}
+                </p>
+                {(!searchQuery && filterType === "all" && filterPriority === "all") && (
+                  <Button 
+                    onClick={() => setIsNewRecordOpen(true)}
+                    variant="outline"
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create First Record
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
       </Tabs>
 
+      {/* Quick Stats */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/10 border-blue-200 dark:border-blue-800">
+          <CardContent className="p-4 text-center">
+            <FileText className="h-8 w-8 mx-auto mb-2 text-blue-600 dark:text-blue-400" />
+            <p className="text-2xl font-bold text-blue-800 dark:text-blue-200">{medicalRecords.length}</p>
+            <p className="text-xs text-blue-600 dark:text-blue-400">Student Records</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/10 border-purple-200 dark:border-purple-800">
+          <CardContent className="p-4 text-center">
+            <UserCheck className="h-8 w-8 mx-auto mb-2 text-purple-600 dark:text-purple-400" />
+            <p className="text-2xl font-bold text-purple-800 dark:text-purple-200">{staffMedicalRecords.length}</p>
+            <p className="text-xs text-purple-600 dark:text-purple-400">Staff Records</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/10 border-green-200 dark:border-green-800">
+          <CardContent className="p-4 text-center">
+            <Activity className="h-8 w-8 mx-auto mb-2 text-green-600 dark:text-green-400" />
+            <p className="text-2xl font-bold text-green-800 dark:text-green-200">
+              {medicalRecords.filter(r => r.status === "Active").length}
+            </p>
+            <p className="text-xs text-green-600 dark:text-green-400">Active Cases</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/10 border-orange-200 dark:border-orange-800">
+          <CardContent className="p-4 text-center">
+            <Clock className="h-8 w-8 mx-auto mb-2 text-orange-600 dark:text-orange-400" />
+            <p className="text-2xl font-bold text-orange-800 dark:text-orange-200">
+              {medicalRecords.filter(r => r.recordType === "Emergency").length}
+            </p>
+            <p className="text-xs text-orange-600 dark:text-orange-400">Emergency Cases</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Dialogs */}
       <NewRecordDialog 
         open={isNewRecordOpen} 
         onOpenChange={setIsNewRecordOpen} 
