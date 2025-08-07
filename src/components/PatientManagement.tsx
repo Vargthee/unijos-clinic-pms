@@ -506,8 +506,8 @@ const PatientManagement = () => {
 
   // Memoize expensive calculations
   const { types, departments, filteredPatients } = useMemo(() => {
-    const types = Array.from(new Set(allPatients.map((patient) => patient.type)));
-    const departments = Array.from(new Set(allPatients.map((patient) => patient.department)));
+    const types = [...new Set(allPatients.map((patient) => patient.type))];
+    const departments = [...new Set(allPatients.map((patient) => patient.department))];
     
     const filtered = allPatients.filter((patient) => {
       const searchRegex = new RegExp(searchQuery.trim(), "i");
@@ -669,7 +669,7 @@ const PatientManagement = () => {
         open={isViewRecordsOpen}
         onOpenChange={setIsViewRecordsOpen}
         patientName={selectedPatient?.name || ""}
-        records={[]}
+        patientId={selectedPatient?.id || ""}
       />
 
       <AddPatientDialog
