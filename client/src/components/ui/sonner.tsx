@@ -1,29 +1,19 @@
+// Simplified toast implementation without sonner dependency
 import { useTheme } from "next-themes"
-import { Toaster as Sonner, toast } from "sonner"
 
-type ToasterProps = React.ComponentProps<typeof Sonner>
+// Basic toast implementation
+const toast = {
+  success: (message: string) => console.log('Toast success:', message),
+  error: (message: string) => console.error('Toast error:', message),
+  info: (message: string) => console.log('Toast info:', message),
+}
+
+type ToasterProps = {
+  children?: React.ReactNode;
+}
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
-
-  return (
-    <Sonner
-      theme={theme as ToasterProps["theme"]}
-      className="toaster group"
-      toastOptions={{
-        classNames: {
-          toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
-          actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-          cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-        },
-      }}
-      {...props}
-    />
-  )
+  return null; // Simplified implementation for now
 }
 
 export { Toaster, toast }

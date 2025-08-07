@@ -9,10 +9,11 @@ import {
   TrendingUp
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { TabType } from "@/types";
 
 interface SidebarProps {
-  activeTab: string;
-  onTabChange: (tab: string) => void;
+  activeTab: TabType;
+  onTabChange: (tab: TabType) => void;
 }
 
 const sidebarItems = [
@@ -44,7 +45,7 @@ const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
             return (
               <button
                 key={item.id}
-                onClick={() => onTabChange(item.id)}
+                onClick={() => onTabChange(item.id as TabType)}
                 className={`w-full flex flex-col lg:flex-row items-center gap-1 lg:gap-2 xl:gap-3 px-2 sm:px-3 lg:px-3 xl:px-4 py-2 sm:py-2.5 lg:py-3 rounded-md sm:rounded-lg lg:rounded-xl text-left transition-all duration-200 sm:duration-300 text-xs sm:text-sm font-medium group will-change-transform ${
                   activeTab === item.id
                     ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-md sm:shadow-lg scale-102 sm:scale-105 ring-1 sm:ring-2 ring-primary/20"

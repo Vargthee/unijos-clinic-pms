@@ -1,9 +1,8 @@
 
 import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "wouter";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { Suspense, lazy } from "react";
@@ -33,18 +32,19 @@ const App = () => (
       <ErrorBoundary>
         <TooltipProvider>
           <Toaster />
-          <Sonner />
-          <BrowserRouter>
+          <Router>
             <Suspense fallback={<LoadingSpinner text="Loading application..." />}>
-              <Routes>
-                <Route path="/" element={<SignIn />} />
-                <Route path="/dashboard" element={<Index />} />
-                <Route path="/signin" element={<Navigate to="/" replace />} />
+              <Switch>
+                <Route path="/" component={SignIn} />
+                <Route path="/dashboard" component={Index} />
+                <Route path="/signin">
+                  <Redirect to="/" />
+                </Route>
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+                <Route component={NotFound} />
+              </Switch>
             </Suspense>
-          </BrowserRouter>
+          </Router>
         </TooltipProvider>
       </ErrorBoundary>
     </ThemeProvider>
