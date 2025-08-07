@@ -1,10 +1,29 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Calendar, Stethoscope, AlertTriangle, Plus, FileText, Heart, Activity, Thermometer } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { 
+  User, 
+  Calendar, 
+  Stethoscope, 
+  AlertTriangle, 
+  Plus, 
+  FileText, 
+  Heart, 
+  Activity, 
+  Thermometer,
+  UserCheck,
+  Eye,
+  Download,
+  Search,
+  Building,
+  Shield
+} from "lucide-react";
+import { ViewRecordsDialog } from "./ViewRecordsDialog";
+import { NewRecordDialog } from "./NewRecordDialog";
 
 const staffMedicalRecords = [
   {
@@ -104,265 +123,240 @@ const staffMedicalRecords = [
 const getHealthStatusColor = (status: string) => {
   switch (status) {
     case "Excellent":
-      return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+      return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
     case "Good":
-      return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
+      return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
     case "Fair":
-      return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
+      return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
     case "Poor":
-      return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+      return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
     default:
-      return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300";
+      return "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300";
   }
 };
 
 export const StaffMedicalRecords = () => {
-  const [selectedStaff, setSelectedStaff] = useState<string | null>(null);
+  const [selectedStaff, setSelectedStaff] = useState<any>(null);
+  const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
+  const [isNewRecordOpen, setIsNewRecordOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterRole, setFilterRole] = useState("all");
+
+  const handleViewRecord = (staff: any) => {
+    setSelectedStaff(staff);
+    setIsViewRecordsOpen(true);
+  };
+
+  const filteredStaff = staffMedicalRecords.filter(staff => {
+    const matchesSearch = !searchQuery || 
+      staff.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      staff.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      staff.staffId.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesRole = filterRole === "all" || staff.role.toLowerCase().includes(filterRole.toLowerCase());
+    
+    return matchesSearch && matchesRole;
+  });
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Stethoscope className="h-6 w-6 text-primary" />
-          <div>
-            <h2 className="text-2xl font-bold text-foreground">Staff Medical Records</h2>
-            <p className="text-muted-foreground">Health records for clinic staff members</p>
+    <div className="space-y-6 max-w-7xl mx-auto">
+      {/* Enhanced Header */}
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-xl">
+              <UserCheck className="h-6 w-6 text-blue-600" />
+            </div>
+            <div>
+              <h1 className="text-2xl lg:text-3xl font-bold text-foreground">
+                Staff Medical Records
+              </h1>
+              <p className="text-muted-foreground">
+                {filteredStaff.length} staff members • Health monitoring & compliance
+              </p>
+            </div>
           </div>
+          <Button onClick={() => setIsNewRecordOpen(true)} className="shrink-0">
+            <Plus className="h-4 w-4 mr-2" />
+            New Staff Record
+          </Button>
         </div>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          Add Record
-        </Button>
+
+        {/* Enhanced Search and Filters */}
+        <Card className="border border-border/50 bg-card/80 backdrop-blur-sm">
+          <CardContent className="p-4">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search by name, role, or staff ID..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <div className="flex gap-2">
+                <Select value={filterRole} onValueChange={setFilterRole}>
+                  <SelectTrigger className="w-[160px]">
+                    <SelectValue placeholder="Filter by role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Roles</SelectItem>
+                    <SelectItem value="physician">Physician</SelectItem>
+                    <SelectItem value="nurse">Nurse</SelectItem>
+                    <SelectItem value="pharmacist">Pharmacist</SelectItem>
+                    <SelectItem value="psychiatrist">Psychiatrist</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Staff Overview Cards */}
+      {/* Enhanced Staff Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {staffMedicalRecords.map((staff) => (
-          <Card key={staff.id} className="hover-lift cursor-pointer" onClick={() => setSelectedStaff(staff.id)}>
-            <CardContent className="pt-6">
-              <div className="flex items-center space-x-4 mb-4">
-                <Avatar className="h-12 w-12">
-                  <AvatarFallback className="bg-primary/10 text-primary font-semibold">
-                    {staff.initials}
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <h3 className="font-semibold text-foreground">{staff.name}</h3>
-                  <p className="text-sm text-muted-foreground">{staff.role}</p>
+        {filteredStaff.map((staff) => (
+          <Card key={staff.id} className="group hover:shadow-xl transition-all duration-300 hover:scale-[1.01] border border-border/50 bg-gradient-to-br from-card/95 to-card/85 backdrop-blur-sm cursor-pointer">
+            <CardContent className="p-6">
+              {/* Header Section */}
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <Avatar className="h-12 w-12 ring-2 ring-blue-500/20 group-hover:ring-blue-500/40 transition-all duration-300">
+                    <AvatarFallback className="bg-gradient-to-br from-blue-500/20 to-blue-600/10 text-blue-600 font-semibold">
+                      {staff.initials}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-lg text-foreground group-hover:text-blue-600 transition-colors duration-200 truncate">
+                      {staff.name}
+                    </h3>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="text-sm text-muted-foreground">{staff.staffId}</span>
+                      <span className="text-xs text-muted-foreground">•</span>
+                      <span className="text-sm text-muted-foreground">{staff.age}y</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Health Status</span>
-                  <Badge className={getHealthStatusColor(staff.healthStatus)}>
+                
+                <div className="flex flex-col items-end gap-2">
+                  <Badge className={`${getHealthStatusColor(staff.healthStatus)} text-xs font-medium px-2 py-1`}>
                     {staff.healthStatus}
                   </Badge>
+                  <Badge variant="secondary" className="text-xs">
+                    <Building className="h-3 w-3 mr-1" />
+                    Staff
+                  </Badge>
                 </div>
-                
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Last Checkup</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{staff.lastCheckup}</span>
-                </div>
-                
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Blood Type</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{staff.bloodType}</span>
-                </div>
+              </div>
 
-                {/* Current Vitals Preview */}
-                <div className="bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg space-y-2">
-                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-1">
-                    <Heart className="h-3 w-3 text-red-500" />
-                    Current Vitals
-                  </h4>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="flex items-center gap-1">
-                      <Thermometer className="h-3 w-3 text-red-400" />
-                      <span className="text-gray-600 dark:text-gray-400">{staff.temperature}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Activity className="h-3 w-3 text-blue-400" />
-                      <span className="text-gray-600 dark:text-gray-400">{staff.bloodPressure}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Heart className="h-3 w-3 text-green-400" />
-                      <span className="text-gray-600 dark:text-gray-400">{staff.pulse}</span>
-                    </div>
-                    <div className="text-gray-600 dark:text-gray-400">
-                      BMI: {staff.bmi}
-                    </div>
+              {/* Role and Department */}
+              <div className="mb-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Shield className="h-4 w-4 text-blue-500" />
+                  <span className="font-medium text-foreground">{staff.role}</span>
+                </div>
+              </div>
+
+              {/* Health Summary */}
+              <div className="mb-4">
+                <h5 className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">Health Summary</h5>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <span className="text-xs text-muted-foreground">Blood Type</span>
+                    <p className="text-sm font-medium text-foreground">{staff.bloodType}</p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-muted-foreground">BMI</span>
+                    <p className="text-sm font-medium text-foreground">{staff.bmi}</p>
                   </div>
                 </div>
+              </div>
 
-                {staff.allergies[0] !== "None known" && (
-                  <div className="flex items-center gap-2 p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
-                    <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
-                    <span className="text-sm text-yellow-800 dark:text-yellow-200">
-                      {staff.allergies.length} allergie(s)
-                    </span>
+              {/* Vital Signs */}
+              <div className="mb-4">
+                <h5 className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide flex items-center gap-1">
+                  <Activity className="h-3 w-3" />
+                  Current Vitals
+                </h5>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="bg-muted/20 p-2 rounded text-center">
+                    <Thermometer className="h-3 w-3 mx-auto mb-1 text-orange-500" />
+                    <p className="text-xs font-medium">{staff.temperature}</p>
+                    <p className="text-xs text-muted-foreground">Temp</p>
                   </div>
-                )}
+                  <div className="bg-muted/20 p-2 rounded text-center">
+                    <Heart className="h-3 w-3 mx-auto mb-1 text-red-500" />
+                    <p className="text-xs font-medium">{staff.bloodPressure}</p>
+                    <p className="text-xs text-muted-foreground">BP</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Checkup Info */}
+              <div className="mb-4">
+                <div className="grid grid-cols-1 gap-2">
+                  <div>
+                    <span className="text-xs text-muted-foreground">Last Checkup</span>
+                    <p className="text-sm font-medium text-foreground flex items-center gap-1">
+                      <Calendar className="h-3 w-3 text-muted-foreground" />
+                      {staff.lastCheckup}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-muted-foreground">Next Due</span>
+                    <p className="text-sm font-medium text-foreground">{staff.nextCheckup}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center gap-2 pt-2">
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  onClick={() => handleViewRecord(staff)}
+                  className="flex-1 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200"
+                >
+                  <Eye className="h-4 w-4 mr-2" />
+                  View Record
+                </Button>
+                <Button size="sm" variant="ghost" className="shrink-0">
+                  <Download className="h-4 w-4" />
+                </Button>
               </div>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* Detailed View */}
-      {selectedStaff && (
-        <Card className="border-2 border-blue-200 dark:border-blue-800">
-          <CardHeader>
-            <div className="flex justify-between items-center">
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                Detailed Medical Record
-              </CardTitle>
-              <Button variant="outline" onClick={() => setSelectedStaff(null)}>
-                Close
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {staffMedicalRecords
-              .filter(staff => staff.id === selectedStaff)
-              .map(staff => (
-                <div key={staff.id} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-4">
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Basic Information</h4>
-                      <div className="space-y-3">
-                        <div>
-                          <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Age</label>
-                          <p className="text-gray-900 dark:text-gray-100">{staff.age} years</p>
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Staff ID</label>
-                          <p className="text-gray-900 dark:text-gray-100">{staff.staffId}</p>
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Blood Type</label>
-                          <p className="text-gray-900 dark:text-gray-100">{staff.bloodType}</p>
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-gray-600 dark:text-gray-400">BMI</label>
-                          <p className="text-gray-900 dark:text-gray-100">{staff.bmi}</p>
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Height</label>
-                          <p className="text-gray-900 dark:text-gray-100">{staff.height}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-4">
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                        <Heart className="h-5 w-5 text-red-500" />
-                        Current Vital Signs
-                      </h4>
-                      <div className="grid grid-cols-1 gap-3">
-                        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
-                          <div className="flex items-center gap-2 mb-2">
-                            <User className="h-5 w-5 text-indigo-500" />
-                            <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">Age</p>
-                          </div>
-                          <p className="text-xl font-semibold text-indigo-800 dark:text-indigo-200">{staff.age} years</p>
-                        </div>
-                        <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Thermometer className="h-5 w-5 text-red-500" />
-                            <p className="text-sm font-medium text-red-700 dark:text-red-300">Temperature</p>
-                          </div>
-                          <p className="text-xl font-semibold text-red-800 dark:text-red-200">{staff.temperature}</p>
-                        </div>
-                        <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Activity className="h-5 w-5 text-blue-500" />
-                            <p className="text-sm font-medium text-blue-700 dark:text-blue-300">Blood Pressure</p>
-                          </div>
-                          <p className="text-xl font-semibold text-blue-800 dark:text-blue-200">{staff.bloodPressure}</p>
-                        </div>
-                        <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Heart className="h-5 w-5 text-green-500" />
-                            <p className="text-sm font-medium text-green-700 dark:text-green-300">Pulse Rate</p>
-                          </div>
-                          <p className="text-xl font-semibold text-green-800 dark:text-green-200">{staff.pulse}</p>
-                        </div>
-                        <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
-                          <p className="text-sm font-medium text-purple-700 dark:text-purple-300 mb-2">Weight</p>
-                          <p className="text-xl font-semibold text-purple-800 dark:text-purple-200">{staff.weight}</p>
-                        </div>
-                        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
-                          <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300 mb-2">Respiratory Rate</p>
-                          <p className="text-xl font-semibold text-indigo-800 dark:text-indigo-200">{staff.respiratoryRate}</p>
-                        </div>
-                        <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg border border-orange-200 dark:border-orange-800">
-                          <p className="text-sm font-medium text-orange-700 dark:text-orange-300 mb-2">O2 Saturation</p>
-                          <p className="text-xl font-semibold text-orange-800 dark:text-orange-200">{staff.oxygenSaturation}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-4">
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Health Tracking</h4>
-                      <div className="space-y-3">
-                        <div>
-                          <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Last Checkup</label>
-                          <p className="text-gray-900 dark:text-gray-100">{staff.lastCheckup}</p>
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Next Checkup</label>
-                          <p className="text-gray-900 dark:text-gray-100">{staff.nextCheckup}</p>
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-gray-600 dark:text-gray-400">Health Status</label>
-                          <Badge className={getHealthStatusColor(staff.healthStatus)}>
-                            {staff.healthStatus}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Allergies & Vaccinations</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="text-sm font-medium text-gray-600 dark:text-gray-400 block mb-2">Allergies</label>
-                        <div className="flex flex-wrap gap-2">
-                          {staff.allergies.map((allergy, index) => (
-                            <Badge key={index} variant="outline" className="bg-red-50 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800">
-                              {allergy}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <label className="text-sm font-medium text-gray-600 dark:text-gray-400 block mb-2">Vaccinations</label>
-                        <div className="flex flex-wrap gap-2">
-                          {staff.vaccinations.map((vaccination, index) => (
-                            <Badge key={index} variant="outline" className="bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800">
-                              {vaccination}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Notes</h4>
-                    <p className="text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg">
-                      {staff.notes}
-                    </p>
-                  </div>
-                </div>
-              ))}
+      {/* No Results State */}
+      {filteredStaff.length === 0 && (
+        <Card className="border-dashed border-2 border-border/50">
+          <CardContent className="text-center py-12">
+            <UserCheck className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+            <h3 className="text-lg font-medium mb-2">No staff records found</h3>
+            <p className="text-sm text-muted-foreground">
+              {searchQuery || filterRole !== "all"
+                ? "Try adjusting your search criteria or filters."
+                : "No staff medical records have been added yet."}
+            </p>
           </CardContent>
         </Card>
       )}
+
+      {/* Dialogs */}
+      <ViewRecordsDialog
+        open={isViewRecordsOpen}
+        onOpenChange={setIsViewRecordsOpen}
+        patientName={selectedStaff?.name || ""}
+        records={[]}
+      />
+
+      <NewRecordDialog
+        open={isNewRecordOpen}
+        onOpenChange={setIsNewRecordOpen}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,7 +20,13 @@ import {
   Activity,
   Clock,
   ChevronRight,
-  FileX
+  FileX,
+  Users,
+  GraduationCap,
+  Shield,
+  AlertTriangle,
+  TrendingUp,
+  Thermometer
 } from "lucide-react";
 import { NewRecordDialog } from "./NewRecordDialog";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
@@ -217,6 +223,321 @@ export const MedicalRecords = () => {
           </div>
           
           <div className="flex flex-col items-end gap-2">
+            <Badge className={`${getPriorityColor(record.priority)} text-xs font-medium px-2 py-1`}>
+              {record.priority}
+            </Badge>
+            <span className="text-xs text-muted-foreground">{record.lastUpdated}</span>
+          </div>
+        </div>
+
+        {/* Record Type and Status */}
+        <div className="flex items-center gap-2 mb-4">
+          <Badge variant="outline" className={`${getRecordTypeColor(record.recordType)} text-xs font-medium`}>
+            {record.recordType}
+          </Badge>
+          <Badge className={`${getStatusColor(record.status)} text-xs font-medium`}>
+            {record.status}
+          </Badge>
+          {isStaff && (
+            <Badge variant="secondary" className="text-xs">
+              <UserCheck className="h-3 w-3 mr-1" />
+              Staff
+            </Badge>
+          )}
+          {!isStaff && (
+            <Badge variant="secondary" className="text-xs">
+              <GraduationCap className="h-3 w-3 mr-1" />
+              Student
+            </Badge>
+          )}
+        </div>
+
+        {/* Diagnosis */}
+        <div className="mb-4">
+          <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
+            <Stethoscope className="h-4 w-4 text-primary" />
+            Diagnosis
+          </h4>
+          <p className="text-sm text-muted-foreground bg-muted/30 p-3 rounded-lg">
+            {record.diagnosis}
+          </p>
+        </div>
+
+        {/* Additional Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <h5 className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">Doctor</h5>
+            <p className="text-sm font-medium text-foreground">{record.doctor}</p>
+          </div>
+          <div>
+            <h5 className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">Date</h5>
+            <p className="text-sm font-medium text-foreground flex items-center gap-1">
+              <Calendar className="h-3 w-3 text-muted-foreground" />
+              {record.date}
+            </p>
+          </div>
+          {!isStaff && (
+            <>
+              <div>
+                <h5 className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">Faculty</h5>
+                <p className="text-sm font-medium text-foreground">{record.faculty}</p>
+              </div>
+              <div>
+                <h5 className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">Level</h5>
+                <p className="text-sm font-medium text-foreground">{record.level}</p>
+              </div>
+            </>
+          )}
+          {isStaff && (
+            <>
+              <div>
+                <h5 className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">Role</h5>
+                <p className="text-sm font-medium text-foreground">{record.role}</p>
+              </div>
+              <div>
+                <h5 className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wide">Department</h5>
+                <p className="text-sm font-medium text-foreground">{record.department}</p>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Vital Signs */}
+        {record.vitals && (
+          <div className="mb-4">
+            <h5 className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide flex items-center gap-1">
+              <Activity className="h-3 w-3" />
+              Vital Signs
+            </h5>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              <div className="bg-muted/20 p-2 rounded text-center">
+                <Thermometer className="h-3 w-3 mx-auto mb-1 text-orange-500" />
+                <p className="text-xs font-medium">{record.vitals.temperature}</p>
+                <p className="text-xs text-muted-foreground">Temp</p>
+              </div>
+              <div className="bg-muted/20 p-2 rounded text-center">
+                <Heart className="h-3 w-3 mx-auto mb-1 text-red-500" />
+                <p className="text-xs font-medium">{record.vitals.bloodPressure}</p>
+                <p className="text-xs text-muted-foreground">BP</p>
+              </div>
+              <div className="bg-muted/20 p-2 rounded text-center">
+                <Activity className="h-3 w-3 mx-auto mb-1 text-blue-500" />
+                <p className="text-xs font-medium">{record.vitals.pulse}</p>
+                <p className="text-xs text-muted-foreground">Pulse</p>
+              </div>
+              <div className="bg-muted/20 p-2 rounded text-center">
+                <User className="h-3 w-3 mx-auto mb-1 text-green-500" />
+                <p className="text-xs font-medium">{record.vitals.weight}</p>
+                <p className="text-xs text-muted-foreground">Weight</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Actions */}
+        <div className="flex items-center gap-2 pt-2">
+          <Button 
+            size="sm" 
+            variant="outline" 
+            onClick={() => handleViewRecord(record, isStaff)}
+            className="flex-1 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200"
+          >
+            <Eye className="h-4 w-4 mr-2" />
+            View Details
+          </Button>
+          <Button size="sm" variant="ghost" className="shrink-0">
+            <Download className="h-4 w-4" />
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  const filteredStudentRecords = filterRecords(medicalRecords);
+  const filteredStaffRecords = filterRecords(staffMedicalRecords);
+  const totalRecords = filteredStudentRecords.length + filteredStaffRecords.length;
+
+  return (
+    <div className="space-y-6 max-w-7xl mx-auto">
+      {/* Enhanced Header */}
+      <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl">
+              <FileText className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-2xl lg:text-3xl font-bold text-foreground">
+                Medical Records Overview
+              </h1>
+              <p className="text-muted-foreground">
+                {totalRecords} records found • Both students and staff
+              </p>
+            </div>
+          </div>
+          <Button onClick={() => setIsNewRecordOpen(true)} className="shrink-0">
+            <Plus className="h-4 w-4 mr-2" />
+            New Record
+          </Button>
+        </div>
+
+        {/* Enhanced Search and Filters */}
+        <Card className="border border-border/50 bg-card/80 backdrop-blur-sm">
+          <CardContent className="p-4">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search by name, diagnosis, or doctor..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <div className="flex gap-2">
+                <Select value={filterType} onValueChange={setFilterType}>
+                  <SelectTrigger className="w-[140px]">
+                    <SelectValue placeholder="Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Types</SelectItem>
+                    <SelectItem value="Emergency">Emergency</SelectItem>
+                    <SelectItem value="Treatment">Treatment</SelectItem>
+                    <SelectItem value="Follow-up">Follow-up</SelectItem>
+                    <SelectItem value="Check-up">Check-up</SelectItem>
+                    <SelectItem value="Consultation">Consultation</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={filterPriority} onValueChange={setFilterPriority}>
+                  <SelectTrigger className="w-[130px]">
+                    <SelectValue placeholder="Priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Priorities</SelectItem>
+                    <SelectItem value="High">High</SelectItem>
+                    <SelectItem value="Medium">Medium</SelectItem>
+                    <SelectItem value="Low">Low</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Enhanced Records Display */}
+      <Tabs defaultValue="all" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-3 bg-muted/30">
+          <TabsTrigger value="all" className="flex items-center gap-2">
+            <Users className="h-4 w-4" />
+            All Records ({totalRecords})
+          </TabsTrigger>
+          <TabsTrigger value="students" className="flex items-center gap-2">
+            <GraduationCap className="h-4 w-4" />
+            Students ({filteredStudentRecords.length})
+          </TabsTrigger>
+          <TabsTrigger value="staff" className="flex items-center gap-2">
+            <UserCheck className="h-4 w-4" />
+            Staff ({filteredStaffRecords.length})
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="all" className="space-y-4">
+          <div className="grid gap-6">
+            {/* Student Records Section */}
+            {filteredStudentRecords.length > 0 && (
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <GraduationCap className="h-5 w-5 text-primary" />
+                  <h2 className="text-lg font-semibold text-foreground">Student Records</h2>
+                  <Badge variant="secondary">{filteredStudentRecords.length}</Badge>
+                </div>
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {filteredStudentRecords.map((record) => (
+                    <RecordCard key={record.id} record={record} isStaff={false} />
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Staff Records Section */}
+            {filteredStaffRecords.length > 0 && (
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <UserCheck className="h-5 w-5 text-primary" />
+                  <h2 className="text-lg font-semibold text-foreground">Staff Records</h2>
+                  <Badge variant="secondary">{filteredStaffRecords.length}</Badge>
+                </div>
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {filteredStaffRecords.map((record) => (
+                    <RecordCard key={record.id} record={record} isStaff={true} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="students" className="space-y-4">
+          {filteredStudentRecords.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {filteredStudentRecords.map((record) => (
+                <RecordCard key={record.id} record={record} isStaff={false} />
+              ))}
+            </div>
+          ) : (
+            <Card className="border-dashed border-2 border-border/50">
+              <CardContent className="text-center py-12">
+                <GraduationCap className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+                <h3 className="text-lg font-medium mb-2">No student records found</h3>
+                <p className="text-sm text-muted-foreground">
+                  {searchQuery || filterType !== "all" || filterPriority !== "all"
+                    ? "Try adjusting your search criteria or filters."
+                    : "No student medical records have been added yet."}
+                </p>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+
+        <TabsContent value="staff" className="space-y-4">
+          {filteredStaffRecords.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {filteredStaffRecords.map((record) => (
+                <RecordCard key={record.id} record={record} isStaff={true} />
+              ))}
+            </div>
+          ) : (
+            <Card className="border-dashed border-2 border-border/50">
+              <CardContent className="text-center py-12">
+                <UserCheck className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+                <h3 className="text-lg font-medium mb-2">No staff records found</h3>
+                <p className="text-sm text-muted-foreground">
+                  {searchQuery || filterType !== "all" || filterPriority !== "all"
+                    ? "Try adjusting your search criteria or filters."
+                    : "No staff medical records have been added yet."}
+                </p>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+      </Tabs>
+
+      {/* Dialogs */}
+      <NewRecordDialog
+        open={isNewRecordOpen}
+        onOpenChange={setIsNewRecordOpen}
+      />
+
+      <ViewRecordsDialog
+        open={isViewRecordsOpen}
+        onOpenChange={setIsViewRecordsOpen}
+        patientName={selectedPatient?.name || ""}
+        records={[]}
+      />
+    </div>
+  );
+};
             <div className="flex gap-2">
               <Button 
                 variant="outline" 
