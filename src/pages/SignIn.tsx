@@ -18,9 +18,15 @@ const SignIn = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sign in attempt:", { email, password });
-    // Navigate to dashboard immediately after "successful" login
-    navigate("/dashboard");
+    setIsLoading(true);
+    
+    // Simulate authentication for prototype
+    setTimeout(() => {
+      console.log("Sign in attempt:", { email, password });
+      setIsLoading(false);
+      // Navigate to dashboard after "successful" login
+      navigate("/dashboard");
+    }, 1000);
   };
 
   return (
@@ -95,8 +101,9 @@ const SignIn = () => {
             <Button
               type="submit"
               className="w-full"
+              disabled={isLoading}
             >
-              Sign In
+              {isLoading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
 

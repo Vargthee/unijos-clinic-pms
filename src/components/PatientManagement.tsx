@@ -575,7 +575,7 @@ const PatientManagement = () => {
             
             {/* Filter Controls */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <Select value={selectedType} onValueChange={setSelectedType}>
                   <SelectTrigger className="h-11 bg-background/50 border-border/50 hover:border-border transition-colors">
                     <SelectValue placeholder="All Types" />
@@ -604,6 +604,16 @@ const PatientManagement = () => {
                   </SelectContent>
                 </Select>
                 
+                {/* Quick Stats */}
+                <div className="hidden lg:flex items-center gap-2 px-3 py-2 bg-primary/10 rounded-lg border border-primary/20">
+                  <Users className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-medium text-foreground">{stats.total} Total</span>
+                </div>
+                
+                <div className="hidden lg:flex items-center gap-2 px-3 py-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                  <User className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                  <span className="text-sm font-medium text-foreground">{stats.students} Students</span>
+                </div>
               </div>
             </div>
           </div>
