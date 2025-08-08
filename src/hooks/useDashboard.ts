@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { DashboardStats, Patient } from '@/types';
 
 const mockStats: DashboardStats = {
-  totalPatients: 124,
+  totalPatients: 3,
   todaysAppointments: 8,
   activeCases: 17,
   recordsUpdated: 23,

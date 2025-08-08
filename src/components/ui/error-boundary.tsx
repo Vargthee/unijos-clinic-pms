@@ -18,11 +18,16 @@ export class ErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    console.error('Error boundary caught error:', error);
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('Error caught by boundary:', error, errorInfo);
+    // Reset error state after a delay to allow recovery
+    setTimeout(() => {
+      this.setState({ hasError: false, error: undefined });
+    }, 5000);
   }
 
   render() {
@@ -34,10 +39,10 @@ export class ErrorBoundary extends React.Component<
             Something went wrong
           </h2>
           <p className="text-gray-600 dark:text-gray-400 mb-4">
-            We're sorry for the inconvenience. Please try refreshing the page.
+            Component error detected. The page will recover automatically.
           </p>
-          <Button onClick={() => window.location.reload()}>
-            Refresh Page
+          <Button onClick={() => this.setState({ hasError: false, error: undefined })}>
+            Try Again
           </Button>
         </div>
       );

@@ -115,7 +115,7 @@
 
   body {
     @apply bg-background text-foreground;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -124,18 +124,16 @@
 
   /* Enhanced dark mode styling */
   .dark {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: #0f172a;
   }
 
   .dark .card {
-    background: linear-gradient(145deg, #1e293b 0%, #334155 100%);
+    background: #1e293b;
     border: 1px solid #334155;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   }
 
   .dark .sidebar {
-    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-    backdrop-filter: blur(20px);
+    background: #0f172a;
     border-right: 1px solid #334155;
   }
 
@@ -151,16 +149,15 @@
 
   /* Enhanced button styling for dark mode */
   .dark button {
-    transition: all 0.2s ease;
+    transition: none;
   }
 
   .dark button:hover {
-    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+    box-shadow: none;
   }
 
   /* Glass effect improvements */
   .glass-effect {
-    backdrop-filter: blur(16px);
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
@@ -172,26 +169,24 @@
 
   /* Enhanced hover effects */
   .hover-lift {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.15s ease;
   }
 
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
   }
 
   .dark .hover-lift:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-    transform: translateY(-6px);
+    transform: translateY(-2px);
   }
 
   /* Scale effects */
   .hover-scale {
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.1s ease;
   }
 
   .hover-scale:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
   }
 
   /* Improved scrollbar for dark mode */
@@ -221,51 +216,42 @@
 
   .dark input:focus, .dark select:focus, .dark textarea:focus {
     border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    box-shadow: none;
   }
 
   /* Better dropdown styling */
   .dark [data-radix-popper-content-wrapper] {
     background: #1e293b !important;
     border: 1px solid #475569 !important;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
   }
 
   /* Enhanced interactive elements */
   .card-modern {
-    background: var(--gradient-subtle);
-    box-shadow: var(--shadow-card);
-    transition: var(--transition-smooth);
+    background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
   }
 
   .card-modern:hover {
-    box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
   }
 
   .glass-card {
-    backdrop-filter: blur(16px);
     background: hsl(var(--background) / 0.8);
     border: 1px solid hsl(var(--border) / 0.5);
-    box-shadow: var(--shadow-elegant);
   }
 
   .btn-primary {
-    background: var(--gradient-primary);
-    transition: var(--transition-smooth);
+    background: hsl(var(--primary));
     border: none;
-    box-shadow: var(--shadow-card);
   }
 
   .btn-primary:hover {
-    box-shadow: var(--shadow-hover);
     transform: translateY(-1px);
   }
 
   /* Enhanced transitions and animations */
   * {
-    transition: color 0.1s ease, background-color 0.1s ease, border-color 0.1s ease, transform 0.1s ease, opacity 0.1s ease;
+    transition: none;
   }
 
   /* Smooth scrolling */
@@ -283,14 +269,13 @@
 
   /* Smooth transitions for all interactive elements */
   button, input, select, textarea, .card {
-    transition: all 0.15s ease;
+    transition: none;
   }
 
   /* Enhanced focus states */
   *:focus-visible {
     outline: 2px solid hsl(var(--primary));
     outline-offset: 2px;
-    transition: outline 0.1s ease;
   }
 
   /* Focus management for accessibility */
@@ -318,27 +303,26 @@
 
   /* Enhanced hover effects with GPU acceleration */
   .hover-lift-gpu {
-    transition: transform 0.15s ease-out;
+    transition: transform 0.1s ease;
     will-change: transform;
   }
 
   .hover-lift-gpu:hover {
-    transform: translate3d(0, -2px, 0);
+    transform: translate3d(0, -1px, 0);
   }
 
   /* Better focus states for accessibility */
   .focus-ring {
-    transition: box-shadow 0.15s ease-out;
+    transition: none;
   }
 
   .focus-ring:focus-visible {
-    box-shadow: 0 0 0 2px hsl(var(--primary)), 0 0 0 4px hsl(var(--primary) / 0.2);
+    box-shadow: 0 0 0 2px hsl(var(--primary));
   }
 
   /* Optimized backdrop blur */
   .backdrop-blur-optimized {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: none;
   }
 }
 
