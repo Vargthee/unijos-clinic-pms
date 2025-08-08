@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => ({
     target: 'esnext',
     minify: 'esbuild',
     cssMinify: 'esbuild',
+    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -24,7 +25,7 @@ export default defineConfig(({ mode }) => ({
         },
       },
     },
-    chunkSizeWarningLimit: 800,
+    chunkSizeWarningLimit: 1000,
   },
   optimizeDeps: {
     include: [
@@ -36,6 +37,7 @@ export default defineConfig(({ mode }) => ({
       'clsx',
       'tailwind-merge'
     ],
+    force: true,
   },
   plugins: [
     react(),
