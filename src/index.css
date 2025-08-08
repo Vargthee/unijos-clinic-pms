@@ -115,7 +115,7 @@
 
   body {
     @apply bg-background text-foreground;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -265,7 +265,7 @@
 
   /* Enhanced transitions and animations */
   * {
-    transition: color 0.1s ease, background-color 0.1s ease, border-color 0.1s ease, transform 0.1s ease, opacity 0.1s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease, opacity 0.15s ease;
   }
 
   /* Smooth scrolling */
@@ -283,14 +283,14 @@
 
   /* Smooth transitions for all interactive elements */
   button, input, select, textarea, .card {
-    transition: all 0.15s ease;
+    transition: var(--transition-smooth);
   }
 
   /* Enhanced focus states */
   *:focus-visible {
     outline: 2px solid hsl(var(--primary));
     outline-offset: 2px;
-    transition: outline 0.1s ease;
+    transition: outline 0.2s ease;
   }
 
   /* Focus management for accessibility */
@@ -318,7 +318,7 @@
 
   /* Enhanced hover effects with GPU acceleration */
   .hover-lift-gpu {
-    transition: transform 0.15s ease-out;
+    transition: transform 0.2s ease-out;
     will-change: transform;
   }
 
@@ -328,7 +328,7 @@
 
   /* Better focus states for accessibility */
   .focus-ring {
-    transition: box-shadow 0.15s ease-out;
+    transition: box-shadow 0.2s ease-out;
   }
 
   .focus-ring:focus-visible {
@@ -455,14 +455,17 @@
 @media (max-width: 768px) {
   .hover-lift {
     transform: none;
+    transition: none;
   }
   
   .hover-lift:hover {
     transform: none;
+    box-shadow: none;
   }
   
   .hover-scale {
     transform: none;
+    transition: none;
   }
   
   .hover-scale:hover {
