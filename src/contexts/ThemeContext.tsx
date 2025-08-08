@@ -27,20 +27,11 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     localStorage.setItem('theme', theme);
     const root = document.documentElement;
-    
-    // Disable transitions during theme change for instant switching
-    root.style.transition = 'none';
-    
     if (theme === 'dark') {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
     }
-    
-    // Force a reflow and re-enable transitions
-    requestAnimationFrame(() => {
-      root.style.transition = '';
-    });
   }, [theme]);
 
   const toggleTheme = () => {

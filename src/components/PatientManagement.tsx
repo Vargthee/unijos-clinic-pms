@@ -18,7 +18,7 @@ const allPatients = [
   {
     id: "P001234",
     name: "Adaora Okonkwo",
-    age: 34,
+    age: 20,
     gender: "Female",
     faculty: "Engineering",
     department: "Computer Engineering",
@@ -31,7 +31,7 @@ const allPatients = [
   {
     id: "P001236",
     name: "Blessing Eze",
-    age: 32,
+    age: 18,
     gender: "Female",
     faculty: "Social Sciences",
     department: "Psychology",
@@ -44,7 +44,7 @@ const allPatients = [
   {
     id: "P001237",
     name: "Yusuf Abdullahi",
-    age: 36,
+    age: 21,
     gender: "Male",
     faculty: "Natural Sciences",
     department: "Computer Science",
@@ -52,6 +52,9 @@ const allPatients = [
     matricNumber: "UJ/2021/NSC/0789",
     phone: "08045678901",
     email: "yusuf.abdullahi@unijos.edu.ng",
+    type: "Student"
+  },
+  {
     type: "Student"
   }
 ];
@@ -67,7 +70,7 @@ const PatientCard = memo(({ patient, onViewRecords }: {
 
   return (
     <Card 
-      className="group hover:shadow-lg transition-shadow duration-150 cursor-pointer border bg-card hover:scale-[1.01]"
+      className="group hover:shadow-lg transition-all duration-150 cursor-pointer border bg-card hover:scale-[1.01] will-change-transform"
       onClick={handleClick}
       role="button"
       tabIndex={0}
@@ -81,17 +84,21 @@ const PatientCard = memo(({ patient, onViewRecords }: {
     >
       <CardContent className="p-4">
         <div className="flex items-start gap-3 mb-4">
-          <Avatar className="h-12 w-12 shrink-0">
-            <AvatarFallback className="bg-primary/20 text-primary font-semibold text-sm">
+          <Avatar className="h-12 w-12 shrink-0 ring-2 ring-primary/10 group-hover:ring-primary/20 transition-all duration-150">
+            <AvatarFallback className="bg-gradient-to-br from-primary/20 to-primary/10 text-primary font-semibold text-sm">
               {patient.name.substring(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0 flex-1">
-            <h3 className="font-semibold text-foreground text-sm leading-tight truncate">
+            <h3 className="font-semibold text-foreground text-sm leading-tight truncate group-hover:text-primary transition-colors duration-150">
               {patient.name}
             </h3>
             <div className="flex items-center gap-2 mt-1 flex-wrap">
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+              <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium transition-colors duration-150 ${
+                patient.type === 'Student' 
+                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' 
+                  : 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300'
+              }`}>
                 {patient.type}
               </span>
               <span className="text-xs text-muted-foreground">
@@ -103,30 +110,32 @@ const PatientCard = memo(({ patient, onViewRecords }: {
 
         <div className="space-y-3 text-xs">
           <div className="grid grid-cols-2 gap-2">
-            <div className="bg-muted/30 p-2.5 rounded-lg border">
+            <div className="bg-muted/30 dark:bg-muted/20 p-2.5 rounded-lg border border-border/30 hover:border-border/50 transition-colors duration-150">
               <div className="text-muted-foreground font-medium mb-1">Faculty</div>
               <div className="text-foreground font-semibold truncate text-xs">{patient.faculty}</div>
             </div>
-            <div className="bg-muted/30 p-2.5 rounded-lg border">
+            <div className="bg-muted/30 dark:bg-muted/20 p-2.5 rounded-lg border border-border/30 hover:border-border/50 transition-colors duration-150">
               <div className="text-muted-foreground font-medium mb-1">Level</div>
               <div className="text-foreground font-semibold text-xs">{patient.level}</div>
             </div>
           </div>
           
-          <div className="bg-muted/20 p-2.5 rounded-lg border">
+          <div className="bg-muted/20 dark:bg-muted/15 p-2.5 rounded-lg border border-border/20">
             <div className="text-muted-foreground font-medium mb-1">Department</div>
             <div className="text-foreground font-semibold truncate text-xs">{patient.department}</div>
           </div>
 
-          <div className="bg-primary/5 p-2.5 rounded-lg border border-primary/20">
-            <div className="text-muted-foreground font-medium mb-1">Matric No</div>
+          <div className="bg-gradient-to-r from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/5 p-2.5 rounded-lg border border-primary/20">
+            <div className="text-muted-foreground font-medium mb-1">
+              {patient.type === "Staff" ? "Staff ID" : "Matric No"}
+            </div>
             <div className="text-foreground font-semibold text-xs font-mono">{patient.matricNumber}</div>
           </div>
         </div>
 
-        <div className="mt-4 pt-3 border-t">
+        <div className="mt-4 pt-3 border-t border-border/30">
           <div className="flex items-center justify-end">
-            <div className="flex items-center gap-1 text-primary">
+            <div className="flex items-center gap-1 text-primary group-hover:text-primary/80 transition-colors duration-150">
               <Eye className="h-3 w-3" />
               <span className="font-medium text-xs">View</span>
             </div>
@@ -147,7 +156,7 @@ const PatientManagement = () => {
   const [isAddPatientOpen, setIsAddPatientOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<typeof allPatients[0] | null>(null);
 
-  // Optimized filtering
+  // Optimized filtering with reduced calculations
   const { types, departments, filteredPatients } = useMemo(() => {
     const types = [...new Set(allPatients.map((patient) => patient.type))];
     const departments = [...new Set(allPatients.map((patient) => patient.department))];
@@ -167,31 +176,32 @@ const PatientManagement = () => {
     return { types, departments, filteredPatients: filtered };
   }, [searchQuery, selectedType, selectedDepartment]);
 
+  // Optimized callback
   const handleViewRecords = useCallback((patient: typeof allPatients[0]) => {
     setSelectedPatient(patient);
     setIsViewRecordsOpen(true);
   }, []);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-foreground">Patient Directory</h2>
-          <p className="text-muted-foreground mt-1">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">Patient Directory</h2>
+          <p className="text-muted-foreground mt-1 text-sm sm:text-base">
             Manage patient records and information
           </p>
         </div>
         <Button 
           onClick={() => setIsAddPatientOpen(true)}
-          className="self-start sm:self-auto"
+          className="self-start sm:self-auto hover:scale-105 transition-transform duration-150"
         >
           <UserPlus className="h-4 w-4 mr-2" />
           Register Patient
         </Button>
       </div>
 
-      <Card>
-        <CardContent className="p-6">
+      <Card className="border border-border/30 bg-card shadow-lg">
+        <CardContent className="p-4 lg:p-6">
           <div className="space-y-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -200,7 +210,7 @@ const PatientManagement = () => {
                 placeholder="Search patients by name, ID, department, or faculty..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 h-12"
+                className="pl-10 h-12 text-base bg-background border-border focus:border-primary transition-all duration-150"
                 aria-label="Search patients"
               />
             </div>
@@ -208,7 +218,7 @@ const PatientManagement = () => {
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Select value={selectedType} onValueChange={setSelectedType}>
-                  <SelectTrigger className="h-11" aria-label="Filter by type">
+                  <SelectTrigger className="h-11 bg-background border-border hover:border-border transition-colors duration-150" aria-label="Filter by type">
                     <SelectValue placeholder="All Types" />
                   </SelectTrigger>
                   <SelectContent>
@@ -222,7 +232,7 @@ const PatientManagement = () => {
                 </Select>
                 
                 <Select value={selectedDepartment} onValueChange={setSelectedDepartment}>
-                  <SelectTrigger className="h-11" aria-label="Filter by department">
+                  <SelectTrigger className="h-11 bg-background border-border hover:border-border transition-colors duration-150" aria-label="Filter by department">
                     <SelectValue placeholder="All Departments" />
                   </SelectTrigger>
                   <SelectContent>
@@ -241,7 +251,7 @@ const PatientManagement = () => {
       </Card>
 
       {(searchQuery || selectedType !== "all" || selectedDepartment !== "all") && (
-        <div className="text-sm text-muted-foreground bg-muted/20 p-3 rounded-lg" role="status" aria-live="polite">
+        <div className="text-sm text-muted-foreground bg-muted/20 p-3 rounded-lg border border-border/30" role="status" aria-live="polite">
           Showing {filteredPatients.length} result{filteredPatients.length !== 1 ? 's' : ''} 
           {searchQuery && ` for "${searchQuery}"`}
           {selectedType !== "all" && ` in ${selectedType}s`}
@@ -249,16 +259,20 @@ const PatientManagement = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" role="grid" aria-label="Patient directory">
-        {filteredPatients.map((patient) => (
-          <div key={patient.id} role="gridcell">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6" role="grid" aria-label="Patient directory">
+        {filteredPatients.map((patient, index) => (
+          <div 
+            key={patient.id}
+            className="animate-fade-in"
+            role="gridcell"
+          >
             <PatientCard patient={patient} onViewRecords={handleViewRecords} />
           </div>
         ))}
       </div>
 
       {filteredPatients.length === 0 && (
-        <Card className="border-dashed border-2">
+        <Card className="border-dashed border-2 border-border/50">
           <CardContent className="text-center py-12">
             <div className="text-muted-foreground">
               <User className="h-12 w-12 mx-auto mb-4 opacity-50" />

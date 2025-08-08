@@ -18,19 +18,10 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
         {
           id: "R001",
           date: "2024-06-05",
-          type: "Treatment",
+          type: "Emergency",
           diagnosis: "Uncomplicated malaria (P. falciparum)",
           doctor: "Dr. Fatima Aliyu",
-          vitals: { 
-            age: "34 years", 
-            temperature: "39.2°C", 
-            bloodPressure: "110/70 mmHg", 
-            pulse: "88 bpm", 
-            weight: "58 kg", 
-            height: "165 cm", 
-            respiratoryRate: "20/min", 
-            oxygenSaturation: "97%" 
-          },
+          vitals: { age: "34 years", temperature: "39.2°C", bloodPressure: "110/70 mmHg", pulse: "88 bpm", weight: "58 kg", height: "165 cm", respiratoryRate: "20/min", oxygenSaturation: "97%" },
           notes: "34-year-old female with uncomplicated malaria. Rapid diagnostic test positive for P. falciparum. Good response to ACT.",
           icon: Heart
         }
@@ -39,19 +30,10 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
         {
           id: "R003",
           date: "2024-06-08",
-          type: "Treatment",
+          type: "Follow-up",
           diagnosis: "Gastroenteritis (acute)",
           doctor: "Dr. Aisha Mohammed",
-          vitals: { 
-            age: "32 years", 
-            temperature: "36.8°C", 
-            bloodPressure: "115/75 mmHg", 
-            pulse: "78 bpm", 
-            weight: "55 kg", 
-            height: "162 cm", 
-            respiratoryRate: "18/min", 
-            oxygenSaturation: "99%" 
-          },
+          vitals: { age: "32 years", temperature: "36.8°C", bloodPressure: "115/75 mmHg", pulse: "78 bpm", weight: "55 kg", height: "162 cm", respiratoryRate: "18/min", oxygenSaturation: "99%" },
           notes: "32-year-old female with acute gastroenteritis. Likely food-borne illness. Well hydrated, no signs of severe dehydration.",
           icon: Eye
         }
@@ -60,19 +42,10 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
         {
           id: "R004",
           date: "2024-06-09",
-          type: "Emergency",
-          diagnosis: "Acute asthma exacerbation",
+          type: "Consultation",
+          diagnosis: "Acute bronchial asthma exacerbation",
           doctor: "Dr. Grace Musa",
-          vitals: { 
-            age: "36 years", 
-            temperature: "36.9°C", 
-            bloodPressure: "125/80 mmHg", 
-            pulse: "95 bpm", 
-            weight: "68 kg", 
-            height: "175 cm", 
-            respiratoryRate: "28/min", 
-            oxygenSaturation: "92% (improved to 97% post-treatment)" 
-          },
+          vitals: { age: "36 years", temperature: "36.9°C", bloodPressure: "125/80 mmHg", pulse: "95 bpm", weight: "68 kg", height: "175 cm", respiratoryRate: "28/min", oxygenSaturation: "92%" },
           notes: "36-year-old male with acute asthma exacerbation triggered by dust exposure. Peak flow 40% of predicted.",
           icon: Brain
         }
@@ -113,97 +86,102 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl max-h-[95vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <FileText className="h-5 w-5 text-primary" />
-            Medical Records - {patientName} ({patientId})
+    <Dialog open={open} onOpenChange={onOpenChange} aria-labelledby="medical-records-title">
+      <DialogContent className="max-w-7xl max-h-[95vh] overflow-y-auto bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 p-3 sm:p-6">
+        <DialogHeader className="border-b border-gray-200 dark:border-gray-800 pb-3 sm:pb-4">
+          <DialogTitle id="medical-records-title" className="flex flex-col sm:flex-row items-start sm:items-center gap-2 text-gray-900 dark:text-gray-100">
+            <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+              <span className="text-lg sm:text-xl font-semibold">Medical Records</span>
+              <span className="text-sm sm:text-base text-muted-foreground">
+                {patientName} ({patientId})
+              </span>
+            </div>
           </DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6 pt-3 sm:pt-4" role="main">
           {records.map((record) => {
             const IconComponent = record.icon;
             return (
-              <Card key={record.id}>
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start gap-4 mb-4">
-                    <div className="flex items-center gap-3">
-                      <IconComponent className="h-6 w-6 text-primary" />
+              <Card key={record.id} className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-lg transition-all duration-150">
+                <CardContent className="p-3 sm:p-4 lg:p-6">
+                  <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4 mb-4">
+                    <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                      <IconComponent className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                       <div>
                         <Badge className={getRecordTypeColor(record.type)}>
                           {record.type}
                         </Badge>
-                        <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
+                        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1 flex items-center gap-1">
+                          <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
                           {new Date(record.date).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <User className="h-4 w-4" />
-                      <span>{record.doctor}</span>
+                    <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 flex-shrink-0">
+                      <User className="h-3 w-3 sm:h-4 sm:w-4" />
+                      <span className="truncate max-w-[150px] sm:max-w-none">{record.doctor}</span>
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     <div>
-                      <h4 className="font-semibold mb-3">Diagnosis & Treatment</h4>
+                      <h4 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base text-gray-900 dark:text-gray-100">Diagnosis & Treatment</h4>
                       <div className="space-y-3">
-                        <div className="bg-muted p-3 rounded border">
-                          <p className="font-medium text-sm mb-1">Diagnosis:</p>
-                          <p className="text-sm">{record.diagnosis}</p>
+                        <div className="bg-gray-50 dark:bg-gray-800/50 p-2 sm:p-3 rounded border border-gray-200 dark:border-gray-700">
+                          <p className="font-medium text-xs sm:text-sm mb-1 text-gray-900 dark:text-gray-100">Diagnosis:</p>
+                          <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{record.diagnosis}</p>
                         </div>
                         <div>
-                          <p className="font-medium text-sm mb-2">Clinical Notes:</p>
-                          <p className="text-sm text-muted-foreground">{record.notes}</p>
+                          <p className="font-medium text-xs sm:text-sm mb-2 text-gray-900 dark:text-gray-100">Clinical Notes:</p>
+                          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{record.notes}</p>
                         </div>
                       </div>
                     </div>
                     
                     <div>
-                      <h4 className="font-semibold mb-3">Vital Signs</h4>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded border">
+                      <h4 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base text-gray-900 dark:text-gray-100">Vital Signs</h4>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-2 sm:gap-3">
+                        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-2 sm:p-3 rounded border border-indigo-200 dark:border-indigo-800">
                           <p className="text-xs font-medium text-indigo-700 dark:text-indigo-300 mb-1 flex items-center gap-1">
                             <Clock className="h-3 w-3" />
                             Age
                           </p>
-                          <p className="text-lg font-bold text-indigo-800 dark:text-indigo-200">{record.vitals.age}</p>
+                          <p className="text-sm sm:text-lg font-bold text-indigo-800 dark:text-indigo-200">{record.vitals.age}</p>
                         </div>
-                        <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded border">
+                        <div className="bg-blue-50 dark:bg-blue-900/20 p-2 sm:p-3 rounded border border-blue-200 dark:border-blue-800">
                           <p className="text-xs font-medium text-blue-700 dark:text-blue-300 mb-1">Temperature</p>
-                          <p className="text-lg font-bold text-blue-800 dark:text-blue-200">{record.vitals.temperature}</p>
+                          <p className="text-sm sm:text-lg font-bold text-blue-800 dark:text-blue-200">{record.vitals.temperature}</p>
                         </div>
-                        <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded border">
+                        <div className="bg-red-50 dark:bg-red-900/20 p-2 sm:p-3 rounded border border-red-200 dark:border-red-800">
                           <p className="text-xs font-medium text-red-700 dark:text-red-300 mb-1">Blood Pressure</p>
-                          <p className="text-lg font-bold text-red-800 dark:text-red-200">{record.vitals.bloodPressure}</p>
+                          <p className="text-sm sm:text-lg font-bold text-red-800 dark:text-red-200">{record.vitals.bloodPressure}</p>
                         </div>
-                        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded border">
+                        <div className="bg-green-50 dark:bg-green-900/20 p-2 sm:p-3 rounded border border-green-200 dark:border-green-800">
                           <p className="text-xs font-medium text-green-700 dark:text-green-300 mb-1">Pulse Rate</p>
-                          <p className="text-lg font-bold text-green-800 dark:text-green-200">{record.vitals.pulse}</p>
+                          <p className="text-sm sm:text-lg font-bold text-green-800 dark:text-green-200">{record.vitals.pulse}</p>
                         </div>
-                        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded border">
+                        <div className="bg-purple-50 dark:bg-purple-900/20 p-2 sm:p-3 rounded border border-purple-200 dark:border-purple-800">
                           <p className="text-xs font-medium text-purple-700 dark:text-purple-300 mb-1">Weight</p>
-                          <p className="text-lg font-bold text-purple-800 dark:text-purple-200">{record.vitals.weight}</p>
+                          <p className="text-sm sm:text-lg font-bold text-purple-800 dark:text-purple-200">{record.vitals.weight}</p>
                         </div>
                         {record.vitals.height && (
-                          <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded border">
+                          <div className="bg-orange-50 dark:bg-orange-900/20 p-2 sm:p-3 rounded border border-orange-200 dark:border-orange-800">
                             <p className="text-xs font-medium text-orange-700 dark:text-orange-300 mb-1">Height</p>
-                            <p className="text-lg font-bold text-orange-800 dark:text-orange-200">{record.vitals.height}</p>
+                            <p className="text-sm sm:text-lg font-bold text-orange-800 dark:text-orange-200">{record.vitals.height}</p>
                           </div>
                         )}
                         {record.vitals.respiratoryRate && (
-                          <div className="bg-teal-50 dark:bg-teal-900/20 p-3 rounded border">
+                          <div className="bg-teal-50 dark:bg-teal-900/20 p-2 sm:p-3 rounded border border-teal-200 dark:border-teal-800">
                             <p className="text-xs font-medium text-teal-700 dark:text-teal-300 mb-1">Respiratory Rate</p>
-                            <p className="text-lg font-bold text-teal-800 dark:text-teal-200">{record.vitals.respiratoryRate}</p>
+                            <p className="text-sm sm:text-lg font-bold text-teal-800 dark:text-teal-200">{record.vitals.respiratoryRate}</p>
                           </div>
                         )}
                         {record.vitals.oxygenSaturation && (
-                          <div className="bg-cyan-50 dark:bg-cyan-900/20 p-3 rounded border">
+                          <div className="bg-cyan-50 dark:bg-cyan-900/20 p-2 sm:p-3 rounded border border-cyan-200 dark:border-cyan-800">
                             <p className="text-xs font-medium text-cyan-700 dark:text-cyan-300 mb-1">O2 Saturation</p>
-                            <p className="text-lg font-bold text-cyan-800 dark:text-cyan-200">{record.vitals.oxygenSaturation}</p>
+                            <p className="text-sm sm:text-lg font-bold text-cyan-800 dark:text-cyan-200">{record.vitals.oxygenSaturation}</p>
                           </div>
                         )}
                       </div>
@@ -215,10 +193,12 @@ export const ViewRecordsDialog = ({ open, onOpenChange, patientName, patientId }
           })}
         </div>
         
-        <div className="flex justify-end gap-3 pt-4 border-t">
+        <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-800 mt-4 sm:mt-6">
           <Button 
             variant="outline" 
-            onClick={() => onOpenChange(false)}
+            onClick={() => onOpenChange(false)} 
+            className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 w-full sm:w-auto"
+            aria-label="Close medical records dialog"
           >
             Close
           </Button>
