@@ -151,7 +151,7 @@
 
   /* Enhanced button styling for dark mode */
   .dark button {
-    transition: all 0.1s ease;
+    transition: all 0.05s ease;
   }
 
   .dark button:hover {
