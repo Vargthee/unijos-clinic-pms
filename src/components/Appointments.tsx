@@ -15,7 +15,7 @@ const appointments = [
     patientId: "P001238",
     doctor: "Dr. Fatima Aliyu",
     department: "General Medicine",
-    date: "2025-01-02",
+    date: "2024-06-03",
     time: "09:00 AM",
     status: "Confirmed",
     type: "Consultation",
@@ -27,7 +27,7 @@ const appointments = [
     patientId: "P001239",
     doctor: "Dr. John Okafor", 
     department: "Mental Health",
-    date: "2025-01-02",
+    date: "2024-06-03",
     time: "10:30 AM",
     status: "Pending",
     type: "Check-up",
@@ -39,7 +39,7 @@ const appointments = [
     patientId: "P001240", 
     doctor: "Dr. Aisha Mohammed",
     department: "Cardiology",
-    date: "2025-01-02",
+    date: "2024-06-03",
     time: "02:00 PM", 
     status: "Confirmed",
     type: "Follow-up",
@@ -51,7 +51,7 @@ const appointments = [
     patientId: "P001241",
     doctor: "Dr. Peter Nnamdi",
     department: "Orthopedics", 
-    date: "2025-01-03",
+    date: "2024-06-04",
     time: "11:00 AM",
     status: "Scheduled", 
     type: "Consultation",
@@ -63,7 +63,7 @@ const appointments = [
     patientId: "P001242",
     doctor: "Dr. Fatima Aliyu",
     department: "General Medicine",
-    date: "2025-01-03",
+    date: "2024-06-04",
     time: "09:30 AM",
     status: "Confirmed",
     type: "Annual Check-up",
@@ -75,7 +75,7 @@ const appointments = [
     patientId: "P001243",
     doctor: "Dr. Aisha Mohammed",
     department: "Cardiology",
-    date: "2025-01-03",
+    date: "2024-06-04",
     time: "03:15 PM",
     status: "Pending",
     type: "ECG Test",
@@ -87,7 +87,7 @@ const appointments = [
     patientId: "P001244", 
     doctor: "Dr. John Okafor",
     department: "Mental Health",
-    date: "2025-01-04",
+    date: "2024-06-05",
     time: "10:00 AM",
     status: "Scheduled",
     type: "Therapy Session", 
@@ -99,7 +99,7 @@ const appointments = [
     patientId: "P001245",
     doctor: "Dr. Peter Nnamdi", 
     department: "Orthopedics",
-    date: "2025-01-04",
+    date: "2024-06-05",
     time: "02:30 PM",
     status: "Confirmed",
     type: "X-Ray Review",
@@ -111,7 +111,7 @@ const appointments = [
     patientId: "P001246",
     doctor: "Dr. Fatima Aliyu",
     department: "General Medicine",
-    date: "2025-01-05",
+    date: "2024-06-06",
     time: "08:45 AM",
     status: "Scheduled", 
     type: "Vaccination",
@@ -123,7 +123,7 @@ const appointments = [
     patientId: "P001247",
     doctor: "Dr. Aisha Mohammed",
     department: "Cardiology",
-    date: "2025-01-05",
+    date: "2024-06-06",
     time: "01:00 PM",
     status: "Confirmed",
     type: "Blood Pressure Check",
@@ -135,7 +135,7 @@ const appointments = [
     patientId: "P001248",
     doctor: "Dr. John Okafor",
     department: "Mental Health",
-    date: "2025-01-06",
+    date: "2024-06-07",
     time: "11:30 AM",
     status: "Pending",
     type: "Assessment",
@@ -147,7 +147,7 @@ const appointments = [
     patientId: "P001249",
     doctor: "Dr. Peter Nnamdi",
     department: "Orthopedics", 
-    date: "2025-01-06",
+    date: "2024-06-07",
     time: "04:00 PM",
     status: "Scheduled",
     type: "Physical Therapy",
@@ -159,7 +159,7 @@ const appointments = [
     patientId: "P001250",
     doctor: "Dr. Fatima Aliyu",
     department: "General Medicine",
-    date: "2025-01-07", 
+    date: "2024-06-10",
     time: "09:15 AM",
     status: "Confirmed",
     type: "Routine Check-up",
@@ -171,7 +171,7 @@ const appointments = [
     patientId: "P001251",
     doctor: "Dr. Aisha Mohammed",
     department: "Cardiology",
-    date: "2025-01-07",
+    date: "2024-06-10",
     time: "02:45 PM",
     status: "Confirmed", 
     type: "Consultation",
@@ -183,7 +183,7 @@ const appointments = [
     patientId: "P001252",
     doctor: "Dr. John Okafor",
     department: "Mental Health", 
-    date: "2025-01-08",
+    date: "2024-06-11",
     time: "10:15 AM",
     status: "Scheduled",
     type: "Follow-up",
@@ -280,13 +280,13 @@ const Appointments = () => {
               <div className="space-y-4">
                 {appointments
                   .filter((apt) => {
-                    const today = new Date().toISOString().split('T')[0];
+                    const today = "2024-06-03"; // Current date for demo
                     return apt.date === today;
                   })
                   .length > 0 ? (
                     appointments
                       .filter((apt) => {
-                        const today = new Date().toISOString().split('T')[0];
+                        const today = "2024-06-03"; // Current date for demo
                         return apt.date === today;
                       })
                       .map((appointment) => (

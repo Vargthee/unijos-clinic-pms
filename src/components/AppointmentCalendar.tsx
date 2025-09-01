@@ -35,7 +35,7 @@ const getStatusColor = (status: string) => {
 };
 
 export const AppointmentCalendar = ({ appointments }: AppointmentCalendarProps) => {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date("2024-06-03"));
 
   // Get appointments for the selected date
   const selectedDateAppointments = selectedDate 
