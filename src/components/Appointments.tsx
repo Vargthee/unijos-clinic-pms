@@ -15,7 +15,7 @@ const appointments = [
     patientId: "P001238",
     doctor: "Dr. Fatima Aliyu",
     department: "General Medicine",
-    date: "2024-06-03",
+    date: "2025-06-03",
     time: "09:00 AM",
     status: "Confirmed",
     type: "Consultation",
