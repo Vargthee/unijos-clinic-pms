@@ -26,7 +26,7 @@ const SignIn = () => {
       setIsLoading(false);
       // Navigate to dashboard after "successful" login
       navigate("/dashboard");
-    }, 1000);
+    }, 200);
   };
 
   return (

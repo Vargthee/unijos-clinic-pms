@@ -58,7 +58,7 @@ export const useDashboard = () => {
         setError(null);
         
         // Simulate API call with reduced loading time
-        await new Promise(resolve => setTimeout(resolve, 300));
+        await new Promise(resolve => setTimeout(resolve, 100));
         
         setStats(mockStats);
         setRecentPatients(mockRecentPatients);
