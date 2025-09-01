@@ -264,7 +264,15 @@
 
   /* Enhanced transitions and animations */
   * {
-    transition: transform 0.15s ease, opacity 0.15s ease;
+    transition: transform 0.1s ease, opacity 0.1s ease;
+  }
+  
+  /* Instant theme transitions */
+  [data-theme="light"],
+  [data-theme="dark"],
+  .dark,
+  .light {
+    transition: none !important;
   }
 
   /* Smooth scrolling */

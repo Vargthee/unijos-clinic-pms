@@ -15,19 +15,19 @@ const appointments = [
     patientId: "P001238",
     doctor: "Dr. Fatima Aliyu",
     department: "General Medicine",
-    date: "2025-06-15",
+    date: "2025-01-02",
     time: "09:00 AM",
     status: "Confirmed",
     type: "Consultation",
     phone: "08012345678",
   },
   {
-    id: "A002",
+    id: "A002", 
     patientName: "Amina Hassan",
     patientId: "P001239",
-    doctor: "Dr. John Okafor",
+    doctor: "Dr. John Okafor", 
     department: "Mental Health",
-    date: "2025-06-15",
+    date: "2025-01-02",
     time: "10:30 AM",
     status: "Pending",
     type: "Check-up",
@@ -36,11 +36,11 @@ const appointments = [
   {
     id: "A003",
     patientName: "Emeka Okoye",
-    patientId: "P001240",
+    patientId: "P001240", 
     doctor: "Dr. Aisha Mohammed",
     department: "Cardiology",
-    date: "2025-06-15",
-    time: "02:00 PM",
+    date: "2025-01-02",
+    time: "02:00 PM", 
     status: "Confirmed",
     type: "Follow-up",
     phone: "08034567890",
@@ -50,13 +50,145 @@ const appointments = [
     patientName: "Khadija Usman",
     patientId: "P001241",
     doctor: "Dr. Peter Nnamdi",
-    department: "Orthopedics",
-    date: "2025-06-16",
+    department: "Orthopedics", 
+    date: "2025-01-03",
     time: "11:00 AM",
-    status: "Scheduled",
+    status: "Scheduled", 
     type: "Consultation",
     phone: "08045678901",
   },
+  {
+    id: "A005",
+    patientName: "Sarah Johnson",
+    patientId: "P001242",
+    doctor: "Dr. Fatima Aliyu",
+    department: "General Medicine",
+    date: "2025-01-03",
+    time: "09:30 AM",
+    status: "Confirmed",
+    type: "Annual Check-up",
+    phone: "08056789012",
+  },
+  {
+    id: "A006", 
+    patientName: "Ahmed Ibrahim",
+    patientId: "P001243",
+    doctor: "Dr. Aisha Mohammed",
+    department: "Cardiology",
+    date: "2025-01-03",
+    time: "03:15 PM",
+    status: "Pending",
+    type: "ECG Test",
+    phone: "08067890123",
+  },
+  {
+    id: "A007",
+    patientName: "Grace Adebayo",
+    patientId: "P001244", 
+    doctor: "Dr. John Okafor",
+    department: "Mental Health",
+    date: "2025-01-04",
+    time: "10:00 AM",
+    status: "Scheduled",
+    type: "Therapy Session", 
+    phone: "08078901234",
+  },
+  {
+    id: "A008",
+    patientName: "Michael Chen",
+    patientId: "P001245",
+    doctor: "Dr. Peter Nnamdi", 
+    department: "Orthopedics",
+    date: "2025-01-04",
+    time: "02:30 PM",
+    status: "Confirmed",
+    type: "X-Ray Review",
+    phone: "08089012345",
+  },
+  {
+    id: "A009",
+    patientName: "Fatima Al-Rashid", 
+    patientId: "P001246",
+    doctor: "Dr. Fatima Aliyu",
+    department: "General Medicine",
+    date: "2025-01-05",
+    time: "08:45 AM",
+    status: "Scheduled", 
+    type: "Vaccination",
+    phone: "08090123456",
+  },
+  {
+    id: "A010",
+    patientName: "David Williams",
+    patientId: "P001247",
+    doctor: "Dr. Aisha Mohammed",
+    department: "Cardiology",
+    date: "2025-01-05",
+    time: "01:00 PM",
+    status: "Confirmed",
+    type: "Blood Pressure Check",
+    phone: "08001234567",
+  },
+  {
+    id: "A011",
+    patientName: "Blessing Okoro", 
+    patientId: "P001248",
+    doctor: "Dr. John Okafor",
+    department: "Mental Health",
+    date: "2025-01-06",
+    time: "11:30 AM",
+    status: "Pending",
+    type: "Assessment",
+    phone: "08012345679",
+  },
+  {
+    id: "A012",
+    patientName: "James Anderson",
+    patientId: "P001249",
+    doctor: "Dr. Peter Nnamdi",
+    department: "Orthopedics", 
+    date: "2025-01-06",
+    time: "04:00 PM",
+    status: "Scheduled",
+    type: "Physical Therapy",
+    phone: "08023456780",
+  },
+  {
+    id: "A013",
+    patientName: "Aisha Bello",
+    patientId: "P001250",
+    doctor: "Dr. Fatima Aliyu",
+    department: "General Medicine",
+    date: "2025-01-07", 
+    time: "09:15 AM",
+    status: "Confirmed",
+    type: "Routine Check-up",
+    phone: "08034567891",
+  },
+  {
+    id: "A014",
+    patientName: "Robert Taylor",
+    patientId: "P001251",
+    doctor: "Dr. Aisha Mohammed",
+    department: "Cardiology",
+    date: "2025-01-07",
+    time: "02:45 PM",
+    status: "Confirmed", 
+    type: "Consultation",
+    phone: "08045678902",
+  },
+  {
+    id: "A015",
+    patientName: "Chioma Nwankwo",
+    patientId: "P001252",
+    doctor: "Dr. John Okafor",
+    department: "Mental Health", 
+    date: "2025-01-08",
+    time: "10:15 AM",
+    status: "Scheduled",
+    type: "Follow-up",
+    phone: "08056789013",
+  }
 ];
 
 const getStatusColor = (status: string) => {
@@ -136,48 +268,71 @@ const Appointments = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Clock className="h-5 w-5 text-primary" />
-                Today's Schedule - June 15, 2025
+                Today's Schedule - {new Date().toLocaleDateString('en-US', { 
+                  weekday: 'long',
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {appointments
-                  .filter((apt) => apt.date === "2025-06-15")
-                  .map((appointment) => (
-                    <div
-                      key={appointment.id}
-                      className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-muted/30 hover:bg-muted/50 dark:bg-muted/20 dark:hover:bg-muted/40 rounded-lg border border-border hover-scale transition-all duration-200 gap-4"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="flex items-center justify-center w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-lg flex-shrink-0">
-                          <Clock className="h-6 w-6 text-primary" />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <h3 className="font-medium text-foreground truncate">{appointment.patientName}</h3>
-                          <p className="text-sm text-muted-foreground truncate">
-                            {appointment.patientId} • {appointment.department}
-                          </p>
-                          <p className="text-sm text-muted-foreground truncate">{appointment.doctor}</p>
-                        </div>
-                      </div>
-                      <div className="flex sm:flex-col sm:text-right items-center sm:items-end gap-3 sm:gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium text-foreground">{appointment.time}</span>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(appointment.status)}`}>
-                            {appointment.status}
-                          </span>
-                        </div>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="hover-scale"
-                          onClick={() => handleEditAppointment(appointment)}
+                  .filter((apt) => {
+                    const today = new Date().toISOString().split('T')[0];
+                    return apt.date === today;
+                  })
+                  .length > 0 ? (
+                    appointments
+                      .filter((apt) => {
+                        const today = new Date().toISOString().split('T')[0];
+                        return apt.date === today;
+                      })
+                      .map((appointment) => (
+                        <div
+                          key={appointment.id}
+                          className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-muted/30 hover:bg-muted/50 dark:bg-muted/20 dark:hover:bg-muted/40 rounded-lg border border-border hover-scale transition-all duration-200 gap-4"
                         >
-                          Edit
-                        </Button>
-                      </div>
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center justify-center w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-lg flex-shrink-0">
+                              <Clock className="h-6 w-6 text-primary" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <h3 className="font-medium text-foreground truncate">{appointment.patientName}</h3>
+                              <p className="text-sm text-muted-foreground truncate">
+                                {appointment.patientId} • {appointment.department}
+                              </p>
+                              <p className="text-sm text-muted-foreground truncate">{appointment.doctor}</p>
+                            </div>
+                          </div>
+                          <div className="flex sm:flex-col sm:text-right items-center sm:items-end gap-3 sm:gap-2">
+                            <div className="flex items-center gap-2">
+                              <span className="font-medium text-foreground">{appointment.time}</span>
+                              <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(appointment.status)}`}>
+                                {appointment.status}
+                              </span>
+                            </div>
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              className="hover-scale"
+                              onClick={() => handleEditAppointment(appointment)}
+                            >
+                              Edit
+                            </Button>
+                          </div>
+                        </div>
+                      ))
+                  ) : (
+                    <div className="text-center py-12">
+                      <Clock className="h-16 w-16 text-muted-foreground/50 mx-auto mb-4" />
+                      <h3 className="text-lg font-medium text-foreground mb-2">No Appointments Today</h3>
+                      <p className="text-muted-foreground">
+                        There are no appointments scheduled for today. Check the calendar view for upcoming appointments.
+                      </p>
                     </div>
-                  ))}
+                  )}
               </div>
             </CardContent>
           </Card>
