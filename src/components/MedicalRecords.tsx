@@ -17,7 +17,7 @@ const medicalRecords = [
     recordType: "Treatment",
     diagnosis: "Uncomplicated malaria (P. falciparum)",
     doctor: "Dr. Fatima Aliyu",
-    date: "2024-06-05",
+    date: "2025-01-05",
     medications: ["Artemether-Lumefantrine (Coartem)", "Paracetamol 500mg", "ORS sachets"],
     notes: "20-year-old female with uncomplicated malaria. Rapid diagnostic test positive for P. falciparum. Good response to ACT. Counseled on ITN use and prevention.",
     vitals: {
@@ -42,7 +42,7 @@ const medicalRecords = [
     recordType: "Treatment",
     diagnosis: "Gastroenteritis (acute)",
     doctor: "Dr. Aisha Mohammed",
-    date: "2024-06-08",
+    date: "2025-01-08",
     medications: ["ORS sachets", "Loperamide 2mg", "Probiotics", "Zinc supplements"],
     notes: "18-year-old female with acute gastroenteritis. Likely food-borne illness. Well hydrated, no signs of severe dehydration. Dietary advice given.",
     vitals: {
@@ -67,7 +67,7 @@ const medicalRecords = [
     recordType: "Emergency",
     diagnosis: "Acute asthma exacerbation",
     doctor: "Dr. Grace Musa",
-    date: "2024-06-09",
+    date: "2025-01-09",
     medications: ["Salbutamol nebulizer", "Prednisolone 40mg", "Ipratropium bromide", "Peak flow meter"],
     notes: "21-year-old male with acute asthma exacerbation triggered by dust exposure. Peak flow 40% of predicted. Good response to bronchodilators. Asthma action plan reviewed.",
     vitals: {
@@ -92,7 +92,7 @@ const medicalRecords = [
     recordType: "Treatment",
     diagnosis: "Iron deficiency anemia",
     doctor: "Dr. Hauwa Ibrahim",
-    date: "2024-06-06",
+    date: "2025-01-06",
     medications: ["Ferrous sulfate 200mg", "Vitamin C 500mg", "Folic acid 5mg", "Tranexamic acid"],
     notes: "23-year-old female with iron deficiency anemia (Hb: 7.8g/dL). Associated with menorrhagia. Iron supplementation started. Gynecological consultation arranged.",
     vitals: {
@@ -117,7 +117,7 @@ const medicalRecords = [
     recordType: "Follow-up",
     diagnosis: "Upper respiratory tract infection",
     doctor: "Dr. Samuel Dung",
-    date: "2024-06-04",
+    date: "2025-01-04",
     medications: ["Amoxicillin 500mg", "Loratadine 10mg", "Throat lozenges", "Steam inhalation"],
     notes: "20-year-old male with viral upper respiratory tract infection. Mild bacterial superinfection suspected. Symptomatic treatment with antibiotics for 5 days.",
     vitals: {

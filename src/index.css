@@ -262,18 +262,9 @@
     transform: translateY(-1px);
   }
 
-  /* Enhanced transitions and animations */
-  * {
-    transition: transform 0.1s ease, opacity 0.1s ease;
-  }
-  
-  /* Instant theme transitions */
-  [data-theme="light"],
-  [data-theme="dark"],
-  .dark,
-  .light {
-    transition: none !important;
-  }
+* {
+  transition: none !important;
+}
 
   /* Smooth scrolling */
   html {
