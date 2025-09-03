@@ -142,7 +142,7 @@ const medicalRecords = [
     recordType: "Treatment",
     diagnosis: "Urinary tract infection (UTI)",
     doctor: "Dr. Mary Gyang",
-    date: "2024-06-10",
+    date: "2025-06-10",
     medications: ["Ciprofloxacin 500mg", "Cranberry extract", "Increased fluid intake", "Paracetamol for pain"],
     notes: "19-year-old female with uncomplicated UTI. Urine culture positive for E. coli. Sensitive to ciprofloxacin. Hygiene counseling and prevention strategies discussed.",
     vitals: {
@@ -167,7 +167,7 @@ const medicalRecords = [
     recordType: "Emergency",
     diagnosis: "Acute appendicitis (post-operative)",
     doctor: "Dr. Peter Bulus",
-    date: "2024-06-11",
+    date: "2025-06-11",
     medications: ["Ceftriaxone 1g IV", "Metronidazole 500mg", "Tramadol 50mg", "IV fluids"],
     notes: "21-year-old male post-appendectomy (laparoscopic). Uncomplicated acute appendicitis. Post-operative recovery excellent. Wound healing well, no complications.",
     vitals: {
@@ -192,7 +192,7 @@ const medicalRecords = [
     recordType: "Follow-up",
     diagnosis: "Anxiety disorder (generalized)",
     doctor: "Dr. Emmanuel Yakubu",
-    date: "2024-06-12",
+    date: "2025-06-12",
     medications: ["Sertraline 50mg", "Propranolol 10mg PRN", "Relaxation techniques", "Counseling sessions"],
     notes: "22-year-old female with generalized anxiety disorder. Academic stress-related. Good response to SSRI therapy. Regular counseling sessions scheduled.",
     vitals: {
@@ -217,7 +217,7 @@ const medicalRecords = [
     recordType: "Treatment",
     diagnosis: "Allergic rhinitis (seasonal)",
     doctor: "Dr. Ruth Laven",
-    date: "2024-06-13",
+    date: "2025-06-13",
     medications: ["Loratadine 10mg", "Fluticasone nasal spray", "Saline nasal rinse", "Antihistamine eye drops"],
     notes: "18-year-old male with seasonal allergic rhinitis. Symptoms worsen during harmattan season. Good response to antihistamines and topical steroids.",
     vitals: {
@@ -248,7 +248,7 @@ const staffMedicalRecords = [
     recordType: "Treatment",
     diagnosis: "Hypertension (essential) - well controlled",
     doctor: "Dr. Samuel Dung",
-    date: "2024-05-20",
+    date: "2025-05-20",
     medications: ["Lisinopril 10mg", "Amlodipine 5mg", "Lifestyle modifications"],
     notes: "45-year-old female with well-controlled essential hypertension. Regular monitoring shows good BP control. Lifestyle modifications effective.",
     vitals: {
@@ -275,7 +275,7 @@ const staffMedicalRecords = [
     recordType: "Follow-up",
     diagnosis: "Type 2 diabetes mellitus - well controlled",
     doctor: "Dr. Grace Musa",
-    date: "2024-04-15",
+    date: "2025-04-15",
     medications: ["Metformin 500mg BD", "Glimepiride 2mg", "Dietary counseling"],
     notes: "52-year-old male with well-controlled T2DM. HbA1c: 6.8%. Good compliance with medications and diet. Regular monitoring continues.",
     vitals: {
@@ -302,7 +302,7 @@ const staffMedicalRecords = [
     recordType: "Treatment",
     diagnosis: "Musculoskeletal strain (occupational)",
     doctor: "Dr. Aisha Mohammed",
-    date: "2024-06-01",
+    date: "2025-06-01",
     medications: ["Ibuprofen 400mg", "Muscle relaxants", "Physiotherapy", "Ergonomic assessment"],
     notes: "38-year-old female with work-related musculoskeletal strain. Long hours of standing and walking. Physiotherapy and workplace modifications recommended.",
     vitals: {
@@ -329,7 +329,7 @@ const staffMedicalRecords = [
     recordType: "Consultation",
     diagnosis: "Computer vision syndrome",
     doctor: "Dr. Peter Bulus",
-    date: "2024-03-25",
+    date: "2025-03-25",
     medications: ["Artificial tears", "Blue light glasses", "Eye exercises", "Screen break reminders"],
     notes: "41-year-old male with computer vision syndrome. Prolonged screen exposure causing eye strain, dry eyes, and headaches. Ergonomic adjustments recommended.",
     vitals: {
@@ -356,7 +356,7 @@ const staffMedicalRecords = [
     recordType: "Treatment",
     diagnosis: "Migraine headaches",
     doctor: "Dr. Ruth Laven",
-    date: "2024-05-05",
+    date: "2025-05-05",
     medications: ["Sumatriptan 50mg", "Propranolol 40mg", "Lifestyle modifications", "Stress management"],
     notes: "35-year-old female with episodic migraine headaches. Work-related stress triggers identified. Good response to triptans. Preventive therapy initiated.",
     vitals: {
@@ -383,7 +383,7 @@ const staffMedicalRecords = [
     recordType: "Treatment",
     diagnosis: "Lower back pain (mechanical)",
     doctor: "Dr. Emmanuel Yakubu",
-    date: "2024-04-20",
+    date: "2025-04-20",
     medications: ["Diclofenac gel", "Paracetamol 1g", "Physiotherapy", "Core strengthening exercises"],
     notes: "48-year-old male with mechanical lower back pain. Work-related lifting and bending. Good response to physiotherapy and ergonomic modifications.",
     vitals: {
@@ -410,7 +410,7 @@ const staffMedicalRecords = [
     recordType: "Treatment",
     diagnosis: "Peptic ulcer disease (H. pylori positive)",
     doctor: "Dr. Mary Gyang",
-    date: "2024-05-30",
+    date: "2025-05-30",
     medications: ["Omeprazole 20mg", "Clarithromycin 500mg", "Amoxicillin 1g", "Probiotics"],
     notes: "42-year-old female with H. pylori positive peptic ulcer. Triple therapy initiated. Stress management and dietary modifications advised.",
     vitals: {
@@ -437,7 +437,7 @@ const staffMedicalRecords = [
     recordType: "Follow-up",
     diagnosis: "Benign prostatic hyperplasia (BPH)",
     doctor: "Dr. Fatima Aliyu",
-    date: "2024-06-15",
+    date: "2025-06-15",
     medications: ["Tamsulosin 0.4mg", "Finasteride 5mg", "Regular monitoring"],
     notes: "55-year-old male with benign prostatic hyperplasia. Mild to moderate urinary symptoms. Good response to alpha-blockers. PSA levels normal.",
     vitals: {
@@ -617,22 +617,22 @@ export const MedicalRecords = () => {
       </div>
 
       <Tabs defaultValue="students" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6 h-16 sm:h-12 p-2 sm:p-1 bg-muted rounded-xl sm:rounded-lg border-2 border-muted-foreground/10">
+        <TabsList className="grid w-full grid-cols-2 mb-4 h-10 p-1 bg-muted rounded-lg">
           <TabsTrigger 
             value="students" 
-            className="text-base sm:text-sm font-semibold h-12 sm:h-8 px-4 sm:px-3 py-3 sm:py-1 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-primary/20 transition-all duration-300 rounded-lg sm:rounded-md"
+            className="text-sm font-medium px-3 py-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
           >
-            <FileText className="h-5 w-5 sm:h-4 sm:w-4 mr-2 sm:mr-1" />
+            <FileText className="h-4 w-4 mr-2" />
             <span className="hidden sm:inline">Student Records</span>
-            <span className="sm:hidden font-bold">Students</span>
+            <span className="sm:hidden">Students</span>
           </TabsTrigger>
           <TabsTrigger 
             value="staff" 
-            className="text-base sm:text-sm font-semibold h-12 sm:h-8 px-4 sm:px-3 py-3 sm:py-1 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-primary/20 transition-all duration-300 rounded-lg sm:rounded-md"
+            className="text-sm font-medium px-3 py-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
           >
-            <UserCheck className="h-5 w-5 sm:h-4 sm:w-4 mr-2 sm:mr-1" />
+            <UserCheck className="h-4 w-4 mr-2" />
             <span className="hidden sm:inline">Staff Records</span>
-            <span className="sm:hidden font-bold">Staff</span>
+            <span className="sm:hidden">Staff</span>
           </TabsTrigger>
         </TabsList>
         

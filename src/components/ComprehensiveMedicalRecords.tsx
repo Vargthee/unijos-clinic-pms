@@ -44,13 +44,13 @@ const universityStaffRecords = [
     bloodType: "O+",
     address: "GRA, Jos",
     emergencyContact: "08098765432",
-    lastCheckup: "2024-05-20",
-    nextCheckup: "2024-11-20",
+    lastCheckup: "2025-05-20",
+    nextCheckup: "2025-11-20",
     healthStatus: "Good",
     initials: "HA",
     medicalHistory: [
       {
-        date: "2024-05-20",
+        date: "2025-05-20",
         type: "Annual Checkup",
         diagnosis: "Hypertension (mild)",
         treatment: "Lifestyle modification, blood pressure monitoring",
@@ -63,15 +63,15 @@ const universityStaffRecords = [
         dosage: "Once daily",
         duration: "Ongoing",
         prescribedBy: "Dr. Fatima Aliyu",
-        date: "2024-05-20"
+        date: "2025-05-20"
       }
     ],
     vaccinations: [
-      { vaccine: "COVID-19 Booster", date: "2024-03-15", nextDue: "2025-03-15" },
+      { vaccine: "COVID-19 Booster", date: "2025-03-15", nextDue: "2026-03-15" },
       { vaccine: "Hepatitis B", date: "2023-01-10", nextDue: "2028-01-10" }
     ],
     mentalHealth: {
-      lastAssessment: "2024-05-20",
+      lastAssessment: "2025-05-20",
       status: "Good",
       recommendations: "Regular stress management, work-life balance"
     },
@@ -101,13 +101,13 @@ const universityStaffRecords = [
     bloodType: "A+",
     address: "Rayfield, Jos",
     emergencyContact: "08087654321",
-    lastCheckup: "2024-04-15",
-    nextCheckup: "2024-10-15",
+    lastCheckup: "2025-04-15",
+    nextCheckup: "2025-10-15",
     healthStatus: "Excellent",
     initials: "JD",
     medicalHistory: [
       {
-        date: "2024-04-15",
+        date: "2025-04-15",
         type: "Routine Checkup",
         diagnosis: "Excellent health",
         treatment: "Continue current lifestyle",
@@ -120,15 +120,15 @@ const universityStaffRecords = [
         dosage: "Once daily",
         duration: "Ongoing",
         prescribedBy: "Dr. Ruth Laven",
-        date: "2024-04-15"
+        date: "2025-04-15"
       }
     ],
     vaccinations: [
-      { vaccine: "COVID-19 Booster", date: "2024-01-20", nextDue: "2025-01-20" },
-      { vaccine: "Annual Flu Shot", date: "2024-03-01", nextDue: "2025-03-01" }
+      { vaccine: "COVID-19 Booster", date: "2025-01-20", nextDue: "2026-01-20" },
+      { vaccine: "Annual Flu Shot", date: "2025-03-01", nextDue: "2026-03-01" }
     ],
     mentalHealth: {
-      lastAssessment: "2024-04-15",
+      lastAssessment: "2025-04-15",
       status: "Excellent",
       recommendations: "Maintain current mental wellness practices"
     },
@@ -158,13 +158,13 @@ const universityStaffRecords = [
     bloodType: "B+",
     address: "Bukuru, Jos",
     emergencyContact: "08076543210",
-    lastCheckup: "2024-06-01",
-    nextCheckup: "2024-12-01",
+    lastCheckup: "2025-06-01",
+    nextCheckup: "2025-12-01",
     healthStatus: "Good",
     initials: "GY",
     medicalHistory: [
       {
-        date: "2024-06-01",
+        date: "2025-06-01",
         type: "Occupational Health Check",
         diagnosis: "Lower back strain",
         treatment: "Physiotherapy, ergonomic training",
@@ -177,15 +177,15 @@ const universityStaffRecords = [
         dosage: "As needed for pain",
         duration: "2 weeks",
         prescribedBy: "Dr. Peter Nnamdi",
-        date: "2024-06-01"
+        date: "2025-06-01"
       }
     ],
     vaccinations: [
-      { vaccine: "COVID-19 Booster", date: "2024-02-28", nextDue: "2025-02-28" },
+      { vaccine: "COVID-19 Booster", date: "2025-02-28", nextDue: "2026-02-28" },
       { vaccine: "Hepatitis B", date: "2023-05-15", nextDue: "2028-05-15" }
     ],
     mentalHealth: {
-      lastAssessment: "2024-06-01",
+      lastAssessment: "2025-06-01",
       status: "Good",
       recommendations: "Stress management for high-pressure work environment"
     },
@@ -215,8 +215,8 @@ const universityStaffRecords = [
     bloodType: "AB+",
     address: "Anglo Jos, Jos",
     emergencyContact: "08065432109",
-    lastCheckup: "2024-03-25",
-    nextCheckup: "2024-09-25",
+    lastCheckup: "2025-03-25",
+    nextCheckup: "2025-09-25",
     healthStatus: "Good",
     initials: "EB",
     medicalHistory: [
@@ -272,8 +272,8 @@ const universityStaffRecords = [
     bloodType: "O-",
     address: "Lamingo, Jos",
     emergencyContact: "08054321098",
-    lastCheckup: "2024-05-05",
-    nextCheckup: "2024-11-05",
+    lastCheckup: "2025-05-05",
+    nextCheckup: "2025-11-05",
     healthStatus: "Good",
     initials: "RG",
     medicalHistory: [
@@ -329,8 +329,8 @@ const universityStaffRecords = [
     bloodType: "A-",
     address: "Dogon Dutse, Jos",
     emergencyContact: "08043210987",
-    lastCheckup: "2024-04-20",
-    nextCheckup: "2024-10-20",
+    lastCheckup: "2025-04-20",
+    nextCheckup: "2025-10-20",
     healthStatus: "Good",
     initials: "DK",
     medicalHistory: [
@@ -386,8 +386,8 @@ const universityStaffRecords = [
     bloodType: "B-",
     address: "Plateau State University Road, Jos",
     emergencyContact: "08032109876",
-    lastCheckup: "2024-05-30",
-    nextCheckup: "2024-11-30",
+    lastCheckup: "2025-05-30",
+    nextCheckup: "2025-11-30",
     healthStatus: "Excellent",
     initials: "MU",
     medicalHistory: [
@@ -435,8 +435,8 @@ const universityStaffRecords = [
     bloodType: "AB+",
     address: "Medical Staff Quarters, Jos",
     emergencyContact: "08098765008",
-    lastCheckup: "2024-05-28",
-    nextCheckup: "2024-08-28",
+    lastCheckup: "2025-05-28",
+    nextCheckup: "2025-08-28",
     healthStatus: "Good",
     initials: "SG",
     medicalHistory: [
@@ -484,8 +484,8 @@ const universityStaffRecords = [
     bloodType: "B-",
     address: "Medical Staff Quarters, Jos",
     emergencyContact: "08098765009",
-    lastCheckup: "2024-06-05",
-    nextCheckup: "2024-12-05",
+    lastCheckup: "2025-06-05",
+    nextCheckup: "2025-12-05",
     healthStatus: "Excellent",
     initials: "GM",
     medicalHistory: [
@@ -533,8 +533,8 @@ const universityStaffRecords = [
     bloodType: "O-",
     address: "Medical Staff Quarters, Jos",
     emergencyContact: "08098765010",
-    lastCheckup: "2024-05-18",
-    nextCheckup: "2024-08-18",
+    lastCheckup: "2025-05-18",
+    nextCheckup: "2025-08-18",
     healthStatus: "Good",
     initials: "EY",
     medicalHistory: [
@@ -1635,16 +1635,16 @@ export const ComprehensiveMedicalRecords = () => {
       </div>
 
       <Tabs defaultValue="staff" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-6 h-16 sm:h-12 p-2 sm:p-1 bg-muted rounded-xl sm:rounded-lg border-2 border-muted-foreground/10">
-          <TabsTrigger value="staff" className="flex items-center gap-2 text-base sm:text-sm font-semibold h-12 sm:h-8 px-4 sm:px-3 py-3 sm:py-1 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-primary/20 transition-all duration-300 rounded-lg sm:rounded-md">
-            <UserCheck className="h-5 w-5 sm:h-4 sm:w-4" />
-            <span className="hidden sm:inline">University Staff ({filteredStaff.length})</span>
-            <span className="sm:hidden font-bold">Staff ({filteredStaff.length})</span>
+        <TabsList className="grid w-full grid-cols-2 mb-4 h-10 p-1 bg-muted rounded-lg">
+          <TabsTrigger value="staff" className="flex items-center gap-2 text-sm font-medium px-3 py-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200">
+            <UserCheck className="h-4 w-4" />
+            <span className="hidden sm:inline">Staff ({filteredStaff.length})</span>
+            <span className="sm:hidden">Staff</span>
           </TabsTrigger>
-          <TabsTrigger value="students" className="flex items-center gap-2 text-base sm:text-sm font-semibold h-12 sm:h-8 px-4 sm:px-3 py-3 sm:py-1 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-primary/20 transition-all duration-300 rounded-lg sm:rounded-md">
-            <Users className="h-5 w-5 sm:h-4 sm:w-4" />
+          <TabsTrigger value="students" className="flex items-center gap-2 text-sm font-medium px-3 py-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200">
+            <Users className="h-4 w-4" />
             <span className="hidden sm:inline">Students ({filteredStudents.length})</span>
-            <span className="sm:hidden font-bold">Students ({filteredStudents.length})</span>
+            <span className="sm:hidden">Students</span>
           </TabsTrigger>
         </TabsList>
         
