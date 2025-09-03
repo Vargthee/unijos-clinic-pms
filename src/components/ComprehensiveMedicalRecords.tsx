@@ -1635,14 +1635,16 @@ export const ComprehensiveMedicalRecords = () => {
       </div>
 
       <Tabs defaultValue="staff" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-6">
-          <TabsTrigger value="staff" className="flex items-center gap-2">
-            <UserCheck className="h-4 w-4" />
-            University Staff ({filteredStaff.length})
+        <TabsList className="grid w-full grid-cols-2 mb-6 h-16 sm:h-12 p-2 sm:p-1 bg-muted rounded-xl sm:rounded-lg border-2 border-muted-foreground/10">
+          <TabsTrigger value="staff" className="flex items-center gap-2 text-base sm:text-sm font-semibold h-12 sm:h-8 px-4 sm:px-3 py-3 sm:py-1 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-primary/20 transition-all duration-300 rounded-lg sm:rounded-md">
+            <UserCheck className="h-5 w-5 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">University Staff ({filteredStaff.length})</span>
+            <span className="sm:hidden font-bold">Staff ({filteredStaff.length})</span>
           </TabsTrigger>
-          <TabsTrigger value="students" className="flex items-center gap-2">
-            <Users className="h-4 w-4" />
-            Students ({filteredStudents.length})
+          <TabsTrigger value="students" className="flex items-center gap-2 text-base sm:text-sm font-semibold h-12 sm:h-8 px-4 sm:px-3 py-3 sm:py-1 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-primary/20 transition-all duration-300 rounded-lg sm:rounded-md">
+            <Users className="h-5 w-5 sm:h-4 sm:w-4" />
+            <span className="hidden sm:inline">Students ({filteredStudents.length})</span>
+            <span className="sm:hidden font-bold">Students ({filteredStudents.length})</span>
           </TabsTrigger>
         </TabsList>
         
