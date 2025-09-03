@@ -617,22 +617,22 @@ export const MedicalRecords = () => {
       </div>
 
       <Tabs defaultValue="students" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6 h-12 sm:h-10 p-1 bg-muted rounded-lg">
+        <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6 h-16 sm:h-12 p-2 sm:p-1 bg-muted rounded-xl sm:rounded-lg border-2 border-muted-foreground/10">
           <TabsTrigger 
             value="students" 
-            className="text-sm font-medium h-10 sm:h-8 px-3 sm:px-4 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
+            className="text-base sm:text-sm font-semibold h-12 sm:h-8 px-4 sm:px-3 py-3 sm:py-1 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-primary/20 transition-all duration-300 rounded-lg sm:rounded-md"
           >
-            <FileText className="h-4 w-4 mr-1 sm:mr-2" />
+            <FileText className="h-5 w-5 sm:h-4 sm:w-4 mr-2 sm:mr-1" />
             <span className="hidden sm:inline">Student Records</span>
-            <span className="sm:hidden">Students</span>
+            <span className="sm:hidden font-bold">Students</span>
           </TabsTrigger>
           <TabsTrigger 
             value="staff" 
-            className="text-sm font-medium h-10 sm:h-8 px-3 sm:px-4 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
+            className="text-base sm:text-sm font-semibold h-12 sm:h-8 px-4 sm:px-3 py-3 sm:py-1 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-lg data-[state=active]:border data-[state=active]:border-primary/20 transition-all duration-300 rounded-lg sm:rounded-md"
           >
-            <UserCheck className="h-4 w-4 mr-1 sm:mr-2" />
+            <UserCheck className="h-5 w-5 sm:h-4 sm:w-4 mr-2 sm:mr-1" />
             <span className="hidden sm:inline">Staff Records</span>
-            <span className="sm:hidden">Staff</span>
+            <span className="sm:hidden font-bold">Staff</span>
           </TabsTrigger>
         </TabsList>
         
