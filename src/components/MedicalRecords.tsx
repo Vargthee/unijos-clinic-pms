@@ -617,9 +617,23 @@ export const MedicalRecords = () => {
       </div>
 
       <Tabs defaultValue="students" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6">
-          <TabsTrigger value="students" className="text-xs sm:text-sm">Student Records</TabsTrigger>
-          <TabsTrigger value="staff" className="text-xs sm:text-sm">Staff Records</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6 h-12 sm:h-10 p-1 bg-muted rounded-lg">
+          <TabsTrigger 
+            value="students" 
+            className="text-sm font-medium h-10 sm:h-8 px-3 sm:px-4 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
+          >
+            <FileText className="h-4 w-4 mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Student Records</span>
+            <span className="sm:hidden">Students</span>
+          </TabsTrigger>
+          <TabsTrigger 
+            value="staff" 
+            className="text-sm font-medium h-10 sm:h-8 px-3 sm:px-4 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
+          >
+            <UserCheck className="h-4 w-4 mr-1 sm:mr-2" />
+            <span className="hidden sm:inline">Staff Records</span>
+            <span className="sm:hidden">Staff</span>
+          </TabsTrigger>
         </TabsList>
         
         <TabsContent value="students" className="space-y-3 sm:space-y-4">
