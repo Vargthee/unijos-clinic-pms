@@ -1313,6 +1313,7 @@ export const ComprehensiveMedicalRecords = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
   const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+  const [currentView, setCurrentView] = useState<"staff" | "students">("staff");
   const filteredStaff = universityStaffRecords.filter(staff => staff.name.toLowerCase().includes(searchTerm.toLowerCase()) || staff.department.toLowerCase().includes(searchTerm.toLowerCase()) || staff.staffId.toLowerCase().includes(searchTerm.toLowerCase()));
   const filteredStudents = studentRecords.filter(student => student.name.toLowerCase().includes(searchTerm.toLowerCase()) || student.faculty.toLowerCase().includes(searchTerm.toLowerCase()) || student.matricNumber.toLowerCase().includes(searchTerm.toLowerCase()));
   const handleViewRecord = (record: any) => {
@@ -1650,38 +1651,43 @@ export const ComprehensiveMedicalRecords = () => {
         <Input placeholder="Search records..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10" />
       </div>
 
-      <Tabs defaultValue="staff" className="w-full mt-6">
-        <TabsList className="grid w-full grid-cols-2 mb-6 h-8 p-0.5 bg-muted rounded-md">
-          <TabsTrigger 
-            value="staff" 
-            className="flex items-center justify-center gap-1 text-xs font-medium py-1.5 px-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
+      {/* Simple Toggle Button */}
+      <div className="w-full mt-6 space-y-4">
+        <div className="flex justify-center">
+          <Button
+            variant="outline"
+            onClick={() => setCurrentView(currentView === "staff" ? "students" : "staff")}
+            className="px-6 py-2 text-sm font-medium"
           >
-            <UserCheck className="h-3 w-3" />
-            <span className="hidden sm:inline">Staff ({filteredStaff.length})</span>
-            <span className="sm:hidden">Staff</span>
-          </TabsTrigger>
-          <TabsTrigger 
-            value="students" 
-            className="flex items-center justify-center gap-1 text-xs font-medium py-1.5 px-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
-          >
-            <Users className="h-3 w-3" />
-            <span className="hidden sm:inline">Students ({filteredStudents.length})</span>
-            <span className="sm:hidden">Students</span>
-          </TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="staff" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredStaff.map(staff => <RecordCard key={staff.id} record={staff} isStaff={true} />)}
-          </div>
-        </TabsContent>
-        
-        <TabsContent value="students" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredStudents.map(student => <RecordCard key={student.id} record={student} isStaff={false} />)}
-          </div>
-        </TabsContent>
-      </Tabs>
+            {currentView === "staff" ? (
+              <>
+                <Users className="h-4 w-4 mr-2" />
+                Switch to Students ({filteredStudents.length})
+              </>
+            ) : (
+              <>
+                <UserCheck className="h-4 w-4 mr-2" />
+                Switch to Staff ({filteredStaff.length})
+              </>
+            )}
+          </Button>
+        </div>
+
+        {/* Current View Header */}
+        <div className="text-center">
+          <h3 className="text-lg font-semibold text-foreground">
+            {currentView === "staff" ? `Staff Records (${filteredStaff.length})` : `Student Records (${filteredStudents.length})`}
+          </h3>
+        </div>
+
+        {/* Records Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {currentView === "staff" 
+            ? filteredStaff.map(staff => <RecordCard key={staff.id} record={staff} isStaff={true} />)
+            : filteredStudents.map(student => <RecordCard key={student.id} record={student} isStaff={false} />)
+          }
+        </div>
+      </div>
 
       {selectedRecord && <DetailedView record={selectedRecord} isStaff={selectedRecord.staffId ? true : false} />}
 
