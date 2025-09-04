@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Plus, Download, Eye, UserCheck } from "lucide-react";
+import { FileText, Plus, Download, Eye, UserCheck, Calendar, User, Stethoscope, Activity, Heart, Thermometer } from "lucide-react";
 import { NewRecordDialog } from "./NewRecordDialog";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
 
@@ -490,102 +490,139 @@ export const MedicalRecords = () => {
   };
 
   const RecordCard = ({ record, isStaff = false }) => (
-    <Card key={record.id} className="hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
+    <Card key={record.id} className="group hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border-l-4 border-l-primary/20 hover:border-l-primary bg-gradient-to-r from-card/95 to-card/80 backdrop-blur-sm">
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg group-hover:text-primary transition-colors duration-200">
               {isStaff ? <UserCheck className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400" /> : <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400" />}
               <span className="truncate">{record.name}</span>
               {!isStaff && <span className="hidden sm:inline">- {record.patientId}</span>}
               {isStaff && <span className="hidden sm:inline">- {record.staffId}</span>}
             </CardTitle>
-            <div className="flex flex-wrap items-center gap-2 mt-2">
+            <div className="flex flex-wrap items-center gap-2 mt-3">
               <span className={`px-2 py-1 rounded text-xs font-medium ${getRecordTypeColor(record.recordType)}`}>
                 {record.recordType}
               </span>
-              <span className="text-xs sm:text-sm text-muted-foreground">{record.date}</span>
-              <span className="text-xs sm:text-sm text-muted-foreground">{record.doctor}</span>
+              <span className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1">
+                <Calendar className="h-3 w-3" />
+                {record.date}
+              </span>
+              <span className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1">
+                <User className="h-3 w-3" />
+                {record.doctor}
+              </span>
               {!isStaff && (
                 <>
-                  <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded">
+                  <span className="text-xs bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-1 rounded-full font-medium">
                     {record.faculty} - {record.level}
                   </span>
-                  <span className="text-xs bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 px-2 py-1 rounded">
+                  <span className="text-xs bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 px-2 py-1 rounded-full font-medium">
                     {record.matricNumber}
                   </span>
                 </>
               )}
               {isStaff && (
                 <>
-                  <span className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 px-2 py-1 rounded">
+                  <span className="text-xs bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 px-2 py-1 rounded-full font-medium">
                     {record.department}
                   </span>
-                  <span className="text-xs bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 px-2 py-1 rounded">
+                  <span className="text-xs bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 px-2 py-1 rounded-full font-medium">
                     {record.unit}
                   </span>
                 </>
               )}
             </div>
           </div>
-          <div className="flex gap-1 sm:gap-2 ml-2">
+          <div className="flex gap-2 ml-3">
             <Button 
-              variant="outline" 
+              variant="default" 
               size="sm" 
-              className="h-8 w-8 sm:h-9 sm:w-auto sm:px-3"
+              className="h-9 px-4 bg-primary/90 hover:bg-primary text-primary-foreground shadow-md hover:shadow-lg transition-all duration-200 group-hover:scale-105"
               onClick={() => handleViewRecord(record, isStaff)}
             >
-              <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline ml-1">View</span>
+              <Eye className="h-4 w-4 mr-2" />
+              <span>View Record</span>
             </Button>
-            <Button variant="outline" size="sm" className="h-8 w-8 sm:h-9 sm:w-auto sm:px-3">
-              <Download className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline ml-1">Export</span>
+            <Button variant="outline" size="sm" className="h-9 px-4 border-primary/20 hover:border-primary/40 hover:bg-primary/5 transition-all duration-200 group-hover:scale-105">
+              <Download className="h-4 w-4 mr-2" />
+              <span>Export</span>
             </Button>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="pt-0">
+      <CardContent className="pt-0 space-y-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Diagnosis & Treatment</h4>
+            <h4 className="font-semibold text-foreground mb-3 text-sm sm:text-base flex items-center gap-2">
+              <Stethoscope className="h-4 w-4 text-primary" />
+              Diagnosis & Treatment
+            </h4>
             <div className="space-y-2">
-              <p className="text-sm"><span className="font-medium">Diagnosis:</span> {record.diagnosis}</p>
-              <p className="text-sm"><span className="font-medium">Medications:</span></p>
-              <ul className="list-disc list-inside ml-4 text-xs sm:text-sm text-muted-foreground space-y-1">
+              <div className="bg-muted/30 p-3 rounded-lg border border-border/30">
+                <p className="text-sm font-medium text-primary mb-1">Diagnosis</p>
+                <p className="text-sm text-foreground">{record.diagnosis}</p>
+              </div>
+              <div className="bg-muted/30 p-3 rounded-lg border border-border/30">
+                <p className="text-sm font-medium text-primary mb-2">Medications</p>
+                <ul className="space-y-1">
                 {record.medications.map((med, index) => (
-                  <li key={index}>{med}</li>
+                  <li key={index} className="text-xs sm:text-sm text-foreground flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
+                    {med}
+                  </li>
                 ))}
               </ul>
+              </div>
             </div>
           </div>
           
           <div>
-            <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Vital Signs</h4>
-            <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
-              <div className="bg-muted p-2 rounded">
-                <p className="font-medium">Temperature</p>
-                <p className="text-muted-foreground">{record.vitals.temperature}</p>
+            <h4 className="font-semibold text-foreground mb-3 text-sm sm:text-base flex items-center gap-2">
+              <Activity className="h-4 w-4 text-primary" />
+              Vital Signs
+            </h4>
+            <div className="grid grid-cols-2 gap-3 text-xs sm:text-sm">
+              <div className="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 p-3 rounded-lg border border-red-200/50 dark:border-red-800/50">
+                <p className="font-medium text-red-700 dark:text-red-300 flex items-center gap-1">
+                  <Thermometer className="h-3 w-3" />
+                  Temperature
+                </p>
+                <p className="text-red-800 dark:text-red-200 font-semibold">{record.vitals.temperature}</p>
               </div>
-              <div className="bg-muted p-2 rounded">
-                <p className="font-medium">Blood Pressure</p>
-                <p className="text-muted-foreground">{record.vitals.bloodPressure}</p>
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-3 rounded-lg border border-blue-200/50 dark:border-blue-800/50">
+                <p className="font-medium text-blue-700 dark:text-blue-300 flex items-center gap-1">
+                  <Activity className="h-3 w-3" />
+                  Blood Pressure
+                </p>
+                <p className="text-blue-800 dark:text-blue-200 font-semibold">{record.vitals.bloodPressure}</p>
               </div>
-              <div className="bg-muted p-2 rounded">
-                <p className="font-medium">Pulse</p>
-                <p className="text-muted-foreground">{record.vitals.pulse}</p>
+              <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-3 rounded-lg border border-green-200/50 dark:border-green-800/50">
+                <p className="font-medium text-green-700 dark:text-green-300 flex items-center gap-1">
+                  <Heart className="h-3 w-3" />
+                  Pulse
+                </p>
+                <p className="text-green-800 dark:text-green-200 font-semibold">{record.vitals.pulse}</p>
               </div>
-              <div className="bg-muted p-2 rounded">
-                <p className="font-medium">Weight</p>
-                <p className="text-muted-foreground">{record.vitals.weight}</p>
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 p-3 rounded-lg border border-purple-200/50 dark:border-purple-800/50">
+                <p className="font-medium text-purple-700 dark:text-purple-300 flex items-center gap-1">
+                  <User className="h-3 w-3" />
+                  Weight
+                </p>
+                <p className="text-purple-800 dark:text-purple-200 font-semibold">{record.vitals.weight}</p>
               </div>
             </div>
           </div>
         </div>
         
-        <div className="mt-4">
-          <h4 className="font-semibold text-foreground mb-2 text-sm sm:text-base">Clinical Notes</h4>
-          <p className="text-muted-foreground text-xs sm:text-sm bg-muted p-3 rounded">{record.notes}</p>
+        <div className="border-t border-border/30 pt-4">
+          <h4 className="font-semibold text-foreground mb-3 text-sm sm:text-base flex items-center gap-2">
+            <FileText className="h-4 w-4 text-primary" />
+            Clinical Notes
+          </h4>
+          <div className="bg-gradient-to-r from-muted/40 to-muted/20 p-4 rounded-lg border border-border/30 hover:border-border/50 transition-colors duration-200">
+            <p className="text-foreground text-xs sm:text-sm leading-relaxed">{record.notes}</p>
+          </div>
         </div>
       </CardContent>
     </Card>
