@@ -1651,20 +1651,20 @@ export const ComprehensiveMedicalRecords = () => {
       </div>
 
       <Tabs defaultValue="staff" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-4 h-12 sm:h-10 p-1 bg-muted rounded-lg">
+        <TabsList className="grid w-full grid-cols-2 mb-4 h-8 p-0.5 bg-muted rounded-md">
           <TabsTrigger 
             value="staff" 
-            className="flex items-center justify-center gap-2 text-sm font-medium py-3 sm:py-2 px-3 min-h-[44px] sm:min-h-[36px] data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200 touch-manipulation active:scale-95"
+            className="flex items-center justify-center gap-1 text-xs font-medium py-1.5 px-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
           >
-            <UserCheck className="h-4 w-4" />
+            <UserCheck className="h-3 w-3" />
             <span className="hidden sm:inline">Staff ({filteredStaff.length})</span>
             <span className="sm:hidden">Staff</span>
           </TabsTrigger>
           <TabsTrigger 
             value="students" 
-            className="flex items-center justify-center gap-2 text-sm font-medium py-3 sm:py-2 px-3 min-h-[44px] sm:min-h-[36px] data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200 touch-manipulation active:scale-95"
+            className="flex items-center justify-center gap-1 text-xs font-medium py-1.5 px-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
           >
-            <Users className="h-4 w-4" />
+            <Users className="h-3 w-3" />
             <span className="hidden sm:inline">Students ({filteredStudents.length})</span>
             <span className="sm:hidden">Students</span>
           </TabsTrigger>
