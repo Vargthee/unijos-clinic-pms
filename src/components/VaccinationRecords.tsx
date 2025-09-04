@@ -9,8 +9,8 @@ const mockVaccinations = [
   {
     id: "1",
     vaccine: "COVID-19 (Pfizer)",
-    date: "2024-03-15",
-    nextDue: "2024-09-15",
+    date: "2025-03-15",
+    nextDue: "2025-09-15",
     batchNumber: "EW0182",
     administeredBy: "Dr. Fatima Aliyu",
     status: "Complete",
@@ -19,8 +19,8 @@ const mockVaccinations = [
   {
     id: "2",
     vaccine: "Hepatitis B",
-    date: "2024-01-10",
-    nextDue: "2025-01-10",
+    date: "2025-01-10",
+    nextDue: "2026-01-10",
     batchNumber: "HB7834",
     administeredBy: "Dr. John Okafor",
     status: "Complete",
@@ -41,12 +41,12 @@ const mockVaccinations = [
 const upcomingVaccinations = [
   {
     vaccine: "COVID-19 Booster",
-    dueDate: "2024-09-15",
+    dueDate: "2025-09-15",
     priority: "High",
   },
   {
     vaccine: "Influenza",
-    dueDate: "2024-10-01",
+    dueDate: "2025-10-01",
     priority: "Medium",
   },
 ];

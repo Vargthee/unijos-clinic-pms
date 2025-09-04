@@ -6,7 +6,7 @@ import { Calendar, User, FileText } from "lucide-react";
 const mockMedicalHistory = [
   {
     id: "1",
-    date: "2024-06-01",
+    date: "2025-06-01",
     type: "Consultation",
     doctor: "Dr. Fatima Aliyu",
     diagnosis: "Common Cold",
@@ -15,7 +15,7 @@ const mockMedicalHistory = [
   },
   {
     id: "2",
-    date: "2024-05-15",
+    date: "2025-05-15",
     type: "Lab Results",
     doctor: "Dr. John Okafor",
     diagnosis: "Blood Work - Normal",
@@ -24,7 +24,7 @@ const mockMedicalHistory = [
   },
   {
     id: "3",
-    date: "2024-04-20",
+    date: "2025-04-20",
     type: "Follow-up",
     doctor: "Dr. Aisha Mohammed",
     diagnosis: "Hypertension Monitoring",

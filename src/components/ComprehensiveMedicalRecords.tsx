@@ -201,7 +201,7 @@ const universityStaffRecords = [{
   healthStatus: "Good",
   initials: "EB",
   medicalHistory: [{
-    date: "2024-03-25",
+    date: "2025-03-25",
     type: "Consultation",
     diagnosis: "Computer Vision Syndrome",
     treatment: "Blue light glasses, regular eye breaks",
@@ -212,19 +212,19 @@ const universityStaffRecords = [{
     dosage: "As needed",
     duration: "Ongoing",
     prescribedBy: "Dr. Samuel Dung",
-    date: "2024-03-25"
+    date: "2025-03-25"
   }],
   vaccinations: [{
     vaccine: "COVID-19 Booster",
-    date: "2024-04-10",
-    nextDue: "2025-04-10"
+    date: "2025-04-10",
+    nextDue: "2026-04-10"
   }, {
     vaccine: "Annual Flu Shot",
-    date: "2024-02-15",
-    nextDue: "2025-02-15"
+    date: "2025-02-15",
+    nextDue: "2026-02-15"
   }],
   mentalHealth: {
-    lastAssessment: "2024-03-25",
+    lastAssessment: "2025-03-25",
     status: "Good",
     recommendations: "Work-life balance, regular digital detox"
   },
@@ -258,7 +258,7 @@ const universityStaffRecords = [{
   healthStatus: "Good",
   initials: "RG",
   medicalHistory: [{
-    date: "2024-05-05",
+    date: "2025-05-05",
     type: "Routine Checkup",
     diagnosis: "Anemia (mild)",
     treatment: "Iron supplements, dietary counseling",
@@ -269,19 +269,19 @@ const universityStaffRecords = [{
     dosage: "Twice daily",
     duration: "3 months",
     prescribedBy: "Dr. Aisha Mohammed",
-    date: "2024-05-05"
+    date: "2025-05-05"
   }],
   vaccinations: [{
     vaccine: "COVID-19 Booster",
-    date: "2024-01-15",
-    nextDue: "2025-01-15"
+    date: "2025-01-15",
+    nextDue: "2026-01-15"
   }, {
     vaccine: "Hepatitis B",
     date: "2023-08-20",
     nextDue: "2028-08-20"
   }],
   mentalHealth: {
-    lastAssessment: "2024-05-05",
+    lastAssessment: "2025-05-05",
     status: "Good",
     recommendations: "Continue stress management techniques"
   },
@@ -315,7 +315,7 @@ const universityStaffRecords = [{
   healthStatus: "Good",
   initials: "DK",
   medicalHistory: [{
-    date: "2024-04-20",
+    date: "2025-04-20",
     type: "Treatment",
     diagnosis: "Allergic rhinitis",
     treatment: "Antihistamines, avoid allergens",
@@ -326,19 +326,19 @@ const universityStaffRecords = [{
     dosage: "Once daily",
     duration: "As needed",
     prescribedBy: "Dr. Mary Gyang",
-    date: "2024-04-20"
+    date: "2025-04-20"
   }],
   vaccinations: [{
     vaccine: "COVID-19 Booster",
-    date: "2024-02-10",
-    nextDue: "2025-02-10"
+    date: "2025-02-10",
+    nextDue: "2026-02-10"
   }, {
     vaccine: "Tetanus",
     date: "2022-08-15",
     nextDue: "2032-08-15"
   }],
   mentalHealth: {
-    lastAssessment: "2024-04-20",
+    lastAssessment: "2025-04-20",
     status: "Good",
     recommendations: "Regular exercise, outdoor activities"
   },
@@ -372,7 +372,7 @@ const universityStaffRecords = [{
   healthStatus: "Excellent",
   initials: "MU",
   medicalHistory: [{
-    date: "2024-05-30",
+    date: "2025-05-30",
     type: "Annual Checkup",
     diagnosis: "Perfect health",
     treatment: "Continue healthy lifestyle",
@@ -381,15 +381,15 @@ const universityStaffRecords = [{
   prescriptions: [],
   vaccinations: [{
     vaccine: "COVID-19 Booster",
-    date: "2024-03-20",
-    nextDue: "2025-03-20"
+    date: "2025-03-20",
+    nextDue: "2026-03-20"
   }, {
     vaccine: "Annual Flu Shot",
-    date: "2024-04-05",
-    nextDue: "2025-04-05"
+    date: "2025-04-05",
+    nextDue: "2026-04-05"
   }],
   mentalHealth: {
-    lastAssessment: "2024-05-30",
+    lastAssessment: "2025-05-30",
     status: "Excellent",
     recommendations: "Continue wellness programs"
   },
@@ -423,7 +423,7 @@ const universityStaffRecords = [{
   healthStatus: "Good",
   initials: "SG",
   medicalHistory: [{
-    date: "2024-05-28",
+    date: "2025-05-28",
     type: "Routine Checkup",
     diagnosis: "Excellent health",
     treatment: "Continue current lifestyle",
@@ -432,15 +432,15 @@ const universityStaffRecords = [{
   prescriptions: [],
   vaccinations: [{
     vaccine: "COVID-19 Booster",
-    date: "2024-03-15",
-    nextDue: "2025-03-15"
+    date: "2025-03-15",
+    nextDue: "2026-03-15"
   }, {
     vaccine: "Hepatitis B",
     date: "2023-01-10",
     nextDue: "2028-01-10"
   }],
   mentalHealth: {
-    lastAssessment: "2024-05-28",
+    lastAssessment: "2025-05-28",
     status: "Good",
     recommendations: "Stress management for emergency work"
   },
@@ -474,7 +474,7 @@ const universityStaffRecords = [{
   healthStatus: "Excellent",
   initials: "GM",
   medicalHistory: [{
-    date: "2024-06-05",
+    date: "2025-06-05",
     type: "Annual Checkup",
     diagnosis: "Perfect health",
     treatment: "Continue wellness routine",
@@ -483,15 +483,15 @@ const universityStaffRecords = [{
   prescriptions: [],
   vaccinations: [{
     vaccine: "COVID-19 Booster",
-    date: "2024-02-20",
-    nextDue: "2025-02-20"
+    date: "2025-02-20",
+    nextDue: "2026-02-20"
   }, {
     vaccine: "Rubella",
     date: "2020-01-15",
     nextDue: "2030-01-15"
   }],
   mentalHealth: {
-    lastAssessment: "2024-06-05",
+    lastAssessment: "2025-06-05",
     status: "Excellent",
     recommendations: "Continue work-life balance"
   },
@@ -525,7 +525,7 @@ const universityStaffRecords = [{
   healthStatus: "Good",
   initials: "EY",
   medicalHistory: [{
-    date: "2024-05-18",
+    date: "2025-05-18",
     type: "Occupational Health",
     diagnosis: "Work-related stress",
     treatment: "Counseling, stress management",
@@ -534,15 +534,15 @@ const universityStaffRecords = [{
   prescriptions: [],
   vaccinations: [{
     vaccine: "COVID-19 Booster",
-    date: "2024-01-25",
-    nextDue: "2025-01-25"
+    date: "2025-01-25",
+    nextDue: "2026-01-25"
   }, {
     vaccine: "Hepatitis B",
     date: "2022-06-10",
     nextDue: "2027-06-10"
   }],
   mentalHealth: {
-    lastAssessment: "2024-05-18",
+    lastAssessment: "2025-05-18",
     status: "Fair",
     recommendations: "Regular counseling sessions, workload management"
   },
@@ -571,17 +571,17 @@ const studentRecords = [{
   email: "adaora.okonkwo@unijos.edu.ng",
   phone: "08012345678",
   bloodType: "O+",
-  lastVisit: "2024-06-05",
+  lastVisit: "2025-06-05",
   healthStatus: "Good",
   initials: "AO",
   medicalHistory: [{
-    date: "2024-06-05",
+    date: "2025-06-05",
     type: "Consultation",
     diagnosis: "Stress-related headaches",
     treatment: "Stress management, adequate sleep",
     doctor: "Dr. Fatima Aliyu"
   }, {
-    date: "2024-04-12",
+    date: "2025-04-12",
     type: "Follow-up",
     diagnosis: "Academic stress",
     treatment: "Counseling sessions",
@@ -592,7 +592,7 @@ const studentRecords = [{
     dosage: "As needed",
     duration: "1 week",
     prescribedBy: "Dr. Fatima Aliyu",
-    date: "2024-06-05"
+    date: "2025-06-05"
   }],
   vaccinations: [{
     vaccine: "Meningitis",
@@ -601,10 +601,10 @@ const studentRecords = [{
   }, {
     vaccine: "COVID-19",
     date: "2023-01-15",
-    nextDue: "2024-01-15"
+    nextDue: "2025-01-15"
   }],
   mentalHealth: {
-    lastAssessment: "2024-06-05",
+    lastAssessment: "2025-06-05",
     status: "Mild stress",
     recommendations: "Regular counseling, stress management workshops"
   },
@@ -620,15 +620,15 @@ const studentRecords = [{
     bmi: "21.3"
   },
   previousVisits: [{
-    date: "2024-06-05",
+    date: "2025-06-05",
     reason: "Stress headaches",
     doctor: "Dr. Fatima Aliyu"
   }, {
-    date: "2024-04-12",
+    date: "2025-04-12",
     reason: "Academic stress follow-up",
     doctor: "Dr. Mary Gyang"
   }, {
-    date: "2024-02-20",
+    date: "2025-02-20",
     reason: "Routine check-up",
     doctor: "Dr. Samuel Dung"
   }]
@@ -1630,62 +1630,132 @@ export const ComprehensiveMedicalRecords = () => {
         </div>
       </CardContent>
     </Card>;
-  return <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="flex items-center gap-3">
-          <FileText className="h-8 w-8 text-primary" />
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Medical Records</h2>
-            <p className="text-muted-foreground">Comprehensive health management system</p>
+  return <div className="space-y-8">
+      {/* Enhanced Header Section */}
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl border border-primary/20">
+              <FileText className="h-6 w-6 text-primary" />
+            </div>
+            <div className="space-y-1">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+                Medical Records Management
+              </h2>
+              <p className="text-sm sm:text-base text-muted-foreground max-w-2xl">
+                Comprehensive health records system for university students and staff members
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button
+              onClick={() => setIsAddEntryOpen(true)}
+              className="h-11 px-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              New Entry
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setIsScheduleOpen(true)}
+              className="h-11 px-6 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 transition-all duration-200"
+            >
+              <Calendar className="h-4 w-4 mr-2" />
+              Schedule
+            </Button>
           </div>
         </div>
-        <Button className="bg-primary hover:bg-primary/90" onClick={() => setIsAddEntryOpen(true)}>
-          <Plus className="h-4 w-4 mr-2" />
-          New Record
-        </Button>
-      </div>
 
-      {/* Search Bar */}
-      <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-        <Input placeholder="Search records..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10" />
-      </div>
+        {/* Enhanced Search Section */}
+        <Card className="border-border/40 bg-gradient-to-r from-card/90 to-card/70 backdrop-blur-sm shadow-lg">
+          <CardContent className="p-6">
+            <div className="relative max-w-2xl">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
+              <Input 
+                placeholder="Search by name, department, staff ID, or matriculation number..." 
+                value={searchTerm} 
+                onChange={e => setSearchTerm(e.target.value)} 
+                className="pl-12 h-12 text-base bg-background/60 border-border/50 focus:border-primary/50 focus:bg-background transition-all duration-200 shadow-sm"
+              />
+            </div>
+          </CardContent>
+        </Card>
 
-      {/* Simple Toggle Button */}
-      <div className="w-full mt-6 space-y-4">
-        <div className="flex justify-center">
-          <Button
-            variant="outline"
-            onClick={() => setCurrentView(currentView === "staff" ? "students" : "staff")}
-            className="px-6 py-2 text-sm font-medium"
-          >
-            {currentView === "staff" ? (
-              <>
-                <Users className="h-4 w-4 mr-2" />
-                Switch to Students ({filteredStudents.length})
-              </>
-            ) : (
-              <>
-                <UserCheck className="h-4 w-4 mr-2" />
-                Switch to Staff ({filteredStaff.length})
-              </>
-            )}
-          </Button>
-        </div>
+        {/* Enhanced Toggle Section */}
+        <div className="space-y-6">
+          <div className="flex justify-center">
+            <Card className="border-border/30 bg-card/80 backdrop-blur-sm shadow-md">
+              <CardContent className="p-4">
+                <Button
+                  variant="outline"
+                  onClick={() => setCurrentView(currentView === "staff" ? "students" : "staff")}
+                  className="px-8 py-3 text-sm font-medium border-primary/20 hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 hover:border-primary/40 transition-all duration-200 shadow-sm hover:shadow-md"
+                >
+                  {currentView === "staff" ? (
+                    <>
+                      <Users className="h-4 w-4 mr-2" />
+                      Switch to Students ({filteredStudents.length})
+                    </>
+                  ) : (
+                    <>
+                      <UserCheck className="h-4 w-4 mr-2" />
+                      Switch to Staff ({filteredStaff.length})
+                    </>
+                  )}
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
 
-        {/* Current View Header */}
-        <div className="text-center">
-          <h3 className="text-lg font-semibold text-foreground">
-            {currentView === "staff" ? `Staff Records (${filteredStaff.length})` : `Student Records (${filteredStudents.length})`}
-          </h3>
-        </div>
+          {/* Current View Header */}
+          <div className="text-center space-y-2">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-full">
+              {currentView === "staff" ? (
+                <UserCheck className="h-5 w-5 text-primary" />
+              ) : (
+                <Users className="h-5 w-5 text-primary" />
+              )}
+              <h3 className="text-lg font-semibold text-foreground">
+                {currentView === "staff" ? `Staff Records (${filteredStaff.length})` : `Student Records (${filteredStudents.length})`}
+              </h3>
+            </div>
+            <p className="text-sm text-muted-foreground max-w-md mx-auto">
+              {currentView === "staff" 
+                ? "University staff medical records and health information"
+                : "Student health records and medical information"
+              }
+            </p>
+          </div>
 
-        {/* Records Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {currentView === "staff" 
-            ? filteredStaff.map(staff => <RecordCard key={staff.id} record={staff} isStaff={true} />)
-            : filteredStudents.map(student => <RecordCard key={student.id} record={student} isStaff={false} />)
-          }
+          {/* Enhanced Records Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {currentView === "staff" 
+              ? filteredStaff.map((staff, index) => (
+                  <div
+                    key={staff.id}
+                    style={{ 
+                      animationDelay: `${Math.min(index * 100, 800)}ms`,
+                      animationFillMode: 'both'
+                    }}
+                    className="animate-fade-in"
+                  >
+                    <RecordCard record={staff} isStaff={true} />
+                  </div>
+                ))
+              : filteredStudents.map((student, index) => (
+                  <div
+                    key={student.id}
+                    style={{ 
+                      animationDelay: `${Math.min(index * 100, 800)}ms`,
+                      animationFillMode: 'both'
+                    }}
+                    className="animate-fade-in"
+                  >
+                    <RecordCard record={student} isStaff={false} />
+                  </div>
+                ))
+            }
+          </div>
         </div>
       </div>
 
