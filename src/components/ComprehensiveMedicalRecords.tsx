@@ -1650,8 +1650,8 @@ export const ComprehensiveMedicalRecords = () => {
         <Input placeholder="Search records..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10" />
       </div>
 
-      <Tabs defaultValue="staff" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-4 h-8 p-0.5 bg-muted rounded-md relative z-10">
+      <Tabs defaultValue="staff" className="w-full mt-6">
+        <TabsList className="grid w-full grid-cols-2 mb-6 h-8 p-0.5 bg-muted rounded-md">
           <TabsTrigger 
             value="staff" 
             className="flex items-center justify-center gap-1 text-xs font-medium py-1.5 px-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-200"
