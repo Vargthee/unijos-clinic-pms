@@ -15,7 +15,7 @@ const appointments = [
     patientId: "P001234",
     doctor: "Dr. Fatima Aliyu",
     department: "General Medicine",
-    date: "2025-08-05",
+    date: "2025-09-05",
     time: "09:00 AM",
     status: "Confirmed",
     type: "Consultation",
@@ -27,7 +27,7 @@ const appointments = [
     patientId: "P001236",
     doctor: "Dr. Aisha Mohammed", 
     department: "Internal Medicine",
-    date: "2025-08-06",
+    date: "2025-09-05",
     time: "10:30 AM",
     status: "Confirmed",
     type: "Follow-up",
@@ -39,7 +39,7 @@ const appointments = [
     patientId: "P001237", 
     doctor: "Dr. Grace Musa",
     department: "Cardiology",
-    date: "2025-08-07",
+    date: "2025-09-05",
     time: "02:00 PM", 
     status: "Scheduled",
     type: "Checkup",
@@ -400,13 +400,13 @@ const Appointments = () => {
               <div className="space-y-4">
                 {appointments
                   .filter((apt) => {
-                        const today = "2025-08-05"; // Current date for demo
+                    const today = new Date().toISOString().split('T')[0];
                     return apt.date === today;
                   })
                   .length > 0 ? (
                     appointments
                       .filter((apt) => {
-                        const today = "2025-08-05"; // Current date for demo
+                        const today = new Date().toISOString().split('T')[0];
                         return apt.date === today;
                       })
                       .map((appointment) => (

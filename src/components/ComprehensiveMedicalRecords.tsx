@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { FileText, Plus, Search, Users, UserCheck, Calendar, Stethoscope, Shield, Brain, PillBottle, Clock, User, Eye, Download, Heart, Thermometer, Activity } from "lucide-react";
 import { AddMedicalEntryDialog } from "./AddMedicalEntryDialog";
-import { ScheduleAppointmentDialog } from "./ScheduleAppointmentDialog";
+
 
 // Expanded University staff data with realistic Nigerian names and departments
 const universityStaffRecords = [{
@@ -1312,7 +1312,7 @@ export const ComprehensiveMedicalRecords = () => {
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
   const [activeTab, setActiveTab] = useState("overview");
   const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
-  const [isScheduleOpen, setIsScheduleOpen] = useState(false);
+  
   const [currentView, setCurrentView] = useState<"staff" | "students">("staff");
   const filteredStaff = universityStaffRecords.filter(staff => staff.name.toLowerCase().includes(searchTerm.toLowerCase()) || staff.department.toLowerCase().includes(searchTerm.toLowerCase()) || staff.staffId.toLowerCase().includes(searchTerm.toLowerCase()));
   const filteredStudents = studentRecords.filter(student => student.name.toLowerCase().includes(searchTerm.toLowerCase()) || student.faculty.toLowerCase().includes(searchTerm.toLowerCase()) || student.matricNumber.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -1323,11 +1323,6 @@ export const ComprehensiveMedicalRecords = () => {
   const handleAddEntry = () => {
     if (selectedRecord) {
       setIsAddEntryOpen(true);
-    }
-  };
-  const handleScheduleAppointment = () => {
-    if (selectedRecord) {
-      setIsScheduleOpen(true);
     }
   };
   const RecordCard = ({
@@ -1619,10 +1614,6 @@ export const ComprehensiveMedicalRecords = () => {
             <Download className="h-4 w-4 mr-2" />
             Export Record
           </Button>
-          <Button variant="outline" className="flex-1" onClick={handleScheduleAppointment}>
-            <Calendar className="h-4 w-4 mr-2" />
-            Schedule Appointment
-          </Button>
           <Button className="flex-1" onClick={handleAddEntry}>
             <Plus className="h-4 w-4 mr-2" />
             Add Entry
@@ -1654,14 +1645,6 @@ export const ComprehensiveMedicalRecords = () => {
             >
               <Plus className="h-4 w-4 mr-2" />
               New Entry
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setIsScheduleOpen(true)}
-              className="h-11 px-6 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 transition-all duration-200"
-            >
-              <Calendar className="h-4 w-4 mr-2" />
-              Schedule
             </Button>
           </div>
         </div>
@@ -1763,7 +1746,7 @@ export const ComprehensiveMedicalRecords = () => {
 
       <AddMedicalEntryDialog open={isAddEntryOpen} onOpenChange={setIsAddEntryOpen} patientName={selectedRecord?.name || "Patient"} />
 
-      <ScheduleAppointmentDialog open={isScheduleOpen} onOpenChange={setIsScheduleOpen} patientName={selectedRecord?.name || "Patient"} />
+      
     </div>;
 };
 export default ComprehensiveMedicalRecords;
