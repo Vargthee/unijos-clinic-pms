@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => ({
         },
       },
     },
-    chunkSizeWarningLimit: 800,
+    chunkSizeWarningLimit: 1000,
   },
   optimizeDeps: {
     include: [
@@ -34,8 +34,13 @@ export default defineConfig(({ mode }) => ({
       '@tanstack/react-query',
       'lucide-react',
       'clsx',
-      'tailwind-merge'
+      'tailwind-merge',
+      '@radix-ui/react-dialog', 
+      '@radix-ui/react-select', 
+      '@radix-ui/react-toast',
+      'recharts'
     ],
+    exclude: ['@vite/client', '@vite/env']
   },
   plugins: [
     react(),

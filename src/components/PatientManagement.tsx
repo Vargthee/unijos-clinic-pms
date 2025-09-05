@@ -1,5 +1,4 @@
-import { memo, useMemo, useCallback } from "react";
-import { useState } from "react";
+import { memo, useMemo, useCallback, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +13,8 @@ import {
 } from "lucide-react";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
 import { AddPatientDialog } from "./AddPatientDialog";
+import { useDebounce } from "@/hooks/useDebounce";
+import { getCachedData, createSearchIndex, searchWithIndex } from "@/utils/dataCache";
 
 // Combined patients and staff data - matching the Medical Records section
 const allPatients = [
@@ -504,32 +505,48 @@ const PatientManagement = () => {
   const [isAddPatientOpen, setIsAddPatientOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<typeof allPatients[0] | null>(null);
 
-  // Memoize expensive calculations
+  // Debounce search query for better performance
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
+  // Create search index once and cache it
+  const searchIndex = useMemo(() => {
+    return getCachedData('patientSearchIndex', () => 
+      createSearchIndex(allPatients, ['name', 'matricNumber', 'department', 'faculty', 'phone', 'email'])
+    );
+  }, []);
+
+  // Memoize expensive calculations with optimized search
   const { types, departments, filteredPatients } = useMemo(() => {
-    const types = [...new Set(allPatients.map((patient) => patient.type))];
-    const departments = [...new Set(allPatients.map((patient) => patient.department))];
+    const types = getCachedData('patientTypes', () => 
+      [...new Set(allPatients.map((patient) => patient.type))]
+    );
+    const departments = getCachedData('patientDepartments', () => 
+      [...new Set(allPatients.map((patient) => patient.department))]
+    );
     
-    const filtered = allPatients.filter((patient) => {
-      const searchRegex = new RegExp(searchQuery.trim(), "i");
-      const matchesSearch = !searchQuery.trim() || 
-        searchRegex.test(patient.name) || 
-        searchRegex.test(patient.matricNumber) ||
-        searchRegex.test(patient.department) ||
-        searchRegex.test(patient.faculty);
-      const matchesType = selectedType === "all" || patient.type === selectedType;
-      const matchesDepartment = selectedDepartment === "all" || patient.department === selectedDepartment;
-      return matchesSearch && matchesType && matchesDepartment;
-    });
+    let filtered = allPatients;
+    
+    // Apply optimized search if query exists
+    if (debouncedSearchQuery.trim()) {
+      filtered = searchWithIndex(allPatients, searchIndex, debouncedSearchQuery);
+    }
+    
+    // Apply filters
+    if (selectedType !== "all") {
+      filtered = filtered.filter(patient => patient.type === selectedType);
+    }
+    if (selectedDepartment !== "all") {
+      filtered = filtered.filter(patient => patient.department === selectedDepartment);
+    }
     
     return { types, departments, filteredPatients: filtered };
-  }, [searchQuery, selectedType, selectedDepartment]);
+  }, [debouncedSearchQuery, selectedType, selectedDepartment, searchIndex]);
 
   // Memoized callback for better performance
   const handleViewRecords = useCallback((patient: typeof allPatients[0]) => {
     setSelectedPatient(patient);
     setIsViewRecordsOpen(true);
   }, []);
-
 
   return (
     <div className="space-y-4 sm:space-y-6 will-change-scroll">

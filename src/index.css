@@ -337,7 +337,52 @@
   .backdrop-blur-optimized {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-  }
+/* Performance optimizations */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Optimize animations */
+* {
+  transform: translate3d(0, 0, 0);
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-scroll {
+  will-change: scroll-position;
+}
+
+/* Improve scrolling performance */
+.overflow-auto,
+.overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optimize focus styles */
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Critical loading styles */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Improve button performance */
+button {
+  touch-action: manipulation;
 }
 
 /* Enhanced responsive design */
