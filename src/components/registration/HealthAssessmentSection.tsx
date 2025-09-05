@@ -22,7 +22,7 @@ export const HealthAssessmentSection = ({ formData, handleInputChange, calculate
             value={formData.height}
             onChange={(e) => {
               handleInputChange("height", e.target.value);
-              setTimeout(calculateBMI, 100);
+              calculateBMI();
             }}
             placeholder="170"
             className="dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 h-11 text-base"
@@ -36,7 +36,7 @@ export const HealthAssessmentSection = ({ formData, handleInputChange, calculate
             value={formData.weight}
             onChange={(e) => {
               handleInputChange("weight", e.target.value);
-              setTimeout(calculateBMI, 100);
+              calculateBMI();
             }}
             placeholder="65"
             className="dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 h-11 text-base"
