@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Plus, Download, Eye, UserCheck, Calendar, User, Stethoscope, Activity, Heart, Thermometer } from "lucide-react";
 import { NewRecordDialog } from "./NewRecordDialog";
+import { AddMedicalEntryDialog } from "./AddMedicalEntryDialog";
 import { ViewRecordsDialog } from "./ViewRecordsDialog";
 
 // 10 student medical records with diverse Nigerian medical conditions
@@ -478,6 +479,7 @@ const getRecordTypeColor = (type: string) => {
 
 export const MedicalRecords = () => {
   const [isNewRecordOpen, setIsNewRecordOpen] = useState(false);
+  const [isAddEntryOpen, setIsAddEntryOpen] = useState(false);
   const [isViewRecordsOpen, setIsViewRecordsOpen] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState<{ name: string; patientId: string } | null>(null);
 
@@ -644,13 +646,23 @@ export const MedicalRecords = () => {
             </div>
           </div>
         </div>
-        <Button 
-          className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
-          onClick={() => setIsNewRecordOpen(true)}
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          New Record
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button 
+            className="bg-primary hover:bg-primary/90"
+            onClick={() => setIsAddEntryOpen(true)}
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Add Medical Entry
+          </Button>
+          <Button 
+            variant="outline"
+            className="border-primary/20 hover:bg-primary/5"
+            onClick={() => setIsNewRecordOpen(true)}
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            New Patient Record
+          </Button>
+        </div>
       </div>
 
       <Tabs defaultValue="students" className="w-full">
@@ -689,6 +701,12 @@ export const MedicalRecords = () => {
       <NewRecordDialog 
         open={isNewRecordOpen} 
         onOpenChange={setIsNewRecordOpen} 
+      />
+
+      <AddMedicalEntryDialog
+        open={isAddEntryOpen}
+        onOpenChange={setIsAddEntryOpen}
+        patientName="Selected Patient"
       />
 
       <ViewRecordsDialog
