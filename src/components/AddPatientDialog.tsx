@@ -65,19 +65,8 @@ export const AddPatientDialog = ({ open, onOpenChange }: AddPatientDialogProps) 
     // Basic validation
     if (!formData.name || !formData.matricNumber || !formData.email || !formData.emergencyContactName) {
       toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields: Name, Matric Number, Email, and Emergency Contact Name",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      toast({
-        title: "Invalid Email",
-        description: "Please enter a valid email address",
+        title: "Error",
+        description: "Please fill in all required fields including emergency contact",
         variant: "destructive",
       });
       return;
@@ -85,8 +74,8 @@ export const AddPatientDialog = ({ open, onOpenChange }: AddPatientDialogProps) 
 
     // Simulate adding patient
     toast({
-      title: "Registration Successful!",
-      description: `${formData.name} has been registered successfully with comprehensive health profile`,
+      title: "Success",
+      description: "Student medical record created successfully with comprehensive health profile",
     });
     
     // Reset form and close dialog
@@ -120,10 +109,7 @@ export const AddPatientDialog = ({ open, onOpenChange }: AddPatientDialogProps) 
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[95vh] overflow-y-auto dark:bg-gray-800 dark:border-gray-700">
         <DialogHeader>
-          <DialogTitle className="text-xl dark:text-gray-100">Register New Patient</DialogTitle>
-          <p className="text-sm text-muted-foreground dark:text-gray-400">
-            Complete the comprehensive medical registration form below
-          </p>
+          <DialogTitle className="text-xl dark:text-gray-100">Register New Student - Comprehensive Medical Profile</DialogTitle>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -159,7 +145,7 @@ export const AddPatientDialog = ({ open, onOpenChange }: AddPatientDialogProps) 
               type="submit" 
               className="bg-primary hover:bg-primary/90 h-12 text-base flex-1"
             >
-              Register Patient
+              Register Student
             </Button>
           </div>
         </form>

@@ -17,8 +17,6 @@ interface AddMedicalEntryDialogProps {
 
 export const AddMedicalEntryDialog = ({ open, onOpenChange, patientName }: AddMedicalEntryDialogProps) => {
   const [formData, setFormData] = useState({
-    patientName: "",
-    patientId: "",
     type: "",
     diagnosis: "",
     treatment: "",
@@ -38,25 +36,12 @@ export const AddMedicalEntryDialog = ({ open, onOpenChange, patientName }: AddMe
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Basic validation
-    if (!formData.patientName || !formData.diagnosis || !formData.treatment) {
-      toast({
-        title: "Error",
-        description: "Please fill in all required fields (Patient Name, Diagnosis, and Treatment)",
-        variant: "destructive",
-      });
-      return;
-    }
-
     toast({
       title: "Medical Entry Added",
-      description: `New medical entry has been added for ${formData.patientName}${files.length > 0 ? ` with ${files.length} file(s)` : ''}`,
+      description: `New medical entry has been added for ${patientName}${files.length > 0 ? ` with ${files.length} file(s)` : ''}`,
     });
     onOpenChange(false);
     setFormData({
-      patientName: "",
-      patientId: "",
       type: "",
       diagnosis: "",
       treatment: "",
@@ -77,35 +62,10 @@ export const AddMedicalEntryDialog = ({ open, onOpenChange, patientName }: AddMe
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[95vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-lg md:text-xl">Add Medical Entry</DialogTitle>
+          <DialogTitle className="text-lg md:text-xl">Add Medical Entry - {patientName}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Patient Info Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="patientName" className="text-sm font-medium">Patient Name *</Label>
-              <Input
-                id="patientName"
-                value={formData.patientName}
-                onChange={(e) => setFormData({...formData, patientName: e.target.value})}
-                placeholder="Enter patient full name"
-                required
-                className="h-12 text-base"
-              />
-            </div>
-            <div>
-              <Label htmlFor="patientId" className="text-sm font-medium">Patient ID / Matric Number</Label>
-              <Input
-                id="patientId"
-                value={formData.patientId}
-                onChange={(e) => setFormData({...formData, patientId: e.target.value})}
-                placeholder="Enter patient ID or matric number"
-                className="h-12 text-base"
-              />
-            </div>
-          </div>
-
-          {/* Visit Info Section */}
+          {/* Basic Info Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="type" className="text-sm font-medium">Visit Type</Label>
@@ -124,7 +84,7 @@ export const AddMedicalEntryDialog = ({ open, onOpenChange, patientName }: AddMe
               </Select>
             </div>
             <div>
-              <Label htmlFor="diagnosis" className="text-sm font-medium">Diagnosis *</Label>
+              <Label htmlFor="diagnosis" className="text-sm font-medium">Diagnosis</Label>
               <Input
                 id="diagnosis"
                 value={formData.diagnosis}
@@ -137,7 +97,7 @@ export const AddMedicalEntryDialog = ({ open, onOpenChange, patientName }: AddMe
           </div>
 
           <div>
-            <Label htmlFor="treatment" className="text-sm font-medium">Treatment *</Label>
+            <Label htmlFor="treatment" className="text-sm font-medium">Treatment</Label>
             <Input
               id="treatment"
               value={formData.treatment}
