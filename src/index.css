@@ -337,6 +337,8 @@
   .backdrop-blur-optimized {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+  }
+
 /* Performance optimizations */
 html {
   scroll-behavior: smooth;
