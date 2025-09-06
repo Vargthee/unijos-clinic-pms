@@ -706,7 +706,7 @@ export const MedicalRecords = () => {
       <AddMedicalEntryDialog
         open={isAddEntryOpen}
         onOpenChange={setIsAddEntryOpen}
-        patientName="Selected Patient"
+        patientName="New Medical Entry"
       />
 
       <ViewRecordsDialog
