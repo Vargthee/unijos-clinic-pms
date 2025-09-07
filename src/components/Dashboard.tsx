@@ -1,7 +1,6 @@
 
 import { memo } from "react";
 import { LoadingSpinner } from "@/components/ui/loading";
-import { Skeleton } from "@/components/ui/skeleton-loader";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import DashboardStats from "@/components/DashboardStats";
 import RecentPatientsList from "@/components/RecentPatientsList";
@@ -14,24 +13,8 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Skeleton className="h-8 w-96" />
-          <Skeleton className="h-4 w-64" />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="h-24" />
-          ))}
-        </div>
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-          <div className="xl:col-span-2">
-            <Skeleton className="h-96" />
-          </div>
-          <div>
-            <Skeleton className="h-96" />
-          </div>
-        </div>
+      <div className="min-h-[400px] flex items-center justify-center">
+        <LoadingSpinner text="Loading dashboard..." />
       </div>
     );
   }
