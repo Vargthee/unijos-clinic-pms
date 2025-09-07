@@ -861,13 +861,13 @@ const studentRecords = [{
     type: "Emergency",
     diagnosis: "Acute gastroenteritis",
     treatment: "Rehydration therapy, dietary modification",
-    doctor: "Dr. Samuel Dung"
+    doctor: "Dr. Sijuwade Adedotun"
   }],
   prescriptions: [{
     medication: "ORS sachets",
     dosage: "As directed",
     duration: "3 days",
-    prescribedBy: "Dr. Samuel Dung",
+    prescribedBy: "Dr. Sijuwade Adedotun",
     date: "2024-06-04"
   }],
   vaccinations: [{
